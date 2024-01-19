@@ -7,21 +7,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.Entity.NBProduct;
-import com.example.demo.Service.NBproductService;
+import com.example.demo.Entity.Product;
+import com.example.demo.Service.productService;
 
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/seller")
 @Controller
-public class NBproductcontroller {
+public class productcontroller {
 
-	private final NBproductService nbproductService; 
+	private final productService productService; 
 	
-	@GetMapping("/nbproduct")
+	@GetMapping("/product")
 	public String search(Model model) {
-		List<NBProduct> list = nbproductService.search();
+		List<Product> list = productService.search();
 		model.addAttribute("list",list);
-		return "NBproduct_list";
+		return "product_list";
 	}
 }

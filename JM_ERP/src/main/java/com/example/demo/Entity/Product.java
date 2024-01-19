@@ -15,12 +15,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class NBProduct {
+public class Product {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "product_id")
 	    private Long id;
+		
+		@Column(name = "product_type")
+	    private String product_type;
 
 	    @Column(name = "product_name", nullable = false)
 	    private String productName;
@@ -36,6 +39,12 @@ public class NBProduct {
 
 	    @Column(name = "image_file_link")
 	    private String imageFile;
+	    
+	    @Column(name = "category")
+	    private String category;
+	    
+	    @Column(name = "description")
+	    private String description;
 	    
 	    @ManyToOne
 	    @JoinColumn(name = "seller_id")
