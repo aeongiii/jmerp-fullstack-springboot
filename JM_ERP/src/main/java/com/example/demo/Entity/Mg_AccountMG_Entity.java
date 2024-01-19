@@ -11,15 +11,16 @@ import jakarta.persistence.Table;
 public class Mg_AccountMG_Entity {
 	@Id
 	private Integer accountCode;
-	
+	//거래처 코드
 	@Column
 	private Integer accoungNum;
-	
+	//거래처 전화번호
 	@Column
 	private String accountName;
-	
+	//거래처 이름
 	@Column
 	private String accountManager;
+	//거래처 담당자 명
 	}
 
 
