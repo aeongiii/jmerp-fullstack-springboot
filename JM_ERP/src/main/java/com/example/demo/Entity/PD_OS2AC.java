@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Entity
 public class PD_OS2AC {
-
+	@Id
 	private String OSNum;
 	
 	private String OSAccount;

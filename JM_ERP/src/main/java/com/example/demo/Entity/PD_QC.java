@@ -7,7 +7,7 @@ import jakarta.persistence.OneToOne;
 
 @Entity
 public class PD_QC {
-
+	@Id
 	private String QCTool;
 	
 	private String ProdCode;

@@ -15,16 +15,16 @@ public class PD_WO {
 	
 	private String Manager;
 	
-	private int DeliveryDate;
+	private Integer DeliveryDate;
 	
 	
 	private String ProdCode;
 	
 	private String ProdName;
 	
-	private int Order;
+	private Integer wOrder;
 	
-	private int Making;
+	private Integer Making;
 	
 	private String Factory;
 }

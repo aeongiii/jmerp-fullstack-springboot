@@ -7,14 +7,14 @@ import lombok.Getter;
 
 @Entity
 public class PD_RS {
-	
+	@Id
 	private String RelNum;
 	
 	private String StoNum;
 	
-	private String From;
+	private String rFrom;
 	
-	private String To;
+	private String sTO;
 	
 	private String ProdName;
 	

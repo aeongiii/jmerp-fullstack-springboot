@@ -2,14 +2,18 @@ package com.example.demo.Entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
-import lombok.Getter;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Column;
 
 @Entity
 public class PD_WorkHistory {
 	
 	@Id
-	private String ProdCode;
+	@OneToOne
+	@JoinColumn(name="ProdCode", referencedColumnName="ProdCode")
+	private BOM ProdCode;
+	
 	
 	private String ProdName;
 	
@@ -19,12 +23,12 @@ public class PD_WorkHistory {
 	
 	private String WorkName;
 	
-	private int Num;
+	private Integer Num;
 	
 	private String ResName;
 	
-	private int WorkTime;
+	private Integer WorkTime;
 	
-	private int TO;
+	private Integer whTO;
 	
 }
