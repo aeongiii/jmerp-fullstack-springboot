@@ -20,7 +20,4 @@ public class Mg_Sn {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer snCount;
 	//시리얼 넘버 부여를 위한 카운트
-	@Column
-	private String snReceipt;
-	//영수증
 }

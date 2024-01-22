@@ -24,7 +24,7 @@ public class Mg_item_Regi {
 	//물품 등록 날짜
 	@Column
 	private Integer itemNumber;
-	//물품 개수
+	//넘버
 }
 
 
