@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Member List</title>
+</head>
+<body>
+    <h1>Member List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Country</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Gender</th>
+                <th>Join Date</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.memberId}">Member ID</td>
+                <td th:text="${member.name}">Name</td>
+                <td th:text="${member.dateOfBirth}">Date of Birth</td>
+                <td th:text="${member.country}">Country</td>
+                <td th:text="${member.contactNumber}">Contact Number</td>
+                <td th:text="${member.email}">Email</td>
+                <td th:text="${member.address}">Address</td>
+                <td th:text="${member.gender}">Gender</td>
+                <td th:text="${member.joinDate}">Join Date</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

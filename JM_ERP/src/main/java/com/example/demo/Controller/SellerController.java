@@ -16,6 +16,7 @@ import com.example.demo.Service.SellerService;
 @RequestMapping("/seller")
 @Controller
 public class SellerController {
+	
 	@Autowired
 	private SellerService sellerService;
 	

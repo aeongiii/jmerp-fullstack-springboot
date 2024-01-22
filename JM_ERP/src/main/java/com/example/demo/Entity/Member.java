@@ -37,5 +37,13 @@ public class Member {
 
     @Column(name = "join_date")
     private LocalDate joinDate;
+    
+    @Column(name = "membership")
+    private boolean membership;
+    
+    @Column(name = "credit_date")
+    private LocalDate credit_date;
 
+
+    
 }
