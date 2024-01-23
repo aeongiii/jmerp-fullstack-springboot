@@ -3,9 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <title>Member List</title>
+       <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 8px 12px;
+            color: #007bff;
+            border: 1px solid #ddd;
+        }
+
+        .pagination li.active a,
+        .pagination li a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination li.disabled a {
+            color: #ccc;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Member List</h1>
+   
     <table>
         <thead>
             <tr>
@@ -22,7 +86,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="member : ${members}">
+            <tr th:each="member : ${paging.content}">
                 <td th:text="${member.memberId}">Member ID</td>
                 <td th:text="${member.name}">Name</td>
                 <td th:text="${member.dateOfBirth}">Date of Birth</td>
@@ -34,6 +98,29 @@
                 <td th:text="${member.joinDate}">Join Date</td>
             </tr>
         </tbody>
+        
     </table>
+         
+          <!-- 페이징 처리 -->
+        
+        <div th:if="${paging.totalPages > 1}">
+            <ul class="pagination">
+                 <!-- 이전 페이지 링크 -->
+                 <li th:classappend="${paging.isFirst() ? 'disabled' : ''}">
+                     <a th:href="@{/member/list(page=${paging.number - 1})}">Previous</a>
+                 </li>
+
+                 <!-- 페이지 번호 링크 -->
+                 <li th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                     th:classappend="${pageNum == paging.number ? 'active' : ''}">
+                    <a th:href="@{/member/list(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+                 </li>
+
+                 <!-- 다음 페이지 링크 -->
+                 <li th:classappend="${paging.isLast() ? 'disabled' : ''}">
+                     <a th:href="@{/member/list(page=${paging.number + 1})}">Next</a>
+                 </li>
+             </ul>
+         </div>
 </body>
 </html>

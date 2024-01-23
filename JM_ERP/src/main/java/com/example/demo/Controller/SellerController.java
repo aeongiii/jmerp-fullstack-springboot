@@ -1,8 +1,7 @@
 package com.example.demo.Controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +20,9 @@ public class SellerController {
 	private SellerService sellerService;
 	
 	@GetMapping("/list")
-	public String search(Model model) {
-		List<Seller> sellers = sellerService.searchAll();
-		model.addAttribute("sellers", sellers);
+	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page) {
+		Page<Seller> paging = sellerService.searchAll(page);
+		model.addAttribute("paging", paging);
 		return "Seller_list";
 	}
 	

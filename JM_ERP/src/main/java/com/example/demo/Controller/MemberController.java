@@ -1,9 +1,9 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +49,9 @@ public class MemberController {
 	}
 	
 	@GetMapping("/list")
-	public String searchMember(Model model) {
-		List<Member> Members =memberService.searchMember();
-		model.addAttribute("members", Members);
+	public String searchMember(Model model, @RequestParam(value = "page",defaultValue ="0") int page) {
+		Page<Member> paging = memberService.searchMember(page);
+		model.addAttribute("paging", paging);
 		return "Member_list";
 	}
 }

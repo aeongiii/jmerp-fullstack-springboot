@@ -1,8 +1,10 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Seller;
@@ -19,7 +21,8 @@ public class SellerService {
 			String address, boolean contract) {
 		
 		Seller newSeller = new Seller();
-        newSeller.setSellerId(sellerId);
+        
+		newSeller.setSellerId(sellerId);
         newSeller.setBusinessNumber(businessNumber);
         newSeller.setContactInfo(contactInfo);
         newSeller.setEmail(email);
@@ -31,7 +34,8 @@ public class SellerService {
         sellerRepository.save(newSeller);
 	}
 	
-	public List<Seller> searchAll() {
-		return sellerRepository.findAll();
+	public Page<Seller> searchAll(int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return sellerRepository.findAll(pageable);
 	}
 }

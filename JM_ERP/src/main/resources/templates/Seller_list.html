@@ -2,11 +2,89 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Seller List</title>
+         <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Navigation Bar</title>
+    <!-- Bootstrap CSS 연결 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 </head>
 <body>
-    <h2>Seller List</h2>
+	<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">JM_ERP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">My Page
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">영업</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">재고</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">생산</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">인사</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">회계</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="#">구매</a>
+                </li>
+               <li class="nav-item dropdown">
+        </div>
+    </div>
+</nav>
+
     <div>
-        <table>
+        <table class="table table-hover">
+            <thead>
             <tr>
                 <th>ID</th>
                 <th>사업자 번호</th>
@@ -17,7 +95,9 @@
                 <th>계약 여부</th>
                 <th>등록 날짜</th>
             </tr>
-            <tr th:each="seller : ${sellers}">
+            </thead>
+             <tbody>
+            <tr class="table-primary" th:each="seller : ${paging.content}">
                 <td th:text="${seller.sellerId}"></td>
                 <td th:text="${seller.businessNumber}"></td>
                 <td th:text="${seller.contactInfo}"></td>
@@ -27,7 +107,34 @@
                 <td th:text="${seller.contract ? '계약중' : '계약종료'}"></td>
                 <td th:text="${seller.registrationDate}"></td>
             </tr>
+            </tbody>
         </table>
-    </div>
+   
+
+ <!-- 페이징 처리 -->
+<div th:if="${paging.totalPages > 1}">
+  <!-- 이전 페이지 링크 -->
+  <ul class="pagination pagination-lg" th:classappend="${paging.isFirst() ? 'disabled' : ''}">
+    <li class="page-item disabled">
+      <a class="page-link" th:href="@{/seller/list(page=${paging.number - 1})}">&laquo;</a>
+    </li>
+    
+    <!-- 페이지 번호 링크 -->
+    <li class="page-item active" th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
+        th:classappend="${pageNum == paging.number ? 'active' : ''}">
+      <a class="page-link" th:href="@{/seller/list(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+    </li>
+    
+    <!-- 다음 페이지 링크 -->
+    <li class="page-item" th:classappend="${paging.isLast() ? 'disabled' : ''}">
+      <a class="page-link" th:href="@{/seller/list(page=${paging.number + 1})}">&raquo;</a>
+    </li>
+  </ul>
+</div>
+ 
+ <!--버튼-->
+     <button type="button" class="btn btn-outline-primary">Excel Export</button>
+    
+ 
 </body>
 </html>

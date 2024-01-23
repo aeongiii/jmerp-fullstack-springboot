@@ -23,7 +23,7 @@ public class Product {
 	    private Long id;
 		
 		@Column(name = "product_type")
-	    private String product_type;
+	    private String productType;
 
 	    @Column(name = "product_name", nullable = false)
 	    private String productName;

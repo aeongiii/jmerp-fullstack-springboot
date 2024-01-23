@@ -1,8 +1,10 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Member;
@@ -21,6 +23,7 @@ public class MemberService {
 			) {
 		
 		Member m = new Member();
+		m.setAddress(address);
 		m.setMemberId(memberId);
 		m.setAddress(address);
 		m.setContactNumber(contactNumber);
@@ -34,7 +37,8 @@ public class MemberService {
 		memberRepository.save(m);
 	}
 	
-	public List<Member> searchMember() {
-		return memberRepository.findAll();
+	public Page<Member> searchMember(int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return memberRepository.findAll(pageable);
 	}
 }

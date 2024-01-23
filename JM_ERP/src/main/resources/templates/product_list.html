@@ -1,33 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>NBProduct List</title>
+    <title>Product List</title>
+      <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 8px 12px;
+            color: #007bff;
+            border: 1px solid #ddd;
+        }
+
+        .pagination li.active a,
+        .pagination li a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination li.disabled a {
+            color: #ccc;
+        }
+
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+    <!-- 필요한 CSS 또는 JavaScript 파일 포함 -->
 </head>
 <body>
-    <h2>NBProduct List</h2>
-    <table border="1">
-        <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th>Price</th>
-            <th>Registration Date</th>
-            <th>Registration Status</th>
-            <th>Image</th>
-            <th>Seller</th>
-        </tr>
-        <tr th:each="product : ${list}">
-            <td th:text="${product.id}">Product ID</td>
-            <td th:text="${product.productName}">Product Name</td>
-            <td th:text="${product.price}">Price</td>
-            <td th:text="${product.registrationDate}">Registration Date</td>
-            <td th:text="${product.registrationStatus}">Registration Status</td>
-            <td>
-                <img th:if="${product.imageFile}" th:src="@{${product.imageFile}}" alt="Product Image" height="100" width="100"/>
-                <span th:unless="${product.imageFile}">No Image</span>
-            </td>
-            <td th:text="${product.seller.sellerId}">Seller Name</td>
-        </tr>
-    </table>
+    <div>
+        <h1>Product List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Type</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Registration Date</th>
+                    <th>Image</th>
+                    <th>Category</th>
+                    <th>Seller ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${paging.content}">
+                    <td th:text="${product.id}">Product ID</td>
+                    <td th:text="${product.productType}">Product Type</td>
+                    <td th:text="${product.productName}">Product Name</td>
+                    <td th:text="${#numbers.formatInteger(product.price, 0)}">Price</td>
+                    <td th:text="${product.registrationDate.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}">Registration Date</td>
+                    <td>
+                        <img th:if="${product.imageFile}" th:src="@{${product.imageFile}}" alt="Product Image" height="100" width="100"/>
+                        <span th:unless="${product.imageFile}">No Image</span>
+                    </td>
+                    <td th:text="${product.category}">Category</td>
+                    <td th:text="${product.seller.sellerId}">Seller ID</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- 페이징 처리 -->
+        <div th:if="${paging.totalPages > 1}">
+            <ul class="pagination">
+                <!-- 이전 페이지 링크 -->
+                <li th:classappend="${paging.isFirst() ? 'disabled' : ''}">
+                    <a th:href="@{/seller/product(page=${paging.number - 1})}">Previous</a>
+                </li>
+
+                <!-- 페이지 번호 링크 -->
+                <li th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
+                    th:classappend="${pageNum == paging.number ? 'active' : ''}">
+                    <a th:href="@{/seller/product(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+                </li>
+
+                <!-- 다음 페이지 링크 -->
+                <li th:classappend="${paging.isLast() ? 'disabled' : ''}">
+                    <a th:href="@{/seller/product(page=${paging.number + 1})}">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
+
+
