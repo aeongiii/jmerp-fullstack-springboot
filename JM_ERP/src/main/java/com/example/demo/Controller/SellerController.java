@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Entity.Seller;
 import com.example.demo.Service.SellerService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RequestMapping("/seller")
 @Controller
 public class SellerController {
@@ -20,7 +22,10 @@ public class SellerController {
 	private SellerService sellerService;
 	
 	@GetMapping("/list")
-	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page) {
+	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page,HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
 		Page<Seller> paging = sellerService.searchAll(page);
 		model.addAttribute("paging", paging);
 		return "Seller_list";

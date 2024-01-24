@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Entity.Member;
 import com.example.demo.Service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -49,7 +50,10 @@ public class MemberController {
 	}
 	
 	@GetMapping("/list")
-	public String searchMember(Model model, @RequestParam(value = "page",defaultValue ="0") int page) {
+	public String searchMember(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
 		Page<Member> paging = memberService.searchMember(page);
 		model.addAttribute("paging", paging);
 		return "Member_list";

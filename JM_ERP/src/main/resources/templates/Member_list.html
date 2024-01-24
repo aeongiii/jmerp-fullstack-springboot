@@ -2,75 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member List</title>
-       <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .pagination li {
-            margin: 0 5px;
-        }
-
-        .pagination li a {
-            text-decoration: none;
-            padding: 8px 12px;
-            color: #007bff;
-            border: 1px solid #ddd;
-        }
-
-        .pagination li.active a,
-        .pagination li a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .pagination li.disabled a {
-            color: #ccc;
-        }
-
-        img {
-            max-width: 100px;
-            height: auto;
-        }
-    </style>
+     <!-- Bootstrap CSS 연결 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+     
 </head>
 <body>
-    <h1>Member List</h1>
+  <!-- 네비게이션바 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
    
-    <table>
+    <table class = "table table-hover">
         <thead>
             <tr>
                 <th>ID</th>
@@ -85,9 +27,10 @@
                 
             </tr>
         </thead>
+        
         <tbody>
-            <tr th:each="member : ${paging.content}">
-                <td th:text="${member.memberId}">Member ID</td>
+            <tr class ="table-active" th:each="member : ${paging.content}">
+                <th scope ="row" th:text="${member.memberId}">Member ID</th>
                 <td th:text="${member.name}">Name</td>
                 <td th:text="${member.dateOfBirth}">Date of Birth</td>
                 <td th:text="${member.country}">Country</td>
@@ -98,29 +41,14 @@
                 <td th:text="${member.joinDate}">Join Date</td>
             </tr>
         </tbody>
-        
     </table>
          
-          <!-- 페이징 처리 -->
-        
-        <div th:if="${paging.totalPages > 1}">
-            <ul class="pagination">
-                 <!-- 이전 페이지 링크 -->
-                 <li th:classappend="${paging.isFirst() ? 'disabled' : ''}">
-                     <a th:href="@{/member/list(page=${paging.number - 1})}">Previous</a>
-                 </li>
+<div th:replace="~{paging::pagingFragment}"></div>
+<div th:replace="~{botton::bottonFragment}"></div>
 
-                 <!-- 페이지 번호 링크 -->
-                 <li th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
-                     th:classappend="${pageNum == paging.number ? 'active' : ''}">
-                    <a th:href="@{/member/list(page=${pageNum})}" th:text="${pageNum + 1}"></a>
-                 </li>
 
-                 <!-- 다음 페이지 링크 -->
-                 <li th:classappend="${paging.isLast() ? 'disabled' : ''}">
-                     <a th:href="@{/member/list(page=${paging.number + 1})}">Next</a>
-                 </li>
-             </ul>
-         </div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

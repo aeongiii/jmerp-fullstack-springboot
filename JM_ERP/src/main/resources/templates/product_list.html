@@ -2,75 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product List</title>
-      <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            color: #333;
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .pagination li {
-            margin: 0 5px;
-        }
-
-        .pagination li a {
-            text-decoration: none;
-            padding: 8px 12px;
-            color: #007bff;
-            border: 1px solid #ddd;
-        }
-
-        .pagination li.active a,
-        .pagination li a:hover {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .pagination li.disabled a {
-            color: #ccc;
-        }
-
-        img {
-            max-width: 100px;
-            height: auto;
-        }
-    </style>
-    <!-- 필요한 CSS 또는 JavaScript 파일 포함 -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Navigation Bar</title>
+    <!-- Bootstrap CSS 연결 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+     
 </head>
 <body>
-    <div>
-        <h1>Product List</h1>
-        <table>
+   
+<!-- 네비게이션바 프라그먼트 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	
+	 <!-- 데이터 테이블 시작-->
+	 <div>
+        <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Product ID</th>
@@ -83,8 +29,9 @@
                     <th>Seller ID</th>
                 </tr>
             </thead>
+            
             <tbody>
-                <tr th:each="product : ${paging.content}">
+                <tr class="table-active" th:each="product : ${paging.content}">
                     <td th:text="${product.id}">Product ID</td>
                     <td th:text="${product.productType}">Product Type</td>
                     <td th:text="${product.productName}">Product Name</td>
@@ -99,28 +46,16 @@
                 </tr>
             </tbody>
         </table>
+	</div>
+	<!-- 데이터 테이블 끝-->
 
-        <!-- 페이징 처리 -->
-        <div th:if="${paging.totalPages > 1}">
-            <ul class="pagination">
-                <!-- 이전 페이지 링크 -->
-                <li th:classappend="${paging.isFirst() ? 'disabled' : ''}">
-                    <a th:href="@{/seller/product(page=${paging.number - 1})}">Previous</a>
-                </li>
+<!-- 페이징 프라그먼트 -->
+<div th:replace="~{paging::pagingFragment}"></div>
+<!-- 버튼 프라그먼트 -->
+<div th:replace="~{botton::bottonFragment}"></div>
 
-                <!-- 페이지 번호 링크 -->
-                <li th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
-                    th:classappend="${pageNum == paging.number ? 'active' : ''}">
-                    <a th:href="@{/seller/product(page=${pageNum})}" th:text="${pageNum + 1}"></a>
-                </li>
-
-                <!-- 다음 페이지 링크 -->
-                <li th:classappend="${paging.isLast() ? 'disabled' : ''}">
-                    <a th:href="@{/seller/product(page=${paging.number + 1})}">Next</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<!-- Bootstrap JS 연결 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 
