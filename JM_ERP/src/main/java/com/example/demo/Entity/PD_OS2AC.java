@@ -12,14 +12,14 @@ public class PD_OS2AC {
 	
 	private String OSAccount;
 	
-	private int OSCost;
+	private Integer OSCost;
 	
 	// 조정
 	// 공급가액
 	
-	private int OSbill;
+	private Integer OSbill;
 	
-	private int OSTot;
+	private Integer OSTot;
 	
 	// 회계전표No.
 }

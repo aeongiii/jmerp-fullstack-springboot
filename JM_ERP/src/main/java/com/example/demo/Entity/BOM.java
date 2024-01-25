@@ -3,10 +3,9 @@ package com.example.demo.Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
-import lombok.Getter;
-
 @Entity
 public class BOM {
+	
 	@Id
 	private String ProdCode;
 	
@@ -14,15 +13,15 @@ public class BOM {
 	
 	private String ProdLine;
 	
-	private int RawMatNum;
+	private Integer RawMatNum;
 	
 	private String Unit;
 	
-	private int Num;
+	private Integer Num;
 	
 	private String Type;
 	
-	private int RawNum;
+	private Integer RawNum;
 	
-	private int WorkTime;
+	private Integer WorkTime;
 }

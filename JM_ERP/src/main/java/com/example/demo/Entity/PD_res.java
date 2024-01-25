@@ -9,7 +9,7 @@ import lombok.Getter;
 @Entity
 public class PD_res {
 	
-	private int ResCode;
+	private Integer ResCode;
 	
 	@Id
 	private String ResName;
