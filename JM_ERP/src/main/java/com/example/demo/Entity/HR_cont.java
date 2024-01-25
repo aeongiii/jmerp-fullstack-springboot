@@ -3,6 +3,8 @@ package com.example.demo.Entity;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,6 +19,7 @@ import lombok.Setter;
 public class HR_cont {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	// id값 자동 증가
 	private int id;						// 고유번호
 	
 	private LocalDate contractDate;		// 근로계약서 등록일
@@ -29,8 +32,8 @@ public class HR_cont {
 	
 	private String name;				// 사원이름
 	
-	private boolean signA;				// 서명요청여부
+	private boolean signA = false;				// 서명요청여부
 	
-	private boolean signB;				// 서명완료여부
+	private boolean signB = false;				// 서명완료여부
 	
 }

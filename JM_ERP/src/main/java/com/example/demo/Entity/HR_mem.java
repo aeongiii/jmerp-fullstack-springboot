@@ -30,7 +30,7 @@ public class HR_mem {
 	
 	private String email;			// 이메일
 	
-	private int regularPay;			// 기본급
+	private int regularPay = 0;			// 기본급
 	
 	private String bankNum;			// 계좌번호
 }

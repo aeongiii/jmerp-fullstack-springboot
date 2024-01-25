@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -26,6 +27,7 @@ public class HR_doc {
 			
 	private String docType;			// 증명서 종류
 	
+	@Column(nullable = true)	// NULL 가능
 	private String docUse;			// 증명서 용도
 	
 	private LocalDate docDate;		// 증명서 발행 날짜
