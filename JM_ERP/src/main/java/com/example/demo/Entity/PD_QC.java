@@ -14,11 +14,11 @@ public class PD_QC {
 	
 	private String ProdName;
 	
-	private int ProdNum;
+	private Integer ProdNum;
 	
-	private int QCNum;
+	private Integer QCNum;
 	
-	private char P_F;
+	private String P_F;
 	
 	private String QCList;
 }

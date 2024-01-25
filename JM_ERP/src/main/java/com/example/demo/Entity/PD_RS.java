@@ -18,12 +18,12 @@ public class PD_RS {
 	
 	private String ProdName;
 	
-	private int Num;
+	private Integer Num;
 	
-	private int ProdCost;
+	private Integer ProdCost;
 	
-	private int OutSrcCost;
+	private Integer OutSrcCost;
 	
-	private int OutSrcTot;	
+	private Integer OutSrcTot;	
 	
 }
