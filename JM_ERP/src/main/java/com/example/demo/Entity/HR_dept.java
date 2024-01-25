@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "HR_dept")		// 테이블명 지정
 public class HR_dept {
 	@Id
-	private String deptName;
+	private String deptName;	// 부서명
 	
-	private String deptCode;
+	private String deptCode;	// 부서코드
 }
