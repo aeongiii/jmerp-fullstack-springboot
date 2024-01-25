@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "Month")
+@Table(name = "AC_month")
 @Getter
 @Setter
 public class AC_month {
@@ -18,9 +18,8 @@ public class AC_month {
     private String yearMonth; // 년/월 (예: "202401")
 
     private Double revenue; // 수익
-    private Double profit; // 차익
-    private Double vat; // 부가세(금)
-    private Double withholdingTaxDifference; // 원천징수차액
+    private Double VAT; // 부가세(금)
+    private Double expense; // 비용
     private Double netIncome; // 순수익
 
     private String description; // 설명 또는 주석

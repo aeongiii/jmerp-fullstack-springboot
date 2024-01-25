@@ -9,7 +9,7 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "Purchase")
+@Table(name = "AC_purchase_silp")
 @Getter
 @Setter
 public class AC_purchaseSlip {
@@ -21,7 +21,7 @@ public class AC_purchaseSlip {
     private String trader; // 거래처
     private String description; // 적요
     private Double amount; // 금액
-    private Double vat; // 부가세
+    private Double VAT; // 부가세
     private String cardNum; // 카드번호
     private String cardName; // 카드명
     private String transactionType; // 거래유형
