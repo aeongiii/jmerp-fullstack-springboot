@@ -8,12 +8,12 @@ import lombok.Getter;
 @Entity
 public class PD_QCregi {
 	
-	private String QCCode;
+	private String qcCode;
 	
-	private String QCName;
+	private String qcName;
 
 	@Id
-	private String QCList;
+	private String qcList;
 	
-	private String QCProd;
+	private String qcProd;
 }

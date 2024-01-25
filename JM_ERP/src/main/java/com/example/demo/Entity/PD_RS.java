@@ -1,29 +1,34 @@
 package com.example.demo.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
-import lombok.Getter;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class PD_RS {
-	@Id
-	private String RelNum;
+	@Id @GeneratedValue
+	private String id;
 	
-	private String StoNum;
+	private String relNum;
+	
+	private String stoNum;
 	
 	private String rFrom;
 	
 	private String sTO;
 	
-	private String ProdName;
+	@ManyToOne
+	@JoinColumn(name = "prod_name")
+	private BOM prodName;
 	
-	private Integer Num;
+	private Integer num;
 	
-	private Integer ProdCost;
+	private Integer prodCost;
 	
-	private Integer OutSrcCost;
+	private Integer outSrcCost;
 	
-	private Integer OutSrcTot;	
+	private Integer outSrcTot;	
 	
 }

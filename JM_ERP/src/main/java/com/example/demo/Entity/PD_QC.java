@@ -8,17 +8,17 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class PD_QC {
 	@Id
-	private String QCTool;
+	private String qcTool;
 	
-	private String ProdCode;
+	private String prodCode;
 	
-	private String ProdName;
+	private String prodName;
 	
-	private Integer ProdNum;
+	private Integer prodNum;
 	
-	private Integer QCNum;
+	private Integer qCNum;
 	
-	private String P_F;
+	private String pF;
 	
-	private String QCList;
+	private String qcList;
 }

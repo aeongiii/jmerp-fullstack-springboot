@@ -1,20 +1,24 @@
 package com.example.demo.Entity;
 
-import jakarta.persistence.Id;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
-import lombok.Getter;
+import jakarta.persistence.Id;
 
 
 @Entity
 public class PD_res {
 	
-	private Integer ResCode;
-	
 	@Id
-	private String ResName;
+	@Column(name="res_name")
+	private String resName;
+
+	@Column(name="res_code")
+	private Integer resCode;
 	
+	
+	@Column(name="location")
 	private String Location;
 	
+	@Column(name="do")
 	private String Do;
 }

@@ -9,18 +9,18 @@ import lombok.Getter;
 public class PD_WO {
 
 	@Id
-	private String OrderNum;
+	private String rrderNum;
 	
-	private String DeliveryName;
+	private String deliveryName;
 	
-	private String Manager;
+	private String manager;
 	
-	private Integer DeliveryDate;
+	private Integer deliveryDate;
 	
 	
-	private String ProdCode;
+	private String prodCode;
 	
-	private String ProdName;
+	private String prodName;
 	
 	private Integer wOrder;
 	

@@ -3,12 +3,12 @@ package com.example.demo.Controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.Entity.BOM;
 import com.example.demo.Service.BOMService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -22,5 +22,10 @@ public class MainController {
 		List<BOM> bomlist = this.bomservice.getList();
 		model.addAttribute("bomlist", bomlist);
 		return "bom_list";
+	}
+	
+	@GetMapping("/")
+	public String root() {
+		return "index";
 	}
 }

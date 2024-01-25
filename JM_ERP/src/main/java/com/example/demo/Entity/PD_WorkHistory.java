@@ -1,28 +1,47 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 
 @Entity
 public class PD_WorkHistory {
 	
 	@Id
-	private String ProdCode;
+	@Column(name="res_name")
+	private String resName;
 	
-	private String ProdName;
+	@ManyToOne
+	@MapsId  // @Id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
+	@JoinColumn(name="res_name")
+	private PD_res pd_res; 
 	
+	@ManyToOne
+	@JoinColumn(name = "prod_code")
+	private BOM prodCode;
+	
+	@Column(name="prod_name")
+	private String prodName;
+	
+	@Column(name="work")
 	private String Work;
 	
-	private String WorkCode;
+	@Column(name="work_code")
+	private String workCode;
 	
-	private String WorkName;
+	@Column(name="work_name")
+	private String workName;
 	
-	private Integer Num;
+	@Column(name="num")
+	private Integer num;
 	
-	private String ResName;
+	@Column(name="work_time")
+	private Integer workTime;
 	
-	private Integer WorkTime;
-	
-	private Integer whTO;
+	@Column(name="wh_to")
+	private Integer whTo;
 	
 }
