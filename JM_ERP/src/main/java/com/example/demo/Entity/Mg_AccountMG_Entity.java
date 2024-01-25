@@ -12,8 +12,8 @@ public class Mg_AccountMG_Entity {
 	@Id
 	private Integer accountCode;
 	//거래처 사업자 번호
-	@Column
-	private Integer accoungNum;
+	@Column(length = 20)
+	private Long accountNum;
 	//거래처 전화번호
 	@Column
 	private String accountName;
