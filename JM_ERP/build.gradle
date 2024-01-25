@@ -74,3 +74,4 @@ def webappDir = "$projectDir/src/main/my-app"
 tasks.named('test') {
 	useJUnitPlatform()
 }
+//ddd
