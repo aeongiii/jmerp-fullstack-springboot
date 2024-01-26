@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class MainController {
+public class PD_Controller {
 	
 	private final BOMService bomservice;
 	
