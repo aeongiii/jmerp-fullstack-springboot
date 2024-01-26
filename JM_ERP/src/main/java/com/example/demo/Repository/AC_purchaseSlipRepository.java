@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entity.AC_purchaseSlip;
 
 @Repository
-public interface AC_purchaseSlipRepository extends JpaRepository<AC_purchaseSlip, String>{
+public interface AC_purchaseSlipRepository extends JpaRepository<AC_purchaseSlip, String> {
 
 }

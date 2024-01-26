@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entity.AC_debt;
 
 @Repository
-public interface AC_debtRepository extends JpaRepository<AC_debt, String>{
+public interface AC_debtRepository extends JpaRepository<AC_debt, String> {
 
 }
