@@ -2,35 +2,36 @@ package com.example.demo.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class PD_WorkHistory {
 	
 	@Id
-	@Column(name="res_name")
-	private String resName;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
-	@Column(name="pd_res")
-	private String pd_res; 
+	@ManyToOne
+	@JoinColumn(name="res_name")
+	private PD_res resName;
 	
-	@Column(name="prod_code")
-	private String prodCode;
-	
-	@Column(name="prod_name")
-	private String prodName;
+	@ManyToOne
+	@JoinColumn(name="prod_code")
+	private PD_BOM prodCode;
 	
 	@Column(name="work")
 	private String Work;
 	
 	@Column(name="work_code")
 	private String workCode;
-	
-	@Column(name="work_name")
-	private String workName;
 	
 	@Column(name="num")
 	private Integer num;

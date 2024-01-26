@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.Entity.BOM;
+import com.example.demo.Entity.PD_BOM;
 import com.example.demo.Service.BOMService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,8 @@ public class PD_Controller {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<BOM> bomlist = this.bomservice.getList();
+		List<PD_BOM> bomlist = this.bomservice.getList();
+
 		model.addAttribute("bomlist", bomlist);
 		return "bom_list";
 	}
@@ -28,4 +29,3 @@ public class PD_Controller {
 	public String root() {
 		return "index";
 	}
-}
