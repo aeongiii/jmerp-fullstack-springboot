@@ -15,7 +15,9 @@
         <tr th:each="mem : ${memList}">
             <td th:text="${mem.startDate}"></td>
             <td th:text="${mem.employeeId}"></td>
-            <td th:text="${mem.name}"></td>
+            <td>
+				<a th:href ="@{|/HR/list/${mem.employeeId}|}" th:text="${mem.name}"></a>
+			</td> 
             <td th:text="${mem.deptName}"></td>
             <td th:text="${mem.position}"></td>
             <td th:text="${mem.email}"></td>
