@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class BondDebtController {
-	
+	//채무,채권을 관리하는 웹사이트
 	private final AC_bondService bondService;
 	private final AC_debtService debtService;
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entity.AC_bond;
 
 @Repository
-public interface AC_bondRepository extends JpaRepository<AC_bond, String>{
+public interface AC_bondRepository extends JpaRepository<AC_bond, String> {
 
 }

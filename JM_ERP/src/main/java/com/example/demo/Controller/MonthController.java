@@ -9,6 +9,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class MonthController {
-	
+	//월소득 관리 기능을 담당하는 웹사이트
 	private final AC_monthService monthService;
 }

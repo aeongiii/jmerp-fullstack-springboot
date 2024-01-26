@@ -15,7 +15,7 @@ import java.util.Date;
 public class AC_month {
 
     @Id
-    private String yearMonth; // 년/월 (예: "202401")
+    private String monthId; // 년/월 (예: "202401")
 
     private Double revenue; // 수익
     private Double VAT; // 부가세(금)

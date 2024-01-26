@@ -20,6 +20,7 @@ public class PD_Controller {
 	@GetMapping("/list")
 	public String list(Model model) {
 		List<PD_BOM> bomlist = this.bomservice.getList();
+
 		model.addAttribute("bomlist", bomlist);
 		return "bom_list";
 	}
@@ -28,4 +29,3 @@ public class PD_Controller {
 	public String root() {
 		return "index";
 	}
-}
