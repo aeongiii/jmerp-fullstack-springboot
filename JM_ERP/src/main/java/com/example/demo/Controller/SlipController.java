@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.demo.Entity.AC_purchaseSlip;
 import com.example.demo.Entity.AC_saleSlip;
 import com.example.demo.Service.AC_purchaseSlipService;
 import com.example.demo.Service.AC_saleSlipService;
@@ -20,9 +21,16 @@ public class SlipController {
 	private final AC_purchaseSlipService purchaseSlipService;
 	
     @GetMapping("/saleslip")
-    public String search(Model model) {
+    public String saleList(Model model) {
         List<AC_saleSlip> saleSlipList = this.saleSlipService.getList();
         model.addAttribute("saleSlipList", saleSlipList);
         return "saleSlip";
+    }
+    
+    @GetMapping("/purchaseslip")
+    public String purchaseList(Model model) {
+        List<AC_purchaseSlip> purchaseSlipList = this.purchaseSlipService.getList();
+        model.addAttribute("purchaseSlipList", purchaseSlipList);
+        return "purchaseSlip";
     }
 }
