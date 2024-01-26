@@ -3,12 +3,13 @@ package com.example.demo.Controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.demo.Entity.BOM;
 import com.example.demo.Service.BOMService;
 
-import ch.qos.logback.core.model.Model;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
