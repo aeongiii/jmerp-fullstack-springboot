@@ -1,0 +1,26 @@
+<table>
+    <thead>
+        <tr>
+            <th>입사일자</th>
+            <th>사원번호</th>
+            <th>이름</th>
+            <th>부서명</th>
+            <th>직급명</th>
+            <th>Email</th>
+            <th>계좌번호</th>
+            <th>기본급여</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="mem : ${memList}">
+            <td th:text="${mem.startDate}"></td>
+            <td th:text="${mem.employeeId}"></td>
+            <td th:text="${mem.name}"></td>
+            <td th:text="${mem.deptName}"></td>
+            <td th:text="${mem.position}"></td>
+            <td th:text="${mem.email}"></td>
+            <td th:text="${mem.bankNum}"></td>
+            <td th:text="${mem.regularPay}"></td>
+        </tr>
+    </tbody>
+</table>
