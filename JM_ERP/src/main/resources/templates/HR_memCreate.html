@@ -1,0 +1,51 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+	<div class="my-3 border-bottom">
+		<div>
+			<h4>사원 추가</h4>
+		</div>
+	</div>
+	<form th:action="@{/HR/mem/create}" th:object="${HR_memCreateForm}" method="post">
+		<div class="mb-3">
+			<label for="name" class="form-label">이름</label>
+			<input type="text" th:field="*{name}" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="deptName" class="form-label">부서</label>
+			<select th:field="*{deptName}" class="form-control">
+				<option value="" th:text="선택"></option>
+				<option th:each="dept : ${deptList}" th:value="${dept.deptName}" th:text="${dept.deptName}"></option>
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="position" class="form-label">직급</label>
+			<div>
+				<input type="radio" id="team_leader" name="position" value="팀장" th:field="*{position}">
+				<label for="team_leader">팀장</label>
+			</div>
+			<div>
+				<input type="radio" id="employee" name="position" value="사원" th:field="*{position}">
+				<label for="employee">사원</label>
+			</div>
+		</div>
+		<div class="mb-3">
+			<label for="email" class="form-label">이메일</label>
+			<input type="email" th:field="*{email}" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="startDate" class="form-label">입사일</label>
+			<input type="date" th:field="*{startDate}" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="bankNum" class="form-label">계좌번호</label>
+			<input type="text" th:field="*{bankNum}" class="form-control">
+		</div>
+		<div class="mb-3">
+			<label for="regularPay" class="form-label">기본급</label>
+			<input type="number" th:field="*{regularPay}" class="form-control">
+		</div>
+		<button type="submit" class="btn btn-primary">사원 추가</button>
+	</form>
+</div>
+
+</html>
