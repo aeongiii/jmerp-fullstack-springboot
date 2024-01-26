@@ -33,4 +33,8 @@ public class HR_mem {
 	private int regularPay = 0;			// 기본급
 	
 	private String bankNum;			// 계좌번호
+	
+	public String toString() {
+		return this.employeeId;
+	}
 }

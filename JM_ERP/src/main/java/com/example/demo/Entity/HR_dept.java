@@ -15,4 +15,9 @@ public class HR_dept {
 	private String deptName;	// 부서명
 	
 	private String deptCode;	// 부서코드
+
+
+	public String toString() {
+		return this.deptName;
+	}
 }
