@@ -14,14 +14,11 @@ public class PD_WorkHistory {
 	@Column(name="res_name")
 	private String resName;
 	
-	@ManyToOne
-	@MapsId  // @Id로 지정한 컬럼에 @OneToOne 이나 @ManyToOne 관계를 매핑시키는 역할
-	@JoinColumn(name="res_name")
-	private PD_res pd_res; 
+	@Column(name="pd_res")
+	private String pd_res; 
 	
-	@ManyToOne
-	@JoinColumn(name = "prod_code")
-	private BOM prodCode;
+	@Column(name="prod_code")
+	private String prodCode;
 	
 	@Column(name="prod_name")
 	private String prodName;

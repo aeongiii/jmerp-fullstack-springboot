@@ -1,30 +1,39 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
-import lombok.Getter;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class PD_WO {
 
 	@Id
-	private String rrderNum;
+	@Column(name="order_num")
+	private String orderNum;
 	
+	@Column(name="delivery_name")
 	private String deliveryName;
 	
+	@Column(name="manager")
 	private String manager;
 	
+	@Column(name="delivery_date")
 	private Integer deliveryDate;
 	
-	
+	@Column(name="prod_code")
 	private String prodCode;
 	
+	@Column(name="prod_name")
 	private String prodName;
 	
+	@Column(name="w_order")
 	private Integer wOrder;
 	
-	private Integer Making;
+	@Column(name="making")
+	private Integer making;
 	
-	private String Factory;
+	@Column(name="factory")
+	private String factory;
 }
