@@ -1,19 +1,22 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
-import lombok.Getter;
 
 @Entity
 public class PD_QCregi {
 	
-	private String QCCode;
+	@Column(name="qc_code")
+	private String qcCode;
 	
-	private String QCName;
+	@Column(name="qc_name")
+	private String qcName;
 
 	@Id
-	private String QCList;
+	@Column(name="qc_list")
+	private String qcList;
 	
-	private String QCProd;
+	@Column(name="qc_prod")
+	private String qcProd;
 }

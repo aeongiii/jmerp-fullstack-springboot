@@ -1,24 +1,30 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 
 @Entity
 public class PD_QC {
 	@Id
-	private String QCTool;
+	@Column(name="qc_tool")
+	private String qcTool;
 	
-	private String ProdCode;
+	@Column(name="prod_code")
+	private String prodCode;
 	
-	private String ProdName;
+	@Column(name="prod_name")
+	private String prodName;
 	
-	private Integer ProdNum;
+	@Column(name="prod_num")
+	private Integer prodNum;
 	
-	private Integer QCNum;
+	@Column(name="qc_num")
+	private Integer qcNum;
 	
-	private String P_F;
+	@Column(name="p_f")
+	private String pF;
 	
-	private String QCList;
+	@Column(name="qc_list")
+	private String qcList;
 }

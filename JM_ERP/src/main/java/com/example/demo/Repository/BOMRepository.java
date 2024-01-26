@@ -7,5 +7,6 @@ import com.example.demo.Entity.BOM;
 
 @Repository
 public interface BOMRepository extends JpaRepository<BOM, String>{
+	
 
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seller List</title>
+</head>
+<body>
+    <h2>Seller List</h2>
+    <div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>사업자 번호</th>
+                <th>연락처</th>
+                <th>이메일</th>
+                <th>대표자 이름</th>
+                <th>주소</th>
+                <th>계약 여부</th>
+                <th>등록 날짜</th>
+            </tr>
+            <tr th:each="seller : ${sellers}">
+                <td th:text="${seller.sellerId}"></td>
+                <td th:text="${seller.businessNumber}"></td>
+                <td th:text="${seller.contactInfo}"></td>
+                <td th:text="${seller.email}"></td>
+                <td th:text="${seller.ceoName}"></td>
+                <td th:text="${seller.address}"></td>
+                <td th:text="${seller.contract ? '계약중' : '계약종료'}"></td>
+                <td th:text="${seller.registrationDate}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

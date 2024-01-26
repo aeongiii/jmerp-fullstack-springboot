@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link th:href="@{/style.css}" rel = "stylesheet" />
+  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+  <title>ERP main</title>
+</head>
+<body>
+  <header>
+    <div class="main--header">
+      <div>logo</div>
+      <div>erp main</div>
+      <div class="main--header--icon">
+        <ul class = "icons" id = "menufunction">
+          <li id = "main--header--icon--sales"> <image src = "image/sales.red.picture.png"></image></li>
+          <li id = "main--header--icon--inventory"> <image src = "image/inventory.picture.png"></image></li>
+          <li id = "main--header--icon--accounting"> <image src = "image/accounting.picture.png"></image></li>
+          <li id = "main--header--icon--buy"> <image src = "image/buy.color.picture.png"></image></li>
+          <li id = "main--header--icon--hrm"> <image src = "image/hrm.color.picture.png"></image></li>
+          <li id = "main--header--icon--make"> <image src = "image/make.color2.picture.png"></image></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  <nav>
+    <div class = "main--tap">
+      <div class = "main--tap--menu">
+        <div class = "main--tap--nav">
+          <a href = "HR.html">인사</a>
+        </div>
+        <div class = "group--HR">
+          <ul id = "HRgroups">
+            <li id = "1"> 사원등록 |&nbsp; </li>
+            <li id = "2"> 부서등록 |&nbsp; </li>
+            <li id = "3"> 근태관리 |&nbsp; </li>
+            <li id = "4"> 급여관리 |&nbsp; </li>
+            <li id = "5"> 근로계약서 |&nbsp; </li>
+            <li id = "6"> 일용직 관리 |&nbsp;</li>
+            <li id = "7"> 증명서 발행</li>
+          </ul>
+        </div>
+      </div>
+      <div class = "main--tap--menu">
+        <a href = "buy.html">구매</a>
+      </div>
+      <div class = "main--tap--menu">
+        <a href="marketing.html">영업</a>
+      </div>
+      <div class = "main--tap--menu">
+        <a href = "inventory.html">재고</a>
+      </div>
+      <div class = "main--tap--menu">
+        <a href = "list">생산</a>
+      </div>
+      <div class = "main--tap--menu">
+        <a href = "accounting.html">회계</a>
+      </div>
+      <div class = "main--tap--menu">마이페이지</div>
+    </div>
+  </nav>
+  <div class="contents">
+    <div class="side--bar">
+      <div class = "side--bar--icon"> <i class="fi fi-ss-angle-right">
+      </i></div>
+      <div class = "local--fix--nav">
+        <div class = "local--fix--nav--pin"> <image src = "image/local.fix.nav.png" alt = "fix"></image></div>
+      </div>
+    </div>
+    <div class="contents--main">
+      <span>main contents</span>
+      <div>--primary-100:#019b98</div>
+      <div>--primary-200:#55ccc9</div>
+      <div>--primary-300:#c1ffff</div>
+      <div>--accent-100:#dd0025</div>
+      <div>--accent-200:#ffbfab</div>
+      <div>--text-100:#014e60</div>
+      <div>--text-200:#3f7a8d</div>
+      <div>--bg-100:#fbfbfb</div>
+      <div>--bg-200:#f1f1f1</div>
+      <div>--bg-300:#c8c8c8</div>
+    </div>
+  </div>
+</body>
+<script src = "side--bar.js"></script>
+</html>

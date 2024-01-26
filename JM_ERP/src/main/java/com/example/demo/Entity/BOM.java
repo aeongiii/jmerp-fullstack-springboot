@@ -1,27 +1,40 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import lombok.Getter;
 
+@Getter
 @Entity
 public class BOM {
 	
 	@Id
-	private String ProdCode;
+	@Column(name="prod_code")
+	private String prodCode;
 	
-	private String ProdName;
+	@Column(name="prod_name")
+	private String prodName;
 	
-	private String ProdLine;
+	@Column(name="prod_line")
+	private String prodLine;
 	
-	private Integer RawMatNum;
+	@Column(name="raw_mat_num")
+	private Integer rawMatNum;
 	
-	private String Unit;
+	@Column(name="unit")
+	private String unit;
 	
-	private Integer Num;
+	@Column(name="num")
+	private Integer num;
 	
-	private String Type;
+	@Column(name="type")
+	private String type;     
 	
-	private Integer RawNum;
+	@Column(name="raw_num")
+	private Integer rawNum;
 	
-	private Integer WorkTime;
+	@Column(name="work_time")
+	private Integer workTime;
 }

@@ -17,6 +17,6 @@ public class BOMService {
 	private final BOMRepository bomrepository;
 
     public List<BOM> getList() {
-        return this.bomrepository.findAll();
+        return bomrepository.findAll();
     }
 }

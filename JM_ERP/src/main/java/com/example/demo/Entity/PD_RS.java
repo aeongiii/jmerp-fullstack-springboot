@@ -1,29 +1,40 @@
 package com.example.demo.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-
-import lombok.Getter;
 
 @Entity
 public class PD_RS {
-	@Id
-	private String RelNum;
+	@Id @GeneratedValue
+	private String id;
 	
-	private String StoNum;
+	@Column(name="rel_num")
+	private String relNum;
 	
+	@Column(name="sto_num")
+	private String stoNum;
+	
+	@Column(name="r_from")
 	private String rFrom;
 	
+	@Column(name="s_to")
 	private String sTO;
 	
-	private String ProdName;
+	@Column(name="prod_name")
+	private String prodName;
 	
-	private Integer Num;
+	@Column(name="num")
+	private Integer num;
 	
-	private Integer ProdCost;
+	@Column(name="prod_Cost")
+	private Integer prodCost;
 	
-	private Integer OutSrcCost;
+	@Column(name="out_src_cost")
+	private Integer outSrcCost;
 	
-	private Integer OutSrcTot;	
+	@Column(name="out_src_tot")
+	private Integer outSrcTot;	
 	
 }
