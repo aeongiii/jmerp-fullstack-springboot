@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.BOM;
-import com.example.demo.Repository.BOMRepository;
+import com.example.demo.Entity.PD_BOM;
+import com.example.demo.Repository.PD_BOMRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class BOMService {
 	
-	private final BOMRepository bomrepository;
+	private final PD_BOMRepository bomrepository;
 
-    public List<BOM> getList() {
+    public List<PD_BOM> getList() {
         return bomrepository.findAll();
     }
 }
