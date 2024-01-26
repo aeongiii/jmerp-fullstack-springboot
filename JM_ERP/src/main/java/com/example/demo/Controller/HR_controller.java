@@ -24,3 +24,5 @@ public class HR_controller {
 		return "HR_memList";
 	}
 }
+
+// 20240126 merge 직후 파일을 내 브런치에 다시 push.
