@@ -201,6 +201,18 @@
   }
 }
 
+
+/* Custom CSS */
+.navbar-nav .nav-item {
+    flex-grow: 1; /* Ensure equal spacing */
+    text-align: center; /* Center align text */
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.2em; /* Increase font size */
+}
+
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -3775,14 +3787,17 @@ textarea.form-control-lg {
   list-style: none;
 }
 
-
+.navfontsize {
+	font-size: 1000px;
+	
+}
 
 .nav1 {
-    height: 4.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
+    height: 7.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
 }
 
 .nav2 {
-    height: 5.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
+    height: 9.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
 }
 
 

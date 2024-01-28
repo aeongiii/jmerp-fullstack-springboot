@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.Member;
+import com.example.demo.Entity.Purchase;
 import com.example.demo.Service.MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,10 +43,7 @@ public class MemberController {
 			@RequestParam("membership") boolean membership
 
 			) { 
-	
 	memberService.RegMember(memberId, name, dateOfBirth, country, contactNumber, email, address, gender, membership);
-		
-		
 		return "Complete_RegMember";
 	}
 	
@@ -58,4 +56,16 @@ public class MemberController {
 		model.addAttribute("paging", paging);
 		return "Member_list";
 	}
+	
+	@GetMapping("/purchase")
+	public String searchPurchase(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+		Page<Purchase> paging = memberService.searchPurchase(page);
+		model.addAttribute("paging", paging);
+		return "Purchase_list";
+	}
+
+	
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Navigation Bar</title>
+    <!-- Bootstrap CSS 연결 -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+     
+</head>
+
+<body>
+
+<!-- 네비게이션바 프라그먼트 -->
+<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	
+	<!-- 데이터 테이블 시작-->
+	<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Purchase Date</th>
+            <th>Client Name</th>
+            <th>Item Name</th>
+            <th>Total Amount</th>
+            <th>Transaction Type</th>
+            <th>Warehouse Name</th>
+            <th>Accounting Reflection Status</th>
+            <th>Imported Voucher</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Thymeleaf 반복문 사용 -->
+        <tr th:each="inquiry : ${paging.content}" class="table-active">
+            <th scope="row" th:text="${inquiry.num}">ID</th>
+            <td th:text="${inquiry.PurchaseDate}">Purchase Date</td>
+            <td th:text="${inquiry.clientName}">Client Name</td>
+            <td th:text="${inquiry.itemName}">Item Name</td>
+            <td th:text="${inquiry.totalAmount}">Total Amount</td>
+            <td th:text="${inquiry.transactionType}">Transaction Type</td>
+            <td th:text="${inquiry.warehouseName}">Warehouse Name</td>
+            <td th:text="${inquiry.accountingReflectionStatus}">Accounting Reflection Status</td>
+            <td th:text="${inquiry.importedVoucher}">Imported Voucher</td>
+        </tr>
+    </tbody>
+</table>
+
+   
+
+	
+
+<!-- 페이징 프라그먼트 -->
+<div th:replace="~{paging::pagingFragment}"></div>
+<!-- 버튼 프라그먼트 -->
+<div th:replace="~{botton::bottonFragment}"></div>
+
+<!-- Bootstrap JS 연결 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

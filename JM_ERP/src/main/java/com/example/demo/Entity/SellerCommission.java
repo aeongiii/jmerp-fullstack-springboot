@@ -12,7 +12,9 @@ import jakarta.persistence.Table;
 public class SellerCommission {
    
 	@Id
-    @OneToOne
+	private Long num;
+    
+	@OneToOne
     @JoinColumn(name = "seller_id")
     private Seller seller; // 셀러 엔티티 참조
 
