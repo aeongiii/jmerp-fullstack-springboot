@@ -1,57 +1,176 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/purchase/ordersheet -->
+
 <head>
-    <title>Product List</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Navigation Bar</title>
-    <!-- Bootstrap CSS 연결 -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
-     
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 </head>
 
 <body>
-   
-<!-- 네비게이션바 프라그먼트 -->
-<nav th:replace="~{navbar :: navbarFragment}"></nav>
-	
-	<!-- 데이터 테이블 시작-->
-	<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Order Number</th>
-            <th>Client Name</th>
-            <th>Contact Person</th>
-            <th>Item</th>
-            <th>Delivery Date</th>
-            <th>Amount</th>
-            <th>Completion Status</th>
-            <th>Progress Status</th>
-            <th>Project Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="table-active" th:each="orderSheet : ${paging.content}">
-            <th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
-            <td th:text="${orderSheet.clientName}">Client Name</td>
-            <td th:text="${orderSheet.contactPerson}">Contact Person</td>
-            <td th:text="${orderSheet.item}">Item</td>
-            <td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
-            <td th:text="${orderSheet.amount}">Amount</td>
-            <td th:text="${orderSheet.completionStatus}">Completion Status</td>
-            <td th:text="${orderSheet.progressStatus}">Progress Status</td>
-            <td th:text="${orderSheet.projectName}">Project Name</td>
-        </tr>
-    </tbody>
-</table>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div class="accordion" id="accordionExample">
+
+					<!-- 아코디언 아이템 1 -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								영업관리
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a class="dropdown-item" href="#">기능 삽입</a>
+								<br>
+								<a class="dropdown-item" href="#">기능 삽입</a>
+								<br>
+								<a class="dropdown-item" href="#">기능 삽입</a>
+							</div>
+						</div>
+					</div>
 
 
-<!-- 페이징 프라그먼트 -->
-<div th:replace="~{paging::pagingFragment}"></div>
-<!-- 버튼 프라그먼트 -->
-<div th:replace="~{botton::bottonFragment}"></div>
+					<!-- 아코디언 아이템 2 -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+								고객관리
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a class="dropdown-item" href="#">쇼핑몰 멤버조회 및 관리</a>
+								<br>
+								<a class="dropdown-item" href="#">멤버 구매내역 조회</a>
+								<br>
+								<a class="dropdown-item" href="#">기능 삽입</a>
+							</div>
+						</div>
+					</div>
 
-<!-- Bootstrap JS 연결 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+					<!-- 아코디언 아이템 3 -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingThree">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+								판매자관리
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a class="dropdown-item" href="#">셀러 등록</a>
+								<br>
+								<a class="dropdown-item" href="#">카테고리별 수수료 지정</a>
+								<br>
+								<a class="dropdown-item" href="#">셀러 별 수수료 내역</a>
+								<br>
+								<a class="dropdown-item" href="#">셀러 별 판매기록</a>
+							</div>
+						</div>
+					</div>
+
+
+					<!-- 아코디언 아이템 4 -->
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingFour">
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+								data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+								상품관리
+							</button>
+						</h2>
+						<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+							data-bs-parent="#accordionExample">
+							<div class="accordion-body">
+								<a class="dropdown-item" href="#">쇼핑몰 상품등록 관리</a>
+								<br>
+								<a class="dropdown-item" href="#">PB제품 관리</a>
+								<br>
+								<a class="dropdown-item" href="#">기능 삽입</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
+				</div>
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>Order Number</th>
+							<th>Client Name</th>
+							<th>Contact Person</th>
+							<th>Item</th>
+							<th>Delivery Date</th>
+							<th>Amount</th>
+							<th>Completion Status</th>
+							<th>Progress Status</th>
+							<th>Project Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="orderSheet : ${paging.content}">
+							<th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
+							<td th:text="${orderSheet.clientName}">Client Name</td>
+							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
+							<td th:text="${orderSheet.item}">Item</td>
+							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
+							<td th:text="${orderSheet.amount}">Amount</td>
+							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
+							<td th:text="${orderSheet.progressStatus}">Progress Status</td>
+							<td th:text="${orderSheet.projectName}">Project Name</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{botton::bottonFragment}"></div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -30,6 +30,7 @@ public class PurchaseService {
 		Pageable pageable = PageRequest.of(page, 10);
 		return purchaseInquiryRepository.findAll(pageable);
 	}
+	
 
 }
 

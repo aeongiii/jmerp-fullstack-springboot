@@ -42,7 +42,7 @@ public class ProductController {
 		Page<PBproduct> paging = productService.searchPbproduct(page);
 		model.addAttribute("paging",paging);
 		
-		return "product_list";
+		return "pbProduct_list";
 	}
 	
 	

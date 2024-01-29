@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.Entity.Member;
 
-public interface MemberRepository extends JpaRepository<Member, String	> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
 	Page<Member> findAll(Pageable pageable);
+	
+	
+
 }
