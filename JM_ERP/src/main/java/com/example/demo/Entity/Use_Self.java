@@ -9,17 +9,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name= "mg_use_self")
 public class Use_Self {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer useCount;
 	//pk적용 순서
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName = "wareName")
-	private Mg_WMS useWareName;
+	@Column
+	private String useWareName;
 	//사용 창고명
 	
 	@Column

@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 
 @Entity
 public class Mg_item_Regi {
@@ -24,12 +25,8 @@ public class Mg_item_Regi {
 	@Column
 	private String itemReciving;
 	//물품 등록 날짜
-	@Column
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer itemNumber;
-	//순서 넘버
 }
 
 
 
-																																																	
+										//																																							

@@ -1,5 +1,7 @@
 package com.example.demo.Entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,5 +21,8 @@ public class Mg_Sn {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer snCount;
-	//시리얼 넘버 부여를 위한 카운트
+	//시리얼 넘버 부여를 위한 
+
+	@Column
+	private LocalDate snDate;
 }
