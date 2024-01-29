@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 public class SD_SellerCommission {
    
 	@Id
+	@Column(name = "num")
 	private Long num;
     
 	@OneToOne
