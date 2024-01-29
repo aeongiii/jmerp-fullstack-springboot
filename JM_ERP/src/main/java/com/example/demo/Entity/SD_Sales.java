@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-public class Sales {
+public class SD_Sales {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,11 @@ public class Sales {
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private Seller seller;
+    private SD_Seller seller;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private SD_Product product;
 
     @Column(name = "quantity_sold", nullable = false)
     private Integer quantitySold;

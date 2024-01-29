@@ -7,31 +7,31 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.CommissionRate;
-import com.example.demo.Entity.Sales;
-import com.example.demo.Entity.Seller;
-import com.example.demo.Entity.SellerCommission;
-import com.example.demo.Repository.CommissionRateRepository;
-import com.example.demo.Repository.SalesRepository;
-import com.example.demo.Repository.SellerCommissionRepository;
-import com.example.demo.Repository.SellerRepository;
+import com.example.demo.Entity.SD_CommissionRate;
+import com.example.demo.Entity.SD_Sales;
+import com.example.demo.Entity.SD_Seller;
+import com.example.demo.Entity.SD_SellerCommission;
+import com.example.demo.Repository.SD_CommissionRateRepository;
+import com.example.demo.Repository.SD_SalesRepository;
+import com.example.demo.Repository.SD_SellerCommissionRepository;
+import com.example.demo.Repository.SD_SellerRepository;
 
 import lombok.RequiredArgsConstructor;
 
 
 @RequiredArgsConstructor
 @Service
-public class SellerService {
+public class SD_SellerService {
 	
-	private final SellerRepository sellerRepository;
-	private final SellerCommissionRepository sellerCommissionRepository;
-	private final CommissionRateRepository commissionRateRepository;
-	private final SalesRepository salesrepository;
+	private final SD_SellerRepository sellerRepository;
+	private final SD_SellerCommissionRepository sellerCommissionRepository;
+	private final SD_CommissionRateRepository commissionRateRepository;
+	private final SD_SalesRepository salesrepository;
 	
 	public void RegSeller(String sellerId, String businessNumber, String contactInfo, String email, String ceoName,
 			String address, boolean contract) {
 		
-		Seller newSeller = new Seller();
+		SD_Seller newSeller = new SD_Seller();
         
 		newSeller.setSellerId(sellerId);
         newSeller.setBusinessNumber(businessNumber);
@@ -46,22 +46,22 @@ public class SellerService {
         sellerRepository.save(newSeller);
 	}
 	
-	public Page<Seller> searchAll(int page) {
+	public Page<SD_Seller> searchAll(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return sellerRepository.findAll(pageable);
 	}
 	
-	public Page<SellerCommission> searchCommssion(int page) {
+	public Page<SD_SellerCommission> searchCommssion(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return sellerCommissionRepository.findAll(pageable);
 	}
 	
-	public Page<CommissionRate> searchCommssionRate(int page) {
+	public Page<SD_CommissionRate> searchCommssionRate(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return commissionRateRepository.findAll(pageable);
 	}
 	
-	public Page<Sales> searchSales(int page) {
+	public Page<SD_Sales> searchSales(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return salesrepository.findAll(pageable);
 	}

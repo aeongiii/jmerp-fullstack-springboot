@@ -16,7 +16,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Purchase {
+public class SD_Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,15 +24,15 @@ public class Purchase {
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private Member member;
+    private SD_Member member;
    
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private Seller seller;
+    private SD_Seller seller;
   
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private SD_Product product;
 
     @Column(name = "purchase_date")
     private LocalDate purchaseDate;

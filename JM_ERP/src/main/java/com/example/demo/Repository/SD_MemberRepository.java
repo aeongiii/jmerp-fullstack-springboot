@@ -1,15 +1,15 @@
 package com.example.demo.Repository;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.Entity.Product;
+import com.example.demo.Entity.SD_Member;
 
-public interface productRepository extends JpaRepository<Product, Long> {
+public interface SD_MemberRepository extends JpaRepository<SD_Member, String> {
 
-	Page<Product> findAll(Pageable pageable);
+	Page<SD_Member> findAll(Pageable pageable);
 	
+	
+
 }

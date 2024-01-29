@@ -7,31 +7,31 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.PBproduct;
-import com.example.demo.Entity.Product;
-import com.example.demo.Repository.PBproductRepository;
-import com.example.demo.Repository.productRepository;
+import com.example.demo.Entity.SD_PBproduct;
+import com.example.demo.Entity.SD_Product;
+import com.example.demo.Repository.SD_PBproductRepository;
+import com.example.demo.Repository.SD_productRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service 
-public class productService {
+public class SD_productService {
 
-	private final productRepository productRepository;
-	private final PBproductRepository pbproductRepository;
+	private final SD_productRepository productRepository;
+	private final SD_PBproductRepository pbproductRepository;
 	
 	
 //	public List<Product> search(){
 //		return productRepository.findAll();
 //	}
 	
-	public Page<Product> searchAllproduct(int page){
+	public Page<SD_Product> searchAllproduct(int page){
 		Pageable pageable = PageRequest.of(page, 10);
 		return productRepository.findAll(pageable);
 	}
 	
-	public Page<PBproduct> searchPbproduct(int page){
+	public Page<SD_PBproduct> searchPbproduct(int page){
 		Pageable pageable = PageRequest.of(page, 10);
 		return pbproductRepository.findAll(pageable);
 	}

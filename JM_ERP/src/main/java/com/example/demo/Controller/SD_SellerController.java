@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.CommissionRate;
-import com.example.demo.Entity.Sales;
-import com.example.demo.Entity.Seller;
-import com.example.demo.Entity.SellerCommission;
-import com.example.demo.Service.SellerService;
+import com.example.demo.Entity.SD_CommissionRate;
+import com.example.demo.Entity.SD_Sales;
+import com.example.demo.Entity.SD_Seller;
+import com.example.demo.Entity.SD_SellerCommission;
+import com.example.demo.Service.SD_SellerService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
 @RequestMapping("/seller")
 @Controller
-public class SellerController {
+public class SD_SellerController {
 	
 	@Autowired
-	private SellerService sellerService;
+	private SD_SellerService sellerService;
 	
 	@GetMapping("/list")
 	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page,HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<Seller> paging = sellerService.searchAll(page);
+		Page<SD_Seller> paging = sellerService.searchAll(page);
 		model.addAttribute("paging", paging);
 		return "Seller_list";
 	}
@@ -39,7 +39,7 @@ public class SellerController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<SellerCommission> paging = sellerService.searchCommssion(page);
+		Page<SD_SellerCommission> paging = sellerService.searchCommssion(page);
 		model.addAttribute("paging", paging);
 		return "Commission_list";
 	}
@@ -49,7 +49,7 @@ public class SellerController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<CommissionRate> paging = sellerService.searchCommssionRate(page);
+		Page<SD_CommissionRate> paging = sellerService.searchCommssionRate(page);
 		model.addAttribute("paging", paging);
 		return "CommissionRate_list";
 	}
@@ -59,7 +59,7 @@ public class SellerController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<Sales> paging = sellerService.searchSales(page);
+		Page<SD_Sales> paging = sellerService.searchSales(page);
 		model.addAttribute("paging", paging);
 		return "Sales_list";
 	}

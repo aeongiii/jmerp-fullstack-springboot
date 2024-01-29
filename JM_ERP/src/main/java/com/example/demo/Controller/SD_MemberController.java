@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.Member;
-import com.example.demo.Entity.Purchase;
-import com.example.demo.Service.MemberService;
+import com.example.demo.Entity.SD_Member;
+import com.example.demo.Entity.SD_Purchase;
+import com.example.demo.Service.SD_MemberService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,10 +21,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class SD_MemberController {
 	
 	@Autowired
-	private final MemberService memberService;
+	private final SD_MemberService memberService;
 	
 	@GetMapping("/register")
 	public String RegMember() {
@@ -52,7 +52,7 @@ public class MemberController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<Member> paging = memberService.searchMember(page);
+		Page<SD_Member> paging = memberService.searchMember(page);
 		model.addAttribute("paging", paging);
 		return "Member_list";
 	}
@@ -62,7 +62,7 @@ public class MemberController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<Purchase> paging = memberService.searchPurchase(page);
+		Page<SD_Purchase> paging = memberService.searchPurchase(page);
 		model.addAttribute("paging", paging);
 		return "Purchase_list";
 	}

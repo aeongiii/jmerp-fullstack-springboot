@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.PBproduct;
-import com.example.demo.Entity.Product;
-import com.example.demo.Service.productService;
+import com.example.demo.Entity.SD_PBproduct;
+import com.example.demo.Entity.SD_Product;
+import com.example.demo.Service.SD_productService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/product")
 @Controller
-public class ProductController {
+public class SD_ProductController {
 
-	private final productService productService; 
+	private final SD_productService productService; 
 	
 	
 
@@ -28,7 +28,7 @@ public class ProductController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<Product> paging = productService.searchAllproduct(page);
+		Page<SD_Product> paging = productService.searchAllproduct(page);
 		model.addAttribute("paging",paging);
 		
 		return "product_list";
@@ -39,7 +39,7 @@ public class ProductController {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<PBproduct> paging = productService.searchPbproduct(page);
+		Page<SD_PBproduct> paging = productService.searchPbproduct(page);
 		model.addAttribute("paging",paging);
 		
 		return "pbProduct_list";

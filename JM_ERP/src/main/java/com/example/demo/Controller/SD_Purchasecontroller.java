@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.OrderSheet;
-import com.example.demo.Entity.PurchaseInquiry;
-import com.example.demo.Service.PurchaseService;
+import com.example.demo.Entity.PC_OrderSheet;
+import com.example.demo.Entity.PC_PurchaseInquiry;
+import com.example.demo.Service.SD_PurchaseService;
 
 import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/purchase")
 @Controller
-public class Purchasecontroller {
+public class SD_Purchasecontroller {
 	
 	
 	@Autowired
-	private PurchaseService purchaseservice; 
+	private SD_PurchaseService purchaseservice; 
 	
 	
 
@@ -29,7 +29,7 @@ public class Purchasecontroller {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<OrderSheet> paging = purchaseservice.searchOrderSheet(page);
+		Page<PC_OrderSheet> paging = purchaseservice.searchOrderSheet(page);
 		model.addAttribute("paging", paging);
 		return "OrderSheet_list";
 	}
@@ -39,7 +39,7 @@ public class Purchasecontroller {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-		Page<PurchaseInquiry> paging = purchaseservice.searchPurchaseInquiry(page);
+		Page<PC_PurchaseInquiry> paging = purchaseservice.searchPurchaseInquiry(page);
 		model.addAttribute("paging", paging);
 		return "PurchaseInquiry_list";
 	}
