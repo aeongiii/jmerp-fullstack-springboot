@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/seller/list -->
+<!-- http://localhost:8080/seller/commissionrate -->
 
 <head>
 	<title>Seller List</title>
@@ -18,12 +18,12 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+
+		<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
 				<div th:replace="~{arcodian :: arcodianFragment}"></div>
 			</div>
 
-			
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
@@ -37,33 +37,20 @@
 				<!-- 조건 조회 버튼 끝-->
 
 				<!-- 데이터 테이블 시작-->
-				<table class="table table-hover">
-					<thead>
-						<tr class="table-active">
-							<th>ID</th>
-							<th>사업자 번호</th>
-							<th>연락처</th>
-							<th>이메일</th>
-							<th>대표자 이름</th>
-							<th>주소</th>
-							<th>계약 여부</th>
-							<th>등록 날짜</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr th:each="seller : ${paging.content}">
-							<th scope="row" th:text="${seller.sellerId}"></th>
-							<td th:text="${seller.businessNumber}"></td>
-							<td th:text="${seller.contactInfo}"></td>
-							<td th:text="${seller.email}"></td>
-							<td th:text="${seller.ceoName}"></td>
-							<td th:text="${seller.address}"></td>
-							<td th:text="${seller.contract ? '계약중' : '계약종료'}"></td>
-							<td th:text="${seller.registrationDate}"></td>
-						</tr>
-					</tbody>
-				</table>
+	<table class="table table-hover">
+    <thead>
+        <tr class="table-active">
+            <th>Category</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="commissionRate : ${paging.content}">
+            <th scope="row" th:text="${commissionRate.category}">Category</th>
+            <td th:text="${commissionRate.rate}">Rate</td>
+        </tr>
+    </tbody>
+</table>
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->

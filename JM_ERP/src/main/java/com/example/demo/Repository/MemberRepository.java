@@ -4,9 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.Entity.Seller;
+import com.example.demo.Entity.Member;
 
-public interface SellerRepository extends JpaRepository<Seller, String>{
+public interface MemberRepository extends JpaRepository<Member, String> {
 
-	Page<Seller> findAll(Pageable pageabel);
+	Page<Member> findAll(Pageable pageable);
+	
+	
+
 }
