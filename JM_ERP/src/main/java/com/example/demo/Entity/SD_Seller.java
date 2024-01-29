@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Seller {
+public class SD_Seller {
 
     @Id
     @Column(name = "seller_id", nullable = false)

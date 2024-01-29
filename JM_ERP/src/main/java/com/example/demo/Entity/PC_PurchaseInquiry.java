@@ -7,10 +7,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "PurchaseInquiry")
 @Getter
 @Setter
-public class PurchaseInquiry {
+public class PC_PurchaseInquiry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

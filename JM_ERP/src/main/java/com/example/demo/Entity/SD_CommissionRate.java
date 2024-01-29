@@ -5,10 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "CommissionRates")
 @Getter
 @Setter
-public class CommissionRate {
+public class SD_CommissionRate {
 
    
 	@Id

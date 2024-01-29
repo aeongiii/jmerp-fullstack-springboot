@@ -6,10 +6,10 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "PB_Products")
+
 @Getter
 @Setter
-public class PBproduct {
+public class SD_PBproduct {
 
     @Id
     @Column(name = "Product_Code", length = 20)

@@ -8,15 +8,16 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "SellerCommission")
-public class SellerCommission {
+
+public class SD_SellerCommission {
    
 	@Id
+	@Column(name = "num")
 	private Long num;
     
 	@OneToOne
     @JoinColumn(name = "seller_id")
-    private Seller seller; // 셀러 엔티티 참조
+    private SD_Seller seller; // 셀러 엔티티 참조
 
     @Column(name = "total_sales")
     private Double totalSales; // 총 판매액
