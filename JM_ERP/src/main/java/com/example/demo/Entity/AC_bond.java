@@ -1,6 +1,6 @@
 package com.example.demo.Entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,12 +17,12 @@ public class AC_bond {
     @Id
     private String bondNumber; // 채권 번호를 id로 사용
 
-    private Date date;
+    private LocalDate date; // 채권 생성 날자
     private String trader;
     private Double amount; //(빌리거나 빌려준 돈의 최초 금액)
     private Double increaseDecreaseType; //(빚의 추가 및 할인)
     private Double balance; //(남은 금액)
-    private Date maturityDate;
+    private LocalDate maturityDate;
     private String description; // 적요에는 갚은 날짜를 입력
 
     // 생성자, 필요한 메소드는 롬복이 자동으로 생성해주므로 생략

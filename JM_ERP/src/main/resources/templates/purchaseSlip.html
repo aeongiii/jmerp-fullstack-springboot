@@ -24,8 +24,9 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through the list of sales slips -->
+            <!-- for each 문 -->
             <tr th:each="slip : ${purchaseSlipList}">
+				<!-- 화면에 띄울 정보 -->
                 <td th:text="${slip.slipCode}"></td>
                 <td th:text="${slip.tradeDate}"></td>
                 <td th:text="${slip.trader}"></td>

@@ -21,9 +21,9 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Iterate over each bond object -->
+            <!-- for each 문 -->
             <tr th:each="bond : ${bonds}">
-                <!-- Display bond information -->
+                <!--화면에 띄울 정보-->
                 <td th:text="${bond.bondNumber}"></td>
                 <td th:text="${bond.date}"></td>
                 <td th:text="${bond.trader}"></td>
