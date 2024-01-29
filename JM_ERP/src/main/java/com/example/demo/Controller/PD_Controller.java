@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Entity.PD_BOM;
 import com.example.demo.Service.BOMService;
@@ -27,5 +28,12 @@ public class PD_Controller {
 	@GetMapping("/")
 	public String root() {
 		return "index";
+	}
+	
+	@GetMapping(value = "/list/bom/{ProdCode}")
+	public String bom(Model model, @PathVariable("ProdCode") String prodCode) {
+		List<PD_BOM> item = this.bomservice.getItem(prodCode);
+		model.addAttribute("list_bom",item);
+		return "list_bom";
 	}
 }
