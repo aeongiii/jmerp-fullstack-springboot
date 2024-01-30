@@ -17,9 +17,8 @@ public class Use_Self {
 	private Integer useCount;
 	//pk적용 순서
 	
-	@ManyToOne
-	@JoinColumn(referencedColumnName = "wareName")
-	private Mg_WMS useWareName;
+	@Column
+	private String useWareName;
 	//사용 창고명
 	
 	@Column

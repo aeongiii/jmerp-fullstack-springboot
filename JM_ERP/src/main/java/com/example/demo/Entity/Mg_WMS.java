@@ -13,6 +13,9 @@ public class Mg_WMS {
 	
 	@Id
 	@Column
+	private Integer Id;
+	
+	@Column
 	private String wareName;
 	//창고명
 	@Column

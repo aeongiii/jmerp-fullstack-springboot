@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/seller/list -->
+<!-- http://localhost:8080/member/list -->
 
 <head>
 	<title>Seller List</title>
@@ -18,17 +18,17 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+
+		<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
 				<div th:replace="~{arcodian :: arcodianFragment}"></div>
 			</div>
 
-			
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group avc" role="group" aria-label="Basic radio toggle button group">
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
 					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
 					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
@@ -41,26 +41,29 @@
 					<thead>
 						<tr class="table-active">
 							<th>ID</th>
-							<th>사업자 번호</th>
-							<th>연락처</th>
-							<th>이메일</th>
-							<th>대표자 이름</th>
-							<th>주소</th>
-							<th>계약 여부</th>
-							<th>등록 날짜</th>
+							<th>Name</th>
+							<th>Date of Birth</th>
+							<th>Country</th>
+							<th>Contact Number</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th>Gender</th>
+							<th>Join Date</th>
+
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr th:each="seller : ${paging.content}">
-							<th scope="row" th:text="${seller.sellerId}"></th>
-							<td th:text="${seller.businessNumber}"></td>
-							<td th:text="${seller.contactInfo}"></td>
-							<td th:text="${seller.email}"></td>
-							<td th:text="${seller.ceoName}"></td>
-							<td th:text="${seller.address}"></td>
-							<td th:text="${seller.contract ? '계약중' : '계약종료'}"></td>
-							<td th:text="${seller.registrationDate}"></td>
+						<tr th:each="member : ${paging.content}">
+							<th scope="row" th:text="${member.memberId}">Member ID</th>
+							<td th:text="${member.name}">Name</td>
+							<td th:text="${member.dateOfBirth}">Date of Birth</td>
+							<td th:text="${member.country}">Country</td>
+							<td th:text="${member.contactNumber}">Contact Number</td>
+							<td th:text="${member.email}">Email</td>
+							<td th:text="${member.address}">Address</td>
+							<td th:text="${member.gender}">Gender</td>
+							<td th:text="${member.joinDate}">Join Date</td>
 						</tr>
 					</tbody>
 				</table>
