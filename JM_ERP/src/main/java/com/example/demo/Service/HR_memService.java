@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
+import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Repository.HR_deptRepository;
 import com.example.demo.Repository.HR_memRepository;
@@ -22,15 +23,10 @@ public class HR_memService {
 	
 	private final HR_memRepository memRepository;
 	private final HR_deptRepository deptRepository;
-	
+
 // HR_mem 전체 리스트 출력
 	public List<HR_mem> getList() {
 		return this.memRepository.findAll();
-	}
-	
-// HR_dept 전체 리스트 출력
-	public List<HR_dept> getdeptList() {
-		return this.deptRepository.findAll();
 	}
 	
 // 사원번호 자동 생성
@@ -84,4 +80,7 @@ public class HR_memService {
 		};
 		return memRepository.findAll(spec);
 	}
+	
+
+
 }
