@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,21 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AC_BondDebtController {
 	//채무,채권을 관리하는 웹사이트
+	
+	@Autowired
 	private final AC_bondService bondService;
+	
+	@Autowired
 	private final AC_debtService debtService;
+	
+    @GetMapping("/bond_debt")
+    public String List(Model model) {
+        List<AC_bond> bonds = this.bondService.getList();
+        List<AC_debt> debts = this.debtService.getList();
+        model.addAttribute("bonds", bonds);
+        model.addAttribute("debts", debts);
+        return "bond_debt";
+    }
 	
     @GetMapping("/bond")
     public String bondList(Model model) {
@@ -89,5 +103,17 @@ public class AC_BondDebtController {
     			balance, maturityDate, description);
     	
     	return "debt_regi";
+    }
+    
+    @GetMapping("/bond_update")
+    public String bondUpdateForm() {
+    	
+    	return "bond_update";
+    }
+    
+    @GetMapping("/debt_update")
+    public String debtUpdateForm() {
+    	
+    	return "debt_update";
     }
 }

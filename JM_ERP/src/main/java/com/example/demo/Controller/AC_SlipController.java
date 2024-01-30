@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,11 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AC_SlipController {
 	//전표관리를 당담하는 웹사이트
+	
+	@Autowired
 	private final AC_saleSlipService saleSlipService;
+	
+	@Autowired
 	private final AC_purchaseSlipService purchaseSlipService;
 	
     @GetMapping("/saleslip")

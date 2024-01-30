@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채무 등록</title>
+    <title>채권 수정</title>
     
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 </head>
 <body>
-    <h2>채무 등록</h2>
-    <form th:action="@{/debt_regi}" method="post">
+    <h2>채권 수정</h2>
+    <form th:action="@{/bond_update}" method="post">
 
-        <label for="trader">거래자:</label>
-        <input type="text" id="trader" name="trader" required><br>
+		<label for="type">증감 구분:</label>
+		<select id="type" name="type" required>
+		    <option value="" selected>선택하세요</option>
+		    <option value="추가">추가</option>
+		    <option value="할인">할인</option>
+		</select><br>
 
         <label for="amount">금액:</label>
         <input type="number" id="amount" name="amount" required><br>
 
-        <label for="maturityDate">만기일:</label>
+        <label for="maturityDate">만기일 변경:</label>
         <input type="date" id="maturityDate" name="maturityDate" required><br>
         
         <script>
@@ -34,9 +38,6 @@
 		    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
 		    document.getElementById('maturityDate').min = getTodayDate();
 		</script>
-
-        <label for="description">적요:</label>
-        <input type="text" id="description" name="description" required><br>
 
         <input type="submit" value="등록">
     </form>
