@@ -1,0 +1,38 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+	<div class="my-3 border-bottom">
+		<div>
+			<h4>부서 등록</h4>
+		</div>
+	</div>
+	<form th:action="@{/HR/dept/create}" th:object="${HR_deptCreateForm}" method="post">
+		<div class="mb-3">
+			<label for="deptName" class="form-label">추가할 부서의 이름</label>
+			<input type="text" th:field="*{deptName}" class="form-control">
+		</div>
+		<button type="submit" class="btn btn-primary">부서 추가</button>
+	</form>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>부서명</th>
+            <th>부서코드</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="dept : ${deptList}">
+            <td th:text="${dept.deptName}"></td>
+            <td th:text="${dept.deptCode}"></td>
+            <td>
+				<a th:href="@{/HR/dept/update(deptCode=${dept.deptCode})}" class="btn btn-primary">수정</a>
+			</td>
+			<td>
+				<a th:href="@{/HR/dept/delete(deptCode=${dept.deptCode})}" class="btn btn-primary">삭제</a>
+			</td>
+        </tr>
+    </tbody>
+</table>
+
+
+</html>
