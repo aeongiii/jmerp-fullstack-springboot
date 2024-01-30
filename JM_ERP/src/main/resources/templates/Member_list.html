@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/member/list -->
+
+<head>
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+
+		<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{arcodian :: arcodianFragment}"></div>
+			</div>
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
+				</div>
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>ID</th>
+							<th>Name</th>
+							<th>Date of Birth</th>
+							<th>Country</th>
+							<th>Contact Number</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th>Gender</th>
+							<th>Join Date</th>
+
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="member : ${paging.content}">
+							<th scope="row" th:text="${member.memberId}">Member ID</th>
+							<td th:text="${member.name}">Name</td>
+							<td th:text="${member.dateOfBirth}">Date of Birth</td>
+							<td th:text="${member.country}">Country</td>
+							<td th:text="${member.contactNumber}">Contact Number</td>
+							<td th:text="${member.email}">Email</td>
+							<td th:text="${member.address}">Address</td>
+							<td th:text="${member.gender}">Gender</td>
+							<td th:text="${member.joinDate}">Join Date</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{botton::bottonFragment}"></div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

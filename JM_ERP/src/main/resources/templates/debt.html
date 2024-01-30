@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채무 조회</title>
+</head>
+<body>
+    <h1>채무 정보</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>채무 번호</th>
+                <th>발생 일자</th>
+                <th>거래처</th>
+                <th>최초 금액</th>
+                <th>증감구분</th>
+                <th>남은 금액</th>
+                <th>만기 일자</th>
+                <th>적요</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- for each 문 -->
+            <tr th:each="debt : ${debts}">
+                <!-- 화면에 띄울 정보 -->
+                <td th:text="${debt.debtNumber}"></td>
+                <td th:text="${debt.date}"></td>
+                <td th:text="${debt.trader}"></td>
+                <td th:text="${debt.amount}"></td>
+                <td th:text="${debt.increaseDecreaseType}"></td>
+                <td th:text="${debt.balance}"></td>
+                <td th:text="${debt.maturityDate}"></td>
+                <td th:text="${debt.description}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

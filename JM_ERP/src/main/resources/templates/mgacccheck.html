@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AccountCheck</title>
+    <link href="style.css">
+</head>
+<body>
+    <h2>거래처 조회</h2>
+    <div>
+        <table>
+            <tr>
+                <th>사업자 번호</th>
+                <th>거래처 이름</th>
+                <th>연락처</th>
+                <th>거래처 담당자</th>
+                
+            </tr>
+            <tr th:each="mgaccheck : ${mgch}">
+                <td th:text="${mgch.accCode}"></td>
+                <td th:text="${mgch.accName}"></td>
+                <td th:text="${mgch.accNum}"></td>
+                <td th:text="${mgch.accMg}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

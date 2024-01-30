@@ -3,12 +3,19 @@ package com.example.demo.Entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class PD_RS {
-	@Id @GeneratedValue
-	private String id;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Column(name="rel_num")
 	private String relNum;
@@ -22,19 +29,14 @@ public class PD_RS {
 	@Column(name="s_to")
 	private String sTO;
 	
-	@Column(name="prod_name")
-	private String prodName;
+	@ManyToOne
+	@JoinColumn(name="prod_code")
+	private PD_BOM prodCode;
 	
 	@Column(name="num")
 	private Integer num;
 	
 	@Column(name="prod_Cost")
 	private Integer prodCost;
-	
-	@Column(name="out_src_cost")
-	private Integer outSrcCost;
-	
-	@Column(name="out_src_tot")
-	private Integer outSrcTot;	
 	
 }
