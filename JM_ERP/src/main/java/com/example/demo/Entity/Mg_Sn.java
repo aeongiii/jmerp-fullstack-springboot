@@ -25,4 +25,7 @@ public class Mg_Sn {
 
 	@Column
 	private LocalDate snDate;
+	
+	@Column
+	private String item_name;
 }
