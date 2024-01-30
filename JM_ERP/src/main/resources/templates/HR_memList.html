@@ -1,28 +1,81 @@
-<table>
-    <thead>
-        <tr>
-            <th>입사일자</th>
-            <th>사원번호</th>
-            <th>이름</th>
-            <th>부서명</th>
-            <th>직급명</th>
-            <th>Email</th>
-            <th>계좌번호</th>
-            <th>기본급여</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr th:each="mem : ${memList}">
-            <td th:text="${mem.startDate}"></td>
-            <td th:text="${mem.employeeId}"></td>
-            <td>
-				<a th:href ="@{|/HR/list/${mem.employeeId}|}" th:text="${mem.name}"></a>
-			</td> 
-            <td th:text="${mem.deptName}"></td>
-            <td th:text="${mem.position}"></td>
-            <td th:text="${mem.email}"></td>
-            <td th:text="${mem.bankNum}"></td>
-            <td th:text="${mem.regularPay}"></td>
-        </tr>
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/HR/mem/list -->
+
+<head>
+	<title>사원 현황</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>입사일자</th>
+							<th>사원번호</th>
+							<th>이름</th>
+							<th>부서명</th>
+							<th>직급명</th>
+							<th>Email</th>
+							<th>계좌번호</th>
+							<th>기본급여</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="mem : ${memList}">
+							<td th:text="${mem.startDate}"></td>
+							<td th:text="${mem.employeeId}"></td>
+							<td>
+								<a th:href="@{|/HR/list/${mem.employeeId}|}" th:text="${mem.name}"></a>
+							</td>
+							<td th:text="${mem.deptName}"></td>
+							<td th:text="${mem.position}"></td>
+							<td th:text="${mem.email}"></td>
+							<td th:text="${mem.bankNum}"></td>
+							<td th:text="${mem.regularPay}"></td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{botton::bottonFragment}"></div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
