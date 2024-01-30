@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class SlipController {
+public class AC_SlipController {
 	//전표관리를 당담하는 웹사이트
 	private final AC_saleSlipService saleSlipService;
 	private final AC_purchaseSlipService purchaseSlipService;

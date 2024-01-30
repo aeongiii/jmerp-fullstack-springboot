@@ -1,7 +1,5 @@
 package com.example.demo.Entity;
 
-
-
 import javax.validation.constraints.Pattern;
 
 import jakarta.persistence.Column;
@@ -25,7 +23,4 @@ public class Mg_AccountMG_Entity {
 	@Column
 	private String accountManager;
 	//거래처 담당자 명
-	}
-
-
-
+}
