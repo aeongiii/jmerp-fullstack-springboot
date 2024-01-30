@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
+
 @Getter
 @Setter
 @Entity
@@ -28,6 +29,4 @@ public class Mg_AccountMG_Entity {
 	@Column
 	private String accountManager;
 	//거래처 담당자 명
-	}
-
-
+}

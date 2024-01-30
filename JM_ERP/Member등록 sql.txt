@@ -1,0 +1,43 @@
+INSERT INTO Member (member_id, name, date_of_birth, country, contact_number, email, address, gender, join_date) VALUES
+('kimminjun123', '김민준', '1990-01-01', 'Korea', '010-1234-5678', 'minjun.kim@example.com', '서울시 강남구', 'Male', '2020-01-01'),
+('leeseoyeon234', '이서연', '1985-02-02', 'Korea', '010-1234-5679', 'seoyeon.lee@example.com', '서울시 서초구', 'Female', '2020-02-01'),
+('parkdoyun345', '박도윤', '1992-03-03', 'Korea', '010-1234-5680', 'doyun.park@example.com', '부산시 해운대구', 'Male', '2020-03-01'),
+('choihaeun456', '최하은', '1988-04-04', 'Korea', '010-1234-5681', 'haeun.choi@example.com', '대구시 중구', 'Female', '2020-04-01'),
+('jungjiho567', '정지호', '1991-05-05', 'Korea', '010-1234-5682', 'jiho.jung@example.com', '인천시 연수구', 'Male', '2020-05-01'),
+('kangsoyul678', '강소율', '1993-06-06', 'Korea', '010-1234-5683', 'soyul.kang@example.com', '광주시 서구', 'Female', '2020-06-01'),
+('yoonhajun789', '윤하준', '1989-07-07', 'Korea', '010-1234-5684', 'hajun.yoon@example.com', '대전시 동구', 'Male', '2020-07-01'),
+('limyuna890', '임유나', '1994-08-08', 'Korea', '010-1234-5685', 'yuna.lim@example.com', '울산시 남구', 'Female', '2020-08-01'),
+('sonminseo901', '손민서', '1987-09-09', 'Korea', '010-1234-5686', 'minseo.son@example.com', '경기도 수원시', 'Female', '2020-09-01'),
+('nohjunhyuk012', '노준혁', '1995-10-10', 'Korea', '010-1234-5687', 'junhyuk.noh@example.com', '충청북도 청주시', 'Male', '2020-10-01'),
+('hwangseoah123', '황서아', '1986-11-11', 'Korea', '010-1234-5688', 'seoah.hwang@example.com', '전라남도 여수시', 'Female', '2020-11-01'),
+('ohsiwoo234', '오시우', '1996-12-12', 'Korea', '010-1234-5689', 'siwoo.oh@example.com', '경상북도 포항시', 'Male', '2020-12-01'),
+('kwonhayul345', '권하율', '1984-01-13', 'Korea', '010-1234-5690', 'hayul.kwon@example.com', '제주도 제주시', 'Female', '2021-01-01'),
+('kimtaewoo456', '김태우', '1997-02-14', 'Korea', '010-1234-5691', 'taewoo.kim@example.com', '서울시 강서구', 'Male', '2021-02-01'),
+('leejian567', '이지안', '1983-03-15', 'Korea', '010-1234-5692', 'jian.lee@example.com', '서울시 동대문구', 'Female', '2021-03-01'),
+('parkyejun678', '박예준', '1998-04-16', 'Korea', '010-1234-5693', 'yejun.park@example.com', '부산시 사하구', 'Male', '2021-04-01'),
+('choiseowoo789', '최서우', '1982-05-17', 'Korea', '010-1234-5694', 'seowoo.choi@example.com', '대구시 수성구', 'Female', '2021-05-01'),
+('junghajin890', '정하진', '1999-06-18', 'Korea', '010-1234-5695', 'hajin.jung@example.com', '인천시 부평구', 'Male', '2021-06-01'),
+('kangjia901', '강지아', '1981-07-19', 'Korea', '010-1234-5696', 'jia.kang@example.com', '광주시 남구', 'Female', '2021-07-01'),
+('yoondoyun012', '윤도윤', '2000-08-20', 'Korea', '010-1234-5697', 'doyun.yoon@example.com', '대전시 서구', 'Male', '2021-08-01');
+
+----Membership 0 초기화---------------------------------------------------------------------------------------------------------------------
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'choihaeun456');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'choiseowoo789');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'hwangseoah123');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'junghajin890');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'jungjiho567');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'kangjia901');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'kangsoyul678');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'kimminjun123');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'kimtaewoo456');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'kwonhayul345');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'leejian567');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'leeseoyeon234');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'limyuna890');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'nohjunhyuk012');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'ohsiwoo234');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'parkdoyun345');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'parkyejun678');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'sonminseo901');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'yoondoyun012');
+UPDATE `testsever`.`member` SET `membership` = 0 WHERE (`member_id` = 'yoonhajun789');

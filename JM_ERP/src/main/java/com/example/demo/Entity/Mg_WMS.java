@@ -18,6 +18,9 @@ public class Mg_WMS {
 	// 순서 저장pk
 
 	@Column
+	private Integer Id;
+	
+	@Column
 	private String wareName;
 	// 창고명
 	
