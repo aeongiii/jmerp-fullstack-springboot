@@ -25,11 +25,6 @@ public class PD_Controller {
 		return "bom_list";
 	}
 	
-	@GetMapping("/")
-	public String root() {
-		return "index";
-	}
-	
 	@GetMapping(value = "/list/bom/{ProdCode}")
 	public String bom(Model model, @PathVariable("ProdCode") String prodCode) {
 		List<PD_BOM> item = this.bomservice.getItem(prodCode);
