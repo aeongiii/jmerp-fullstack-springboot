@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/SD/member")
 public class SD_MemberController {
 	
 	@Autowired
@@ -54,7 +54,7 @@ public class SD_MemberController {
 		
 		Page<SD_Member> paging = memberService.searchMember(page);
 		model.addAttribute("paging", paging);
-		return "Member_list";
+		return "SD_Member_list";
 	}
 	
 	@GetMapping("/purchase")
@@ -64,7 +64,7 @@ public class SD_MemberController {
 		
 		Page<SD_Purchase> paging = memberService.searchPurchase(page);
 		model.addAttribute("paging", paging);
-		return "Purchase_list";
+		return "SD_Purchase_list";
 	}
 
 	

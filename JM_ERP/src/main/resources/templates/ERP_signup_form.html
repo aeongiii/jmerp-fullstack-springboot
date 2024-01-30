@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+	<!-- http://localhost:8080/user/signup-->
 <head>
 	<title>Sign Up</title>
 	<meta charset="UTF-8">
@@ -15,7 +15,7 @@
 	<br>
 	<br>
 
-	<form th:action="@{/signup}" th:object="${user}" method="post">
+	<form th:action="@{/user/signup}" th:object="${signupForm}" method="post">
 		<div class="container">
 			<div class="form-group">
 				<label for="userId">User ID</label>
@@ -31,8 +31,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="name">사원번호</label>
-				<input type="text" th:field="*{HR_mem.employeeId}" class="form-control" id="name" placeholder="사원번호 입력">
+				<label for="employeeId">사원번호</label>
+				<input  type="text" th:field="*{employeeId}" class="form-control" id="employeeId" name ="employeeId" placeholder="사원번호 입력">
 			</div>
 		</div>
 		<br>

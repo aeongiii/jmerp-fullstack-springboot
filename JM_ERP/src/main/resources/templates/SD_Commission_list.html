@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/product/regshop -->
+<!-- http://localhost:8080/seller/sellercommission -->
 
 <head>
 	<title>Seller List</title>
@@ -21,7 +21,7 @@
 
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{arcodian :: arcodianFragment}"></div>
+				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
 			</div>
 
 
@@ -40,33 +40,20 @@
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-active">
-							<th>Product ID</th>
-							<th>Product Type</th>
-							<th>Product Name</th>
-							<th>Price</th>
-							<th>Registration Date</th>
-							<th>Image</th>
-							<th>Category</th>
+							<th>ID</th>
 							<th>Seller ID</th>
+							<th>Total Sales</th>
+							<th>Paid Commission</th>
 						</tr>
 					</thead>
-
 					<tbody>
-						<tr th:each="product : ${paging.content}">
-							<td th:text="${product.id}">Product ID</td>
-							<td th:text="${product.productType}">Product Type</td>
-							<td th:text="${product.productName}">Product Name</td>
-							<td th:text="${#numbers.formatInteger(product.price, 0)}">Price</td>
-							<td
-								th:text="${product.registrationDate.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd'))}">
-								Registration Date</td>
-							<td>
-								<img th:if="${product.imageFile}" th:src="@{${product.imageFile}}" alt="Product Image"
-									height="100" width="100" />
-								<span th:unless="${product.imageFile}">No Image</span>
-							</td>
-							<td th:text="${product.category}">Category</td>
-							<td th:text="${product.seller.sellerId}">Seller ID</td>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="commission : ${paging.content}" >
+							<th scope="row" th:text="${commission.num}">ID</th>
+							<!-- Seller 엔티티로부터 Seller ID 추출 -->
+							<td th:text="${commission.seller.sellerId}">Seller ID</td>
+							<td th:text="${commission.totalSales}">Total Sales</td>
+							<td th:text="${commission.paidCommission}">Paid Commission</td>
 						</tr>
 					</tbody>
 				</table>

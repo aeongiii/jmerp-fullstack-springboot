@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class SD_PurchaseService {
+public class PC_PurchaseService {
 
 	private final PC_OrderSheetRepository orderSheetRepository;
 	private final PC_PurchaseInquiryRepository purchaseInquiryRepository;

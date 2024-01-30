@@ -17,7 +17,7 @@ import com.example.demo.Service.SD_SellerService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-@RequestMapping("/seller")
+@RequestMapping("SD/seller")
 @Controller
 public class SD_SellerController {
 	
@@ -31,7 +31,7 @@ public class SD_SellerController {
 		
 		Page<SD_Seller> paging = sellerService.searchAll(page);
 		model.addAttribute("paging", paging);
-		return "Seller_list";
+		return "SD_Seller_list";
 	}
 	
 	@GetMapping("/sellercommission")
@@ -41,7 +41,7 @@ public class SD_SellerController {
 		
 		Page<SD_SellerCommission> paging = sellerService.searchCommssion(page);
 		model.addAttribute("paging", paging);
-		return "Commission_list";
+		return "SD_Commission_list";
 	}
 	
 	@GetMapping("/commissionrate")
@@ -51,7 +51,7 @@ public class SD_SellerController {
 		
 		Page<SD_CommissionRate> paging = sellerService.searchCommssionRate(page);
 		model.addAttribute("paging", paging);
-		return "CommissionRate_list";
+		return "SD_CommissionRate_list";
 	}
 	
 	@GetMapping("/sales")
@@ -61,7 +61,7 @@ public class SD_SellerController {
 		
 		Page<SD_Sales> paging = sellerService.searchSales(page);
 		model.addAttribute("paging", paging);
-		return "Sales_list";
+		return "SD_Sales_list";
 	}
 	
 	

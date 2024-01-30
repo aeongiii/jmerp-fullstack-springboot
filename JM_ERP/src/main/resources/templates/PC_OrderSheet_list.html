@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/member/list -->
+<!-- http://localhost:8080/purchase/ordersheet -->
 
 <head>
 	<title>Seller List</title>
@@ -19,10 +19,11 @@
 	<div class="container-fluid">
 		<div class="row">
 
-		<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{arcodian :: arcodianFragment}"></div>
+			<div th:replace="~{PC_arcodian :: PC_arcodianFragment}"></div>
 			</div>
+
 
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -40,30 +41,28 @@
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-active">
-							<th>ID</th>
-							<th>Name</th>
-							<th>Date of Birth</th>
-							<th>Country</th>
-							<th>Contact Number</th>
-							<th>Email</th>
-							<th>Address</th>
-							<th>Gender</th>
-							<th>Join Date</th>
-
+							<th>Order Number</th>
+							<th>Client Name</th>
+							<th>Contact Person</th>
+							<th>Item</th>
+							<th>Delivery Date</th>
+							<th>Amount</th>
+							<th>Completion Status</th>
+							<th>Progress Status</th>
+							<th>Project Name</th>
 						</tr>
 					</thead>
-
 					<tbody>
-						<tr th:each="member : ${paging.content}">
-							<th scope="row" th:text="${member.memberId}">Member ID</th>
-							<td th:text="${member.name}">Name</td>
-							<td th:text="${member.dateOfBirth}">Date of Birth</td>
-							<td th:text="${member.country}">Country</td>
-							<td th:text="${member.contactNumber}">Contact Number</td>
-							<td th:text="${member.email}">Email</td>
-							<td th:text="${member.address}">Address</td>
-							<td th:text="${member.gender}">Gender</td>
-							<td th:text="${member.joinDate}">Join Date</td>
+						<tr th:each="orderSheet : ${paging.content}">
+							<th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
+							<td th:text="${orderSheet.clientName}">Client Name</td>
+							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
+							<td th:text="${orderSheet.item}">Item</td>
+							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
+							<td th:text="${orderSheet.amount}">Amount</td>
+							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
+							<td th:text="${orderSheet.progressStatus}">Progress Status</td>
+							<td th:text="${orderSheet.projectName}">Project Name</td>
 						</tr>
 					</tbody>
 				</table>

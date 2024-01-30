@@ -1,20 +1,22 @@
 package com.example.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.Entity.ERP_user;
-import com.example.demo.Entity.HR_mem;
 import com.example.demo.Service.ERP_UserService;
+import com.example.demo.security.ERP_signUpForm;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/user")
 public class ERP_Controller {
 
 	@Autowired
@@ -22,25 +24,39 @@ public class ERP_Controller {
 
 	@GetMapping("/signup")
 	public String signupForm(Model model) {
-		ERP_user user = new ERP_user();
-		user.setHR_mem(new HR_mem());
-		model.addAttribute("user", user);
-		
+		model.addAttribute("signupForm", new ERP_signUpForm());
+
 		return "ERP_signup_form";
 	}
 
+	// BindingResult bindingResult 사용 가능성 검토
 	@PostMapping("/signup")
-	public String ERP_signup(@RequestParam("userId") String userId, @RequestParam("password") String password,
-			@RequestParam("name") String name, @RequestParam("employeeId") String employeeId) {
-		
-		boolean exists = erp_UserService.create(userId, password, name, employeeId);
-		
-		if (exists) {
-			return "Complete_signup";
-		} else {
-			return "Fail_signup";
+	public String ERP_signup(@ModelAttribute ERP_signUpForm signupForm, Model model) {
 
+		try {
+			boolean exists = erp_UserService.create(signupForm.getUserId(), signupForm.getPassword(),
+					signupForm.getName(), signupForm.getEmployeeId());
+
+			if (exists) {
+				return "redirect:/user/login";
+
+			} else {
+				return "ERP_Fail_signup";
+
+			}
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			model.addAttribute("signupForm", new ERP_signUpForm());
+			return "ERP_signup_form";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("signupForm", new ERP_signUpForm());
+			return "ERP_signup_form";
 		}
 	}
 
+	@GetMapping("/login")
+	public String login() {
+		return "ERP_login";
+	}
 }

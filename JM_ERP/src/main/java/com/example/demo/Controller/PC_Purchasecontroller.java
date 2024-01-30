@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.PC_OrderSheet;
 import com.example.demo.Entity.PC_PurchaseInquiry;
-import com.example.demo.Service.SD_PurchaseService;
+import com.example.demo.Service.PC_PurchaseService;
 
 import jakarta.servlet.http.HttpServletRequest;
-@RequestMapping("/purchase")
+@RequestMapping("/PC/purchase")
 @Controller
-public class SD_Purchasecontroller {
+public class PC_Purchasecontroller {
 	
 	
 	@Autowired
-	private SD_PurchaseService purchaseservice; 
+	private PC_PurchaseService purchaseservice; 
 	
 	
 
@@ -31,7 +31,7 @@ public class SD_Purchasecontroller {
 		
 		Page<PC_OrderSheet> paging = purchaseservice.searchOrderSheet(page);
 		model.addAttribute("paging", paging);
-		return "OrderSheet_list";
+		return "PC_OrderSheet_list";
 	}
 	
 	@GetMapping("/purchaseinquiry")
@@ -41,7 +41,7 @@ public class SD_Purchasecontroller {
 		
 		Page<PC_PurchaseInquiry> paging = purchaseservice.searchPurchaseInquiry(page);
 		model.addAttribute("paging", paging);
-		return "PurchaseInquiry_list";
+		return "PC_PurchaseInquiry_list";
 	}
 	
 	
