@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "AC_month")
 @Getter
 @Setter
-public class AC_month {
+public class AC_Month {
 
     @Id
     private String monthId; // 년/월 (예: "202401")

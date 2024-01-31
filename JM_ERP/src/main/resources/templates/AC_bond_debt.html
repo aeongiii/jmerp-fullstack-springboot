@@ -63,6 +63,10 @@
 				        </tbody>
 				    </table>
                     <!-- 데이터 테이블 끝-->
+	                <!-- 페이징 프라그먼트 -->
+					<div th:replace="~{paging::pagingFragment(paging=${bonds})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{botton::bottonFragment}"></div>
                 </div> <!-- 옵션 1일 때 리스트 -->
                 
                 <!-- 옵션 2일때 시작 -->
@@ -97,6 +101,10 @@
 				        </tbody>
 				    </table>
                     <!-- 데이터 테이블 끝-->
+                   	<!-- 페이징 프라그먼트 -->
+					<div th:replace="~{paging::pagingFragment(paging=${debts})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{botton::bottonFragment}"></div>
                 </div> <!-- 옵션 2일 때 리스트 -->
             </div> <!-- 테이블 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->

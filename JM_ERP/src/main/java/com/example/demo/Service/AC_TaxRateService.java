@@ -2,13 +2,13 @@ package com.example.demo.Service;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Repository.AC_taxRateRepository;
+import com.example.demo.Repository.AC_TaxRateRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class AC_taxRateService {
+public class AC_TaxRateService {
 	
-	private final AC_taxRateRepository taxRateRepository;
+	private final AC_TaxRateRepository taxRateRepository;
 }

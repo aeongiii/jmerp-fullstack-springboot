@@ -4,19 +4,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.AC_debt;
-import com.example.demo.Repository.AC_debtRepository;
+import com.example.demo.Entity.AC_Debt;
+import com.example.demo.Repository.AC_DebtRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class AC_debtService {
-	private final AC_debtRepository debtRepository;
+public class AC_DebtService {
+	private final AC_DebtRepository debtRepository;
 	
-    public List<AC_debt> getList() {
+    public List<AC_Debt> getList() {
         return this.debtRepository.findAll();
     }
     
@@ -29,7 +32,7 @@ public class AC_debtService {
     		LocalDate maturityDate,
     		String description) {
     	
-    	AC_debt debt = new AC_debt();
+    	AC_Debt debt = new AC_Debt();
     	
     	debt.setDebtNumber(debtNumber);
     	debt.setDate(date);
@@ -54,5 +57,10 @@ public class AC_debtService {
         }
 
         return String.format("%sD%03d", year, number);
+    }
+    
+    public Page<AC_Debt> getList(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.debtRepository.findAll(pageable);
     }
 }

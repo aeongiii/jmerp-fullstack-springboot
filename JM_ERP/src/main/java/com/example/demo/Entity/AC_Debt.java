@@ -9,15 +9,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "AC_bond")
+@Table(name = "AC_debt")
 @Getter
 @Setter
-public class AC_bond {
+public class AC_Debt {
 
     @Id
-    private String bondNumber; // 채권 번호를 id로 사용
+    private String debtNumber; // 채무 번호를 id로 사용
 
-    private LocalDate date; // 채권 생성 날자
+    private LocalDate date; // 채무 생성 날자
     private String trader;
     private Double amount; //(빌리거나 빌려준 돈의 최초 금액)
     private Double increaseDecreaseType; //(빚의 추가 및 할인)
@@ -27,3 +27,4 @@ public class AC_bond {
 
     // 생성자, 필요한 메소드는 롬복이 자동으로 생성해주므로 생략
 }
+

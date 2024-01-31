@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.demo.Entity.AC_month;
-import com.example.demo.Service.AC_monthService;
+import com.example.demo.Entity.AC_Month;
+import com.example.demo.Service.AC_MonthService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,12 +18,12 @@ public class AC_MonthController {
 	//월소득 관리 기능을 담당하는 웹사이트
 	
 	@Autowired
-	private final AC_monthService monthService;
+	private final AC_MonthService monthService;
 	
     @GetMapping("/month")
     public String monthList(Model model) {
-        List<AC_month> monthIncome = this.monthService.getList();
+        List<AC_Month> monthIncome = this.monthService.getList();
         model.addAttribute("monthIncome", monthIncome);
-        return "month";
+        return "AC_month";
     }
 }

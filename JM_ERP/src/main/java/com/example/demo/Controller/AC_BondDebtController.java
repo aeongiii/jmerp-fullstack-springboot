@@ -1,20 +1,21 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.AC_bond;
-import com.example.demo.Entity.AC_debt;
-import com.example.demo.Service.AC_bondService;
-import com.example.demo.Service.AC_debtService;
+import com.example.demo.Entity.AC_Bond;
+import com.example.demo.Entity.AC_Debt;
+import com.example.demo.Service.AC_BondService;
+import com.example.demo.Service.AC_DebtService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -23,38 +24,28 @@ public class AC_BondDebtController {
 	//채무,채권을 관리하는 웹사이트
 	
 	@Autowired
-	private final AC_bondService bondService;
+	private final AC_BondService bondService;
 	
 	@Autowired
-	private final AC_debtService debtService;
+	private final AC_DebtService debtService;
 	
     @GetMapping("/bond_debt")
-    public String List(Model model) {
-        List<AC_bond> bonds = this.bondService.getList();
-        List<AC_debt> debts = this.debtService.getList();
+    public String List(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+        
+    	String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+    	Page<AC_Bond> bonds = this.bondService.getList(page);
+        Page<AC_Debt> debts = this.debtService.getList(page);
         model.addAttribute("bonds", bonds);
         model.addAttribute("debts", debts);
-        return "bond_debt";
-    }
-	
-    @GetMapping("/bond")
-    public String bondList(Model model) {
-        List<AC_bond> bonds = this.bondService.getList();
-        model.addAttribute("bonds", bonds);
-        return "bond";
-    }
-    
-    @GetMapping("/debt")
-    public String debtList(Model model) {
-        List<AC_debt> debts = this.debtService.getList();
-        model.addAttribute("debts", debts);
-        return "debt";
+        return "AC_bond_debt";
     }
     
     @GetMapping("/bond_regi")
     public String bondRegiForm() {
     	
-    	return "bond_regi";
+    	return "AC_bond_regi";
     }
     
     @PostMapping("/bond_regi")
@@ -75,13 +66,13 @@ public class AC_BondDebtController {
     	this.bondService.regi(bondNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "bond_regi";
+    	return "AC_bond_regi";
     }
     
     @GetMapping("/debt_regi")
     public String debtRegiForm() {
     	
-    	return "debt_regi";
+    	return "AC_debt_regi";
     }
     
     @PostMapping("/debt_regi")
@@ -102,18 +93,18 @@ public class AC_BondDebtController {
     	this.debtService.regi(debtNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "debt_regi";
+    	return "AC_debt_regi";
     }
     
     @GetMapping("/bond_update")
     public String bondUpdateForm() {
     	
-    	return "bond_update";
+    	return "AC_bond_update";
     }
     
     @GetMapping("/debt_update")
     public String debtUpdateForm() {
     	
-    	return "debt_update";
+    	return "AC_debt_update";
     }
 }

@@ -3,9 +3,9 @@ package com.example.demo.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Entity.AC_purchaseSlip;
+import com.example.demo.Entity.AC_Month;
 
 @Repository
-public interface AC_purchaseSlipRepository extends JpaRepository<AC_purchaseSlip, String> {
+public interface AC_MonthRepository extends JpaRepository<AC_Month, String> {
 
 }
