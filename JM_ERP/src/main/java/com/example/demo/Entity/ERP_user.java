@@ -13,6 +13,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+
 public class ERP_user {
 
     @Id

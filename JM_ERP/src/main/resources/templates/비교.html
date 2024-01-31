@@ -1,0 +1,62 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<form th:action="@{/user/mailsend}" method="post">
+ <div class="container">
+    <div class="form-group">
+      <label for="reciveUser" class="form-label mt-4">받는 사람</label>
+      <input type="text" class="form-control" id="reciveUser" aria-describedby="emailHelp" name="reciveUser" placeholder="받는 사람 입력하세요" required >
+    </div>
+    
+       <div class="form-group">
+      <label for="subject" class="form-label mt-4">제목</label>
+      <input type="text" class="form-control" id="subject" aria-describedby="emailHelp" name="subject" placeholder="제목 입력하세요" required>
+    </div>
+    
+   
+   
+    <div class="form-group">
+      <label for="content" class="form-label mt-4">내용을 입력하세요</label>
+      <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="image" class="form-label mt-4">Image URL:</label>
+      <input type="text" class="form-control" id="image" aria-describedby="emailHelp" name="image" placeholder="Image URL">
+    </div>
+    
+        <div class="form-group">
+      <label for="mediaFile" class="form-label mt-4">Media File URL:</label>
+      <input type="text" class="form-control" id="mediaFile" aria-describedby="emailHelp" name="mediaFile" placeholder="Media File URL">
+    </div>
+    
+    
+    
+    <div class="form-group">
+      <label for="formFile" class="form-label mt-4">Default file input example</label>
+      <input class="form-control" type="file" id="formFile">
+    </div>
+ </div>
+ 
+ 
+  	<div class="container-fluid d-flex justify-content-center align-items-center">
+			
+			<input class="btn btn-primary" type="submit" value="Send Mail">
+			</div>
+  
+
+</form>
+
+	

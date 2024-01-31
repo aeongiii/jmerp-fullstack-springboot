@@ -27,6 +27,7 @@ public class SecurityConfig {
 								"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"))
 						.permitAll()
 						.requestMatchers(new AntPathRequestMatcher("/")).authenticated()
+						.requestMatchers(new AntPathRequestMatcher("/user/**")).authenticated()
 						// 전체 공개
 
 						.requestMatchers(new AntPathRequestMatcher("/PC/**")).hasAnyAuthority("ROLE_구매")
