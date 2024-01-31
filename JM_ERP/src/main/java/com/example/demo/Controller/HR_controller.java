@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
+import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +52,7 @@ public class HR_controller {
 		String employeeId = memService.createEmployeeId(memCreateForm.getDeptName(), memCreateForm.getStartDate());
 		memCreateForm.setEmployeeId(employeeId); // 사원 번호를 폼 객체에 설정
 		memService.save(memCreateForm); // 사원 정보 저장
-		return "redirect:/HR/mem";
+		return "redirect:/HR/mem/list";
 	}
 
 	@GetMapping("/mem/search") // 매개변수가 선택적임
@@ -62,11 +65,16 @@ public class HR_controller {
 	}
 	
 	@GetMapping("/mem/list")
-	public String list(Model model) {
-		List<HR_mem> memList = this.memService.getList();
-		model.addAttribute("memList", memList);
+	public String list(Model model, @RequestParam(value="page",defaultValue ="0") int page, HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR_memList";
 	}
+	
 	
 // ========================================= 2. 부서 =============================================
 

@@ -45,9 +45,7 @@
 						<tr th:each="mem : ${memList}">
 							<td th:text="${mem.startDate}"></td>
 							<td th:text="${mem.employeeId}"></td>
-							<td>
-								<a th:href="@{|/HR/list/${mem.employeeId}|}" th:text="${mem.name}"></a>
-							</td>
+							<td th:text="${mem.name}"></td>
 							<td th:text="${mem.deptName}"></td>
 							<td th:text="${mem.position}"></td>
 							<td th:text="${mem.email}"></td>
@@ -59,9 +57,9 @@
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{botton::bottonFragment}"></div>
+				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
