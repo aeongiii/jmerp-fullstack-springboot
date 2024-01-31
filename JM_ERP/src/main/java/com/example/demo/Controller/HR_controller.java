@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
+import com.example.demo.Entity.HR_work;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
+import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
+import com.example.demo.Service.HR_workService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -31,6 +34,7 @@ public class HR_controller {
 
 	private final HR_memService memService;
 	private final HR_deptService deptService;
+	private final HR_workService workService;
 // ========================================= main =============================================
 	@GetMapping("")
 	public String HR() {
@@ -131,6 +135,19 @@ public class HR_controller {
 	
 // ========================================= 3. 근태관리 =============================================
 
-	
+	@GetMapping("/work/vacation")
+	public String createVacation(Model model) {
+		List<HR_work> workList = workService.getworkList();
+		model.addAttribute("workList", workList);
+		model.addAttribute("HR_vacationCreateForm", new HR_vacationCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		return "HR_vacationCreate";
+	}
+
+	@PostMapping("/work/vacation")
+	public String createvacation(@Valid HR_vacationCreateForm vacationCreateForm, Model model) {
+		
+		workService.save(vacationCreateForm); // 사원 정보 저장
+		return "redirect:/HR/mem/list";
+	}
 }
 
