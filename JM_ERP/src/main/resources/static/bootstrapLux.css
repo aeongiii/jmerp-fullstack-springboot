@@ -3358,6 +3358,7 @@ textarea.form-control-lg {
     .dropdown-menu {
         display: none; /* 기본적으로 숨김 */
         flex-direction: row; /* 가로 방향으로 항목 정렬 */
+        right: 0vw;
     }
 
     /* 마우스 호버 시 드롭다운 메뉴 표시 */

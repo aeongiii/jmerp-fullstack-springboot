@@ -1,11 +1,10 @@
-
 <div class="accordion" id="accordionExample" th:fragment ="accordionFragment">
 	<!-- 아코디언 아이템 1 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingOne">
 			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
 				aria-expanded="true" aria-controls="collapseOne">
-				영업관리
+				BOM
 			</button>
 		</h2>
 		<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
@@ -26,7 +25,7 @@
 		<h2 class="accordion-header" id="headingTwo">
 			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 				data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-				고객관리
+				작업지시서
 			</button>
 		</h2>
 		<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
@@ -46,7 +45,7 @@
 		<h2 class="accordion-header" id="headingThree">
 			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 				data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-				판매자관리
+				작업내역
 			</button>
 		</h2>
 		<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
@@ -69,10 +68,50 @@
 		<h2 class="accordion-header" id="headingFour">
 			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 				data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-				상품관리
+				생산관리
 			</button>
 		</h2>
 		<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/product/regshop">쇼핑몰 상품 등록관리</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/product/pbproduct">PB제품 관리</a>
+				<br>
+				<a class="dropdown-item" href="#">기능 삽입</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 아코디언 아이템 5 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingFive">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+				품질관리
+			</button>
+		</h2>
+		<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/product/regshop">쇼핑몰 상품 등록관리</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/product/pbproduct">PB제품 관리</a>
+				<br>
+				<a class="dropdown-item" href="#">기능 삽입</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 아코디언 아이템 6 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingSix">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+				원가관리
+			</button>
+		</h2>
+		<div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix"
 			data-bs-parent="#accordionExample">
 			<div class="accordion-body">
 				<a class="dropdown-item" href="http://localhost:8080/product/regshop">쇼핑몰 상품 등록관리</a>

@@ -2,33 +2,64 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.PD_BOM;
-import com.example.demo.Service.BOMService;
+import com.example.demo.Form.PD_BOMCreateForm;
+import com.example.demo.Service.PD_BOMService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/PD")
 public class PD_Controller {
 	
-	private final BOMService bomservice;
+	private final PD_BOMService bomservice;
 	
-	@GetMapping("/list")
-	public String list(Model model) {
-		List<PD_BOM> bomlist = this.bomservice.getList();
-		model.addAttribute("bomlist", bomlist);
-		return "bom_list";
+	@GetMapping("/bom")
+	public String list(Model model, @RequestParam(value="page", defaultValue="0") int page, HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+		Page<PD_BOM> paging = bomservice.getList(page);
+		model.addAttribute("paging", paging);
+		return "PD_bom";
 	}
 	
-	@GetMapping(value = "/list/bom/{ProdCode}")
+	@GetMapping(value = "/bom/{ProdCode}")
 	public String bom(Model model, @PathVariable("ProdCode") String prodCode) {
 		List<PD_BOM> item = this.bomservice.getItem(prodCode);
 		model.addAttribute("list_bom",item);
 		return "list_bom";
+	}
+	
+	@GetMapping("/bom/regi")
+	public String regi(PD_BOMCreateForm bomcreateform) {
+		return "PD_BOMregi";
+	}
+	
+	@PostMapping("/bom/regi")
+	public String regi(@Valid PD_BOMCreateForm bomcreateform, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return "PD_BOMregi";
+		}
+		
+		bomservice.create(bomcreateform.getProdCode(), bomcreateform.getProdName(), 
+				bomcreateform.getRawMatNum(), bomcreateform.getUnit(), bomcreateform.getNum(), 
+				bomcreateform.getType(), bomcreateform.getRawNum(), bomcreateform.getWorkTime());
+		
+		
+		return "redirect:/PD/bom";
 	}
 }
