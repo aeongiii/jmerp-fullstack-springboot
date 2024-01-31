@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class HR_deptUpdateForm {
 	@NotEmpty(message = "부서의 새로운 이름을 입력해주세요.")
-	private String deptName;
+	private String newDeptName;
 	
-	private String deptCode;
+	private String oldDeptName;
 }

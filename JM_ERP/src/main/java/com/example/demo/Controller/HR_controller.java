@@ -7,13 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
-import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
@@ -93,39 +93,44 @@ public class HR_controller {
 		}
 		
 		deptService.save2(deptCreateForm.getDeptName());
-		return "redirect:/HR";
+		return "redirect:/HR/dept/create";
 	}
 	
-	//부서 수정 -> 오류 발생.
-//	@GetMapping("/dept/update")
-//	public String update2(@RequestParam("deptCode") String deptCode, Model model) {
-//		HR_dept dept = deptService.findByDeptCode(deptCode);
-//		if(dept !=null) {
-//		HR_deptUpdateForm deptUpdateForm = new HR_deptUpdateForm();
-//		deptUpdateForm.setDeptCode(dept.getDeptCode());
-//		deptUpdateForm.setDeptName(dept.getDeptName());
-//		
-//		model.addAttribute("HR_deptUpdateForm", deptUpdateForm);
-//		}
-//		return "HR_deptUpdate";
-//	}
+//부서 수정 -> 오류 발생.
+	@GetMapping("/dept/update")
+	public String update2(@RequestParam("deptName") String olddeptName, Model model) {
+		HR_dept dept = deptService.findByDeptName(olddeptName);
+		if(dept !=null) {
+		HR_deptUpdateForm deptUpdateForm = new HR_deptUpdateForm();
+		deptUpdateForm.setOldDeptName(dept.getDeptName());
+		
+		model.addAttribute("HR_deptUpdateForm", deptUpdateForm);
+		}
+		return "HR_deptUpdate";
+	}
 	
 	
-//	@PostMapping("/dept/update")
-//	public String update2(@Valid HR_deptUpdateForm deptUpdateForm, BindingResult result, Model model) {
-//		if (result.hasErrors()) {
-//			return "HR_deptUpdate";
-//		}
-//		
-//		deptService.update2(deptUpdateForm.getDeptCode(), deptUpdateForm.getDeptName());
-//		return "redirect:/HR";
-//	}
-	
-	// 부서 삭제 -> 오류 발생.
-//	@GetMapping("/dept/delete/{deptCode}")
-//	public String delete2(@RequestParam String deptCode) {
-//		deptService.delete2(deptCode);
-//		return "redirect:/HR";
-//	}
+	@PostMapping("/dept/update")
+	public String update2(@Valid HR_deptUpdateForm deptUpdateForm, BindingResult result, Model model) {
+	    if (result.hasErrors()) {
+	        return "HR_deptUpdate";
+	    }
 
+	    deptService.updateDeptName(deptUpdateForm.getOldDeptName(), deptUpdateForm.getNewDeptName());
+	    return "redirect:/HR/dept/create";
+	}
+
+	
+// 부서 삭제
+	@PostMapping("/dept/delete/{deptName}")
+	public String delete2(@PathVariable("deptName") String deptName) {
+		deptService.delete2(deptName);
+		return "redirect:/HR/dept/create";
+	}
+
+	
+// ========================================= 3. 근태관리 =============================================
+
+	
 }
+
