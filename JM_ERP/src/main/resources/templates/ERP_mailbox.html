@@ -17,28 +17,49 @@
 	<!-- 네비게이션바 프라그먼트-->
 	<nav th:replace="~{navbar :: navbarFragment}"></nav>
 
+	<div class="container-fluid">
+		<div class="row">
 
-	<!-- 데이터 테이블 시작-->
-	<table class="table table-hover">
-		<thead>
-			<tr class="table-active">
-				<th>제목</th>
-				<th>보낸사람</th>
-				<th>받는사람</th>
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{ERP_mailarcodian :: arcodianFragment}"></div>
+			</div>
 
-			</tr>
-		</thead>
-		<tbody>
-			<!-- Thymeleaf 반복문 사용 -->
-			<tr th:each="mail : ${paging}">
-				<th scope="row" th:text="${mail.subject}">Product Code</th>
-				<th scope="row" th:text="${mail.sendUser.userId}">Product Code</th>
-				<th scope="row" th:text="${mail.reciveUser.userId}">Product Code</th>
 
-			</tr>
-		</tbody>
-	</table>
-	<!-- 데이터 테이블 끝-->
+			<!-- 데이터 테이블 시작-->
+			<div class="col-lg-10">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>보낸사람</th>
+							<th>제목</th>
+							<th>보낸시각</th>
+							<th>받는사람</th>
+							<th>확인</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="mail : ${paging}">
+							<th scope="row"><a th:text="${mail.sendUser.userId}" href="http://localhost:8080/"> </a>
+							</th>
+							<th scope="row"> <a th:text="${mail.subject}"
+									th:href="@{'/user/maildetail' +${mail.num}}"></a></th>
+							<th scope="row" th:text="${mail.sendTransaction}">Product Code</th>
+							<th scope="row"> <a th:text="${mail.reciveUser.userId}" href="http://localhost:8080/"></a>
+							</th>
+							<th scope="row" th:text="${mail.checkStatus ? '읽음' : '안읽음'}">Product Code</th>
+
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
 
 	<!-- 페이징 프라그먼트 -->
 	<div th:replace="~{paging::pagingFragment}"></div>

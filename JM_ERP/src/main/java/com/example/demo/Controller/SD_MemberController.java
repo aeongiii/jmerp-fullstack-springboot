@@ -31,6 +31,8 @@ public class SD_MemberController {
 		return "Regmember";
 	}
 	
+	
+	
 	@PostMapping("/register")
 	public String RegMember(@RequestParam("memberId") String memberId,
 			@RequestParam("name") String name,
@@ -47,6 +49,8 @@ public class SD_MemberController {
 		return "Complete_RegMember";
 	}
 	
+	
+	
 	@GetMapping("/list")
 	public String searchMember(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
@@ -57,6 +61,18 @@ public class SD_MemberController {
 		return "SD_Member_list";
 	}
 	
+	
+	
+	@PostMapping("/list")
+	public String searchMemberbyname(Model model, @RequestParam(name = "name") String name,@RequestParam(value = "page",defaultValue ="0")int page) {
+		Page<SD_Member> paging = memberService.searchMemberbyname(page,name);
+		System.out.println(name);
+		model.addAttribute("paging", paging);
+		return "SD_Member_list";
+	}
+	
+	
+	
 	@GetMapping("/purchase")
 	public String searchPurchase(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
@@ -66,6 +82,8 @@ public class SD_MemberController {
 		model.addAttribute("paging", paging);
 		return "SD_Purchase_list";
 	}
+	
+	
 
 	
 }

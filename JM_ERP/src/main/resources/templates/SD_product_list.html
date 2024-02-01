@@ -62,8 +62,8 @@
 								Registration Date</td>
 							<td>
 								<img th:if="${product.imageFile}" th:src="@{${product.imageFile}}" alt="Product Image"
-									height="100" width="100" />
-								<span th:unless="${product.imageFile}">No Image</span>
+									height="100" width="100" >
+ 								<span th:unless="${product.imageFile}">No Image</span>
 							</td>
 							<td th:text="${product.category}">Category</td>
 							<td th:text="${product.seller.sellerId}">Seller ID</td>

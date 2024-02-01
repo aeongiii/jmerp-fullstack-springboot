@@ -30,12 +30,14 @@ public class SecurityConfig {
 						.requestMatchers(new AntPathRequestMatcher("/user/**")).authenticated()
 						// 전체 공개
 
+						
 						.requestMatchers(new AntPathRequestMatcher("/PC/**")).hasAnyAuthority("ROLE_구매")
 						.requestMatchers(new AntPathRequestMatcher("/SD/**")).hasAnyAuthority("ROLE_영업")
 						.requestMatchers(new AntPathRequestMatcher("/PD/**")).hasAnyAuthority("ROLE_생산")
 						.requestMatchers(new AntPathRequestMatcher("/AC/**")).hasAnyAuthority("ROLE_회계")
 						.requestMatchers(new AntPathRequestMatcher("/MG/**")).hasAnyAuthority("ROLE_재고")
 						.requestMatchers(new AntPathRequestMatcher("/HR/**")).hasAnyAuthority("ROLE_인사")
+						//TODO 관리자 권한 취가해야함 밥
 						)
 
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))

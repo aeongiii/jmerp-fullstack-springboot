@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
+
 import java.security.Principal;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,6 +82,11 @@ public class ERP_Controller {
 		model.addAttribute("paging", paging);
 		return "ERP_mailbox";
 	}
+//	@PostMapping("/mail")
+//	public String maildetail(@RequestParam(name = "num") Long num) {
+//		System.out.println(num);
+//	return "ERP_mailopen";
+//	}
 	
 	@GetMapping("/mailsend")
 	public String sendmail(Model model){
@@ -95,5 +103,15 @@ public class ERP_Controller {
 			return "redirect:/user/mail";
 		}
 		return "redirect:/user/mail";
+	}
+
+	@GetMapping("/maildetail{num}")
+	public String maildetail(Model model,@PathVariable("num") Long num) {
+		Optional<ERP_userMailBox> mail = erp_UserService.findbynum(num);
+		erp_UserService.checkmailstatus(num);
+		
+		ERP_userMailBox a = mail.get();
+		model.addAttribute("mail", a);
+		return "ERP_mailopen";
 	}
 }

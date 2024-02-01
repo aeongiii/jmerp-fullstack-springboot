@@ -2,7 +2,7 @@ package com.example.demo.Entity;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +30,8 @@ public class ERP_userMailBox {
 	private ERP_user sendUser;
 	
 	private String subject;
-	 
+	
+	@Column(columnDefinition = "TEXT")
 	private String content;
 	
 	private String image; 
