@@ -102,8 +102,20 @@ public class AC_BondDebtController {
     	return "AC_bond_update";
     }
     
+    @PostMapping("/bond_update")
+    public String bondUpdate() {
+    	
+    	return "AC_bond_update";
+    }
+    
     @GetMapping("/debt_update")
     public String debtUpdateForm() {
+    	
+    	return "AC_debt_update";
+    }
+    
+    @PostMapping("/debt_update")
+    public String debtUpdate() {
     	
     	return "AC_debt_update";
     }
