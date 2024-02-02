@@ -258,13 +258,11 @@ public class HR_controller {
 		
 // ========================================= 6. 일용근무 =============================================
 		
-// 근로계약서 등록	
+// 일용근무사원 등록	
 		@GetMapping("/day/create")
 		public String createDay(Model model) {
 			List<HR_dept> deptList = deptService.getdeptList();
 			model.addAttribute("deptList", deptList);
-//			List<HR_day> dayList = dayService.getDayList();
-//			model.addAttribute("dayList", dayList);
 			model.addAttribute("HR_dayCreateForm", new HR_dayCreateForm()); // HR_memCreateForm 객체를 모델에 추가
 			return "HR_dayCreate";
 		}
@@ -277,4 +275,6 @@ public class HR_controller {
 			dayService.saveDay(dayCreateForm); // 사원 정보 저장
 			return "redirect:/HR/mem/list";
 		}
+		
+// 일용근무사원 조회 메서드부터 만들어야 !!!!!!!!!
 }
