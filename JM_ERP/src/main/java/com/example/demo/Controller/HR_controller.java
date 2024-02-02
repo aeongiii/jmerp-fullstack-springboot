@@ -245,11 +245,11 @@ public class HR_controller {
 		return "redirect:/HR/cont/list";
 	}
 
-//// 부서 삭제
-//		@PostMapping("/dept/delete/{deptName}")
-//		public String delete2(@PathVariable("deptName") String deptName) {
-//			deptService.delete2(deptName);
-//			return "redirect:/HR/dept/create";
-//		}
+// 부서 삭제
+		@PostMapping("/cont/delete/{id}")
+		public String deleteCont(@PathVariable("id") int id) {
+			contService.deleteCont(id);
+			return "redirect:/HR/cont/list";
+		}
 
 }

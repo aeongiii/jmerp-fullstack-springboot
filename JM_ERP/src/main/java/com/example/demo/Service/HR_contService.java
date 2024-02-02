@@ -64,5 +64,11 @@ public class HR_contService {
 
         contRepository.save(cont);
 	}
+	
+// 근로계약서 삭제
+	public void deleteCont(int id) {
+		contRepository.deleteById(id);
+		
+	}
 
 }
