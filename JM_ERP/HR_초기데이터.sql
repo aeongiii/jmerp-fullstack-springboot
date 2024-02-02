@@ -185,6 +185,8 @@ CREATE TABLE `hr_work` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- HR_work에서 id값 자동 증가
+ALTER TABLE HR_work MODIFY id INT AUTO_INCREMENT;
 --
 -- Dumping data for table `hr_work`
 --

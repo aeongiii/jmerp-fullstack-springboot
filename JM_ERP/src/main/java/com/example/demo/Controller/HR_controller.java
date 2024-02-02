@@ -19,6 +19,7 @@ import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Form.HR_vacationCreateForm;
+import com.example.demo.Form.HR_workCreateForm;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
@@ -135,6 +136,23 @@ public class HR_controller {
 	
 // ========================================= 3. 근태관리 =============================================
 
+// 출퇴근 등록	
+	@GetMapping("/work/create")
+	public String createWork(Model model) {
+		List<HR_work> workList = workService.getworkList();
+		model.addAttribute("workList", workList);
+		model.addAttribute("HR_workCreateForm", new HR_workCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		return "HR_workCreate";
+	}
+
+	@PostMapping("/work/create")
+	public String createWork(@Valid HR_workCreateForm workCreateForm, Model model) {
+		
+		workService.saveWork(workCreateForm); // 사원 정보 저장
+		return "redirect:/HR/mem/list";
+	}
+	
+// 휴가 등록
 	@GetMapping("/work/vacation")
 	public String createVacation(Model model) {
 		List<HR_work> workList = workService.getworkList();
@@ -146,8 +164,20 @@ public class HR_controller {
 	@PostMapping("/work/vacation")
 	public String createvacation(@Valid HR_vacationCreateForm vacationCreateForm, Model model) {
 		
-		workService.save(vacationCreateForm); // 사원 정보 저장
+		workService.saveVacation(vacationCreateForm); // 사원 정보 저장
 		return "redirect:/HR/mem/list";
+	}
+
+// 근태내역 조회 (사원별 / 월별)
+	@GetMapping("/work/search")
+	public String listWork(Model model, @RequestParam(value="page",defaultValue ="0") int page, HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+		Page<HR_work> paging = workService.searchAll(page);
+		model.addAttribute("workList", paging.getContent());
+		model.addAttribute("paging", paging);
+		return "HR_workSearch";
 	}
 }
 
