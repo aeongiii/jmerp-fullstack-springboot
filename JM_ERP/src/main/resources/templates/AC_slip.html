@@ -17,7 +17,7 @@
 
             <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
             <div class="col-lg-2">
-                <div th:replace="~{arcodian :: arcodianFragment}"></div>
+                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
             </div>
 
             <!-- 테이블 컬럼 (1:4 비율) -->
@@ -128,19 +128,33 @@
     <!-- Bootstrap JS 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script>
-        $(document).ready(function() {
-            $("input[name='btnradio']").change(function() {
-                var option = $(this).val();
-                if (option === "option1") {
-                    $("#option1Content").show();
-                    $("#option2Content").hide();
-                } else if (option === "option2") {
-                    $("#option1Content").hide();
-                    $("#option2Content").show();
-                }
-            });
-        });
-    </script>
+	<script>
+	    $(document).ready(function () {
+	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
+	        var currentPage = localStorage.getItem('currentPage') || 1;
+	
+	        if (selectedOption === "option1") {
+	            $("#option1Content").show();
+	            $("#option2Content").hide();
+	        } else if (selectedOption === "option2") {
+	            $("#option1Content").hide();
+	            $("#option2Content").show();
+	        }
+	        $("input[name='btnradio'][value='" + selectedOption + "']").prop('checked', true);
+	
+	        // 라디오 버튼 변경 시 로컬 스토리지에 저장
+	        $("input[name='btnradio']").change(function () {
+	            selectedOption = $(this).val();
+	            localStorage.setItem('selectedOption', selectedOption);
+	            
+	            // 페이지를 0으로 설정
+	            localStorage.setItem('currentPage', 0);
+	            
+	            // 현재 URL에서 페이지 파라미터를 제거한 뒤 페이지를 0으로 설정하여 리로드
+	            var currentUrl = window.location.href.split('?')[0];
+	            window.location.href = currentUrl + "?page=0";
+	        });
+	    });
+	</script>
 </body>
 </html>

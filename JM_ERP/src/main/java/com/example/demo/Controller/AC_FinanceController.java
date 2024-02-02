@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-public class AC_MonthController {
+public class AC_FinanceController {
 	//월소득 관리 기능을 담당하는 웹사이트
 	
 	@Autowired
@@ -25,5 +25,11 @@ public class AC_MonthController {
         List<AC_Month> monthIncome = this.monthService.getList();
         model.addAttribute("monthIncome", monthIncome);
         return "AC_month";
+    }
+    
+    @GetMapping("/withholding") 
+    public String withholdingList() {
+    	
+    	return "AC_withholding_tax";
     }
 }

@@ -103,7 +103,42 @@ public class AC_BondDebtController {
     }
     
     @PostMapping("/bond_update")
-    public String bondUpdate() {
+    public String bondUpdate(
+    		@RequestParam(name = "bondNumber") String bondNumber,
+    		@RequestParam(name = "type") String type,
+    		@RequestParam(name = "priceField") Double priceField,
+    		@RequestParam(name = "amount") Double amount,
+    		@RequestParam(name = "maturityDate", required = false) LocalDate maturityDate) {
+    	
+    	if (type.equals("할인")) {
+    		
+    		priceField = -priceField;
+    	}
+    	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
+    	String description = "\n" + (LocalDate.now()) + ":";
+    	
+    	if (priceField > 0) {
+    		
+    		String sIncrease = " 채권 금액 " + priceField + "원 추가";
+    		
+    		description = description + sIncrease;
+    	}
+    	
+    	if (priceField < 0) {
+    		
+    		String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
+    		
+    		description = description + sDecrease;
+    	}
+    	
+    	if (amount != 0) {
+    		
+    		String sAmount = " " + amount + "원 변제";
+    		
+    		description = description + sAmount;
+    	}
+    	
+    	this.bondService.update(bondNumber, amount, priceField, maturityDate, description);
     	
     	return "AC_bond_update";
     }
@@ -115,7 +150,42 @@ public class AC_BondDebtController {
     }
     
     @PostMapping("/debt_update")
-    public String debtUpdate() {
+    public String debtUpdate(
+    		@RequestParam(name = "debtNumber") String debtNumber,
+    		@RequestParam(name = "type") String type,
+    		@RequestParam(name = "priceField") Double priceField,
+    		@RequestParam(name = "amount") Double amount,
+    		@RequestParam(name = "maturityDate", required = false) LocalDate maturityDate) {
+    	
+    	if (type.equals("할인")) {
+    		
+    		priceField = -priceField;
+    	}
+    	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
+    	String description = "\n" + (LocalDate.now()) + ":";
+    	
+    	if (priceField > 0) {
+    		
+    		String sIncrease = " 채권 금액 " + priceField + "원 추가";
+    		
+    		description = description + sIncrease;
+    	}
+    	
+    	if (priceField < 0) {
+    		
+    		String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
+    		
+    		description = description + sDecrease;
+    	}
+    	
+    	if (amount != 0) {
+    		
+    		String sAmount = " " + amount + "원 변제";
+    		
+    		description = description + sAmount;
+    	}
+    	
+    	this.debtService.update(debtNumber, amount, priceField, maturityDate, description);
     	
     	return "AC_debt_update";
     }

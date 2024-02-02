@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>수익 조회</title>
+    <title>원천 징수부</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -25,34 +25,23 @@
 				<table class = "table table-hover">
 					<thead>
 				        <tr class="table-active">
-			                <th>년/월</th>
-			                <th>수익</th>
-			                <th>부가세</th>
-			                <th>비용</th>
-			                <th>순수익</th>
-			                <th>적요</th>
-			                <th>생성 일자</th>
-			                <th>수정 일자</th>
+							<th>사원</th>
+			                <th>급여</th>
+			                <th>국민연금</th>
+			                <th>건강보험</th>
+			                <th>장기요양</th>
+			                <th>고용보험</th>
+			                <th>소득세</th>
+			                <th>공제액 합계</th>
+			                <th>실수령액</th>
 			            </tr>
 			        </thead>
 			        <tbody>
-			            <!-- for each 문 -->
-			            <tr th:each="month : ${monthIncome}">
-			                <!-- 화면에 띄울 정보 -->
-			                <td th:text="${month.monthId}"></td>
-			                <td th:text="${month.revenu}"></td>
-			                <td th:text="${month.VAT}"></td>
-			                <td th:text="${month.expense}"></td>
-			                <td th:text="${month.netIncome}"></td>
-			                <td th:text="${month.description}"></td>
-			                <td th:text="${month.createdAt}"></td>
-			                <td th:text="${month.updatedAt}"></td>
-			            </tr>
+					<!-- 후에 데이터를 넣을것 
+						 필요한 데이터 : 사원 정보 - 사원, 급여
+						 taxrate의 값-->
 			        </tbody>
 			    </table>
-			    <!-- 후에 알맞은 페이징과 버튼을 만들것
-				<div th:replace="~{paging::pagingFragment(paging=${bonds})}"></div>
-				<div th:replace="~{AC_bond_debt_botton::bottonFragment}"></div> -->
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
     </div> <!-- 컨테이너 플루이드 끝 -->
