@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,16 +13,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.HR_cont;
+import com.example.demo.Entity.HR_day;
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
 import com.example.demo.Form.HR_contCreateForm;
+import com.example.demo.Form.HR_dayCreateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Form.HR_workCreateForm;
 import com.example.demo.Service.HR_contService;
+import com.example.demo.Service.HR_dayService;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
@@ -41,6 +43,7 @@ public class HR_controller {
 	private final HR_deptService deptService;
 	private final HR_workService workService;
 	private final HR_contService contService;
+	private final HR_dayService dayService;
 
 // ========================================= main =============================================
 	@GetMapping("")
@@ -251,5 +254,27 @@ public class HR_controller {
 			contService.deleteCont(id);
 			return "redirect:/HR/cont/list";
 		}
+		
+		
+// ========================================= 6. 일용근무 =============================================
+		
+// 근로계약서 등록	
+		@GetMapping("/day/create")
+		public String createDay(Model model) {
+			List<HR_dept> deptList = deptService.getdeptList();
+			model.addAttribute("deptList", deptList);
+//			List<HR_day> dayList = dayService.getDayList();
+//			model.addAttribute("dayList", dayList);
+			model.addAttribute("HR_dayCreateForm", new HR_dayCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+			return "HR_dayCreate";
+		}
 
+		@PostMapping("/day/create")
+		public String createDay(@Valid HR_dayCreateForm dayCreateForm, BindingResult bindingResult, Model model) {
+			if (bindingResult.hasErrors()) {
+				return "HR_dayCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
+			}
+			dayService.saveDay(dayCreateForm); // 사원 정보 저장
+			return "redirect:/HR/mem/list";
+		}
 }
