@@ -25,16 +25,14 @@ public class MG_acoountService {
 		mgen.setAccountCode(accCode);
 		mgen.setAccountManager(accMg);
 		mgen.setAccountName(accName);
-		mgen.setAccountNum(accNum);
-		
+		mgen.setAccountNum(accNum);	
 		mgaccountmgRepository.save(mgen);
 	}
+	
 	
 	public Page<Mg_AccountMG_Entity> getList(int page){
 		Pageable pageable = PageRequest.of(page, 10);
 		return this.mgaccountmgRepository.findAll(pageable);
-			
-	
 	}
 	
 	
