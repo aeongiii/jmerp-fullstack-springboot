@@ -25,4 +25,6 @@ public class HR_contCreateForm {
 	private String signA;
 	
 	private String signB;
+	
+	private int id;
 }

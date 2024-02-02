@@ -24,8 +24,9 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
-				<!-- 폼 -->
-				<form th:action="@{/HR/cont/create}" th:object="${HR_contCreateForm}" method="post">
+				<!-- 폼 --> <!-- id값이 추가된 경우 '/update/{id}' 액션을, id값이 없는 경우 '/create' 액션을 실행하도록 설정 -->
+				<form th:action="${HR_contCreateForm.id != null ? '/HR/cont/update/' + HR_contCreateForm.id : '/HR/cont/create'}" th:object="${HR_contCreateForm}" method="post">
+					<input type="hidden" th:field="*{id}" />	<!-- id값 숨겨서 함께 전달 -->
 					<div class="mb-3">
 						<label for="employeeId" class="form-label">사원번호</label>
 						<input type="text" th:field="*{employeeId}" class="form-control">
@@ -33,10 +34,14 @@
 					<div class="mb-3">
 						<label for="contractName" class="form-label">근로계약서 이름</label>
 						<input type="text" th:field="*{contractName}" class="form-control">
+						<div th:if="${#fields.hasErrors('contractName')}" th:errors="*{contractName}"
+							class="alert alert-danger"></div>
 					</div>
 					<div class="mb-3">
 						<label for="contractDate" class="form-label">근로계약서 등록일</label>
 						<input type="date" th:field="*{contractDate}" class="form-control">
+						<div th:if="${#fields.hasErrors('contractDate')}" th:errors="*{contractDate}"
+							class="alert alert-danger"></div>
 					</div>
 					<div class="mb-3">
 						<label for="signA" class="form-label">서명요청 여부</label>

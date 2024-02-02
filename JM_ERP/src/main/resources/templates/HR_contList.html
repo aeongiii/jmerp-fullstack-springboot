@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/HR/dept/create -->
-
 <head>
-	<title>부서 등록</title>
+	<title>근로계약서 수정</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -27,34 +25,33 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
-				<!-- 신규 부서 등록 폼 -->
-				<form th:action="@{/HR/dept/create}" th:object="${HR_deptCreateForm}" method="post">
-					<div class="mb-3">
-						<label for="deptName" class="form-label">추가할 부서의 이름</label>
-						<input type="text" th:field="*{deptName}" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-primary">부서 추가</button>
-				</form>
-
-				<!-- 현재 부서 목록 -->
+				<!-- 현재 근로계약서 목록 -->
 				<div>
 					<table class="table table-hover">
 						<thead>
 							<tr class="table-active">
-								<th>부서명</th>
-								<th>부서코드</th>
+								<th>id</th>
+								<th>사원번호</th>
+								<th>근로계약서명</th>
+								<th>등록일</th>
+								<th>서명요청여부</th>
+								<th>사명완료여부</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="dept : ${deptList}">
-								<td th:text="${dept.deptName}"></td>
-								<td th:text="${dept.deptCode}"></td>
+							<tr th:each="cont : ${contList}">
+								<td th:text="${cont.id}"></td>
+								<td th:text="${cont.employeeId}"></td>
+								<td th:text="${cont.contractName}"></td>
+								<td th:text="${cont.contractDate}"></td>
+								<td th:text="${cont.signA}"></td>
+								<td th:text="${cont.signB}"></td>
 								<td>
-									<!-- 부서별 수정. 삭제 버튼 -->
-									<a th:href="@{/HR/dept/update(deptName=${dept.deptName})}"
+									<!-- 수정. 삭제 버튼 -->
+									<a th:href="@{'/HR/cont/update/' + ${cont.id}}"
 										class="btn btn-primary">수정</a>
-									<form th:action="@{'/HR/dept/delete/' + ${dept.deptName}}" method="post">
+									<form th:action="@{'/HR/cont/delete/' + ${cont.id}}" method="post">
 										<input type="hidden" name="_method" value="delete" />
 										<button  class="btn btn-primary" type="submit">삭제</button>
 									</form>

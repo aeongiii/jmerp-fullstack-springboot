@@ -22,10 +22,10 @@ public class HR_contService {
 	private final HR_contRepository contRepository;
 
 	public List<HR_cont> getcontList() {
-		// TODO Auto-generated method stub
-		return null;
+		return contRepository.findAll();
 	}
 
+// 근로계약서 등록
 	public void saveCont(@Valid HR_contCreateForm contCreateForm) {
 		// HR_mem 엔티티 조회
 		HR_mem employee = memRepository.findById(contCreateForm.getEmployeeId())
@@ -38,11 +38,31 @@ public class HR_contService {
 		cont.setContractName(contCreateForm.getContractName());
 		cont.setEmployeeId(employee);	// 사원번호를 이용하여 HR_mem의 객체를 조회, HR_cont에 저장
 		cont.setSignA("요청완료".equals(contCreateForm.getSignA()));
-		cont.setSignB("서명완료".equals(contCreateForm.getSignA()));
+		cont.setSignB("서명완료".equals(contCreateForm.getSignB()));
 		// 나머지 필드는 기본값이나 null 상태로 유지
 
 		// HR_cont 저장
 		contRepository.save(cont);
+	}
+
+// 근로계약서 수정
+	public HR_cont getContById(int id) {
+		return contRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException("근로계약서가 존재하지 않습니다."));
+	}
+
+	public void updateCont(int id, @Valid HR_contCreateForm form) {
+		HR_cont cont = getContById(id);
+		HR_mem employee = memRepository.findById(form.getEmployeeId())
+				.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));
+		
+		cont.setEmployeeId(employee);
+        cont.setContractDate(form.getContractDate());
+        cont.setContractName(form.getContractName());
+        cont.setSignA("요청완료".equals(form.getSignA()));
+        cont.setSignB("서명완료".equals(form.getSignB()));
+
+        contRepository.save(cont);
 	}
 
 }
