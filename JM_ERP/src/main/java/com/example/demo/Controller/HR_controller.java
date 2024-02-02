@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Entity.HR_cont;
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
+import com.example.demo.Form.HR_contCreateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Form.HR_workCreateForm;
+import com.example.demo.Service.HR_contService;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
@@ -36,6 +39,7 @@ public class HR_controller {
 	private final HR_memService memService;
 	private final HR_deptService deptService;
 	private final HR_workService workService;
+	private final HR_contService contService;
 // ========================================= main =============================================
 	@GetMapping("")
 	public String HR() {
@@ -179,5 +183,35 @@ public class HR_controller {
 		model.addAttribute("paging", paging);
 		return "HR_workSearch";
 	}
+	
+// ========================================= 4. 초과근무 =============================================
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// ========================================= 5. 근로계약서 =============================================
+	
+// 근로계약서 등록	
+		@GetMapping("/cont/create")
+		public String createCont(Model model) {
+			List<HR_cont> contList = contService.getcontList();
+			model.addAttribute("contList", contList);
+			model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+			return "HR_contCreate";
+		}
+
+		@PostMapping("/cont/create")
+		public String createCont(@Valid HR_contCreateForm contCreateForm, Model model) {
+			
+			contService.saveCont(contCreateForm); // 사원 정보 저장
+			return "redirect:/HR/mem/list";
+		}
+	
 }
 
