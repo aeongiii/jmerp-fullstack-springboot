@@ -2,7 +2,8 @@ package com.example.demo.Form;
 
 import java.time.LocalTime;
 
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.Setter;
 

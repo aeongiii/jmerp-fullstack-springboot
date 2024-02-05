@@ -1,6 +1,7 @@
 package com.example.demo.Form;
 
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,3 +13,4 @@ public class HR_deptCreateForm {
 	
 	private String deptCode;
 }
+

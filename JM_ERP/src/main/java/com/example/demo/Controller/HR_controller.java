@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.HR_cont;
-import com.example.demo.Entity.HR_day;
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
-import com.example.demo.Form.HR_contCreateForm;
 import com.example.demo.Form.HR_dayCreateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
@@ -31,7 +30,6 @@ import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/HR")
