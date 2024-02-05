@@ -23,21 +23,8 @@
 				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
 			</div>
 
-			
-
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group avc" role="group" aria-label="Basic radio toggle button group">
-					<form th:action="@{/seller/list}" method="post">
-					<input type="hidden" class="btn-check" name="action" value="true" id="btnradio1" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
-					</form>
-					
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
-				</div>
-				<!-- 조건 조회 버튼 끝-->
 
 				<!-- 데이터 테이블 시작-->
 				<table class="table table-hover">
@@ -79,13 +66,6 @@
 		</div> <!-- 컨테이너 플루이드 정의 끝 -->
 	</div> <!-- 컨테이너 플루이드 끝 -->
 
-
-
-
-
-
-
-	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

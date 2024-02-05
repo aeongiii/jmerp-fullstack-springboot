@@ -114,4 +114,11 @@ public class ERP_Controller {
 		model.addAttribute("mail", a);
 		return "ERP_mailopen";
 	}
+	@GetMapping("/test")
+	public String test() {
+		return "datatable";
+	}
+
 }
+
+

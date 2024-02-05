@@ -24,29 +24,12 @@
 				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
 			</div>
 
-
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-					<input type="radio" class="btn-check" name="입고" id="btnradio1" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
-				
-					
-					<input type="radio" class="btn-check" name="name" id="btnradio2" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
-				
-				</div>
-				<!-- 조건 조회 버튼 끝-->
-				
-				<!-- 테이블 조건 검색조회-->
-				<form class="d-flex" th:action="@{/SD/member/list}" method="post">
-					<input class="form-control me-sm-2" type="search" placeholder="Search" name ="name">
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-				</form>
+
 
 				<!-- 데이터 테이블 시작-->
-				<table class="table table-hover">
+				<table id="foo-table" class="table table-hover">
 					<thead>
 						<tr class="table-active">
 							<th>ID</th>
@@ -92,10 +75,25 @@
 
 
 
-
-
+	<!-- DataTables JS 연결 -->
+	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script type="text/javascript">
+		jQuery(function ($) {
+			$("#foo-table").DataTable();
+		});
+
+		$("#foo-table").DataTable({
+			// 표시 건수기능 숨기기
+			lengthChange: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false
+		});
+	</script>
 </body>
 
 </html>
