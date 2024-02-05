@@ -9,7 +9,6 @@ import com.example.demo.Entity.PD_BOM;
 
 @Repository
 public interface PD_BOMRepository extends JpaRepository<PD_BOM, String>{
-	
-	List<PD_BOM> findByProdCode(String prodCode);
 
+	List<PD_BOM> findByProdCode(String prodCode);
 }

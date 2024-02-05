@@ -200,7 +200,6 @@
     scroll-behavior: smooth;
   }
 }
-
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -3787,6 +3786,11 @@ textarea.form-control-lg {
 
 .nav2 {
     height: 9.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
+    height: 5.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
+}
+
+.nav2 {
+    height: 7.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
 }
 
 
@@ -11961,10 +11965,7 @@ th {
 .card .h5,
 .card .h6 {
   color: inherit;
-  
 }
-
-
 
 /* Custom CSS */
 .navbar-nav .nav-item {

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/seller/sellercommission -->
+
+<head>
+	<title>물품 조회</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{arcodian :: arcodianFragment}"></div>
+			</div>
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+				
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>물품 이름</th>
+							<th>물품 코드</th>
+							<th>물품 단가 </th>
+						    <th>물품 종류 </th>
+						    <th>물품 등록 날짜 </th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="itemCheek : ${paging.content}" >
+							<th scope="row" th:text="${itemCheek.Itemname}">물품 이름</th>
+							<!-- Seller 엔티티로부터 Seller ID 추출 -->
+							<td th:text="${itemCheek.itemCode}">물품 코드</td>
+							<td th:text="${itemCheek.itemCost}">물품 단가</td>
+							<td th:text="${itemCheek.itemType}">물품 종류</td>
+							<td th:text="${itemCheek.itemReciving}">물품 등록 날짜</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{MG_accountbotton::MG_itemRegi_button}"></div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>근태내역 조회</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+
+				<!-- 조건 조회 버튼 시작-->
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio1">월별</label>
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio2">사원별</label>
+				</div>
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class=" table table-hover">
+						<thead>
+							<tr class="table-active">
+								<th>근무일</th>
+								<th>사원번호</th>
+								<th>이름</th>
+								<th>휴가 여부</th>
+								<th>출근시간</th>
+								<th>퇴근시간</th>
+								<th>근무시간</th>
+								<th>초과근무 여부</th>
+								<th>초과근무 시간</th>
+								<th>초과근무 수당</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="work : ${workList}">
+								<td th:text="${work.workDate}"></td>
+								<td th:text="${work.employeeId}"></td>
+								<td th:text="${work.name}"></td>
+								<td th:text="${work.attendance}"></td>
+								<td th:text="${work.startTime}"></td>
+								<td th:text="${work.endTime}"></td>
+								<td th:text="${work.workHour}"></td>
+								<td th:text="${work.overtimeType}"></td>
+								<td th:text="${work.overtimeHour}"></td>
+								<td th:text="${work.overtimePay}"></td>
+							</tr>
+						</tbody>
+						</table>
+						<!-- 데이터 테이블 끝-->
+
+						<!-- 페이징 프라그먼트 -->
+						<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
+						<!-- 버튼 프라그먼트 -->
+						<div th:replace="~{HR_button::HR_buttonFragment}"></div>
+				</div>
+				<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+			</div> <!-- 컨테이너 플루이드 정의 끝 -->
+		</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+		<!-- Bootstrap JS 연결 -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

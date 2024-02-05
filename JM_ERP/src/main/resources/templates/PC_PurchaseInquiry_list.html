@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/purchase/purchaseinquiry -->
+
+<head>
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+			<div class="row">
+			<div class="col-lg-2">
+			<div th:replace="~{PC_arcodian :: PC_arcodianFragment}"></div>
+			</div>
+		
+
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
+				</div>
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class ="table-active">
+							<th>ID</th>
+							<th>Purchase Date</th>
+							<th>Client Name</th>
+							<th>Item Name</th>
+							<th>Total Amount</th>
+							<th>Transaction Type</th>
+							<th>Warehouse Name</th>
+							<th>Accounting Reflection Status</th>
+							<th>Imported Voucher</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="inquiry : ${paging.content}">
+							<th scope="row" th:text="${inquiry.num}">ID</th>
+							<td th:text="${inquiry.PurchaseDate}">Purchase Date</td>
+							<td th:text="${inquiry.clientName}">Client Name</td>
+							<td th:text="${inquiry.itemName}">Item Name</td>
+							<td th:text="${inquiry.totalAmount}">Total Amount</td>
+							<td th:text="${inquiry.transactionType}">Transaction Type</td>
+							<td th:text="${inquiry.warehouseName}">Warehouse Name</td>
+							<td th:text="${inquiry.accountingReflectionStatus}">Accounting Reflection Status</td>
+							<td th:text="${inquiry.importedVoucher}">Imported Voucher</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{botton::bottonFragment}"></div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

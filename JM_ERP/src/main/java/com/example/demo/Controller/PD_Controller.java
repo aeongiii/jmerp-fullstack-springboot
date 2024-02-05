@@ -1,13 +1,9 @@
 package com.example.demo.Controller;
-
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,13 +33,7 @@ public class PD_Controller {
 		return "PD_bom";
 	}
 	
-	@GetMapping(value = "/bom/{ProdCode}")
-	public String bom(Model model, @PathVariable("ProdCode") String prodCode) {
-		List<PD_BOM> item = this.bomservice.getItem(prodCode);
-		model.addAttribute("list_bom",item);
-		return "list_bom";
-	}
-	
+
 	@GetMapping("/bom/regi")
 	public String regi(PD_BOMCreateForm bomcreateform) {
 		return "PD_BOMregi";

@@ -26,9 +26,6 @@ public class PD_BOMService {
     	Pageable pageable = PageRequest.of(page, 10);
     	return bomrepository.findAll(pageable);
     }
-    public List<PD_BOM> getItem(String prodCode) {
-    	return bomrepository.findByProdCode(prodCode);
-    }
     
     public PD_BOM create(String prodCode, String prodName, int rawMatNum, 
     		String unit, int num, String type, int rawNum, int workTime) {
