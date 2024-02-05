@@ -23,13 +23,14 @@ public class MG_itemService {
 		public void itemRegi(String itemName, String itemCode, Integer itemCost, String itemType,
 				LocalDate itemRegiDate) {
 			Mg_item_Regi itemRegi = new Mg_item_Regi();
-
+			
 			itemRegi.setItemname(itemName);
 			itemRegi.setItemCode(itemCode);
 			itemRegi.setItemCost(itemCost);
 			itemRegi.setItemReciving(itemRegiDate);
 			itemRegi.setItemType(itemType);
-
+			
+			
 			MG_itemRegiRepository.save(itemRegi);
 		}
 

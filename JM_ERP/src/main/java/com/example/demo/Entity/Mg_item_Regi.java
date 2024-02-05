@@ -32,6 +32,7 @@ public class Mg_item_Regi {
 	private LocalDate itemReciving;
 	//물품 등록 날짜
 	
+
 	public String toString() {
 	    return this.itemCode;
 	}
