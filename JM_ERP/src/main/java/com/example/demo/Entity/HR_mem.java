@@ -34,6 +34,7 @@ public class HR_mem {
 	
 	private String bankNum;			// 계좌번호
 	
+	
 	public String toString() {
 		return this.employeeId;
 	}

@@ -42,6 +42,9 @@ dependencies {
 	// JUnit
 	testImplementation 'org.junit.jupiter:junit-jupiter' 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    //Springsecurity6
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	// Spring Boot Validation
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }

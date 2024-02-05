@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home
+                    <a class="nav-link active" href="#" th:text ="${login_username}">Home
                         <span class="visually-hidden">(current)</span>
                     </a>
                 </li>
@@ -21,13 +21,14 @@
                     <a class="nav-link" href="#">Pricing</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                   <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="http://localhost:8080/user/mail">편지보관함</a>
+                        <a class="dropdown-item" href="http://localhost:8080/user/mailsend">편지쓰기</a>
                         <a class="dropdown-item" href="#">Something else here</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
@@ -55,10 +56,10 @@
                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle mainmenu-link navfontsize" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">영업</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="http://localhost:8080/member/list">영업 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/member/list">고객 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/seller/list">판매자 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/product/regshop">상품 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/member/list">영업 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/member/list">고객 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/seller/list">판매자 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/product/regshop">상품 관리</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
                     </div>
@@ -113,9 +114,9 @@
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">구매</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">발주요청서 입력</a>
-                        <a class="dropdown-item" href="#">발주요청서 조회</a>
-                        <a class="dropdown-item" href="#">발주요청서 현황</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PC/purchase/purchaseinquiry">구매 현황조회</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PC/purchase/ordersheet">발주요청서 조회</a>
+                        <a class="dropdown-item" href="#">거래처 조회</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Separated link</a>
                     </div>

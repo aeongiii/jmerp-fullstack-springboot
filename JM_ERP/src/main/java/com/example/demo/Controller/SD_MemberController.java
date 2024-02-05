@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/member")
+@RequestMapping("/SD/member")
 public class SD_MemberController {
 	
 	@Autowired
@@ -30,6 +30,8 @@ public class SD_MemberController {
 	public String RegMember() {
 		return "Regmember";
 	}
+	
+	
 	
 	@PostMapping("/register")
 	public String RegMember(@RequestParam("memberId") String memberId,
@@ -47,6 +49,8 @@ public class SD_MemberController {
 		return "Complete_RegMember";
 	}
 	
+	
+	
 	@GetMapping("/list")
 	public String searchMember(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
@@ -54,8 +58,20 @@ public class SD_MemberController {
 		
 		Page<SD_Member> paging = memberService.searchMember(page);
 		model.addAttribute("paging", paging);
-		return "Member_list";
+		return "SD_Member_list";
 	}
+	
+	
+	
+	@PostMapping("/list")
+	public String searchMemberbyname(Model model, @RequestParam(name = "name") String name,@RequestParam(value = "page",defaultValue ="0")int page) {
+		Page<SD_Member> paging = memberService.searchMemberbyname(page,name);
+		System.out.println(name);
+		model.addAttribute("paging", paging);
+		return "SD_Member_list";
+	}
+	
+	
 	
 	@GetMapping("/purchase")
 	public String searchPurchase(Model model, @RequestParam(value = "page",defaultValue ="0") int page,HttpServletRequest request) {
@@ -64,8 +80,10 @@ public class SD_MemberController {
 		
 		Page<SD_Purchase> paging = memberService.searchPurchase(page);
 		model.addAttribute("paging", paging);
-		return "Purchase_list";
+		return "SD_Purchase_list";
 	}
+	
+	
 
 	
 }

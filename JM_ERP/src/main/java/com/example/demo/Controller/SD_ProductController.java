@@ -14,7 +14,7 @@ import com.example.demo.Service.SD_productService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/SD/product")
 @Controller
 public class SD_ProductController {
 
@@ -31,7 +31,7 @@ public class SD_ProductController {
 		Page<SD_Product> paging = productService.searchAllproduct(page);
 		model.addAttribute("paging",paging);
 		
-		return "product_list";
+		return "SD_product_list";
 	}
 	
 	@GetMapping("/pbproduct")
@@ -42,7 +42,7 @@ public class SD_ProductController {
 		Page<SD_PBproduct> paging = productService.searchPbproduct(page);
 		model.addAttribute("paging",paging);
 		
-		return "pbProduct_list";
+		return "SD_pbProduct_list";
 	}
 	
 	

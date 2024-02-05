@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/product/pbproduct -->
+<!-- http://localhost:8080/SD/product/pbproduct -->
 
 <head>
 	<title>Seller List</title>
@@ -21,20 +21,11 @@
 
 		<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{arcodian :: arcodianFragment}"></div>
+				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
 			</div>
-
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
-				</div>
-				<!-- 조건 조회 버튼 끝-->
 
 				<!-- 데이터 테이블 시작-->
 				<table class="table table-hover">

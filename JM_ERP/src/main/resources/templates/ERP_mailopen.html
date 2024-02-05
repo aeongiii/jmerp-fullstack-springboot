@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/product/pbproduct -->
+
+<head>
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+	<div class = "container-fluid">
+		<div class ="row">
+	<div class ="col-lg-2">
+	<div th:replace="~{ERP_mailarcodian :: arcodianFragment}"  ></div>
+</div>
+	<!-- 데이터 테이블 시작-->
+	<div class ="col-lg-10">
+	<table class="table table-hover">
+		<thead>
+			<tr class="table-active">
+				<th scope="row" th:text="${mail.sendUser.userId}"></th>
+				<th>보낸시각</th>
+				<th>이미지</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+			<th scope="row" th:text="${mail.content}"></th>
+			<th scope="row" th:text="${mail.sendTransaction}"></th>
+			<td>
+				<img th:if="${mail.image}" th:src="@{${mail.image}}" alt="image">
+			</td>
+
+			</tr>
+		</tbody>
+	</table>
+		</div>
+		</div>
+	</div>
+	<!-- 데이터 테이블 끝-->
+	
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
