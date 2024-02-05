@@ -33,7 +33,6 @@ public class PD_Controller {
 		model.addAttribute("paging", paging);
 		return "PD_bom";
 	}
-	
 
 	@GetMapping("/bom/regi")
 	public String regi(PD_BOMCreateForm bomcreateform) {
