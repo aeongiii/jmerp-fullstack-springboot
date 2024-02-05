@@ -1,8 +1,8 @@
 package com.example.demo.Controller;
 
-import java.sql.Date;
+
 import java.time.LocalDate;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,7 +37,7 @@ public class MG_itemController {
 		Page<Mg_item_Regi> paging = this.MG_itemService.getList(page);
 		model.addAttribute("paging", paging);
 
-		return "MG_itemRegiCheek";
+		return "MG_itemRegiCheck";
 	}
 
 	@GetMapping("/itemcreate")
