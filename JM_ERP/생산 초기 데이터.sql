@@ -1,5 +1,4 @@
 # 생산 초기 Insert 문
-
 Insert into pd_bom(prod_code, prod_name,prod_line, raw_mat_num, unit, num, type, raw_num, work_time)
 values("A001", "닭가슴살 스테이크", "제조", 3, "EA", 1, "가공품", 1, 1), 
 ("A002", "닭가슴살", null, 1, "EA", 1, "원재료", 1, 1),

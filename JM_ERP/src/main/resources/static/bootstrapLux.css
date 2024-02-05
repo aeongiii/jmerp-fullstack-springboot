@@ -200,20 +200,6 @@
     scroll-behavior: smooth;
   }
 }
-
-
-/* Custom CSS */
-.navbar-nav .nav-item {
-    flex-grow: 1; /* Ensure equal spacing */
-    text-align: center; /* Center align text */
-}
-
-.navbar-nav .nav-link {
-    font-size: 1.2em; /* Increase font size */
-}
-
-
-
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -3371,6 +3357,7 @@ textarea.form-control-lg {
     .dropdown-menu {
         display: none; /* 기본적으로 숨김 */
         flex-direction: row; /* 가로 방향으로 항목 정렬 */
+        right: 0vw;
     }
 
     /* 마우스 호버 시 드롭다운 메뉴 표시 */
@@ -3794,6 +3781,11 @@ textarea.form-control-lg {
 }
 
 .nav1 {
+    height: 7.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
+}
+
+.nav2 {
+    height: 9.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
     height: 5.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
 }
 
@@ -11973,4 +11965,24 @@ th {
 .card .h5,
 .card .h6 {
   color: inherit;
+}
+
+/* Custom CSS */
+.navbar-nav .nav-item {
+    flex-grow: 1; /* Ensure equal spacing */
+    text-align: center; /* Center align text */
+}
+
+.navbar-nav .nav-link {
+    font-size: 1.2em; /* Increase font size */
+}
+
+.main-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main-image > img {
+	width: 800px;
 }

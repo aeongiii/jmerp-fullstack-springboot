@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+    <title>JM_ERP</title>
+</head>
+<body>
+	<div class="container my-3">
+	    <div class="my-3 border-bottom">
+	        <div>
+	            <h4>회원가입</h4>
+	        </div>
+	    </div>
+	    <form th:action="@{/PD/bom/regi}" th:object="${PD_BOMCreateForm}" method="post">
+	        <div class="mb-3">
+	            <label for="prodCode" class="form-label">품목코드</label>
+	            <input type="text" th:field="*{prodCode}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="prodName" class="form-label">품목명</label>
+	            <input type="text" th:field="*{prodName}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="rawMatNum" class="form-label">원재료갯수</label>
+	            <input type="text" th:field="*{rawMatNum}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="unit" class="form-label">단위</label>
+	            <input type="text" th:field="*{rawMatNum}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="num" class="form-label">수량</label>
+	            <input type="number" th:field="*{num}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="type" class="form-label">구분</label>
+	            <input type="text" th:field="*{type}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="rawNum" class="form-label">생산수량</label>
+	            <input type="text" th:field="*{rawNum}" class="form-control">
+	        </div>
+	        <div class="mb-3">
+	            <label for="workTime" class="form-label">작업시간</label>
+	            <input type="text" th:field="*{workTime}" class="form-control">
+	        </div>
+
+	        <button type="submit" class="btn btn-primary">BOM등록</button>
+	    </form>
+	</div>
+</body>
+</html>

@@ -86,15 +86,17 @@
     </thead>
     <tbody>
         <tr th:each="bom : ${bomlist}">
-            <td th:text="${bom.ProdCode}"></td>
-            <td th:text="${bom.ProdName}"></td>
-            <td th:text="${bom.ProdLine}"></td>
-            <td th:text="${bom.RawMatNum}"></td>
-            <td th:text="${bom.Unit}"></td>
-            <td th:text="${bom.Num}"></td>
-            <td th:text="${bom.Type}"></td>
-            <td th:text="${bom.RawNum}"></td>
-            <td th:text="${bom.WorkTime}"></td>
+			<td>
+				<a th:href="@{|/list/bom/${bom.ProdCode}|}" th:text="${bom.prodCode}"></a>
+			</td>
+            <td th:text="${bom.prodName}"></td>
+            <td th:text="${bom.prodLine}"></td>
+            <td th:text="${bom.rawMatNum}"></td>
+            <td th:text="${bom.unit}"></td>
+            <td th:text="${bom.num}"></td>
+            <td th:text="${bom.type}"></td>
+            <td th:text="${bom.rawNum}"></td>
+            <td th:text="${bom.workTime}"></td>
         </tr>
     </tbody>
 </table>
