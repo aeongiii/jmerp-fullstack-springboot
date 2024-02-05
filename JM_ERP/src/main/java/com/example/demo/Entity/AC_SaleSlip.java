@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "AC_sale_slip")
 @Getter
 @Setter
-public class AC_saleSlip {
+public class AC_SaleSlip {
 
     @Id
     private String slipCode; // 전표 코드

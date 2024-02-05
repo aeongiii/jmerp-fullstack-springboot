@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "AC_taxRate")
 @Getter
 @Setter
-public class AC_taxRate {
+public class AC_TaxRate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

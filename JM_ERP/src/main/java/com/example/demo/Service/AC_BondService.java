@@ -3,21 +3,25 @@ package com.example.demo.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.AC_bond;
-import com.example.demo.Repository.AC_bondRepository;
+import com.example.demo.Entity.AC_Bond;
+import com.example.demo.Repository.AC_BondRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
-public class AC_bondService {
+public class AC_BondService {
 	
-	private final AC_bondRepository bondRepository;
+	private final AC_BondRepository bondRepository;
 	
-    public List<AC_bond> getList() {
+    public List<AC_Bond> getList() {
         return this.bondRepository.findAll();
     }
     
@@ -30,7 +34,7 @@ public class AC_bondService {
     		LocalDate maturityDate,
     		String description) {
     	
-    	AC_bond bond = new AC_bond();
+    	AC_Bond bond = new AC_Bond();
     	
     	bond.setBondNumber(bondNumber);
     	bond.setDate(date);
@@ -56,5 +60,37 @@ public class AC_bondService {
         }
 
         return String.format("%sB%03d", year, number);
+    }
+    
+    public Page<AC_Bond> getList(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.bondRepository.findAll(pageable);
+    }
+    
+    public void update(String bondNumber,
+    		Double amount,
+    		Double increaseDecreaseType,
+    		LocalDate maturityDate,
+    		String description) {
+    	
+        Optional<AC_Bond> oq = this.bondRepository.findById(bondNumber);
+        AC_Bond bond = oq.get();
+        
+        Double newBalance = bond.getBalance() + increaseDecreaseType - amount;
+        
+        if (newBalance < 0) {
+        	
+        	newBalance = 0.0;
+        }
+        
+        if (maturityDate != null) {
+        	bond.setMaturityDate(maturityDate);
+        }
+        
+        bond.setIncreaseDecreaseType(bond.getIncreaseDecreaseType() + increaseDecreaseType);
+        bond.setBalance(newBalance);
+        bond.setDescription(bond.getDescription() + description);
+        
+        this.bondRepository.save(bond);
     }
 }

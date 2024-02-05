@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채권 조회</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- 네비게이션바 프라그먼트-->
+    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+            <div class="col-lg-2">
+                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
+            </div>
+
+            <!-- 테이블 컬럼 (1:4 비율) -->
+            <div class="col-lg-10">
+                <!-- 조건 조회 버튼 시작-->
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
+                    <label class="btn btn-outline-primary" for="btnradio1">매출 전표</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
+                    <label class="btn btn-outline-primary" for="btnradio2">매입 전표</label>
+                </div>
+                <!-- 조건 조회 버튼 끝-->
+                
+                <!-- 옵션 1일때 시작 -->
+                <div id="option1Content" style="display: none;">
+					
+                    <!-- 데이터 테이블 시작-->
+				    <table class = "table table-hover">
+				       <thead>
+				            <tr>
+				                <th>전표 코드</th>
+				                <th>거래 일자</th>
+				                <th>거래자</th>
+				                <th>적요</th>
+				                <th>금액</th>
+				                <th>부가세</th>
+				                <th>카드 번호</th>
+				                <th>카드 이름</th>
+				                <th>거래 유형</th>
+				                <th>생성 일자</th>
+				                <th>수정 일자</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <!-- for each 문 -->
+				            <tr th:each="slip : ${saleSlipList}">
+								<!-- 화면에 띄울 정보 -->
+				                <td th:text="${slip.slipCode}"></td>
+				                <td th:text="${slip.tradeDate}"></td>
+				                <td th:text="${slip.trader}"></td>
+				                <td th:text="${slip.description}"></td>
+				                <td th:text="${slip.amount}"></td>
+				                <td th:text="${slip.VAT}"></td>
+				                <td th:text="${slip.cardNum}"></td>
+				                <td th:text="${slip.cardName}"></td>
+				                <td th:text="${slip.transactionType}"></td>
+				                <td th:text="${slip.createdAt}"></td>
+				                <td th:text="${slip.updatedAt}"></td>
+				            </tr>
+				        </tbody>
+				    </table>
+                    <!-- 데이터 테이블 끝-->
+                    
+                   	<!-- 페이징 프라그먼트 -->
+					<div th:replace="~{paging::pagingFragment(paging=${saleSlipList})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{botton::bottonFragment}"></div>
+
+                </div> <!-- 옵션 1일 때 리스트 -->
+                
+                <!-- 옵션 2일때 시작 -->
+                <div id="option2Content" style="display: none;">
+					                    <!-- 데이터 테이블 시작-->
+				   <table class = "table table-hover">
+					   <thead>
+				            <tr>
+				                <th>전표 코드</th>
+				                <th>거래 일자</th>
+				                <th>거래자</th>
+				                <th>적요</th>
+				                <th>금액</th>
+				                <th>부가세</th>
+				                <th>카드 번호</th>
+				                <th>카드 이름</th>
+				                <th>거래 유형</th>
+				                <th>생성 일자</th>
+				                <th>수정 일자</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <!-- for each 문 -->
+				            <tr th:each="slip : ${purchaseSlipList}">
+								<!-- 화면에 띄울 정보 -->
+				                <td th:text="${slip.slipCode}"></td>
+				                <td th:text="${slip.tradeDate}"></td>
+				                <td th:text="${slip.trader}"></td>
+				                <td th:text="${slip.description}"></td>
+				                <td th:text="${slip.amount}"></td>
+				                <td th:text="${slip.VAT}"></td>
+				                <td th:text="${slip.cardNum}"></td>
+				                <td th:text="${slip.cardName}"></td>
+				                <td th:text="${slip.transactionType}"></td>
+				                <td th:text="${slip.createdAt}"></td>
+				                <td th:text="${slip.updatedAt}"></td>
+				            </tr>
+				        </tbody>
+				    </table>
+                    <!-- 데이터 테이블 끝-->
+	                <!-- 페이징 프라그먼트 -->
+					<div th:replace="~{paging::pagingFragment(paging=${purchaseSlipList})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{botton::bottonFragment}"></div>
+                </div> <!-- 옵션 2일 때 리스트 -->
+            </div> <!-- 테이블 컬럼 끝(1:4 비율) -->
+        </div> <!-- 컨테이너 플루이드 정의 끝 -->
+    </div> <!-- 컨테이너 플루이드 끝 -->
+    
+    <!-- Bootstrap JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+	    $(document).ready(function () {
+	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
+	        var currentPage = localStorage.getItem('currentPage') || 1;
+	
+	        if (selectedOption === "option1") {
+	            $("#option1Content").show();
+	            $("#option2Content").hide();
+	        } else if (selectedOption === "option2") {
+	            $("#option1Content").hide();
+	            $("#option2Content").show();
+	        }
+	        $("input[name='btnradio'][value='" + selectedOption + "']").prop('checked', true);
+	
+	        // 라디오 버튼 변경 시 로컬 스토리지에 저장
+	        $("input[name='btnradio']").change(function () {
+	            selectedOption = $(this).val();
+	            localStorage.setItem('selectedOption', selectedOption);
+	            
+	            // 페이지를 0으로 설정
+	            localStorage.setItem('currentPage', 0);
+	            
+	            // 현재 URL에서 페이지 파라미터를 제거한 뒤 페이지를 0으로 설정하여 리로드
+	            var currentUrl = window.location.href.split('?')[0];
+	            window.location.href = currentUrl + "?page=0";
+	        });
+	    });
+	</script>
+</body>
+</html>
