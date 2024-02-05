@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Create Member</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+
+		h2 {
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			color: #555;
+		}
+
+		input,
+		select {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 16px;
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		input[type="submit"] {
+			background-color: #333;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #555;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h2>물품 등록</h2>
+
+	<form action="/MG/itemcreate" method="post">
+
+
+		<!-- 이름 입력 -->
+		<label for="itemName">물품이름:</label>
+		<input type="text" id="itemName" name="itemName" required><br>
+
+		<!-- 이메일 입력 -->
+		<label for="itemCode">물품코드:</label>
+		<input type="text" id="itemCode" name="itemCode" required><br>
+
+
+		<!-- 연락처 입력란 -->
+		<label for="itemCost">물품단가:</label>
+		<input type="text" id="itemCost" name="itemCost" required><br>
+
+
+		<!-- 직책 입력 -->
+		<label for="itemType">물품종류:</label>
+		<input type="text" id="itemType" name="itemType" required><br>
+		
+		<!-- 직책 입력 -->
+		<label for="itemReciving">등록일자:</label>
+		<input type="date" id="itemReciving" name="itemReciving" required><br>
+
+		<!-- 제출 버튼 -->
+		<input type="submit" value="등록">
+	</form>
+</body>
+
+</html>

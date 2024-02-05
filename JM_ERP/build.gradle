@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+
 	// Spring web
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'jakarta.validation:jakarta.validation-api:2.0.2'
@@ -38,13 +39,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// Thymeleaf
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	//JUnit
+	// JUnit
 	testImplementation 'org.junit.jupiter:junit-jupiter' 
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     //Springsecurity6
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-	
+	// Spring Boot Validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 def webappDir = "$projectDir/src/main/my-app"

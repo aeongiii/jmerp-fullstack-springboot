@@ -36,6 +36,9 @@ CREATE TABLE `hr_cont` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- HR_cont에서 id값 자동 증가
+ALTER TABLE HR_cont MODIFY id INT AUTO_INCREMENT;
+
 --
 -- Dumping data for table `hr_cont`
 --
@@ -63,6 +66,9 @@ CREATE TABLE `hr_day` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+-- HR_day에서 id값 자동 증가
+ALTER TABLE HR_day MODIFY id INT AUTO_INCREMENT;
 
 --
 -- Dumping data for table `hr_day`
@@ -185,6 +191,8 @@ CREATE TABLE `hr_work` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+-- HR_work에서 id값 자동 증가
+ALTER TABLE HR_work MODIFY id INT AUTO_INCREMENT;
 --
 -- Dumping data for table `hr_work`
 --

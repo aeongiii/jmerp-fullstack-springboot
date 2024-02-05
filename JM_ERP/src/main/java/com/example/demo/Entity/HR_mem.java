@@ -38,4 +38,9 @@ public class HR_mem {
 	public String toString() {
 		return this.employeeId;
 	}
+
+	public String getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

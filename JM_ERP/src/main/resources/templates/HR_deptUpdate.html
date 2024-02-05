@@ -1,0 +1,20 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+	<div class="my-3 border-bottom">
+		<div>
+			<h4>부서 수정</h4>
+		</div>
+	</div>
+	<!-- 부서 수정 폼 -->
+	<form th:action="@{/HR/dept/update}"  th:object="${HR_deptUpdateForm}" method="post">
+		<input type="hidden" th:field="*{oldDeptName}" />
+		<div class="mb-3">
+			<label for="newDeptName" class="form-label">새 부서 이름</label>
+			<input type="text" th:field="*{newDeptName}" class="form-control" placeholder="새 부서 이름 입력" required />
+		</div>
+		<button type="submit" class="btn btn-primary">수정하기</button>
+	</form>
+
+</div>
+
+</html>

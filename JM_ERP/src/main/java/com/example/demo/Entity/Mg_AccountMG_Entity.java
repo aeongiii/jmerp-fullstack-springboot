@@ -1,14 +1,17 @@
 package com.example.demo.Entity;
 
-
-
-import javax.validation.constraints.Pattern;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
+
+
+@Getter
+@Setter
 @Entity
 @Table(name = "Mg_AccountMg")
 public class Mg_AccountMG_Entity {
@@ -25,7 +28,4 @@ public class Mg_AccountMG_Entity {
 	@Column
 	private String accountManager;
 	//거래처 담당자 명
-	}
-
-
-
+}
