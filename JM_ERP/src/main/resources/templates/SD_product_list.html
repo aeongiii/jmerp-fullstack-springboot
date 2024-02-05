@@ -44,7 +44,7 @@
 
 					<tbody>
 						<tr th:each="product : ${paging.content}">
-							<td th:if="${product.id}" th:text="${product.id}">Product ID</td>th>
+							<td th:if="${product.id}" th:text="${product.id}">Product ID</td>
 							<td th:text="${product.productType}">Product Type</td>
 							<td th:text="${product.productName}">Product Name</td>
 							<td th:text="${#numbers.formatInteger(product.price, 0)}">Price</td>

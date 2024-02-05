@@ -83,18 +83,18 @@ public class SD_SellerController {
 
 	@GetMapping("/Register")
 	public String Reg() {
-		return "RegSeller_form";
+		return "SD_sellerRegister";
 	}
 
 	@PostMapping("/Register")
 	public String RegSeller(@RequestParam("sellerId") String sellerId,
 			@RequestParam("businessNumber") String businessNumber, @RequestParam("contactInfo") String contactInfo,
 			@RequestParam("email") String email, @RequestParam("ceoName") String ceoName,
-			@RequestParam("address") String address, @RequestParam("contract") boolean contract) {
+			@RequestParam("address") String address) {
 
-		sellerService.RegSeller(sellerId, businessNumber, contactInfo, email, ceoName, address, contract);
+		sellerService.RegSeller(sellerId, businessNumber, contactInfo, email, ceoName, address);
 
-		return "Complete_RegSeller";
+		return "redirect:/SD/seller/list";
 	}
 
 }
