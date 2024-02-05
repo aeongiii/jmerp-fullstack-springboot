@@ -9,9 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 
+@Getter
+@Setter
 public class Mg_Sn {
 
 	@ManyToOne
@@ -25,7 +29,8 @@ public class Mg_Sn {
 
 	@Column
 	private LocalDate snDate;
-	
+	//날짜
 	@Column
 	private String item_name;
+	//이름
 }

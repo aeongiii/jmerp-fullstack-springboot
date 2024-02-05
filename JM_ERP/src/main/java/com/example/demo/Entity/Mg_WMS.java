@@ -1,5 +1,7 @@
 package com.example.demo.Entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,8 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @Entity
 public class Mg_WMS {
 
@@ -16,9 +21,6 @@ public class Mg_WMS {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer wareNumber;
 	// 순서 저장pk
-
-	@Column
-	private Integer Id;
 	
 	@Column
 	private String wareName;
@@ -29,11 +31,11 @@ public class Mg_WMS {
 	// 창고위치
 	
 	@Column
-	private String wareReciving;
+	private LocalDate wareReciving;
 	// 입고날짜
 	
 	@Column
-	private String wareRelese;
+	private LocalDate wareRelese;
 	// 출고날짜
 	
 	@Column
