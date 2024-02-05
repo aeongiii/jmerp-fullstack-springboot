@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.AC_Bond;
@@ -18,6 +19,7 @@ import com.example.demo.Service.AC_DebtService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
+@RequestMapping("/AC")
 @RequiredArgsConstructor
 @Controller
 public class AC_BondDebtController {
@@ -29,7 +31,7 @@ public class AC_BondDebtController {
 	@Autowired
 	private final AC_DebtService debtService;
 	
-    @GetMapping("/bond_debt")
+    @GetMapping("/bonddebt")
     public String List(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
@@ -42,13 +44,13 @@ public class AC_BondDebtController {
         return "AC_bond_debt";
     }
     
-    @GetMapping("/bond_regi")
+    @GetMapping("/bondregi")
     public String bondRegiForm() {
     	
     	return "AC_bond_regi";
     }
     
-    @PostMapping("/bond_regi")
+    @PostMapping("/bondregi")
     public String regiBond(
     		 @RequestParam(name = "trader") String trader,
     		 @RequestParam(name = "amount") Double amount,
@@ -69,13 +71,13 @@ public class AC_BondDebtController {
     	return "AC_bond_regi";
     }
     
-    @GetMapping("/debt_regi")
+    @GetMapping("/debtregi")
     public String debtRegiForm() {
     	
     	return "AC_debt_regi";
     }
     
-    @PostMapping("/debt_regi")
+    @PostMapping("/debtregi")
     public String regiDebt(
     		 @RequestParam(name = "trader") String trader,
     		 @RequestParam(name = "amount") Double amount,
@@ -96,13 +98,13 @@ public class AC_BondDebtController {
     	return "AC_debt_regi";
     }
     
-    @GetMapping("/bond_update")
+    @GetMapping("/bondupdate")
     public String bondUpdateForm() {
     	
     	return "AC_bond_update";
     }
     
-    @PostMapping("/bond_update")
+    @PostMapping("/bondupdate")
     public String bondUpdate(
     		@RequestParam(name = "bondNumber") String bondNumber,
     		@RequestParam(name = "type") String type,
@@ -143,13 +145,13 @@ public class AC_BondDebtController {
     	return "AC_bond_update";
     }
     
-    @GetMapping("/debt_update")
+    @GetMapping("/debtupdate")
     public String debtUpdateForm() {
     	
     	return "AC_debt_update";
     }
     
-    @PostMapping("/debt_update")
+    @PostMapping("/debtupdate")
     public String debtUpdate(
     		@RequestParam(name = "debtNumber") String debtNumber,
     		@RequestParam(name = "type") String type,

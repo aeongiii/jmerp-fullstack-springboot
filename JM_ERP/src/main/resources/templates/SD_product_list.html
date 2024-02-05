@@ -28,7 +28,7 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 				<!-- 데이터 테이블 시작-->
-				<table class="table table-hover">
+				<table id="foo-table" class="table table-hover">
 					<thead>
 						<tr class="table-active">
 							<th>Product ID</th>
@@ -44,7 +44,7 @@
 
 					<tbody>
 						<tr th:each="product : ${paging.content}">
-							<td th:if="${product.id}" th:text="${product.id}">Product ID</td>th>
+							<td th:if="${product.id}" th:text="${product.id}">Product ID</td>
 							<td th:text="${product.productType}">Product Type</td>
 							<td th:text="${product.productName}">Product Name</td>
 							<td th:text="${#numbers.formatInteger(product.price, 0)}">Price</td>
@@ -53,8 +53,8 @@
 								Registration Date</td>
 							<td>
 								<img th:if="${product.imageFile}" th:src="@{${product.imageFile}}" alt="Product Image"
-									height="100" width="100" >
- 								<span th:unless="${product.imageFile}">No Image</span>
+									height="100" width="100">
+								<span th:unless="${product.imageFile}">No Image</span>
 							</td>
 							<td th:text="${product.category}">Category</td>
 							<td th:text="${product.seller.sellerId}">Seller ID</td>
@@ -80,7 +80,24 @@
 
 
 	<!-- Bootstrap JS 연결 -->
+
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- DataTables JS 연결 -->
+	<script src="https://cdn.datatables.net/t/bs-3.3.6/jqc-1.12.0,dt-1.10.11/datatables.min.js"></script>
+	<script type="text/javascript">
+		jQuery(function ($) {
+			$("#foo-table").DataTable();
+		});
+
+		$("#foo-table").DataTable({
+			// 표시 건수기능 숨기기
+			lengthChange: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false
+		});
+	</script>
 </body>
 
 </html>

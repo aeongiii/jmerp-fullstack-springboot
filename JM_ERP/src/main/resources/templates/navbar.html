@@ -18,7 +18,7 @@
                     <a class="nav-link" href="#">Pricing</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+
                    <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
                     <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
                 </li>
@@ -66,10 +66,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">회계</a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="http://localhost:8080/AC">채무/채권 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/AC">전표 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/AC">월별 소득 관리</a>
-                        <a class="dropdown-item" href="http://localhost:8080/AC">원천 징수 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/AC/bonddebt">채무/채권 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/AC/slip">전표 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/AC/month">재무 관리</a>
                     </div>
                 </li>
                 

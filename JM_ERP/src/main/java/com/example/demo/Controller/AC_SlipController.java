@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.AC_PurchaseSlip;
@@ -15,6 +16,7 @@ import com.example.demo.Service.AC_SaleSlipService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
+@RequestMapping("/AC")
 @RequiredArgsConstructor
 @Controller
 public class AC_SlipController {
