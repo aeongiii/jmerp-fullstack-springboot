@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/HR/mem/list -->
-
 <head>
-	<title>사원 현황</title>
+	<title>근로계약서 수정</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 </head>
+
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
@@ -26,45 +25,42 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
-				<!-- 검색 폼 -->
-				<form action="/HR/mem/search" method="get">
-					<label for="name" class="form-label">사원 조회</label>
-					<input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
-					<button type="submit" class="btn btn-primary">검색</button>
-				</form>
-
-
-				<!-- 검색 결과 반환 -->
-				<div th:if="${not #lists.isEmpty(searchResults)}">
+				<!-- 현재 근로계약서 목록 -->
+				<div>
 					<table class="table table-hover">
 						<thead>
 							<tr class="table-active">
-								<th>입사일자</th>
+								<th>id</th>
 								<th>사원번호</th>
-								<th>이름</th>
-								<th>부서명</th>
-								<th>직급명</th>
-								<th>Email</th>
-								<th>계좌번호</th>
-								<th>기본급여</th>
+								<th>근로계약서명</th>
+								<th>등록일</th>
+								<th>서명요청여부</th>
+								<th>사명완료여부</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="mem : ${searchResults}">
-								<td th:text="${mem.startDate}"></td>
-								<td th:text="${mem.employeeId}"></td>
-								<td th:text="${mem.name}"></td>
-								<td th:text="${mem.deptName}"></td>
-								<td th:text="${mem.position}"></td>
-								<td th:text="${mem.email}"></td>
-								<td th:text="${mem.bankNum}"></td>
-								<td th:text="${mem.regularPay}"></td>
+							<tr th:each="cont : ${contList}">
+								<td th:text="${cont.id}"></td>
+								<td th:text="${cont.employeeId}"></td>
+								<td th:text="${cont.contractName}"></td>
+								<td th:text="${cont.contractDate}"></td>
+								<td th:text="${cont.signA}"></td>
+								<td th:text="${cont.signB}"></td>
+								<td>
+									<!-- 수정. 삭제 버튼 -->
+									<a th:href="@{'/HR/cont/update/' + ${cont.id}}"
+										class="btn btn-primary">수정</a>
+									<form th:action="@{'/HR/cont/delete/' + ${cont.id}}" method="post">
+										<input type="hidden" name="_method" value="delete" />
+										<button  class="btn btn-primary" type="submit">삭제</button>
+									</form>
+								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<button onclick="location.href='/HR/mem/list'" class="btn btn-primary">전체 사원 보기</button>
-
+				<!-- 폼 끝-->
 
 				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
@@ -76,9 +72,6 @@
 		<!-- 컨테이너 플루이드 정의 끝 -->
 	</div>
 	<!-- 컨테이너 플루이드 끝 -->
-
-
-
 
 
 

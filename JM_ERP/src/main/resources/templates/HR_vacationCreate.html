@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/HR/mem/list -->
-
 <head>
-	<title>사원 현황</title>
+	<title>휴가 등록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,35 +24,26 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
-				<!-- 데이터 테이블 시작-->
-				<table class="table table-hover">
-					<thead>
-						<tr class="table-active">
-							<th>입사일자</th>
-							<th>사원번호</th>
-							<th>이름</th>
-							<th>부서명</th>
-							<th>직급명</th>
-							<th>Email</th>
-							<th>계좌번호</th>
-							<th>기본급여</th>
-						</tr>
-					</thead>
+				<!-- 폼 -->
+				<form th:action="@{/HR/work/vacation}" th:object="${HR_vacationCreateForm}" method="post">
+					<div class="mb-3">
+						<label for="employeeId" class="form-label">사원번호</label>
+						<input type="text" th:field="*{employeeId}" class="form-control">
+					</div>
 
-					<tbody>
-						<tr th:each="mem : ${memList}">
-							<td th:text="${mem.startDate}"></td>
-							<td th:text="${mem.employeeId}"></td>
-							<td th:text="${mem.name}"></td>
-							<td th:text="${mem.deptName}"></td>
-							<td th:text="${mem.position}"></td>
-							<td th:text="${mem.email}"></td>
-							<td th:text="${mem.bankNum}"></td>
-							<td th:text="${mem.regularPay}"></td>
-						</tr>
-					</tbody>
-				</table>
-				<!-- 데이터 테이블 끝-->
+					<div class="mb-3">
+						<label for="attendance" class="form-label">휴가 유형</label><br>
+						<select id="attendance" name="attendance">
+							<option value="연차">연차</option>
+							<option value="병가">병가</option>
+							<!-- 여기에 다른 휴가 유형을 추가하세요 -->
+						</select><br>
+					</div>
+					<button type="submit" class="btn btn-primary">등록</button>
+				</form>
+				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<!-- 폼 끝-->
+
 
 				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
@@ -65,9 +54,6 @@
 
 		</div> <!-- 컨테이너 플루이드 정의 끝 -->
 	</div> <!-- 컨테이너 플루이드 끝 -->
-
-
-
 
 
 

@@ -38,14 +38,14 @@ public class HR_work {
 	@Column(columnDefinition = "TIME(0)", nullable = true)
 	private LocalTime endTime;		// 퇴근시간 (HH:MM:SS)
 	
-	private int workHour = 0;;			// 정규근무시간
+	private int workHour = 0;			// 정규근무시간
 	
-	private int overtimeHour = 0;;		// 특별근무시간
+	private int overtimeHour = 0;		// 특별근무시간
 	
 	@Column(nullable = true)
 	private String overtimeType;	// 수당항목
 	
-	private int overtimePay = 0;;		// 특별근무지급액
+	private int overtimePay = 0;		// 특별근무지급액
 	
 	@Column(nullable = true)
 	private String attendance;		// 근태내역

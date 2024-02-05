@@ -5,15 +5,16 @@
 			<h4>부서 수정</h4>
 		</div>
 	</div>
-	<form th:action="@{/HR/dept/update}" th:object="${HR_deptUpdateForm}" method="post">
-		<!-- 숨겨진 필드를 사용하여 'deptCode' 함께 전송 -->
-		<input type="hidden" th:field="*{deptCode}" />
+	<!-- 부서 수정 폼 -->
+	<form th:action="@{/HR/dept/update}"  th:object="${HR_deptUpdateForm}" method="post">
+		<input type="hidden" th:field="*{oldDeptName}" />
 		<div class="mb-3">
-			<label for="deptName" class="form-label">수정할 부서의 새 이름</label>
-			<input type="text" th:field="*{deptName}" class="form-control">
+			<label for="newDeptName" class="form-label">새 부서 이름</label>
+			<input type="text" th:field="*{newDeptName}" class="form-control" placeholder="새 부서 이름 입력" required />
 		</div>
 		<button type="submit" class="btn btn-primary">수정하기</button>
 	</form>
+
 </div>
 
 </html>

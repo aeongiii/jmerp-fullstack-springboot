@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/HR/mem/create -->
-
 <head>
-	<title>사원 등록</title>
+	<title>일용근무 등록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -28,10 +26,10 @@
 			<div class="col-lg-10">
 
 				<!-- 폼 -->
-				<form th:action="@{/HR/mem/create}" th:object="${HR_memCreateForm}" method="post">
+				<form th:action="@{/HR/day/create}" th:object="${HR_dayCreateForm}" method="post">
 					<div class="mb-3">
-						<label for="name" class="form-label">이름</label>
-						<input type="text" th:field="*{name}" class="form-control">
+						<label for="dayWorkName" class="form-label">이름</label>
+						<input type="text" th:field="*{dayWorkName}" class="form-control">
 					</div>
 					<div class="mb-3">
 						<label for="deptName" class="form-label">부서</label>
@@ -42,38 +40,22 @@
 						</select>
 					</div>
 					<div class="mb-3">
-						<label for="position" class="form-label">직급</label>
-						<div>
-							<input type="radio" id="team_leader" name="position" value="팀장" th:field="*{position}">
-							<label for="team_leader">팀장</label>
-						</div>
-						<div>
-							<input type="radio" id="employee" name="position" value="사원" th:field="*{position}">
-							<label for="employee">사원</label>
-						</div>
+						<label for="dayWorkDate" class="form-label">근무일</label>
+						<input type="date" th:field="*{dayWorkDate}" class="form-control">
 					</div>
 					<div class="mb-3">
-						<label for="email" class="form-label">이메일</label>
-						<input type="email" th:field="*{email}" class="form-control">
+						<label for="dayWorkHour" class="form-label">일용근무 시간</label>
+						<input type="text" th:field="*{dayWorkHour}" class="form-control">
 					</div>
 					<div class="mb-3">
-						<label for="startDate" class="form-label">입사일</label>
-						<input type="date" th:field="*{startDate}" class="form-control">
+						<label for="dayWorkPay" class="form-label">일용근무 수당</label>
+						<input type="number" th:field="*{dayWorkPay}" class="form-control">
 					</div>
-					<div class="mb-3">
-						<label for="bankNum" class="form-label">계좌번호</label>
-						<input type="text" th:field="*{bankNum}" class="form-control">
-					</div>
-					<div class="mb-3">
-						<label for="regularPay" class="form-label">기본급</label>
-						<input type="number" th:field="*{regularPay}" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-primary">사원 추가</button>
+					<button type="submit" class="btn btn-primary">일용근무사원 추가</button>
 				</form>
 				<!-- 폼 끝-->
-
-
-<!-- 페이징 프라그먼트 -->
+				
+				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
 				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
@@ -91,4 +73,3 @@
 </body>
 
 </html>
-

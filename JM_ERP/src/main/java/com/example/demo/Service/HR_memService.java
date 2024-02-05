@@ -3,6 +3,9 @@ package com.example.demo.Service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -79,6 +82,11 @@ public class HR_memService {
 			return cb.or(bankNumPredicate, deptNamePredicate, namePredicate, emailPredicate, positionPredicate);
 		};
 		return memRepository.findAll(spec);
+	}
+
+	public Page<HR_mem> searchAll(int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return memRepository.findAll(pageable);
 	}
 	
 
