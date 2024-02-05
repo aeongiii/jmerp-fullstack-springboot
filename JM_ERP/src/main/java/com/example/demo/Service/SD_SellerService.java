@@ -28,7 +28,7 @@ public class SD_SellerService {
 	private final SD_SalesRepository salesrepository;
 
 	public void RegSeller(String sellerId, String businessNumber, String contactInfo, String email, String ceoName,
-			String address, boolean contract) {
+			String address) {
 
 		SD_Seller newSeller = new SD_Seller();
 
@@ -38,7 +38,7 @@ public class SD_SellerService {
 		newSeller.setEmail(email);
 		newSeller.setCeoName(ceoName);
 		newSeller.setAddress(address);
-		newSeller.setContract(contract);
+		newSeller.setContract(true);
 		newSeller.setRegistrationDate(LocalDate.now());
 
 		sellerRepository.save(newSeller);
