@@ -6,10 +6,15 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Entity.HR_cont;
 import com.example.demo.Entity.HR_day;
+import com.example.demo.Entity.HR_mem;
+import com.example.demo.Form.HR_contUpdateForm;
 import com.example.demo.Form.HR_dayCreateForm;
+import com.example.demo.Form.HR_dayUpdateForm;
 import com.example.demo.Repository.HR_dayRepository;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -34,5 +39,32 @@ public class HR_dayService {
 			
 			// HR_day 저장
 			dayRepository.save(day);
+		}
+		
+
+
+// 삭제
+		public void deleteCont(int id) {
+			dayRepository.deleteById(id);
+			
+		}
+
+		public HR_day getDayById(int id) {
+			return dayRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));
+		}
+
+// 수정
+		public void updateDay(int id, @Valid HR_dayUpdateForm form) {
+		HR_day day = getDayById(id);
+		
+		day.setDeptName(form.getDeptName());
+		day.setDayWorkPay(form.getDayWorkPay());
+		day.setDayWorkName(form.getDayWorkName());
+		day.setDayWorkHour(form.getDayWorkHour());
+		day.setDayWorkDate(form.getDayWorkDate());
+		
+		dayRepository.save(day);
+			
 		}
 }
