@@ -17,38 +17,38 @@
 	<!-- 네비게이션바 프라그먼트-->
 	<nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-	<div class = "container-fluid">
-		<div class ="row">
-	<div class ="col-lg-2">
-	<div th:replace="~{ERP_mailarcodian :: arcodianFragment}"  ></div>
-</div>
-	<!-- 데이터 테이블 시작-->
-	<div class ="col-lg-10">
-	<table class="table table-hover">
-		<thead>
-			<tr class="table-active">
-				<th scope="row" th:text="${mail.sendUser.userId}"></th>
-				<th>보낸시각</th>
-				<th>이미지</th>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-2">
+				<div th:replace="~{ERP_mailarcodian :: arcodianFragment}"></div>
+			</div>
+			<!-- 데이터 테이블 시작-->
+			<div class="col-lg-10">
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th scope="row" th:text="${mail.sendUser.userId}"></th>
+							<th>보낸시각</th>
+							<th>이미지</th>
 
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-			<th scope="row" th:text="${mail.content}"></th>
-			<th scope="row" th:text="${mail.sendTransaction}"></th>
-			<td>
-				<img th:if="${mail.image}" th:src="@{${mail.image}}" alt="image">
-			</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row" th:text="${mail.content}"></th>
+							<th scope="row" th:text="${mail.sendTransaction}"></th>
+							<td>
+								<img th:if="${mail.image}" th:src="@{${mail.image}}" alt="image">
+							</td>
 
-			</tr>
-		</tbody>
-	</table>
-		</div>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 	<!-- 데이터 테이블 끝-->
-	
+
 
 
 	<!-- Bootstrap JS 연결 -->

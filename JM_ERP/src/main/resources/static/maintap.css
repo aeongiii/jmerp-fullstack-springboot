@@ -1,45 +1,45 @@
 .main--tap {
-  display: flex;
-  width: 100vw;
-  height: 70px;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #f1f1f1;
+	display: flex;
+	width: 100vw;
+	height: 70px;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #f1f1f1;
 }
 
 .main--tap--menu {
-  position: relative;
-  font-size: 20px;
-  text-align: center;
+	position: relative;
+	font-size: 20px;
+	text-align: center;
 }
 
-.main--tap--nav {
-  
-}
+.main--tap--nav {}
 
 a {
-  text-decoration-line: none;
-  color : black;
-  cursor: pointer;
+	text-decoration-line: none;
+	color: black;
+	cursor: pointer;
 }
 
 .group--HR {
-  display: block;
-  justify-content: center;
-  padding : 3px;
-  overflow: hidden;  /* border-radius(도형 둥글게) 안 될 때 사용하는 코드*/
-  border-radius: 20px;
-  opacity: 0;
-  transition: all ease 0.5s;
+	display: block;
+	justify-content: center;
+	padding: 3px;
+	overflow: hidden;
+	/* border-radius(도형 둥글게) 안 될 때 사용하는 코드*/
+	border-radius: 20px;
+	opacity: 0;
+	transition: all ease 0.5s;
 }
 
 #HRgroups {
-  display: flex;
-  background-color : white;
-  font-size : 13px;
-  padding : 3px;
+	display: flex;
+	background-color: white;
+	font-size: 13px;
+	padding: 3px;
 }
 
-.main--tap--nav:hover + .group--HR { /* hover 효과 나타내는 방법*/
-  opacity: 1;
+.main--tap--nav:hover+.group--HR {
+	/* hover 효과 나타내는 방법*/
+	opacity: 1;
 }

@@ -1,89 +1,93 @@
 .col-lg-10 {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 0;
-  padding: calc(5/var(--space)) 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: calc(5/var(--space)) 0;
 }
 
 a {
-  text-decoration-line: none;
-  color : black;
+	text-decoration-line: none;
+	color: black;
 }
 
 #btn1 {
-  width: 40px;
-  height: 20px;
-  font-size : 12px;
-  font-family: 'Nanum Gothic';
-  color: black;
-  line-height: 20px;
-  text-align: center;
-  background: white;
-  border: solid 2px rgb(119, 119, 119);
-  border-radius: 10px;
-  cursor: pointer;
+	width: 40px;
+	height: 20px;
+	font-size: 12px;
+	font-family: 'Nanum Gothic';
+	color: black;
+	line-height: 20px;
+	text-align: center;
+	background: white;
+	border: solid 2px rgb(119, 119, 119);
+	border-radius: 10px;
+	cursor: pointer;
 }
 
-#btn1:hover { /* hover 효과 나타내기*/
-  background-color: rgb(149, 149, 250);
-  color : white;
+#btn1:hover {
+	/* hover 효과 나타내기*/
+	background-color: rgb(149, 149, 250);
+	color: white;
 }
 
 #btn2 {
-  width: 65px;
-  height: 20px;
-  font-size : 12px;
-  font-family: 'Nanum Gothic';
-  color: black;
-  line-height: 20px;
-  text-align: center;
-  background: white;
-  border: solid 2px rgb(119, 119, 119);
-  border-radius: 10px;
-  cursor: pointer;
+	width: 65px;
+	height: 20px;
+	font-size: 12px;
+	font-family: 'Nanum Gothic';
+	color: black;
+	line-height: 20px;
+	text-align: center;
+	background: white;
+	border: solid 2px rgb(119, 119, 119);
+	border-radius: 10px;
+	cursor: pointer;
 }
 
-#btn2:hover { /* hover 효과 나타내기*/
-  background-color: rgb(149, 149, 250);
-  color : white;
+#btn2:hover {
+	/* hover 효과 나타내기*/
+	background-color: rgb(149, 149, 250);
+	color: white;
 }
 
 #btn3 {
-  width: 57px;
-  height: 20px;
-  font-size : 12px;
-  font-family: 'Nanum Gothic';
-  color: black;
-  line-height: 20px;
-  text-align: center;
-  background: white;
-  border: solid 2px rgb(119, 119, 119);
-  border-radius: 10px;
-  cursor: pointer;
+	width: 57px;
+	height: 20px;
+	font-size: 12px;
+	font-family: 'Nanum Gothic';
+	color: black;
+	line-height: 20px;
+	text-align: center;
+	background: white;
+	border: solid 2px rgb(119, 119, 119);
+	border-radius: 10px;
+	cursor: pointer;
 }
 
-#btn3:hover { /* hover 효과 나타내기*/
-  background-color: rgb(149, 149, 250);
-  color : white;
+#btn3:hover {
+	/* hover 효과 나타내기*/
+	background-color: rgb(149, 149, 250);
+	color: white;
 }
 
 #btn4 {
-  width: 40px;
-  height: 20px;
-  font-size : 12px;
-  font-family: 'Nanum Gothic';
-  color: black;
-  line-height: 20px;
-  text-align: center;
-  background: white;
-  border: solid 2px rgb(119, 119, 119);
-  border-radius: 10px;
-  cursor: pointer;
+	width: 40px;
+	height: 20px;
+	font-size: 12px;
+	font-family: 'Nanum Gothic';
+	color: black;
+	line-height: 20px;
+	text-align: center;
+	background: white;
+	border: solid 2px rgb(119, 119, 119);
+	border-radius: 10px;
+	cursor: pointer;
 }
 
-#btn4:hover { /* hover 효과 나타내기*/
-  background-color: rgb(149, 149, 250);
-  color : black;
+#btn4:hover {
+	/* hover 효과 나타내기*/
+	background-color: rgb(149, 149, 250);
+	color: black;
 }
