@@ -22,7 +22,7 @@
             
              <!-- 등록 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
-			    <form th:action="@{/AC/bondupdate}" method="post">
+			    <form id="bondForm" th:action="@{/AC/bondupdate}" method="post">
 					
 					<!-- 여기에 채권 번호 선택 넣을 것, 넣은 후에는 그 값의 원래 데이터를 보여줄 것 -->
 					
@@ -82,7 +82,21 @@
 
 					</script>
 					
-			        <input type="submit" value="등록">
+					<script>
+					    document.querySelector('#bondForm').addEventListener('submit', function(event) {
+					        var priceField = document.getElementById('priceField').value;
+					        var amount = document.getElementById('amount').value;
+					        var maturityDate = document.getElementById('maturityDate').value;
+					        
+					        // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
+					        if (priceField === '0' && !maturityDate && amount === '0') {
+					            event.preventDefault(); // 폼 제출 막기
+					            alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
+					        }
+					    });
+					</script>
+					
+			        <input type="submit" value="수정">
 			    </form>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
