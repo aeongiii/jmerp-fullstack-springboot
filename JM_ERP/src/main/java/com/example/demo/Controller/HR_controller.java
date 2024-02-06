@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.HR_cont;
+import com.example.demo.Entity.HR_day;
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
 import com.example.demo.Form.HR_contCreateForm;
 import com.example.demo.Form.HR_contUpdateForm;
 import com.example.demo.Form.HR_dayCreateForm;
+import com.example.demo.Form.HR_dayUpdateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
@@ -34,6 +37,8 @@ import com.example.demo.Service.HR_workService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+
+// HRday 브랜치 만들고 push test3
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -156,7 +161,7 @@ public class HR_controller {
 	public String createWork(@Valid HR_workCreateForm workCreateForm, Model model) {
 
 		workService.saveWork(workCreateForm); // 사원 정보 저장
-		return "redirect:/HR/mem/list";
+		return "redirect:/HR/work/search";
 	}
 
 // 휴가 등록
@@ -277,5 +282,53 @@ public class HR_controller {
 			return "redirect:/HR/mem/list";
 		}
 		
-// 일용근무사원 조회 메서드부터 만들어야 !!!!!!!!!
+// 일용근무사원 조회
+		@GetMapping("/day/list") // 리스트 출력
+		public String listDay(Model model) {
+			List<HR_day> dayList = dayService.getDayList();
+			model.addAttribute("dayList", dayList);
+			return "HR_dayList";
+		}
+		
+// 일용근무사원 수정
+		@GetMapping("/day/update/{id}")
+		public String updateDay(@PathVariable("id") int id, Model model) {
+			HR_day day = dayService.getDayById(id);
+			HR_dayCreateForm form = new HR_dayCreateForm();
+			
+			form.setId(day.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
+			
+			// 이미 존재하는 HR_day 객체를 HR_dayCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+			form.setDayWorkDate(day.getDayWorkDate());
+			form.setDayWorkHour(day.getDayWorkHour());
+			form.setDayWorkName(day.getDayWorkName());
+			form.setDayWorkPay(day.getDayWorkPay()); 
+			form.setDeptName(day.getDeptName());
+			
+			// 기존 선택된 부서명도 수정 폼에 추가하려고 했으나... 실패
+			List<HR_dept> deptList = deptService.getdeptList();
+			model.addAttribute("deptList", deptList);	// 부서목록도 폼에 필요하니까 같이 추가
+			
+			model.addAttribute("HR_dayUpdateForm", form);
+			return "HR_dayUpdate"; 
+		}
+
+		@PostMapping("/day/update/{id}")
+		public String updateDay(@PathVariable("id") int id, @Valid HR_dayUpdateForm dayUpdateForm, BindingResult bindingResult, Model model) {
+			if (bindingResult.hasErrors()) {
+				// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+				return "HR_dayUpdate";
+			}
+			dayService.updateDay(id, dayUpdateForm);
+			return "redirect:/HR/day/list";
+		}		
+		
+		
+		
+// 일용근무사원 삭제
+		@PostMapping("/day/delete/{id}")
+		public String deleteDay(@PathVariable("id") int id) {
+			dayService.deleteCont(id);
+			return "redirect:/HR/day/list";
+		}
 }
