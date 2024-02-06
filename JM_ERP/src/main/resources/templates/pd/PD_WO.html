@@ -13,19 +13,16 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 	
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{PD_accordion :: accordionFragment}"></div>
+				<div th:replace="~{pd/PD_accordion :: accordionFragment}"></div>
 			</div>
-			<div id="weather">
-      <span></span>
-      <span></span>
-    </div>
+
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
@@ -39,22 +36,20 @@
 							<th>단위</th>
 							<th>수량</th>
 							<th>구분</th>
-							<th>생산수량</th>
-							<th>작업시간</th>
+							<th>작업</th>
+							<th>공장</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="table-active" th:each="bom : ${paging.content}">
-							<td>
-								<a th:href="@{|/PD/bom/${bom.ProdCode}|}" th:text="${bom.prodCode}"></a>
-							</td>
-							<td th:text="${bom.prodName}"></td>
-							<td th:text="${bom.rawMatNum}"></td>
-							<td th:text="${bom.unit}"></td>
-							<td th:text="${bom.num}"></td>
-							<td th:text="${bom.type}"></td>
-							<td th:text="${bom.rawNum}"></td>
-							<td th:text="${bom.workTime}"></td>
+						<tr class="table-active" th:each="wo : ${paging.content}">
+							<td th:text="${wo.orderNum}"></td>
+							<td th:text="${wo.deliveryName}"></td>
+							<td th:text="${wo.manager}"></td>
+							<td th:text="${wo.deliveryDate}"></td>
+							<td th:text="${wo.prodCode}"></td>
+							<td th:text="${wo.wOrder}"></td>
+							<td th:text="${wo.making}"></td>
+							<td th:text="${wo.factory}"></td>
 						</tr>
 					</tbody>
 
@@ -63,9 +58,9 @@
 				<!-- 데이터 테이블 끝-->
 				
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{/paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{PD_button::PD_buttonFragment}"></div>
+				<div th:replace="~{pd/PD_button::PD_buttonFragment}"></div>
 				
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->		
