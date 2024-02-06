@@ -299,13 +299,13 @@ public class HR_controller {
 			form.setId(day.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
 			
 			// 이미 존재하는 HR_day 객체를 HR_dayCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
-			form.setDayWorkDate(day.getDayWorkDate());
+			form.setDayWorkDate(day.getDayWorkDate());	// 날짜는 기존 데이터 추가하기 실패ㅠㅠ
 			form.setDayWorkHour(day.getDayWorkHour());
 			form.setDayWorkName(day.getDayWorkName());
 			form.setDayWorkPay(day.getDayWorkPay()); 
 			form.setDeptName(day.getDeptName());
 			
-			// 기존 선택된 부서명도 수정 폼에 추가하려고 했으나... 실패
+			// 기존 선택된 부서명도 수정 폼에 추가
 			List<HR_dept> deptList = deptService.getdeptList();
 			model.addAttribute("deptList", deptList);	// 부서목록도 폼에 필요하니까 같이 추가
 			
