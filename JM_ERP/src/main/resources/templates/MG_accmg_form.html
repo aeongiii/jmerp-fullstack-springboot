@@ -75,37 +75,36 @@
 
 
 		<!-- 연락처 입력란 -->
-		<label for="accountNum">연락처:</label>
-		<input type="tel" id="accountNum" name="accountNum" required><br>
+<label for="accountNum">연락처:</label>
+<input type="tel" id="accountNum" name="accountNum" required><br>
 
-		<script>
-			// 연락처 입력란 요소 가져오기
-			var accountNumInput = document.getElementById('accountNum');
+<script>
+    // 연락처 입력란 요소 가져오기
+    var accountNumInput = document.getElementById('accountNum');
 
-			// 입력란의 값이 변경될 때마다 형식을 검증
-			accountNumInput.addEventListener('input', function () {
-				// 입력된 값에서 숫자만 추출
-				var phoneNumber = accountNumInput.value.replace(/[^\d]/g, '');
+    // 입력란의 값이 변경될 때마다 형식을 검증
+    accountNumInput.addEventListener('input', function () {
+        // 입력된 값에서 숫자만 추출
+        var phoneNumber = accountNumInput.value.replace(/[^\d]/g, '');
 
-				// 전화번호 형식에 맞게 포맷팅
-				if (phoneNumber.length >= 4 && phoneNumber.length <= 7) {
-					phoneNumber = phoneNumber.replace(/(\d{3})(\d+)/, '$1-$2');
-				} else if (phoneNumber.length >= 8) {
-					phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
-				}
+        // 전화번호 형식에 맞게 포맷팅
+        if (phoneNumber.length >= 4 && phoneNumber.length <= 7) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d+)/, '$1-$2');
+        } else if (phoneNumber.length >= 8) {
+            phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+        }
 
-				// 포맷팅된 전화번호를 입력란에 설정
-				accountNumInput.value = phoneNumber;
-			});
-		</script>
+        // 포맷팅된 전화번호를 입력란에 설정
+        accountNumInput.value = phoneNumber;
+    });
+</script>
 
-		<!-- 직책 입력 -->
-		<label for="accountManager">담당자:</label>
-		<input type="text" id="accountManager" name="accountManager" required><br>
+        <!-- 직책 입력 -->
+        <label for="accountManager">담당자:</label>
+        <input type="text" id="accountManager" name="accountManager" required><br>
 
-		<!-- 제출 버튼 -->
-		<input type="submit" value="Create Member">
-	</form>
+                <!-- 제출 버튼 -->
+        <input type="submit" value="Create Member">
+    </form>
 </body>
-
 </html>

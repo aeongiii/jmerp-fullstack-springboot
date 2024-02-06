@@ -23,12 +23,12 @@
 			<div class="col-lg-2">
 				<div th:replace="~{MG_accordion :: accordionFragment}"></div>
 			</div>
-
+ 
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 				<!-- 조건 조회 버튼 시작-->
-
+				
 				<!-- 조건 조회 버튼 끝-->
 
 				<!-- 데이터 테이블 시작-->
@@ -43,7 +43,7 @@
 					</thead>
 					<tbody>
 						<!-- Thymeleaf 반복문 사용 -->
-						<tr th:each="mgcheck : ${paging.content}">
+						<tr th:each="mgcheck : ${paging.content}" >
 							<th scope="row" th:text="${mgcheck.accountCode}">사업자 번호</th>
 							<!-- Seller 엔티티로부터 Seller ID 추출 -->
 							<td th:text="${mgcheck.accountName}">Seller ID</td>
