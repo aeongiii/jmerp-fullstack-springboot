@@ -28,6 +28,7 @@
 				<!-- 폼 -->
 				<form th:action="@{/HR/cont/create}" th:object="${HR_contCreateForm}" method="post">
 					<input type="hidden" th:field="*{id}" /> <!-- id값 숨겨서 함께 전달 -->
+
 					<div class="mb-3">
 						<label for="employeeId" class="form-label">사원번호</label>
 						<input type="text" th:field="*{employeeId}" class="form-control">

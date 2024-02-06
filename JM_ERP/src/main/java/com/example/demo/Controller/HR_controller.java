@@ -36,7 +36,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 
-
 @RequestMapping("/HR")
 @RequiredArgsConstructor
 @Controller
