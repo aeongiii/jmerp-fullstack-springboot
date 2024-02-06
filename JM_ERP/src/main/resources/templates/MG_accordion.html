@@ -1,0 +1,88 @@
+
+<div class="accordion" id="accordionExample" th:fragment ="accordionFragment">
+	<!-- 아코디언 아이템 1 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingOne">
+			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+				aria-expanded="true" aria-controls="collapseOne">
+				상품관리
+			</button>
+		</h2>
+		<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/MG/itemcheek">물품조회</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/MG/itemcreate">물품 등록</a>
+				<br>
+				<a class="dropdown-item" href="#">물품 수정</a>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 아코디언 아이템 2 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingTwo">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				창고관리
+			</button>
+		</h2>
+		<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/member/list">창고 입/출고 조회</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/MG/relesecreate">창고 출고 등록</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/MG/recivingcreate">창고 입고 등록</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/MG/recivingcreate">시리얼 넘버 조회</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 아코디언 아이템 3 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingThree">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+				판매자관리
+			</button>
+		</h2>
+		<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/seller/list">셀러 등록 및 조회</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/seller/commissionrate">카테고리별 수수료 지정</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/seller/sellercommission">셀러 별 수수료 내역</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/seller/sales">셀러 별 판매기록조회</a>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 아코디언 아이템 4 -->
+	<div class="accordion-item">
+		<h2 class="accordion-header" id="headingFour">
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+				비품사용
+			</button>
+		</h2>
+		<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/MG/useselfcreate">비품 사용 등록</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/MG/useCheck">비품 사용 조회</a>
+				<br>
+				<a class="dropdown-item" href="#">기능 삽입</a>
+			</div>
+		</div>
+	</div>
+</div>
