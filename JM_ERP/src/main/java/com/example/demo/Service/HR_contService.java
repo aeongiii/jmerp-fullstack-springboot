@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Entity.HR_cont;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Form.HR_contCreateForm;
+import com.example.demo.Form.HR_contUpdateForm;
 import com.example.demo.Repository.HR_contRepository;
 import com.example.demo.Repository.HR_memRepository;
 
@@ -54,7 +55,7 @@ public class HR_contService {
 				.orElseThrow(() -> new EntityNotFoundException("근로계약서가 존재하지 않습니다."));
 	}
 
-	public void updateCont(int id, @Valid HR_contCreateForm form) {
+	public void updateCont(int id, @Valid HR_contUpdateForm form) {
 		HR_cont cont = getContById(id);
 		HR_mem employee = memRepository.findById(form.getEmployeeId())
 				.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));

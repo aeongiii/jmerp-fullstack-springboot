@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,10 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Entity.HR_cont;
+import com.example.demo.Entity.HR_day;
 import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
+import com.example.demo.Form.HR_contCreateForm;
+import com.example.demo.Form.HR_contUpdateForm;
 import com.example.demo.Form.HR_dayCreateForm;
+import com.example.demo.Form.HR_dayUpdateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
@@ -31,6 +37,8 @@ import com.example.demo.Service.HR_workService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+
+// HRday 브랜치 만들고 push test3
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -153,7 +161,7 @@ public class HR_controller {
 	public String createWork(@Valid HR_workCreateForm workCreateForm, Model model) {
 
 		workService.saveWork(workCreateForm); // 사원 정보 저장
-		return "redirect:/HR/mem/list";
+		return "redirect:/HR/work/search";
 	}
 
 // 휴가 등록
@@ -189,69 +197,69 @@ public class HR_controller {
 
 // ========================================= 5. 근로계약서 =============================================
 
-//// 근로계약서 등록	
-//	@GetMapping("/cont/create")
-//	public String createCont(Model model) {
-//		List<HR_cont> contList = contService.getcontList();
-//		model.addAttribute("contList", contList);
-//		model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-//		return "HR_contCreate";
-//	}
-//
-//	@PostMapping("/cont/create")
-//	public String createCont(@Valid HR_contCreateForm contCreateForm, BindingResult bindingResult, Model model) {
-//		if (bindingResult.hasErrors()) {
-//			return "HR_contCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
-//		}
-//		contService.saveCont(contCreateForm); // 사원 정보 저장
-//		return "redirect:/HR/cont/list";
-//	}
-//
-//// 근로계약서 전체 리스트 출력		
-//	@GetMapping("/cont/list") // 근로계약서 리스트 출력
-//	public String listCont(Model model) {
-//		List<HR_cont> contList = contService.getcontList();
-//		model.addAttribute("contList", contList);
-//		return "HR_contList";
-//	}
-//
-//// 근로계약서 수정
-//	@GetMapping("/cont/update/{id}")
-//	public String updateCont(@PathVariable("id") int id, Model model) {
-//		HR_cont cont = contService.getContById(id);
-//		HR_contCreateForm form = new HR_contCreateForm();
-//
-//		form.setId(cont.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
-//		
-//		// 이미 존재하는 HR_cont 근로계약서 객체를 HR_contCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
-//		form.setEmployeeId(cont.getEmployeeId().getEmployeeId()); // .getEmployeeId()를 두번 사용 : HR_mem 호출 후 실제 사원번호 호출
-//		form.setContractName(cont.getContractName());
-//		form.setContractDate(cont.getContractDate());
-//		form.setSignA(cont.isSignA() ? "요청완료" : "미요청"); // SignA의 속성값이 true 이면 웹에서 "요청완료"를, 속성값이 false 이면 웹에서 "미요청"으로
-//														// 선택됨
-//		form.setSignB(cont.isSignB() ? "서명완료" : "미완료");
-//
-//		model.addAttribute("HR_contUpdateForm", form);
-//
-//		return "HR_contUpdate"; // 등록 폼 그대로 사용
-//	}
-//
-//	@PostMapping("/cont/update/{id}")
-//	public String updateCont(@PathVariable("id") int id, @Valid HR_contUpdateForm contUpdateForm, BindingResult bindingResult, Model model) {
-//		if (bindingResult.hasErrors()) {
-//			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
-//			return "HR_contUpdate";
-//		}
-//		contService.updateCont(contUpdateForm.getId(), contUpdateForm);
-//		return "redirect:/HR/cont/list";
-//	}
-//
-//// 근로계약서 삭제
-//		@PostMapping("/cont/delete/{id}")
-//		public String deleteCont(@PathVariable("id") int id) {
-//			contService.deleteCont(id);
-//			return "redirect:/HR/cont/list";
-//		}
+// 근로계약서 등록	
+	@GetMapping("/cont/create")
+	public String createCont(Model model) {
+		List<HR_cont> contList = contService.getcontList();
+		model.addAttribute("contList", contList);
+		model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		return "HR_contCreate";
+	}
+
+	@PostMapping("/cont/create")
+	public String createCont(@Valid HR_contCreateForm contCreateForm, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "HR_contCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
+		}
+		contService.saveCont(contCreateForm); // 사원 정보 저장
+		return "redirect:/HR/cont/list";
+	}
+
+// 근로계약서 전체 리스트 출력		
+	@GetMapping("/cont/list") // 근로계약서 리스트 출력
+	public String listCont(Model model) {
+		List<HR_cont> contList = contService.getcontList();
+		model.addAttribute("contList", contList);
+		return "HR_contList";
+	}
+
+// 근로계약서 수정
+	@GetMapping("/cont/update/{id}")
+	public String updateCont(@PathVariable("id") int id, Model model) {
+		HR_cont cont = contService.getContById(id);
+		HR_contCreateForm form = new HR_contCreateForm();
+
+		form.setId(cont.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
+		
+		// 이미 존재하는 HR_cont 근로계약서 객체를 HR_contCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+		form.setEmployeeId(cont.getEmployeeId().getEmployeeId()); // .getEmployeeId()를 두번 사용 : HR_mem 호출 후 실제 사원번호 호출
+		form.setContractName(cont.getContractName());
+		form.setContractDate(cont.getContractDate());
+		form.setSignA(cont.isSignA() ? "요청완료" : "미요청"); // SignA의 속성값이 true 이면 웹에서 "요청완료"를, 속성값이 false 이면 웹에서 "미요청"으로
+														// 선택됨
+		form.setSignB(cont.isSignB() ? "서명완료" : "미완료");
+
+		model.addAttribute("HR_contUpdateForm", form);
+
+		return "HR_contUpdate"; 
+	}
+
+	@PostMapping("/cont/update/{id}")
+	public String updateCont(@PathVariable("id") int id, @Valid HR_contUpdateForm contUpdateForm, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+			return "HR_contUpdate";
+		}
+		contService.updateCont(contUpdateForm.getId(), contUpdateForm);
+		return "redirect:/HR/cont/list";
+	}
+
+// 근로계약서 삭제
+		@PostMapping("/cont/delete/{id}")
+		public String deleteCont(@PathVariable("id") int id) {
+			contService.deleteCont(id);
+			return "redirect:/HR/cont/list";
+		}
 		
 		
 // ========================================= 6. 일용근무 =============================================
@@ -274,5 +282,53 @@ public class HR_controller {
 			return "redirect:/HR/mem/list";
 		}
 		
-// 일용근무사원 조회 메서드부터 만들어야 !!!!!!!!!
+// 일용근무사원 조회
+		@GetMapping("/day/list") // 리스트 출력
+		public String listDay(Model model) {
+			List<HR_day> dayList = dayService.getDayList();
+			model.addAttribute("dayList", dayList);
+			return "HR_dayList";
+		}
+		
+// 일용근무사원 수정
+		@GetMapping("/day/update/{id}")
+		public String updateDay(@PathVariable("id") int id, Model model) {
+			HR_day day = dayService.getDayById(id);
+			HR_dayCreateForm form = new HR_dayCreateForm();
+			
+			form.setId(day.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
+			
+			// 이미 존재하는 HR_day 객체를 HR_dayCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+			form.setDayWorkDate(day.getDayWorkDate());
+			form.setDayWorkHour(day.getDayWorkHour());
+			form.setDayWorkName(day.getDayWorkName());
+			form.setDayWorkPay(day.getDayWorkPay()); 
+			form.setDeptName(day.getDeptName());
+			
+			// 기존 선택된 부서명도 수정 폼에 추가하려고 했으나... 실패
+			List<HR_dept> deptList = deptService.getdeptList();
+			model.addAttribute("deptList", deptList);	// 부서목록도 폼에 필요하니까 같이 추가
+			
+			model.addAttribute("HR_dayUpdateForm", form);
+			return "HR_dayUpdate"; 
+		}
+
+		@PostMapping("/day/update/{id}")
+		public String updateDay(@PathVariable("id") int id, @Valid HR_dayUpdateForm dayUpdateForm, BindingResult bindingResult, Model model) {
+			if (bindingResult.hasErrors()) {
+				// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+				return "HR_dayUpdate";
+			}
+			dayService.updateDay(id, dayUpdateForm);
+			return "redirect:/HR/day/list";
+		}		
+		
+		
+		
+// 일용근무사원 삭제
+		@PostMapping("/day/delete/{id}")
+		public String deleteDay(@PathVariable("id") int id) {
+			dayService.deleteCont(id);
+			return "redirect:/HR/day/list";
+		}
 }
