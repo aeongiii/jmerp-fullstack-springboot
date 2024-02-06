@@ -35,7 +35,7 @@ import com.example.demo.Service.HR_workService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// HRday 브랜치 만들고 push test
+// HRday 브랜치 만들고 push test2
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
