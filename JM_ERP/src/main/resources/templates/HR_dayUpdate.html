@@ -27,7 +27,7 @@
 			<div class="col-lg-10">
 				
 			<!-- 폼 -->
-				<form th:action="@{@{/HR/day/update/{id}(id=${HR_dayUpdateForm.id})}}" th:object="${HR_dayUpdateForm}" method="post">
+				<form th:action="@{/HR/day/update/{id}(id=${HR_dayUpdateForm.id})}" th:object="${HR_dayUpdateForm}" method="post">
 					<div class="mb-3">
 						<label for="dayWorkName" class="form-label">이름</label>
 						<input type="text" th:field="*{dayWorkName}" class="form-control">
