@@ -1,96 +1,93 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>채권 수정</title>
-
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채권 수정</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+    <!-- 네비게이션바 프라그먼트-->
+    <nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-	<div class="container-fluid">
-		<div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
-			<div class="col-lg-2">
-				<div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
-			</div>
-
-			<!-- 등록 컬럼 (1:4 비율) -->
-			<div class="col-lg-10">
-				<form th:action="@{/AC/bondupdate}" method="post">
-
+            <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+            <div class="col-lg-2">
+                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
+            </div>
+            
+             <!-- 등록 컬럼 (1:4 비율) -->
+            <div class="col-lg-10">
+			    <form th:action="@{/AC/bondupdate}" method="post">
+					
 					<!-- 여기에 채권 번호 선택 넣을 것, 넣은 후에는 그 값의 원래 데이터를 보여줄 것 -->
-
+					
 					<label for="bondNumber">채권 번호 입력:</label>
 					<input type="text" id="bondNumber" name="bondNumber" required><br>
-
+					
 					<label for="type">증감 구분:</label>
 					<select id="type" name="type" onchange="showPriceField()">
-						<option value="" selected>선택하세요</option>
-						<option value="추가">추가</option>
-						<option value="할인">할인</option>
+					    <option value="" selected>선택하세요</option>
+					    <option value="추가">추가</option>
+					    <option value="할인">할인</option>
 					</select><br>
-
+					
 					<div id="priceLabel" style="display:none;">
-						<label for="priceField" id="priceLabelName"></label>
-						<input type="number" id="priceField" name="priceField" value="0"><br>
+					    <label for="priceField" id="priceLabelName"></label>
+					    <input type="number" id="priceField" name="priceField" value="0"><br>
 					</div>
-
+					
 					<script>
-						function showPriceField() {
-							var selectBox = document.getElementById("type");
-							var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-							var priceLabel = document.getElementById("priceLabel");
-
-							if (selectedValue === "추가") {
-								priceLabel.style.display = "block";
-								document.getElementById("priceLabelName").textContent = "추가 금액:";
-							} else if (selectedValue === "할인") {
-								priceLabel.style.display = "block";
-								document.getElementById("priceLabelName").textContent = "할인 금액:";
-							} else {
-								priceLabel.style.display = "none";
-							}
-						}
+					    function showPriceField() {
+					        var selectBox = document.getElementById("type");
+					        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+					        var priceLabel = document.getElementById("priceLabel");
+					
+					        if (selectedValue === "추가") {
+					            priceLabel.style.display = "block";
+					            document.getElementById("priceLabelName").textContent = "추가 금액:";
+					        } else if (selectedValue === "할인") {
+					            priceLabel.style.display = "block";
+					            document.getElementById("priceLabelName").textContent = "할인 금액:";
+					        } else {
+					            priceLabel.style.display = "none";
+					    	}
+					    }
 
 					</script>
-
-					<label for="amount">변제 금액:</label>
-					<input type="number" id="amount" name="amount" value="0"><br>
-
-					<label for="maturityDate">만기일 변경:</label>
-					<input type="date" id="maturityDate" name="maturityDate"><br>
-
-					<script>
+			
+			        <label for="amount">변제 금액:</label>
+			        <input type="number" id="amount" name="amount" value="0"><br>
+			
+			        <label for="maturityDate">만기일 변경:</label>
+			        <input type="date" id="maturityDate" name="maturityDate"><br>
+			        
+			        <script>
 						// 오늘 날짜를 가져오는 함수
-						function getTodayDate() {
-							var today = new Date();
-							var dd = String(today.getDate()).padStart(2, '0');
-							var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
-							var yyyy = today.getFullYear();
-
-							return yyyy + '-' + mm + '-' + dd;
-						}
-
-						// maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
-						document.getElementById('maturityDate').min = getTodayDate();
+					    function getTodayDate() {
+					        var today = new Date();
+					        var dd = String(today.getDate()).padStart(2, '0');
+					        var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
+					        var yyyy = today.getFullYear();
+					
+					        return yyyy + '-' + mm + '-' + dd;
+					    }
+					
+					    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
+					    document.getElementById('maturityDate').min = getTodayDate();
 
 					</script>
-
-					<input type="submit" value="등록">
-				</form>
-			</div> <!-- 등록 컬럼 끝(1:4 비율) -->
-		</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	</div> <!-- 컨테이너 플루이드 끝 -->
-	<!-- Bootstrap JS 연결 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+					
+			        <input type="submit" value="등록">
+			    </form>
+            </div> <!-- 등록 컬럼 끝(1:4 비율) -->
+        </div> <!-- 컨테이너 플루이드 정의 끝 -->
+    </div> <!-- 컨테이너 플루이드 끝 -->
+    <!-- Bootstrap JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

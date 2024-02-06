@@ -1,65 +1,62 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>채무 등록</title>
-
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채무 등록</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
 <body>
-	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+    <!-- 네비게이션바 프라그먼트-->
+    <nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-	<div class="container-fluid">
-		<div class="row">
+    <div class="container-fluid">
+        <div class="row">
 
-			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
-			<div class="col-lg-2">
-				<div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
-			</div>
-
-			<!-- 등록 컬럼 (1:4 비율) -->
-			<div class="col-lg-10">
-				<form th:action="@{/AC/debtregi}" method="post">
-
-					<label for="trader">거래자:</label>
-					<input type="text" id="trader" name="trader" required><br>
-
-					<label for="amount">금액:</label>
-					<input type="number" id="amount" name="amount" required><br>
-
-					<label for="maturityDate">만기일:</label>
-					<input type="date" id="maturityDate" name="maturityDate" required><br>
-
-					<script>
+            <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+            <div class="col-lg-2">
+                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
+            </div>
+            
+             <!-- 등록 컬럼 (1:4 비율) -->
+            <div class="col-lg-10">
+			    <form th:action="@{/AC/debtregi}" method="post">
+			
+			        <label for="trader">거래자:</label>
+			        <input type="text" id="trader" name="trader" required><br>
+			
+			        <label for="amount">금액:</label>
+			        <input type="number" id="amount" name="amount" required><br>
+			
+			        <label for="maturityDate">만기일:</label>
+			        <input type="date" id="maturityDate" name="maturityDate" required><br>
+			        
+			        <script>
 						// 오늘 날짜를 가져오는 함수
-						function getTodayDate() {
-							var today = new Date();
-							var dd = String(today.getDate()).padStart(2, '0');
-							var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
-							var yyyy = today.getFullYear();
-
-							return yyyy + '-' + mm + '-' + dd;
-						}
-
-						// maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
-						document.getElementById('maturityDate').min = getTodayDate();
+					    function getTodayDate() {
+					        var today = new Date();
+					        var dd = String(today.getDate()).padStart(2, '0');
+					        var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
+					        var yyyy = today.getFullYear();
+					
+					        return yyyy + '-' + mm + '-' + dd;
+					    }
+					
+					    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
+					    document.getElementById('maturityDate').min = getTodayDate();
 					</script>
-
-					<label for="description">적요:</label>
-					<input type="text" id="description" name="description" required><br>
-
-					<input type="submit" value="등록">
-				</form>
-			</div> <!-- 등록 컬럼 끝(1:4 비율) -->
-		</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	</div> <!-- 컨테이너 플루이드 끝 -->
-	<!-- Bootstrap JS 연결 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+			
+			        <label for="description">적요:</label>
+			        <input type="text" id="description" name="description" required><br>
+			        
+			        <input type="submit" value="등록">
+			    </form>
+            </div> <!-- 등록 컬럼 끝(1:4 비율) -->
+        </div> <!-- 컨테이너 플루이드 정의 끝 -->
+    </div> <!-- 컨테이너 플루이드 끝 -->
+    <!-- Bootstrap JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

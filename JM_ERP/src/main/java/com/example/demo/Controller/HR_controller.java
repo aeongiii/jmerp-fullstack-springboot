@@ -28,15 +28,13 @@ import com.example.demo.Service.HR_dayService;
 import com.example.demo.Service.HR_deptService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
-import com.example.demo.Service.PD_BOMService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-// 1
 
+@RequestMapping("/HR")
 @RequiredArgsConstructor
 @Controller
-@RequestMapping("/HR")
 public class HR_controller {
 
 	private final HR_memService memService;
@@ -46,7 +44,10 @@ public class HR_controller {
 	private final HR_dayService dayService;
 
 // ========================================= main =============================================
-
+	@GetMapping("")
+	public String HR() {
+		return "HR_main";
+	}
 
 // ========================================= 1. 사원 =============================================
 

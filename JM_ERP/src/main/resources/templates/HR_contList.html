@@ -49,10 +49,11 @@
 								<td th:text="${cont.signB}"></td>
 								<td>
 									<!-- 수정. 삭제 버튼 -->
-									<a th:href="@{'/HR/cont/update/' + ${cont.id}}" class="btn btn-primary">수정</a>
+									<a th:href="@{'/HR/cont/update/' + ${cont.id}}"
+										class="btn btn-primary">수정</a>
 									<form th:action="@{'/HR/cont/delete/' + ${cont.id}}" method="post">
 										<input type="hidden" name="_method" value="delete" />
-										<button class="btn btn-primary" type="submit">삭제</button>
+										<button  class="btn btn-primary" type="submit">삭제</button>
 									</form>
 								</td>
 							</tr>

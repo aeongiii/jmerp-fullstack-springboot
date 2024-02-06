@@ -4,39 +4,39 @@
 <!-- http://localhost:8080/PC/product/pbproduct -->
 
 <head>
-	<title>Seller List</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Seller List</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLuxTest.css}">
+   <!-- Bootstrap CSS 연결 -->
+   <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLuxTest.css}">
 </head>
 
 <body>
-	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+   <!-- 네비게이션바 프라그먼트-->
+   <nav th:replace="~{navbar :: navbarFragment}"></nav>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-2">
-				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
-			</div>
+   <div class = "container-fluid">
+      <div class ="row">
+   <div class ="col-lg-2">
+   <div th:replace="~{SD_arcodian :: arcodianFragment}"  ></div>
+</div>
+   
+   
+   <!-- 데이터 테이블 시작-->
+   <div class ="col-lg-10">
+      <div id = "btn1">발의</div>
+      <div id = "btn2">결제 대기</div>
+      <div id = "btn3">진행 중</div>
+      <div id = "btn4">완료</div>
+   </div>
+   <!-- 데이터 테이블 끝-->
+   <!-- css는 14번째 줄 @import "dataTable.css" 부분에 추가하였습니다.-->
+   
 
 
-			<!-- 데이터 테이블 시작-->
-			<div class="col-lg-10">
-				<div id="btn1">발의</div>
-				<div id="btn2">결제 대기</div>
-				<div id="btn3">진행 중</div>
-				<div id="btn4">완료</div>
-			</div>
-			<!-- 데이터 테이블 끝-->
-			<!-- css는 14번째 줄 @import "dataTable.css" 부분에 추가하였습니다.-->
-
-
-
-			<!-- Bootstrap JS 연결 -->
-			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- Bootstrap JS 연결 -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
