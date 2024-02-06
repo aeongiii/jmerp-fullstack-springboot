@@ -47,7 +47,8 @@ public class SecurityConfig {
 		 * 취가해야함 밥
 		 */						)
 
-		.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
+  	.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
+
 				.headers((headers) -> headers.addHeaderWriter(
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
 				.formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
