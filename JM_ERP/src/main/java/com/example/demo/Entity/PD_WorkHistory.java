@@ -21,14 +21,14 @@ public class PD_WorkHistory {
 	
 	@ManyToOne
 	@JoinColumn(name="res_name")
-	private PD_res resName;
+	private PD_res res;
 	
 	@ManyToOne
 	@JoinColumn(name="prod_code")
-	private PD_BOM prodCode;
+	private PD_BOM bom;
 	
 	@Column(name="work")
-	private String Work;
+	private String work;
 	
 	@Column(name="work_code")
 	private String workCode;

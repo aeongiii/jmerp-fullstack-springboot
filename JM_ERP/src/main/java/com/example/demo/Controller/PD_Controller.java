@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.PD_BOM;
 import com.example.demo.Entity.PD_WO;
+import com.example.demo.Entity.PD_WorkHistory;
 import com.example.demo.Form.PD_BOMCreateForm;
 import com.example.demo.Form.PD_WOCreateForm;
 import com.example.demo.Service.PD_BOMService;
 import com.example.demo.Service.PD_WOService;
+import com.example.demo.Service.PD_WorkHistoryService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ public class PD_Controller {
 	
 	private final PD_BOMService bomservice;
 	private final PD_WOService woservice;
-	
+	private final PD_WorkHistoryService whservice;
 	// --------------------- PD_BOM -------------------------------//
 	@GetMapping("/bom")
 	public String list(Model model, @RequestParam(value="page", defaultValue="0") int page, HttpServletRequest request) {
@@ -88,6 +90,16 @@ public class PD_Controller {
 	}
 	
 	// -------------------- PD_WorkHistory ----------------------------------//
+	
+	@GetMapping("/wh")
+	public String WH_list(Model model, @RequestParam(value="page", defaultValue="0") int page, HttpServletRequest request) {
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+		Page<PD_WorkHistory> paging = whservice.getList(page);
+		model.addAttribute("paging",paging);
+		return "pd/PD_WorkHistory";
+	}
 	
 	
 	// -------------------- PD_RS ----------------------------------//
