@@ -15,14 +15,14 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{MG_accordion :: accordionFragment}"></div>
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
 			</div>
 
 
@@ -80,9 +80,9 @@
 					</table>
 					<!-- 데이터 테이블 끝-->
 					<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{MG_paging::relesePageing(paging=${paging1})}"></div>
+					<div th:replace="~{MG/MG_paging::relesePageing(paging=${paging1})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{MG_relesebutton::MG_relese_button}"></div>
+					<div th:replace="~{MG/MG_relesebutton::MG_relese_button}"></div>
 				</div>
 
 				<div id="option2Content" style="display: none;">
@@ -118,9 +118,9 @@
 					</table>
 					<!-- 데이터 테이블 끝-->
 					<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{MG_paging::recivingPageing(paging=${paging2})}"></div>
+					<div th:replace="~{MG/MG_paging::recivingPageing(paging=${paging2})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{MG_relesebutton::MG_reciving_button}"></div>
+					<div th:replace="~{MG/MG_relesebutton::MG_reciving_button}"></div>
 					<!-- 테이블 컬럼 끝(1:4 비율) -->
 				</div>
 			</div>

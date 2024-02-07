@@ -13,14 +13,14 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{MG_accordion :: accordionFragment}"></div>
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
 			</div>
 
 
@@ -39,6 +39,7 @@
 							<th>물품 단가 </th>
 							<th>물품 종류 </th>
 							<th>물품 등록 날짜 </th>
+							<th>수정/삭제</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,15 +51,19 @@
 							<td th:text="${itemCheek.itemCost}">물품 단가</td>
 							<td th:text="${itemCheek.itemType}">물품 종류</td>
 							<td th:text="${itemCheek.itemReciving}">물품 등록 날짜</td>
+							<td>
+							<a th:href="@{/MG/itemupdate(itemCode=${itemCheek.itemCode})}" class="btn btn-primary">수정</a>
+							<a th:href="@{/MG/itemupdate(itemCode=${itemCheek.itemCode})}" class="btn btn-primary">삭제</a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{MG/MG_paging::itemPageing}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{MG_accountbotton::MG_itemRegi_button}"></div>
+				<div th:replace="~{MG/MG_accountbotton::MG_itemRegi_button}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
@@ -73,6 +78,16 @@
 
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
 </body>
 
 </html>

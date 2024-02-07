@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/MG/accmg -->
+<!-- http://localhost:8080/seller/sellercommission -->
 
 <head>
-	<title>거래처 조회</title>
+	<title>비품 사용 내역</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,16 +14,16 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 
-			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기)-->
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기)					-->
 			<div class="col-lg-2">
-				<div th:replace="~{MG_accordion :: accordionFragment}"></div>
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
 			</div>
- 
+
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
@@ -35,29 +35,32 @@
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-active">
-							<th>사업자 번호</th>
-							<th>거래처 이름</th>
-							<th>거래처 번호</th>
-							<th>거래처 담당자</th>
+							<th>순서</th>
+							<th>사용 창고명</th>
+							<th>사용 물품 명</th>
+							<th>사용 물품 개수</th>
+							<th>사용 날짜</th>
+							
 						</tr>
 					</thead>
 					<tbody>
 						<!-- Thymeleaf 반복문 사용 -->
-						<tr th:each="mgcheck : ${paging.content}" >
-							<th scope="row" th:text="${mgcheck.accountCode}">사업자 번호</th>
+						<tr th:each="Use_Self : ${paging.content}" >
+							<th scope="row" th:text="${Use_Self.useCount}">사업자 번호</th>
 							<!-- Seller 엔티티로부터 Seller ID 추출 -->
-							<td th:text="${mgcheck.accountName}">Seller ID</td>
-							<td th:text="${mgcheck.accountNum}">Total Sales</td>
-							<td th:text="${mgcheck.accountManager}">Paid Commission</td>
+							<td th:text="${Use_Self.useWareName}">Seller ID</td>
+							<td th:text="${Use_Self.usName}">Total Sales</td>
+							<td th:text="${Use_Self.useNum}">Paid Commission</td>
+							<td th:text="${Use_Self.usDate}">Paid Commission</td>
 						</tr>
 					</tbody>
 				</table>
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{MG/MG_paging::itemPageing}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{MG_accountbotton::MG_account_button}"></div>
+				<div th:replace="~{MG/MG_accountbotton::MG_useSelf_button}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
@@ -74,5 +77,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
-
+</html>
+</body>
 </html>
