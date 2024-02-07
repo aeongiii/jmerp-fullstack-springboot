@@ -38,7 +38,7 @@ import com.example.demo.Service.HR_workService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// update branch - push test.
+// feature/update/KYE- 근로계약서 수정 기능 추가.
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -222,37 +222,6 @@ public class HR_controller {
 		model.addAttribute("contList", contList);
 		return "HR_contList";
 	}
-
-//// 근로계약서 수정
-//	@GetMapping("/cont/update/{id}")
-//	public String updateCont(@PathVariable("id") int id, Model model) {
-//		HR_cont cont = contService.getContById(id);
-//		HR_contCreateForm form = new HR_contCreateForm();
-//
-//		form.setId(cont.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
-//		
-//		// 이미 존재하는 HR_cont 근로계약서 객체를 HR_contCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
-//		form.setEmployeeId(cont.getEmployeeId().getEmployeeId()); // .getEmployeeId()를 두번 사용 : HR_mem 호출 후 실제 사원번호 호출
-//		form.setContractName(cont.getContractName());
-//		form.setContractDate(cont.getContractDate());
-//		form.setSignA(cont.isSignA() ? "요청완료" : "미요청"); // SignA의 속성값이 true 이면 웹에서 "요청완료"를, 속성값이 false 이면 웹에서 "미요청"으로
-//														// 선택됨
-//		form.setSignB(cont.isSignB() ? "서명완료" : "미완료");
-//
-//		model.addAttribute("HR_contUpdateForm", form);
-//
-//		return "HR_contUpdate"; 
-//	}
-//
-//	@PostMapping("/cont/update/{id}")
-//	public String updateCont(@PathVariable("id") int id, @Valid HR_contUpdateForm contUpdateForm, BindingResult bindingResult, Model model) {
-//		if (bindingResult.hasErrors()) {
-//			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
-//			return "HR_contUpdate";
-//		}
-//		contService.updateCont(contUpdateForm.getId(), contUpdateForm);
-//		return "redirect:/HR/cont/list";
-//	}
 
 	// 근로계약서 수정
 	@GetMapping("/cont/update/{id}")
