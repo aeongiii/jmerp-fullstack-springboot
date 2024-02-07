@@ -19,7 +19,7 @@
 		<div class="row">
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -55,10 +55,6 @@
 				</form>
 				<!-- 폼 끝-->
 				
-				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
-				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 

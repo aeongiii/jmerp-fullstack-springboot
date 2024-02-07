@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!-- http://localhost:8080/HR/mem/list -->
+
 <head>
-	<title>근로계약서 수정</title>
+	<title>근로계약서 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 </head>
-
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
@@ -19,14 +20,14 @@
 		<div class="row">
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
 				<!-- 현재 근로계약서 목록 -->
-				<div>
+				
 					<table class="table table-hover">
 						<thead>
 							<tr class="table-active">
@@ -59,20 +60,14 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
+				
 				<!-- 폼 끝-->
 
-				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
-				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
-		</div>
-		<!-- 컨테이너 플루이드 정의 끝 -->
-	</div>
-	<!-- 컨테이너 플루이드 끝 -->
 
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
 
 
 
