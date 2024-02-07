@@ -34,8 +34,8 @@ public class HR_docService {
 // 증명서 발행번호 자동 생성 (2024-1)
 	public String createDocNum() {
 		int year = LocalDate.now().getYear();
-		int count = docRepository.countByyear(year);
-		return year + "-" + (count + 1);
+		int count = docRepository.countByyear(year) + 1;	// 기존 증명서 수 + 1
+		return year + "-" + count;
 	}
 
 	
@@ -52,7 +52,8 @@ public class HR_docService {
 		doc.setDocType(docCreateForm.getDocType());
 		doc.setDocUse(docCreateForm.getDocUse());
 		doc.setEmployeeId(employee);
-
+		doc.setDocDate(docCreateForm.getDocDate());
+		
 		// 자동 생성한 증명서 발행번호
 		String docNum = createDocNum();
 		doc.setDocNum(docNum);
@@ -81,7 +82,7 @@ public class HR_docService {
 		doc.setDocType(form.getDocType());
 		doc.setDocUse(form.getDocUse());
 		doc.setDocUse(form.getDocUse());
-		
+	    doc.setDocDate(form.getDocDate());
 		
 
         docRepository.save(doc);

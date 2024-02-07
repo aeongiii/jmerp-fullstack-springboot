@@ -351,7 +351,7 @@ public class HR_controller {
 			return "HR/HR_docCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
 		}
 		docService.saveDoc(docCreateForm); // 사원 정보 저장
-		return "redirect:/HR/doc";
+		return "redirect:/HR/doc/list";
 	}
 
 // 증명서 전체 리스트 출력
@@ -373,13 +373,14 @@ public class HR_controller {
 		form.setDocNum(doc.getDocNum());
 		form.setDocType(doc.getDocType());
 		form.setDocUse(doc.getDocUse());
+		form.setDocDate(doc.getDocDate());
 		form.setEmployeeId(doc.getEmployeeId().getEmployeeId());
 
 		model.addAttribute("HR_docUpdateForm", form);
 		return "HR/HR_docUpdate";
 	}
 
-	@PostMapping("/doc/update/{id}")
+	@PostMapping("/doc/update/{docNum}")
 	public String updateDoc(@PathVariable("docNum") String docNum, @Valid HR_docUpdateForm docUpdateForm,
 			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
