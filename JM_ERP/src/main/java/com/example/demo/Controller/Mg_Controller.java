@@ -27,12 +27,12 @@ public class Mg_Controller {
 		Page<Mg_AccountMG_Entity> paging = this.mgser.getList(page);
 		model.addAttribute("paging", paging);
 
-		return "MG_acccheck";
+		return "MG/MG_acccheck";
 	}
 
 	@GetMapping("/accmgcreate")
 	public String mgaccregi() {
-		return "MG_accmg_form";
+		return "MG/MG_accmg_form";
 	}
 
 	@PostMapping("/accmgcreate")
