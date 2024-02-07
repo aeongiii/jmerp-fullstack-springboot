@@ -221,9 +221,17 @@ public class HR_controller {
 
 // 근로계약서 전체 리스트 출력		
 	@GetMapping("/cont/list") // 근로계약서 리스트 출력
-	public String listCont(Model model) {
+	public String listCont(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
 		List<HR_cont> contList = contService.getcontList();
 		model.addAttribute("contList", contList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR/HR_contList";
 	}
 
@@ -287,9 +295,17 @@ public class HR_controller {
 
 // 일용근무사원 조회
 	@GetMapping("/day/list") // 리스트 출력
-	public String listDay(Model model) {
+	public String listDay(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
 		List<HR_day> dayList = dayService.getDayList();
 		model.addAttribute("dayList", dayList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR/HR_dayList";
 	}
 
@@ -356,9 +372,17 @@ public class HR_controller {
 
 // 증명서 전체 리스트 출력
 	@GetMapping("/doc/list") // 근로계약서 리스트 출력
-	public String listDoc(Model model) {
+	public String listDoc(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
 		List<HR_doc> docList = docService.getDocList();
 		model.addAttribute("docList", docList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR/HR_docList";
 	}
 
