@@ -14,13 +14,13 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -66,7 +66,6 @@
 				<button onclick="location.href='/HR/mem/list'" class="btn btn-primary">전체 사원 보기</button>
 
 
-			
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 		</div>

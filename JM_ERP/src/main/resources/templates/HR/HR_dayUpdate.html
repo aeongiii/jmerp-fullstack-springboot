@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>일용근무 등록</title>
+	<title>일용근무 수정</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,26 +11,28 @@
 </head>
 
 
+
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-
-				<!-- 폼 -->
-				<form th:action="@{/HR/day/create}" th:object="${HR_dayCreateForm}" method="post">
+				
+			<!-- 폼 -->
+				<form th:action="@{/HR/day/update/{id}(id=${HR_dayUpdateForm.id})}" th:object="${HR_dayUpdateForm}" method="post">
 					<div class="mb-3">
 						<label for="dayWorkName" class="form-label">이름</label>
 						<input type="text" th:field="*{dayWorkName}" class="form-control">
 					</div>
+					
 					<div class="mb-3">
 						<label for="deptName" class="form-label">부서</label>
 						<select th:field="*{deptName}" class="form-control">
@@ -39,6 +41,7 @@
 							</option>
 						</select>
 					</div>
+					
 					<div class="mb-3">
 						<label for="dayWorkDate" class="form-label">근무일</label>
 						<input type="date" th:field="*{dayWorkDate}" class="form-control">
@@ -51,14 +54,10 @@
 						<label for="dayWorkPay" class="form-label">일용근무 수당</label>
 						<input type="number" th:field="*{dayWorkPay}" class="form-control">
 					</div>
-					<button type="submit" class="btn btn-primary">일용근무사원 추가</button>
+					<button type="submit" class="btn btn-primary">수정하기</button>
 				</form>
 				<!-- 폼 끝-->
 				
-				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
-				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 

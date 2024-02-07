@@ -49,12 +49,13 @@ public class HR_contService {
 		contRepository.save(cont);
 	}
 
-// 근로계약서 수정
+
 	public HR_cont getContById(int id) {
 		return contRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("근로계약서가 존재하지 않습니다."));
 	}
-
+	
+// 근로계약서 수정
 	public void updateCont(int id, @Valid HR_contUpdateForm form) {
 		HR_cont cont = getContById(id);
 		HR_mem employee = memRepository.findById(form.getEmployeeId())

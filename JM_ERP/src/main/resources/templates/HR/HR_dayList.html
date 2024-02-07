@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>근로계약서 수정</title>
+	<title>일용직 사원 조회</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,16 +10,15 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 </head>
 
-
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{HR_arcodian :: HR_arcodianFragment}"></div>
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -30,30 +29,27 @@
 					<table class="table table-hover">
 						<thead>
 							<tr class="table-active">
-								<th>id</th>
-								<th>사원번호</th>
-								<th>근로계약서명</th>
-								<th>등록일</th>
-								<th>서명요청여부</th>
-								<th>사명완료여부</th>
+								<th>근무일</th>
+								<th>사원명</th>
+								<th>부서명</th>
+								<th>근무시간</th>
+								<th>수당</th>
 								<th></th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="cont : ${contList}">
-								<td th:text="${cont.id}"></td>
-								<td th:text="${cont.employeeId}"></td>
-								<td th:text="${cont.contractName}"></td>
-								<td th:text="${cont.contractDate}"></td>
-								<td th:text="${cont.signA}"></td>
-								<td th:text="${cont.signB}"></td>
+							<tr th:each="day : ${dayList}">
+								<td th:text="${day.dayWorkDate}"></td>
+								<td th:text="${day.dayWorkName}"></td>
+								<td th:text="${day.deptName}"></td>
+								<td th:text="${day.dayWorkHour}"></td>
+								<td th:text="${day.dayWorkPay}"></td>
 								<td>
 									<!-- 수정. 삭제 버튼 -->
-									<a th:href="@{'/HR/cont/update/' + ${cont.id}}"
-										class="btn btn-primary">수정</a>
-									<form th:action="@{'/HR/cont/delete/' + ${cont.id}}" method="post">
+									<a th:href="@{'/HR/day/update/' + ${day.id}}" class="btn btn-primary">수정</a>
+									<form th:action="@{'/HR/day/delete/' + ${day.id}}" method="post">
 										<input type="hidden" name="_method" value="delete" />
-										<button  class="btn btn-primary" type="submit">삭제</button>
+										<button class="btn btn-primary" type="submit">삭제</button>
 									</form>
 								</td>
 							</tr>
@@ -61,11 +57,7 @@
 					</table>
 				</div>
 				<!-- 폼 끝-->
-
-				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{HR_paging::HR_pagingFragment}"></div>
-				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{HR_button::HR_buttonFragment}"></div>
+				
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 		</div>

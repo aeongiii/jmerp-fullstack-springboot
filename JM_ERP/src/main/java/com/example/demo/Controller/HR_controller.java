@@ -38,7 +38,7 @@ import com.example.demo.Service.HR_workService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// update branch - push test.
+// feature/update/KYE- 근로계약서 수정 기능 추가.
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -54,7 +54,7 @@ public class HR_controller {
 // ========================================= main =============================================
 	@GetMapping("")
 	public String HR() {
-		return "HR_main";
+		return "HR/HR_main";
 	}
 
 // ========================================= 1. 사원 =============================================
@@ -64,7 +64,7 @@ public class HR_controller {
 		List<HR_dept> deptList = deptService.getdeptList();
 		model.addAttribute("deptList", deptList);
 		model.addAttribute("HR_memCreateForm", new HR_memCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-		return "HR_memCreate";
+		return "HR/HR_memCreate";
 	}
 
 	@PostMapping("/mem/create")
@@ -81,7 +81,7 @@ public class HR_controller {
 			List<HR_mem> searchResults = memService.search(keyword);
 			model.addAttribute("searchResults", searchResults);
 		}
-		return "HR_memSearch";
+		return "HR/HR_memSearch";
 	}
 
 	@GetMapping("/mem/list")
@@ -93,7 +93,7 @@ public class HR_controller {
 		Page<HR_mem> paging = memService.searchAll(page);
 		model.addAttribute("memList", paging.getContent());
 		model.addAttribute("paging", paging);
-		return "HR_memList";
+		return "HR/HR_memList";
 	}
 
 // ========================================= 2. 부서 =============================================
@@ -103,13 +103,13 @@ public class HR_controller {
 		List<HR_dept> deptList = deptService.getdeptList();
 		model.addAttribute("deptList", deptList);
 		model.addAttribute("HR_deptCreateForm", new HR_deptCreateForm()); // HR_deptCreateForm 객체를 모델에 추가
-		return "HR_deptCreate";
+		return "HR/HR_deptCreate";
 	}
 
 	@PostMapping("/dept/create")
 	public String create2(@Valid HR_deptCreateForm deptCreateForm, BindingResult result, Model model) {
 		if (result.hasErrors()) { // BindingResult : @Valid 에서 유효성 검증 오류 발생 시 다시 화면 출력
-			return "HR_deptCreate";
+			return "HR/HR_deptCreate";
 		}
 
 		deptService.save2(deptCreateForm.getDeptName());
@@ -126,13 +126,13 @@ public class HR_controller {
 
 			model.addAttribute("HR_deptUpdateForm", deptUpdateForm);
 		}
-		return "HR_deptUpdate";
+		return "HR/HR_deptUpdate";
 	}
 
 	@PostMapping("/dept/update")
 	public String update2(@Valid HR_deptUpdateForm deptUpdateForm, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "HR_deptUpdate";
+			return "HR/HR_deptUpdate";
 		}
 
 		deptService.updateDeptName(deptUpdateForm.getOldDeptName(), deptUpdateForm.getNewDeptName());
@@ -154,7 +154,7 @@ public class HR_controller {
 		List<HR_work> workList = workService.getworkList();
 		model.addAttribute("workList", workList);
 		model.addAttribute("HR_workCreateForm", new HR_workCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-		return "HR_workCreate";
+		return "HR/HR_workCreate";
 	}
 
 	@PostMapping("/work/create")
@@ -170,14 +170,14 @@ public class HR_controller {
 		List<HR_work> workList = workService.getworkList();
 		model.addAttribute("workList", workList);
 		model.addAttribute("HR_vacationCreateForm", new HR_vacationCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-		return "HR_vacationCreate";
+		return "HR/HR_vacationCreate";
 	}
 
 	@PostMapping("/work/vacation")
 	public String createvacation(@Valid HR_vacationCreateForm vacationCreateForm, Model model) {
 
 		workService.saveVacation(vacationCreateForm); // 사원 정보 저장
-		return "redirect:/HR/mem/list";
+		return "redirect:/HR/work/search";
 	}
 
 // 근태내역 조회 (사원별 / 월별)
@@ -190,7 +190,7 @@ public class HR_controller {
 		Page<HR_work> paging = workService.searchAll(page);
 		model.addAttribute("workList", paging.getContent());
 		model.addAttribute("paging", paging);
-		return "HR_workSearch";
+		return "HR/HR_workSearch";
 	}
 
 // ========================================= 4. 초과근무 =============================================
@@ -203,13 +203,13 @@ public class HR_controller {
 		List<HR_cont> contList = contService.getcontList();
 		model.addAttribute("contList", contList);
 		model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-		return "HR_contCreate";
+		return "HR/HR_contCreate";
 	}
 
 	@PostMapping("/cont/create")
 	public String createCont(@Valid HR_contCreateForm contCreateForm, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return "HR_contCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
+			return "HR/HR_contCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
 		}
 		contService.saveCont(contCreateForm); // 사원 정보 저장
 		return "redirect:/HR/cont/list";
@@ -220,115 +220,113 @@ public class HR_controller {
 	public String listCont(Model model) {
 		List<HR_cont> contList = contService.getcontList();
 		model.addAttribute("contList", contList);
-		return "HR_contList";
+		return "HR/HR_contList";
 	}
 
-// 근로계약서 수정
+	// 근로계약서 수정
 	@GetMapping("/cont/update/{id}")
 	public String updateCont(@PathVariable("id") int id, Model model) {
 		HR_cont cont = contService.getContById(id);
 		HR_contCreateForm form = new HR_contCreateForm();
 
 		form.setId(cont.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
-		
-		// 이미 존재하는 HR_cont 근로계약서 객체를 HR_contCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
-		form.setEmployeeId(cont.getEmployeeId().getEmployeeId()); // .getEmployeeId()를 두번 사용 : HR_mem 호출 후 실제 사원번호 호출
+
+		// 이미 존재하는 HR_cont 객체를 HR_contCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+		form.setContractDate(cont.getContractDate()); // 날짜는 기존 데이터 추가하기 실패ㅠㅠ
 		form.setContractName(cont.getContractName());
-		form.setContractDate(cont.getContractDate());
-		form.setSignA(cont.isSignA() ? "요청완료" : "미요청"); // SignA의 속성값이 true 이면 웹에서 "요청완료"를, 속성값이 false 이면 웹에서 "미요청"으로
-														// 선택됨
+		form.setEmployeeId(cont.getEmployeeId().getEmployeeId());
+		form.setName(cont.getName());
+		form.setSignA(cont.isSignA() ? "요청완료" : "미요청"); // SignA의 속성값이 true 이면 웹에서 "요청완료"를, 속성값이 false 이면 웹에서 "미요청"으로 선택
 		form.setSignB(cont.isSignB() ? "서명완료" : "미완료");
 
 		model.addAttribute("HR_contUpdateForm", form);
-
-		return "HR_contUpdate"; 
+		return "HR/HR_contUpdate";
 	}
 
 	@PostMapping("/cont/update/{id}")
-	public String updateCont(@PathVariable("id") int id, @Valid HR_contUpdateForm contUpdateForm, BindingResult bindingResult, Model model) {
+	public String updatecont(@PathVariable("id") int id, @Valid HR_contUpdateForm contUpdateForm,
+			BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
-			return "HR_contUpdate";
+			return "HR/HR_contUpdate";
 		}
-		contService.updateCont(contUpdateForm.getId(), contUpdateForm);
+		contService.updateCont(id, contUpdateForm);
 		return "redirect:/HR/cont/list";
 	}
 
 // 근로계약서 삭제
-		@PostMapping("/cont/delete/{id}")
-		public String deleteCont(@PathVariable("id") int id) {
-			contService.deleteCont(id);
-			return "redirect:/HR/cont/list";
-		}
-		
-		
+	@PostMapping("/cont/delete/{id}")
+	public String deleteCont(@PathVariable("id") int id) {
+		contService.deleteCont(id);
+		return "redirect:/HR/cont/list";
+	}
+
 // ========================================= 6. 일용근무 =============================================
-		
+
 // 일용근무사원 등록	
-		@GetMapping("/day/create")
-		public String createDay(Model model) {
-			List<HR_dept> deptList = deptService.getdeptList();
-			model.addAttribute("deptList", deptList);
-			model.addAttribute("HR_dayCreateForm", new HR_dayCreateForm()); // HR_memCreateForm 객체를 모델에 추가
-			return "HR_dayCreate";
-		}
+	@GetMapping("/day/create")
+	public String createDay(Model model) {
+		List<HR_dept> deptList = deptService.getdeptList();
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("HR_dayCreateForm", new HR_dayCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		return "HR/HR_dayCreate";
+	}
 
-		@PostMapping("/day/create")
-		public String createDay(@Valid HR_dayCreateForm dayCreateForm, BindingResult bindingResult, Model model) {
-			if (bindingResult.hasErrors()) {
-				return "HR_dayCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
-			}
-			dayService.saveDay(dayCreateForm); // 사원 정보 저장
-			return "redirect:/HR/mem/list";
+	@PostMapping("/day/create")
+	public String createDay(@Valid HR_dayCreateForm dayCreateForm, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "HR/HR_dayCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
 		}
-		
+		dayService.saveDay(dayCreateForm); // 사원 정보 저장
+		return "redirect:/HR/day/list";
+	}
+
 // 일용근무사원 조회
-		@GetMapping("/day/list") // 리스트 출력
-		public String listDay(Model model) {
-			List<HR_day> dayList = dayService.getDayList();
-			model.addAttribute("dayList", dayList);
-			return "HR_dayList";
-		}
-		
-// 일용근무사원 수정
-		@GetMapping("/day/update/{id}")
-		public String updateDay(@PathVariable("id") int id, Model model) {
-			HR_day day = dayService.getDayById(id);
-			HR_dayCreateForm form = new HR_dayCreateForm();
-			
-			form.setId(day.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
-			
-			// 이미 존재하는 HR_day 객체를 HR_dayCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
-			form.setDayWorkDate(day.getDayWorkDate());
-			form.setDayWorkHour(day.getDayWorkHour());
-			form.setDayWorkName(day.getDayWorkName());
-			form.setDayWorkPay(day.getDayWorkPay()); 
-			form.setDeptName(day.getDeptName());
-			
-			// 기존 선택된 부서명도 수정 폼에 추가하려고 했으나... 실패
-			List<HR_dept> deptList = deptService.getdeptList();
-			model.addAttribute("deptList", deptList);	// 부서목록도 폼에 필요하니까 같이 추가
-			
-			model.addAttribute("HR_dayUpdateForm", form);
-			return "HR_dayUpdate"; 
-		}
+	@GetMapping("/day/list") // 리스트 출력
+	public String listDay(Model model) {
+		List<HR_day> dayList = dayService.getDayList();
+		model.addAttribute("dayList", dayList);
+		return "HR/HR_dayList";
+	}
 
-		@PostMapping("/day/update/{id}")
-		public String updateDay(@PathVariable("id") int id, @Valid HR_dayUpdateForm dayUpdateForm, BindingResult bindingResult, Model model) {
-			if (bindingResult.hasErrors()) {
-				// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
-				return "HR_dayUpdate";
-			}
-			dayService.updateDay(id, dayUpdateForm);
-			return "redirect:/HR/day/list";
-		}		
-		
-		
-		
-// 일용근무사원 삭제
-		@PostMapping("/day/delete/{id}")
-		public String deleteDay(@PathVariable("id") int id) {
-			dayService.deleteCont(id);
-			return "redirect:/HR/day/list";
+// 일용근무사원 수정
+	@GetMapping("/day/update/{id}")
+	public String updateDay(@PathVariable("id") int id, Model model) {
+		HR_day day = dayService.getDayById(id);
+		HR_dayCreateForm form = new HR_dayCreateForm();
+
+		form.setId(day.getId()); // 엔티티의 id -> 폼 객체에 같이 전달
+
+		// 이미 존재하는 HR_day 객체를 HR_dayCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+		form.setDayWorkDate(day.getDayWorkDate()); // 날짜는 기존 데이터 추가하기 실패ㅠㅠ
+		form.setDayWorkHour(day.getDayWorkHour());
+		form.setDayWorkName(day.getDayWorkName());
+		form.setDayWorkPay(day.getDayWorkPay());
+		form.setDeptName(day.getDeptName());
+
+		// 기존 선택된 부서명도 수정 폼에 추가
+		List<HR_dept> deptList = deptService.getdeptList();
+		model.addAttribute("deptList", deptList); // 부서목록도 폼에 필요하니까 같이 추가
+
+		model.addAttribute("HR_dayUpdateForm", form);
+		return "HR/HR_dayUpdate";
+	}
+
+	@PostMapping("/day/update/{id}")
+	public String updateDay(@PathVariable("id") int id, @Valid HR_dayUpdateForm dayUpdateForm,
+			BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+			return "HR/HR_dayUpdate";
 		}
+		dayService.updateDay(id, dayUpdateForm);
+		return "redirect:/HR/day/list";
+	}
+
+// 일용근무사원 삭제
+	@PostMapping("/day/delete/{id}")
+	public String deleteDay(@PathVariable("id") int id) {
+		dayService.deleteCont(id);
+		return "redirect:/HR/day/list";
+	}
 }
