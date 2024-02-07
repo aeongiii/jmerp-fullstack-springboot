@@ -390,4 +390,11 @@ public class HR_controller {
 		docService.updateDoc(docNum, docUpdateForm);
 		return "redirect:/HR/doc/list";
 	}
+
+// 증명서 삭제
+	@PostMapping("/doc/delete/{docNum}")
+	public String deleteDoc(@PathVariable("docNum") String docNum) {
+		docService.deleteDoc(docNum);
+		return "redirect:/HR/doc/list";
+	}
 }

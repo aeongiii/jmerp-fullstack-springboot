@@ -87,4 +87,10 @@ public class HR_docService {
 
         docRepository.save(doc);
 	}
+
+// 삭제
+	public void deleteDoc(String docNum) {
+		docRepository.deleteById(docNum);
+		
+	}
 }
