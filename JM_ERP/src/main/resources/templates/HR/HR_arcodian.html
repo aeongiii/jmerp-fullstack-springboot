@@ -1,4 +1,4 @@
-<div class="accordion" id="accordionExample" th:fragment ="HR_arcodianFragment">
+<div class="accordion" id="accordionExample" th:fragment="HR_arcodianFragment">
 	<!-- 아코디언 아이템 1 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingOne">
@@ -67,8 +67,8 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 아코디언 아이템 5 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingFive">
@@ -86,8 +86,8 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 아코디언 아이템 6 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingSix">
@@ -105,13 +105,23 @@
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 아코디언 아이템 7 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingSeven">
-			<a class="accordion-button collapsed" href="#">증명서 발행</a>
+			<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+				data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+				증명서 관리
 			</button>
 		</h2>
+		<div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven"
+			data-bs-parent="#accordionExample">
+			<div class="accordion-body">
+				<a class="dropdown-item" href="http://localhost:8080/HR/doc/create">증명서 등록</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/HR/doc/list">증명서 조회</a>
+			</div>
+		</div>
 	</div>
 </div>

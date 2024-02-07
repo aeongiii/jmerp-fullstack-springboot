@@ -1,7 +1,6 @@
 package com.example.demo.Controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Entity.HR_cont;
 import com.example.demo.Entity.HR_day;
 import com.example.demo.Entity.HR_dept;
+import com.example.demo.Entity.HR_doc;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
 import com.example.demo.Form.HR_contCreateForm;
@@ -26,19 +26,22 @@ import com.example.demo.Form.HR_dayCreateForm;
 import com.example.demo.Form.HR_dayUpdateForm;
 import com.example.demo.Form.HR_deptCreateForm;
 import com.example.demo.Form.HR_deptUpdateForm;
+import com.example.demo.Form.HR_docCreateForm;
+import com.example.demo.Form.HR_docUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Form.HR_workCreateForm;
 import com.example.demo.Service.HR_contService;
 import com.example.demo.Service.HR_dayService;
 import com.example.demo.Service.HR_deptService;
+import com.example.demo.Service.HR_docService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// feature/update/KYE- 근로계약서 수정 기능 추가.
+// feature/HRdoct/kye - 증명서 기능 추가.
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -50,6 +53,7 @@ public class HR_controller {
 	private final HR_workService workService;
 	private final HR_contService contService;
 	private final HR_dayService dayService;
+	private final HR_docService docService;
 
 // ========================================= main =============================================
 	@GetMapping("")
@@ -202,7 +206,7 @@ public class HR_controller {
 	public String createCont(Model model) {
 		List<HR_cont> contList = contService.getcontList();
 		model.addAttribute("contList", contList);
-		model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		model.addAttribute("HR_contCreateForm", new HR_contCreateForm()); // HR_contCreateForm 객체를 모델에 추가
 		return "HR/HR_contCreate";
 	}
 
@@ -217,9 +221,17 @@ public class HR_controller {
 
 // 근로계약서 전체 리스트 출력		
 	@GetMapping("/cont/list") // 근로계약서 리스트 출력
-	public String listCont(Model model) {
+	public String listCont(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
 		List<HR_cont> contList = contService.getcontList();
 		model.addAttribute("contList", contList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR/HR_contList";
 	}
 
@@ -283,9 +295,17 @@ public class HR_controller {
 
 // 일용근무사원 조회
 	@GetMapping("/day/list") // 리스트 출력
-	public String listDay(Model model) {
+	public String listDay(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
 		List<HR_day> dayList = dayService.getDayList();
 		model.addAttribute("dayList", dayList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
 		return "HR/HR_dayList";
 	}
 
@@ -328,5 +348,77 @@ public class HR_controller {
 	public String deleteDay(@PathVariable("id") int id) {
 		dayService.deleteCont(id);
 		return "redirect:/HR/day/list";
+	}
+
+// ========================================= 7. 증명서 =============================================
+
+// 증명서 등록
+	@GetMapping("/doc/create")
+	public String createDoc(Model model) {
+		List<HR_doc> docList = docService.getDocList();
+		model.addAttribute("docList", docList);
+		model.addAttribute("HR_docCreateForm", new HR_docCreateForm()); // HR_docCreateForm 객체를 모델에 추가
+		return "HR/HR_docCreate";
+	}
+
+	@PostMapping("/doc/create")
+	public String createDoc(@Valid HR_docCreateForm docCreateForm, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "HR/HR_docCreate"; // 오류가 있는 경우, 폼 페이지로 다시 이동
+		}
+		docService.saveDoc(docCreateForm); // 사원 정보 저장
+		return "redirect:/HR/doc/list";
+	}
+
+// 증명서 전체 리스트 출력
+	@GetMapping("/doc/list") // 근로계약서 리스트 출력
+	public String listDoc(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+			HttpServletRequest request) {
+		List<HR_doc> docList = docService.getDocList();
+		model.addAttribute("docList", docList);
+
+		String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+
+		Page<HR_mem> paging = memService.searchAll(page);
+		model.addAttribute("memList", paging.getContent());
+		model.addAttribute("paging", paging);
+		return "HR/HR_docList";
+	}
+
+// 증명서 수정
+	@GetMapping("/doc/update/{docNum}")
+	public String updateDoc(@PathVariable("docNum") String docNum, Model model) {
+		HR_doc doc = docService.getDocById(docNum);
+		HR_docCreateForm form = new HR_docCreateForm();
+
+		// 이미 존재하는 HR_doc 객체를 HR_docCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+		form.setName(doc.getName()); // 날짜는 기존 데이터 추가하기 실패ㅠㅠ
+		form.setDocNum(doc.getDocNum());
+		form.setDocType(doc.getDocType());
+		form.setDocUse(doc.getDocUse());
+		form.setDocDate(doc.getDocDate());
+		form.setEmployeeId(doc.getEmployeeId().getEmployeeId());
+
+		model.addAttribute("HR_docUpdateForm", form);
+		return "HR/HR_docUpdate";
+	}
+
+	@PostMapping("/doc/update/{docNum}")
+	public String updateDoc(@PathVariable("docNum") String docNum, @Valid HR_docUpdateForm docUpdateForm,
+			BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+			return "HR/HR_docUpdate";
+		}
+		docService.updateDoc(docNum, docUpdateForm);
+		return "redirect:/HR/doc/list";
+	}
+
+// 증명서 삭제
+	@PostMapping("/doc/delete/{docNum}")
+	public String deleteDoc(@PathVariable("docNum") String docNum) {
+		docService.deleteDoc(docNum);
+		return "redirect:/HR/doc/list";
 	}
 }

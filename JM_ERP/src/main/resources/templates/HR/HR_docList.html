@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/HR/mem/list -->
-
 <head>
-	<title>근로계약서 목록</title>
+	<title>증명서 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -31,27 +29,27 @@
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-active">
-							<th>id</th>
+							<th>발행번호</th>
 							<th>사원번호</th>
-							<th>근로계약서명</th>
+							<th>사원명</th>
+							<th>종류</th>
+							<th>용도</th>
 							<th>등록일</th>
-							<th>서명요청여부</th>
-							<th>사명완료여부</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="cont : ${contList}">
-							<td th:text="${cont.id}"></td>
-							<td th:text="${cont.employeeId}"></td>
-							<td th:text="${cont.contractName}"></td>
-							<td th:text="${cont.contractDate}"></td>
-							<td th:text="${cont.signA}"></td>
-							<td th:text="${cont.signB}"></td>
+						<tr th:each="doc : ${docList}">
+							<td th:text="${doc.docNum}"></td>
+							<td th:text="${doc.employeeId}"></td>
+							<td th:text="${doc.name}"></td>
+							<td th:text="${doc.docType}"></td>
+							<td th:text="${doc.docUse}"></td>
+							<td th:text="${doc.docDate}"></td>
 							<td>
 								<!-- 수정. 삭제 버튼 -->
-								<a th:href="@{'/HR/cont/update/' + ${cont.id}}" class="btn btn-primary">수정</a>
-								<form th:action="@{'/HR/cont/delete/' + ${cont.id}}" method="post">
+								<a th:href="@{'/HR/doc/update/' + ${doc.docNum}}" class="btn btn-primary">수정</a>
+								<form th:action="@{'/HR/doc/delete/' + ${doc.docNum}}" method="post">
 									<input type="hidden" name="_method" value="delete" />
 									<button class="btn btn-primary" type="submit">삭제</button>
 								</form>
