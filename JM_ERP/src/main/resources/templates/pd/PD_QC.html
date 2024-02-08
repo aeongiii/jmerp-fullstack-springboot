@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+	<!-- localhost8080/PD/wo -->
 <head>
 	<title>JM_ERP</title>
 	<meta charset="UTF-8">
@@ -13,14 +13,14 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 	
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{PD_accordion :: accordionFragment}"></div>
+				<div th:replace="~{pd/PD_accordion :: qc-accordionFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -37,19 +37,17 @@
 							<th>수량</th>
 							<th>구분</th>
 							<th>작업</th>
-							<th>공장</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="table-active" th:each="wo : ${paging.content}">
-							<td th:text="${wo.orderNum}"></td>
-							<td th:text="${wo.deliveryName}"></td>
-							<td th:text="${wo.manager}"></td>
-							<td th:text="${wo.deliveryDate}"></td>
-							<td th:text="${wo.prodCode}"></td>
-							<td th:text="${wo.wOrder}"></td>
-							<td th:text="${wo.making}"></td>
-							<td th:text="${wo.factory}"></td>
+						<tr class="table-active" th:each="qc : ${paging.content}">
+							<td th:text="${qc.id}"></td>
+							<td th:text="${qc.qcTool}"></td>
+							<td th:text="${qc.prodCode.prodCode}"></td>
+							<td th:text="${qc.prodNum}"></td>
+							<td th:text="${qc.qcNum}"></td>
+							<td th:text="${qc.qcList.qcList}"></td>
+							<td th:text="${qc.pF}"></td>
 						</tr>
 					</tbody>
 
@@ -58,9 +56,9 @@
 				<!-- 데이터 테이블 끝-->
 				
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{/paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{PD_button::PD_buttonFragment}"></div>
+				<div th:replace="~{pd/PD_button::PD_wo-buttonFragment}"></div>
 				
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->		
