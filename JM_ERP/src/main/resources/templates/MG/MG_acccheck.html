@@ -39,6 +39,7 @@
 							<th>거래처 이름</th>
 							<th>거래처 번호</th>
 							<th>거래처 담당자</th>
+							<th>수정</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,13 +50,15 @@
 							<td th:text="${mgcheck.accountName}">Seller ID</td>
 							<td th:text="${mgcheck.accountNum}">Total Sales</td>
 							<td th:text="${mgcheck.accountManager}">Paid Commission</td>
+						
+						
 						</tr>
 					</tbody>
 				</table>
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{MG/paging::pagingFragment}"></div>
+				<div th:replace="~{MG/MG_paging::itemPageing}"></div>
 				<!-- 버튼 프라그먼트 -->
 				<div th:replace="~{MG/MG_accountbotton::MG_account_button}"></div>
 			</div>

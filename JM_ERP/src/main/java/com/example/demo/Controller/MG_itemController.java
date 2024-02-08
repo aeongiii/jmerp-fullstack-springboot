@@ -1,7 +1,6 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -144,12 +144,12 @@ public class MG_itemController {
 		return "MG/MG_useSelfcheck";
 	}
 
-	@GetMapping("/itemupdate")
-	public String showUpdateForm(@RequestParam(name = "itemCode") String itemCode, Model model) {
+	@GetMapping("/itemupdate/{itemCode}")
+	public String showUpdateForm(@PathVariable(name = "itemCode") String itemCode, Model model) {
 	    Optional<Mg_item_Regi> itemOptional = MG_itemService.findItemCode(itemCode);
 	    if (itemOptional.isPresent()) {
 	        model.addAttribute("item", itemOptional.get());
-	        return "MG_Item_update"; // 해당 아이템을 수정할 수 있는 뷰 페이지
+	        return "MG/MG_Item_update"; // 해당 아이템을 수정할 수 있는 뷰 페이지
 	    } else {
 	        // 아이템이 존재하지 않는 경우의 처리
 	        return "redirect:/MG/itemcheek";
@@ -157,7 +157,7 @@ public class MG_itemController {
 	}
 	
 	@PostMapping("/itemupdate/{itemCode}")
-	public String updateItem(@RequestParam("itemCode") String itemCode,
+	public String updateItem(@PathVariable("itemCode") String itemCode,
 	                         @RequestParam("itemName") String itemName,
 	                         @RequestParam("itemCost") Integer itemCost,
 	                         @RequestParam("itemType") String itemType,
