@@ -229,6 +229,12 @@ public class HR_controller {
 		return "redirect:/HR/work/search";
 	}
 
+// 근태내역 삭제
+	@PostMapping("/work/delete/{id}")
+	public String deleteWork(@PathVariable("id") int id) {
+		workService.deleteWork(id);
+		return "redirect:/HR/work/search";
+	}
 
 // ========================================= 4. 근로계약서 =============================================
 

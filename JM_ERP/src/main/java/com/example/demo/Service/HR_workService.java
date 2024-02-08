@@ -141,4 +141,9 @@ public class HR_workService {
 	        workRepository.save(work);
 		}
 
+		public void deleteWork(int id) {
+			workRepository.deleteById(id);
+			
+		}
+
 }
