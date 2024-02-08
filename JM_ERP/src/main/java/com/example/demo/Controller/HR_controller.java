@@ -31,6 +31,7 @@ import com.example.demo.Form.HR_docUpdateForm;
 import com.example.demo.Form.HR_memCreateForm;
 import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Form.HR_workCreateForm;
+import com.example.demo.Form.HR_workUpdateForm;
 import com.example.demo.Service.HR_contService;
 import com.example.demo.Service.HR_dayService;
 import com.example.demo.Service.HR_deptService;
@@ -197,9 +198,45 @@ public class HR_controller {
 		return "HR/HR_workSearch";
 	}
 
-// ========================================= 4. 초과근무 =============================================
+// 근태내역 수정
+	@GetMapping("/work/update/{id}")
+	public String updateWork(@PathVariable("id") int id, Model model) {
+		HR_work work = workService.getWorkById(id);
+		HR_workCreateForm form = new HR_workCreateForm();
 
-// ========================================= 5. 근로계약서 =============================================
+		// 이미 존재하는 HR_doc 객체를 HR_docCreateForm에 매핑 -> 기존 데이터가 폼에 보이도록
+		form.setEmployeeId(work.getEmployeeId().getEmployeeId()); // 날짜는 기존 데이터 추가하기 실패ㅠㅠ
+		form.setEndTime(work.getEndTime());
+		form.setName(work.getName());
+		form.setOvertimeHour(work.getOvertimeHour());
+		form.setOvertimePay(work.getOvertimePay());
+		form.setOvertimeType(work.getOvertimeType());
+		form.setStartTime(work.getStartTime());
+		form.setWorkHour(work.getWorkHour());
+		form.setId(work.getId());
+		model.addAttribute("HR_workUpdateForm", form);
+		return "HR/HR_workUpdate";
+	}
+
+	@PostMapping("/work/update/{id}")
+	public String updateWork(@PathVariable("id") int id, @Valid HR_workUpdateForm workUpdateForm,
+			BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
+			return "HR/HR_workUpdate";
+		}
+		workService.updateWork(id, workUpdateForm);
+		return "redirect:/HR/work/search";
+	}
+
+// 근태내역 삭제
+	@PostMapping("/work/delete/{id}")
+	public String deleteWork(@PathVariable("id") int id) {
+		workService.deleteWork(id);
+		return "redirect:/HR/work/search";
+	}
+
+// ========================================= 4. 근로계약서 =============================================
 
 // 근로계약서 등록	
 	@GetMapping("/cont/create")
@@ -273,7 +310,7 @@ public class HR_controller {
 		return "redirect:/HR/cont/list";
 	}
 
-// ========================================= 6. 일용근무 =============================================
+// ========================================= 5. 일용근무 =============================================
 
 // 일용근무사원 등록	
 	@GetMapping("/day/create")
@@ -350,7 +387,7 @@ public class HR_controller {
 		return "redirect:/HR/day/list";
 	}
 
-// ========================================= 7. 증명서 =============================================
+// ========================================= 6. 증명서 =============================================
 
 // 증명서 등록
 	@GetMapping("/doc/create")

@@ -9,6 +9,6 @@ import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
 
 public interface HR_workRepository extends JpaRepository<HR_work, Integer> {
-    Optional<HR_work> findByEmployeeIdAndWorkDate(HR_mem employee, LocalDate workDate);
+    Optional<HR_work> findByEmployeeIdAndWorkDate(HR_mem employee, LocalDate today);
 }
 

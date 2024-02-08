@@ -16,6 +16,7 @@ import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.HR_work;
 import com.example.demo.Form.HR_vacationCreateForm;
 import com.example.demo.Form.HR_workCreateForm;
+import com.example.demo.Form.HR_workUpdateForm;
 import com.example.demo.Repository.HR_memRepository;
 import com.example.demo.Repository.HR_workRepository;
 
@@ -112,6 +113,37 @@ public class HR_workService {
 		public Page<HR_work> searchAll(int page) {
 			Pageable pageable = PageRequest.of(page, 10);
 			return workRepository.findAll(pageable);
+		}
+
+		public HR_work getWorkById(int id) {
+			return workRepository.findById(id)
+					.orElseThrow(() -> new EntityNotFoundException("내역이 존재하지 않습니다."));
+		}
+
+// 근태내역 수정
+		public void updateWork(int id, @Valid HR_workUpdateForm workUpdateForm) {
+			HR_work work = getWorkById(id);
+			HR_mem employee = memRepository.findById(workUpdateForm.getEmployeeId())
+					.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));
+			
+			work.setName(employee.getName());
+			work.setEmployeeId(employee);
+			work.setEndTime(workUpdateForm.getEndTime());
+			work.setOvertimeHour(workUpdateForm.getOvertimeHour());
+			work.setOvertimePay(workUpdateForm.getOvertimePay());
+			work.setOvertimeType(workUpdateForm.getOvertimeType());
+			work.setStartTime(workUpdateForm.getStartTime());
+			work.setWorkHour(workUpdateForm.getWorkHour());
+			
+			
+			
+
+	        workRepository.save(work);
+		}
+
+		public void deleteWork(int id) {
+			workRepository.deleteById(id);
+			
 		}
 
 }
