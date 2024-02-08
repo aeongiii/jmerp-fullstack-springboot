@@ -47,6 +47,7 @@
 							<th>초과근무 여부</th>
 							<th>초과근무 시간</th>
 							<th>초과근무 수당</th>
+							<th></th>
 						</tr>
 					</thead>
 
@@ -62,6 +63,14 @@
 							<td th:text="${work.overtimeType}"></td>
 							<td th:text="${work.overtimeHour}"></td>
 							<td th:text="${work.overtimePay}"></td>
+							<td>
+								<!-- 수정. 삭제 버튼 -->
+								<a th:href="@{'/HR/work/update/' + ${work.id}}" class="btn btn-primary">수정</a>
+								<form th:action="@{'/HR/work/delete/' + ${work.id}}" method="post">
+									<input type="hidden" name="_method" value="delete" />
+									<button class="btn btn-primary" type="submit">삭제</button>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>

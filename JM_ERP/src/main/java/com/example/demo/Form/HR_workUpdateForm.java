@@ -1,5 +1,6 @@
 package com.example.demo.Form;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,11 +10,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class HR_workCreateForm {
-	
+public class HR_workUpdateForm {
 	@NotEmpty(message = "사원번호는 필수항목입니다.")
 	private String employeeId;
 
+	private int id;
 	private String name;
 	
 	private LocalTime startTime;
@@ -22,12 +23,8 @@ public class HR_workCreateForm {
 //	private LocalDate workDate;
 	
 	private int workHour;
-	private int id;
 	
 	private String overtimeType;
 	private int overtimeHour;
 	private int overtimePay;
-
-	
-	
 }
