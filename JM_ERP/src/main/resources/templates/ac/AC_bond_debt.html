@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>채권 조회</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <!-- 네비게이션바 프라그먼트-->
+    <nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<!-- 채무 수정 모달 -->
+	<div class="modal" id="debtModal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">채무 수정</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+					
+					<!-- 수정 내용 -->
+		 			<form id="debtForm" th:action="@{/AC/debtupdate}" method="post">
+						
+						채권 번호: <span id="debtNumber"></span><br>
+						
+						<label for="debtType">증감 구분:</label>
+						<select id="debtType" name="type" onchange="showDebtPriceField()">
+						    <option value="" selected>선택하세요</option>
+						    <option value="추가">추가</option>
+						    <option value="할인">할인</option>
+						</select><br>
+						
+						<div id="debtPriceLabel" style="display:none;">
+						    <label for="debtPriceField" id="debtPriceLabelName"></label>
+						    <input type="number" id="debtPriceField" name="priceField" value="0"><br>
+						</div>
+				
+				        <label for="debtAmount">변제 금액:</label>
+				        <input type="number" id="debtAmount" name="amount" value="0"><br>
+				
+				        <label for="debtMaturityDate">만기일 변경:</label>
+				        <input type="date" id="debtMaturityDate" name="maturityDate"><br>
+				        
+				        <input type="hidden" id="submitDebtNumber" name="debtNumber">
+				    </form>
+	            </div>
+	            <!-- 모달 푸터 -->
+	            <div class="modal-footer">
+	                <button type="button" id="submitDebtUpdate" class="btn btn-primary">수정</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- 채권 수정 모달 -->
+	<div class="modal" id="bondModal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">채권 수정</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+					
+					<!-- 수정 내용 -->
+		 			<form id="bondForm" th:action="@{/AC/bondupdate}" method="post">
+						
+						채권 번호: <span id="bondNumber"></span><br>
+						
+						<label for="bondType">증감 구분:</label>
+						<select id="bondType" name="type" onchange="showBondPriceField()">
+						    <option value="" selected>선택하세요</option>
+						    <option value="추가">추가</option>
+						    <option value="할인">할인</option>
+						</select><br>
+						
+						<div id="bondPriceLabel" style="display:none;">
+						    <label for="priceField" id="bondPriceLabelName"></label>
+						    <input type="number" id="bondPriceField" name="priceField" value="0"><br>
+						</div>
+				
+				        <label for="amount">변제 금액:</label>
+				        <input type="number" id="bondAmount" name="amount" value="0"><br>
+				
+				        <label for="maturityDate">만기일 변경:</label>
+				        <input type="date" id="bondMaturityDate" name="maturityDate"><br>
+				        
+				        <input type="hidden" id="submitBondNumber" name="bondNumber">
+				    </form>
+	            </div>
+	            <!-- 모달 푸터 -->
+	            <div class="modal-footer">
+	                <button type="button" id="submitBondUpdate" class="btn btn-primary">수정</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+            <div class="col-lg-2">
+                <div th:replace="~{ac/AC_arcodian :: arcodianFragment}"></div>
+            </div>
+
+            <!-- 테이블 컬럼 (1:4 비율) -->
+            <div class="col-lg-10">
+                <!-- 조건 조회 버튼 시작-->
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
+                    <label class="btn btn-outline-primary" for="btnradio1">채권 관리</label>
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
+                    <label class="btn btn-outline-primary" for="btnradio2">채무 관리</label>
+                </div>
+                <!-- 조건 조회 버튼 끝-->
+                
+                <!-- 옵션 1일때 시작 -->
+                <div id="option1Content" style="display: none;">
+                    <!-- 데이터 테이블 시작-->
+				   <table class = "table table-hover">
+				        <thead>
+				            <tr class="table-active">
+				                <th>채권 번호</th>
+				                <th>발생 일자</th>
+				                <th>거래처</th>
+				                <th>최초 금액</th>
+				                <th>증감구분</th>
+				                <th>남은 금액</th>
+				                <th>만기 일자</th>
+				                <th>적요</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <!-- for each 문 -->
+				            <tr th:each="bond : ${bonds}">
+				                <!--화면에 띄울 정보-->
+				                <td th:text="${bond.bondNumber}"></td>
+				                <td th:text="${bond.date}"></td>
+				                <td th:text="${bond.trader}"></td>
+				                <td th:text="${bond.amount}"></td>
+				                <td th:text="${bond.increaseDecreaseType}"></td>
+				                <td th:text="${bond.balance}"></td>
+				                <td th:text="${bond.maturityDate}"></td>
+				                <td th:text="${bond.description}"></td>
+				                <!-- 수정 버튼 추가 -->
+							    <td>
+							        <button class="btn btn-primary open-bond-modal" data-toggle="modal" data-target="#bondModal">수정</button>
+							    </td>
+				            </tr>
+				        </tbody>
+				    </table>
+                    <!-- 데이터 테이블 끝-->
+	                <!-- 페이징 프라그먼트 -->
+					<div th:replace="~{/paging::pagingFragment(paging=${bonds})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{ac/AC_bond_debt_botton::bottonFragment}"></div>
+                </div> <!-- 옵션 1일 때 리스트 -->
+                
+                <!-- 옵션 2일때 시작 -->
+                <div id="option2Content" style="display: none;">
+                    <!-- 데이터 테이블 시작-->
+				    <table class = "table table-hover">
+				        <thead>
+				            <tr class="table-active">
+				                <th>채무 번호</th>
+				                <th>발생 일자</th>
+				                <th>거래처</th>
+				                <th>최초 금액</th>
+				                <th>증감구분</th>
+				                <th>남은 금액</th>
+				                <th>만기 일자</th>
+				                <th>적요</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				            <!-- for each 문 -->
+				            <tr th:each="debt : ${debts}">
+				                <!-- 화면에 띄울 정보 -->
+				                <td th:text="${debt.debtNumber}"></td>
+				                <td th:text="${debt.date}"></td>
+				                <td th:text="${debt.trader}"></td>
+				                <td th:text="${debt.amount}"></td>
+				                <td th:text="${debt.increaseDecreaseType}"></td>
+				                <td th:text="${debt.balance}"></td>
+				                <td th:text="${debt.maturityDate}"></td>
+				                <td th:text="${debt.description}"></td>
+				           		<!-- 수정 버튼 추가 -->
+							    <td>
+							        <button class="btn btn-primary open-debt-modal" data-toggle="modal" data-target="#debtModal">수정</button>
+							    </td>
+				            </tr>
+				        </tbody>
+				    </table>
+                    <!-- 데이터 테이블 끝-->
+                   	<!-- 페이징 프라그먼트 -->
+					<div th:replace="~{/paging::pagingFragment(paging=${debts})}"></div>
+					<!-- 버튼 프라그먼트 -->
+					<div th:replace="~{ac/AC_bond_debt_botton::bottonFragment}"></div>
+                </div> <!-- 옵션 2일 때 리스트 -->
+            </div> <!-- 테이블 컬럼 끝(1:4 비율) -->
+        </div> <!-- 컨테이너 플루이드 정의 끝 -->
+    </div> <!-- 컨테이너 플루이드 끝 -->
+    
+    <!-- Bootstrap JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+	    $(document).ready(function () {
+	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
+	        var currentPage = localStorage.getItem('currentPage') || 1;
+	
+	        if (selectedOption === "option1") {
+	            $("#option1Content").show();
+	            $("#option2Content").hide();
+	        } else if (selectedOption === "option2") {
+	            $("#option1Content").hide();
+	            $("#option2Content").show();
+	        }
+	        $("input[name='btnradio'][value='" + selectedOption + "']").prop('checked', true);
+	
+	        // 라디오 버튼 변경 시 로컬 스토리지에 저장
+	        $("input[name='btnradio']").change(function () {
+	            selectedOption = $(this).val();
+	            localStorage.setItem('selectedOption', selectedOption);
+	            
+	            // 페이지를 0으로 설정
+	            localStorage.setItem('currentPage', 0);
+	            
+	            // 현재 URL에서 페이지 파라미터를 제거한 뒤 페이지를 0으로 설정하여 리로드
+	            var currentUrl = window.location.href.split('?')[0];
+	            window.location.href = currentUrl + "?page=0";
+	        });
+	    });
+	</script>
+	
+	<script>
+        // 수정 버튼 클릭 시 모달 열기
+	    $(document).on('click', '.open-bond-modal', function() {
+	        // 클릭된 버튼이 속한 행을 찾습니다.
+	        var $row = $(this).closest('tr');
+	        // 행에서 첫 번째 열의 텍스트(채권 번호)를 가져옵니다.
+	        var bondNumber = $row.find('td:first').text().trim();
+	        // 가져온 채권 번호를 출력합니다.
+        	$('#bondNumber').text(bondNumber);
+        	$('#submitBondNumber').val(bondNumber);
+            // 모달 열기
+            $('#bondModal').modal('show');
+		
+		    // 모달 닫기 버튼 클릭 시 모달 닫기
+		    $(document).on('click', '.close', function() {
+		        $('#bondModal').modal('hide');
+			});	    
+		});
+	</script>
+	
+	<script>
+        // 수정 버튼 클릭 시 모달 열기
+	    $(document).on('click', '.open-debt-modal', function() {
+	        // 클릭된 버튼이 속한 행을 찾습니다.
+	        var $row = $(this).closest('tr');
+	        // 행에서 첫 번째 열의 텍스트(채권 번호)를 가져옵니다.
+	        var debtNumber = $row.find('td:first').text().trim();
+	        // 가져온 채권 번호를 출력합니다.
+        	$('#debtNumber').text(debtNumber);
+        	$('#submitDebtNumber').val(debtNumber);
+            // 모달 열기
+            $('#debtModal').modal('show');
+		
+		    // 모달 닫기 버튼 클릭 시 모달 닫기
+		    $(document).on('click', '.close', function() {
+		        $('#debtModal').modal('hide');
+			});	    
+		});
+	</script>
+	
+	<script>
+		// 추가 / 할인 버튼을 선택시 추가 입력 필드란 보이게 하기
+	    function showBondPriceField() {
+	        var selectBox = document.getElementById("bondType");
+	        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+	        var priceLabel = document.getElementById("bondPriceLabel");
+	
+	        if (selectedValue === "추가") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("bondPriceLabelName").textContent = "추가 금액:";
+	        } else if (selectedValue === "할인") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("bondPriceLabelName").textContent = "할인 금액:";
+	        } else {
+	            priceLabel.style.display = "none";
+	    	}
+	    }
+	</script>
+	
+		<script>
+		// 추가 / 할인 버튼을 선택시 추가 입력 필드란 보이게 하기
+	    function showDebtPriceField() {
+	        var selectBox = document.getElementById("debtType");
+	        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+	        var priceLabel = document.getElementById("debtPriceLabel");
+	
+	        if (selectedValue === "추가") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("debtPriceLabelName").textContent = "추가 금액:";
+	        } else if (selectedValue === "할인") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("debtPriceLabelName").textContent = "할인 금액:";
+	        } else {
+	            priceLabel.style.display = "none";
+	    	}
+	    }
+	</script>
+	
+    <script>
+		// 오늘 날짜를 가져오는 함수
+	    function getTodayDate() {
+	        var today = new Date();
+	        var dd = String(today.getDate()).padStart(2, '0');
+	        var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
+	        var yyyy = today.getFullYear();
+	
+	        return yyyy + '-' + mm + '-' + dd;
+	    }
+	
+	    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
+	    document.getElementById('bondMaturityDate').min = getTodayDate();
+	    document.getElementById('debtMaturityDate').min = getTodayDate();
+	</script>
+	
+	<script>
+		$('#submitBondUpdate').click(function() {
+	    // 폼 안에 있는 입력 요소들의 값을 가져옴
+	    var priceField = $('#bondPriceField').val();
+	    var amount = $('#bondAmount').val();
+	    var maturityDate = $('#bondMaturityDate').val();
+	    
+	    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
+	    if (priceField === '0' && !maturityDate && amount === '0') {
+	        event.preventDefault(); // 폼 제출 막기
+	        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
+	    } else {
+	        $('#bondForm').submit(); // 조건이 충족되면 폼 제출
+	    }
+	});
+	</script>
+	
+	<script>
+		$('#submitDebtUpdate').click(function() {
+	    // 폼 안에 있는 입력 요소들의 값을 가져옴
+	    var priceField = $('#debtPriceField').val();
+	    var amount = $('#debtAmount').val();
+	    var maturityDate = $('#debtMaturityDate').val();
+	    
+	    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
+	    if (priceField === '0' && !maturityDate && amount === '0') {
+	        event.preventDefault(); // 폼 제출 막기
+	        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
+	    } else {
+	        $('#debtForm').submit(); // 조건이 충족되면 폼 제출
+	    }
+	});
+	</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-d<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -10,20 +10,20 @@ d<!DOCTYPE html>
 </head>
 <body>
     <!-- 네비게이션바 프라그먼트-->
-    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+    <nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
     <div class="container-fluid">
         <div class="row">
 
             <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
             <div class="col-lg-2">
-                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
+                <div th:replace="~{ac/AC_arcodian :: arcodianFragment}"></div>
             </div>
             
              <!-- 등록 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
 			    <form th:action="@{/AC/bondregi}" method="post">
-			
+					
 			        <label for="trader">거래자:</label>
 			        <input type="text" id="trader" name="trader" required><br>
 			

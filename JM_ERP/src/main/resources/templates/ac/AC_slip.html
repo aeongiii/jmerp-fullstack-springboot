@@ -10,14 +10,14 @@
 </head>
 <body>
     <!-- 네비게이션바 프라그먼트-->
-    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+    <nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
     <div class="container-fluid">
         <div class="row">
 
             <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
             <div class="col-lg-2">
-                <div th:replace="~{AC_arcodian :: arcodianFragment}"></div>
+                <div th:replace="~{ac/AC_arcodian :: arcodianFragment}"></div>
             </div>
 
             <!-- 테이블 컬럼 (1:4 비율) -->
@@ -72,9 +72,9 @@
                     <!-- 데이터 테이블 끝-->
                     
                    	<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{paging::pagingFragment(paging=${saleSlipList})}"></div>
+					<div th:replace="~{/paging::pagingFragment(paging=${saleSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{botton::bottonFragment}"></div>
+					<div th:replace="~{/botton::bottonFragment}"></div>
 
                 </div> <!-- 옵션 1일 때 리스트 -->
                 
@@ -117,9 +117,9 @@
 				    </table>
                     <!-- 데이터 테이블 끝-->
 	                <!-- 페이징 프라그먼트 -->
-					<div th:replace="~{paging::pagingFragment(paging=${purchaseSlipList})}"></div>
+					<div th:replace="~{/paging::pagingFragment(paging=${purchaseSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{botton::bottonFragment}"></div>
+					<div th:replace="~{/botton::bottonFragment}"></div>
                 </div> <!-- 옵션 2일 때 리스트 -->
             </div> <!-- 테이블 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
