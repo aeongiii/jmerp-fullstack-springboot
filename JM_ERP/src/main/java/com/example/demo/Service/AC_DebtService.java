@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.Entity.AC_Bond;
 import com.example.demo.Entity.AC_Debt;
 import com.example.demo.Repository.AC_DebtRepository;
 
@@ -23,6 +22,10 @@ public class AC_DebtService {
 	
     public List<AC_Debt> getList() {
         return this.debtRepository.findAll();
+    }
+    
+    public List<String> getDescriptionByDebtNumber(String debtNumber) {
+    	return this.debtRepository.findDescriptionByDebtNumber(debtNumber);
     }
     
     public void regi(String debtNumber,
@@ -72,8 +75,8 @@ public class AC_DebtService {
     		LocalDate maturityDate,
     		String description) {
     	
-        Optional<AC_Debt> oq = this.debtRepository.findById(debtNumber);
-        AC_Debt debt = oq.get();
+        Optional<AC_Debt> op = this.debtRepository.findById(debtNumber);
+        AC_Debt debt = op.get();
         
         Double newBalance = debt.getBalance() + increaseDecreaseType - amount;
         

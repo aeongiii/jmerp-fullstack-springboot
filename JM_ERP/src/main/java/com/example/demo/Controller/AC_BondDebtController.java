@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -117,7 +118,16 @@ public class AC_BondDebtController {
     		priceField = -priceField;
     	}
     	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
-    	String description = "\n" + (LocalDate.now()) + ":";
+    	
+    	List<String> data = this.bondService.getDescriptionByBondNumber(bondNumber);
+    	
+    	String description = "";
+    	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    	
+    		description = "\n" + (LocalDate.now()) + ":";
+    	
+    	}
     	
     	if (priceField > 0) {
     		
@@ -128,7 +138,7 @@ public class AC_BondDebtController {
     	
     	if (priceField < 0) {
     		
-    		String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
+    		String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
     		
     		description = description + sDecrease;
     	}
@@ -164,9 +174,16 @@ public class AC_BondDebtController {
 			priceField = -priceField;
 		}
 		// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
-		// 후에 데이터를 가져와 오늘 날자에 대한 내용이 있으면 오늘 날자를 입력하는 아래와 같은 코드 수행하지 않게하기
-		String description = "\n" + (LocalDate.now()) + ":";
-		
+    	List<String> data = this.debtService.getDescriptionByDebtNumber(debtNumber);
+    	
+    	String description = "";
+    	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    	
+    		description = "\n" + (LocalDate.now()) + ":";
+    	
+    	}
+
 		if (priceField > 0) {
 			
 			String sIncrease = " 채권 금액 " + priceField + "원 추가";
@@ -176,7 +193,7 @@ public class AC_BondDebtController {
 		
 		if (priceField < 0) {
 			
-			String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
+			String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
 			
 			description = description + sDecrease;
 		}

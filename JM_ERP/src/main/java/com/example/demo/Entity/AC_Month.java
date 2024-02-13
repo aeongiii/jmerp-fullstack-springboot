@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -22,6 +23,7 @@ public class AC_Month {
     private Double expense; // 비용
     private Double netIncome; // 순수익
 
+    @Column(columnDefinition = "TEXT")
     private String description; // 설명 또는 주석
 
     private LocalDateTime createdAt; // 생성일자

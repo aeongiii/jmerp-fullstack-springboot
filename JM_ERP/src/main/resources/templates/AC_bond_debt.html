@@ -31,7 +31,7 @@
 						채권 번호: <span id="debtNumber"></span><br>
 						
 						<label for="debtType">증감 구분:</label>
-						<select id="debtType" name="type" onchange="showPriceField()">
+						<select id="debtType" name="type" onchange="showDebtPriceField()">
 						    <option value="" selected>선택하세요</option>
 						    <option value="추가">추가</option>
 						    <option value="할인">할인</option>
@@ -48,7 +48,7 @@
 				        <label for="debtMaturityDate">만기일 변경:</label>
 				        <input type="date" id="debtMaturityDate" name="maturityDate"><br>
 				        
-				        <input type="hidden" id="debtNumber" name="debtNumber">
+				        <input type="hidden" id="submitDebtNumber" name="debtNumber">
 				    </form>
 	            </div>
 	            <!-- 모달 푸터 -->
@@ -76,25 +76,25 @@
 						
 						채권 번호: <span id="bondNumber"></span><br>
 						
-						<label for="type">증감 구분:</label>
-						<select id="type" name="type" onchange="showPriceField()">
+						<label for="bondType">증감 구분:</label>
+						<select id="bondType" name="type" onchange="showBondPriceField()">
 						    <option value="" selected>선택하세요</option>
 						    <option value="추가">추가</option>
 						    <option value="할인">할인</option>
 						</select><br>
 						
-						<div id="priceLabel" style="display:none;">
-						    <label for="priceField" id="priceLabelName"></label>
-						    <input type="number" id="priceField" name="priceField" value="0"><br>
+						<div id="bondPriceLabel" style="display:none;">
+						    <label for="priceField" id="bondPriceLabelName"></label>
+						    <input type="number" id="bondPriceField" name="priceField" value="0"><br>
 						</div>
 				
 				        <label for="amount">변제 금액:</label>
-				        <input type="number" id="amount" name="amount" value="0"><br>
+				        <input type="number" id="bondAmount" name="amount" value="0"><br>
 				
 				        <label for="maturityDate">만기일 변경:</label>
-				        <input type="date" id="maturityDate" name="maturityDate"><br>
+				        <input type="date" id="bondMaturityDate" name="maturityDate"><br>
 				        
-				        <input type="hidden" id="bondNumber" name="bondNumber">
+				        <input type="hidden" id="submitBondNumber" name="bondNumber">
 				    </form>
 	            </div>
 	            <!-- 모달 푸터 -->
@@ -154,7 +154,7 @@
 				                <td th:text="${bond.description}"></td>
 				                <!-- 수정 버튼 추가 -->
 							    <td>
-							        <button class="btn btn-primary open-modal" data-toggle="modal" data-target="#bondModal">수정</button>
+							        <button class="btn btn-primary open-bond-modal" data-toggle="modal" data-target="#bondModal">수정</button>
 							    </td>
 				            </tr>
 				        </tbody>
@@ -245,20 +245,21 @@
 	
 	<script>
         // 수정 버튼 클릭 시 모달 열기
-	    $(document).on('click', '.open-modal', function() {
+	    $(document).on('click', '.open-bond-modal', function() {
 	        // 클릭된 버튼이 속한 행을 찾습니다.
 	        var $row = $(this).closest('tr');
 	        // 행에서 첫 번째 열의 텍스트(채권 번호)를 가져옵니다.
 	        var bondNumber = $row.find('td:first').text().trim();
 	        // 가져온 채권 번호를 출력합니다.
         	$('#bondNumber').text(bondNumber);
+        	$('#submitBondNumber').val(bondNumber);
             // 모달 열기
             $('#bondModal').modal('show');
 		
 		    // 모달 닫기 버튼 클릭 시 모달 닫기
 		    $(document).on('click', '.close', function() {
 		        $('#bondModal').modal('hide');
-			    });	    
+			});	    
 		});
 	</script>
 	
@@ -271,29 +272,49 @@
 	        var debtNumber = $row.find('td:first').text().trim();
 	        // 가져온 채권 번호를 출력합니다.
         	$('#debtNumber').text(debtNumber);
+        	$('#submitDebtNumber').val(debtNumber);
             // 모달 열기
             $('#debtModal').modal('show');
 		
 		    // 모달 닫기 버튼 클릭 시 모달 닫기
 		    $(document).on('click', '.close', function() {
 		        $('#debtModal').modal('hide');
-			    });	    
+			});	    
 		});
 	</script>
 	
 	<script>
 		// 추가 / 할인 버튼을 선택시 추가 입력 필드란 보이게 하기
-	    function showPriceField() {
-	        var selectBox = document.getElementById("type");
+	    function showBondPriceField() {
+	        var selectBox = document.getElementById("bondType");
 	        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-	        var priceLabel = document.getElementById("priceLabel");
+	        var priceLabel = document.getElementById("bondPriceLabel");
 	
 	        if (selectedValue === "추가") {
 	            priceLabel.style.display = "block";
-	            document.getElementById("priceLabelName").textContent = "추가 금액:";
+	            document.getElementById("bondPriceLabelName").textContent = "추가 금액:";
 	        } else if (selectedValue === "할인") {
 	            priceLabel.style.display = "block";
-	            document.getElementById("priceLabelName").textContent = "할인 금액:";
+	            document.getElementById("bondPriceLabelName").textContent = "할인 금액:";
+	        } else {
+	            priceLabel.style.display = "none";
+	    	}
+	    }
+	</script>
+	
+		<script>
+		// 추가 / 할인 버튼을 선택시 추가 입력 필드란 보이게 하기
+	    function showDebtPriceField() {
+	        var selectBox = document.getElementById("debtType");
+	        var selectedValue = selectBox.options[selectBox.selectedIndex].value;
+	        var priceLabel = document.getElementById("debtPriceLabel");
+	
+	        if (selectedValue === "추가") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("debtPriceLabelName").textContent = "추가 금액:";
+	        } else if (selectedValue === "할인") {
+	            priceLabel.style.display = "block";
+	            document.getElementById("debtPriceLabelName").textContent = "할인 금액:";
 	        } else {
 	            priceLabel.style.display = "none";
 	    	}
@@ -312,16 +333,16 @@
 	    }
 	
 	    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
-	    document.getElementById('maturityDate').min = getTodayDate();
+	    document.getElementById('bondMaturityDate').min = getTodayDate();
 	    document.getElementById('debtMaturityDate').min = getTodayDate();
 	</script>
 	
 	<script>
 		$('#submitBondUpdate').click(function() {
 	    // 폼 안에 있는 입력 요소들의 값을 가져옴
-	    var priceField = $('#priceField').val();
-	    var amount = $('#amount').val();
-	    var maturityDate = $('#maturityDate').val();
+	    var priceField = $('#bondPriceField').val();
+	    var amount = $('#bondAmount').val();
+	    var maturityDate = $('#bondMaturityDate').val();
 	    
 	    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
 	    if (priceField === '0' && !maturityDate && amount === '0') {
