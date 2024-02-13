@@ -22,10 +22,12 @@ public class HR_workCreateForm {
 //	private LocalDate workDate;
 	
 	private int workHour;
+	private int id;
 	
 	private String overtimeType;
 	private int overtimeHour;
 	private int overtimePay;
+
 	
 	
 }

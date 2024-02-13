@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>증명서 등록</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{HR/HR_arcodian :: HR_arcodianFragment}"></div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+
+
+				<!-- 폼 -->
+				<form th:action="@{/HR/doc/update/{docNum}(docNum=${HR_docUpdateForm.docNum})}" th:object="${HR_docUpdateForm}" method="post">
+					<input type="hidden" th:field="*{docNum}" /> <!-- id값 숨겨서 함께 전달 -->
+
+					<div class="mb-3">
+						<label for="employeeId" class="form-label">사원번호</label>
+						<input type="text" th:field="*{employeeId}" class="form-control">
+					</div>
+					<div class="mb-3">
+						<label for="docType" class="form-label">증명서 선택</label>
+						<div>
+							<input type="radio" id="docTypeA" name="docType" value="재직증명서" th:field="*{docType}">
+							<label for="docTypeA">재직증명서</label>
+						</div>
+						<div>
+							<input type="radio" id="docTypeB" name="docType" value="퇴직증명서" th:field="*{docType}">
+							<label for="docTypeB">퇴직증명서</label>
+						</div>
+						<div>
+							<input type="radio" id="docTypeC" name="docType" value="경력증명서" th:field="*{docType}">
+							<label for="docTypeC">경력증명서</label>
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="docUse" class="form-label">증명서 용도 입력</label>
+						<input type="text" th:field="*{docUse}" class="form-control">
+					</div>
+					
+					<div class="mb-3">
+						<label for="docDate" class="form-label">증명서 등록일</label>
+						<input type="date" th:field="*{docDate}" class="form-control" id="docDate">
+						<div th:if="${#fields.hasErrors('docDate')}" th:errors="*{docDate}"
+							class="alert alert-danger"></div>
+					</div>
+
+					<button type="submit" class="btn btn-primary">수정</button>
+				</form>
+				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<!-- 폼 끝-->
+
+
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

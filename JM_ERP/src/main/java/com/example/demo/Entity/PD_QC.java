@@ -21,7 +21,7 @@ public class PD_QC {
 	
 	@ManyToOne
 	@JoinColumn(name="prod_code")
-	private PD_Cost prodCode;
+	private PD_BOM prodCode;
 	
 	@Column(name="prod_num")
 	private Integer prodNum;
