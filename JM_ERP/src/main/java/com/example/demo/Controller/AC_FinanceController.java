@@ -26,12 +26,12 @@ public class AC_FinanceController {
     public String monthList(Model model) {
         List<AC_Month> monthIncome = this.monthService.getList();
         model.addAttribute("monthIncome", monthIncome);
-        return "AC_month";
+        return "ac/AC_month";
     }
     
     @GetMapping("/withholding") 
     public String withholdingList() {
     	
-    	return "AC_withholding_tax";
+    	return "ac/AC_withholding_tax";
     }
 }

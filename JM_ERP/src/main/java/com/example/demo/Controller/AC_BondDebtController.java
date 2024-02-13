@@ -42,13 +42,13 @@ public class AC_BondDebtController {
         Page<AC_Debt> debts = this.debtService.getList(page);
         model.addAttribute("bonds", bonds);
         model.addAttribute("debts", debts);
-        return "AC_bond_debt";
+        return "ac/AC_bond_debt";
     }
     
     @GetMapping("/bondregi")
     public String bondRegiForm() {
     	
-    	return "AC_bond_regi";
+    	return "ac/AC_bond_regi";
     }
     
     @PostMapping("/bondregi")
@@ -69,13 +69,13 @@ public class AC_BondDebtController {
     	this.bondService.regi(bondNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "AC_bond_regi";
+    	return "ac/AC_bond_regi";
     }
     
     @GetMapping("/debtregi")
     public String debtRegiForm() {
     	
-    	return "AC_debt_regi";
+    	return "ac/AC_debt_regi";
     }
     
     @PostMapping("/debtregi")
@@ -96,13 +96,7 @@ public class AC_BondDebtController {
     	this.debtService.regi(debtNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "AC_debt_regi";
-    }
-    
-    @GetMapping("/bondupdate")
-    public String bondUpdateForm() {
-    	
-    	return "AC_bond_update";
+    	return "ac/AC_debt_regi";
     }
     
     @PostMapping("/bondupdate")
@@ -152,13 +146,7 @@ public class AC_BondDebtController {
     	
     	this.bondService.update(bondNumber, amount, priceField, maturityDate, description);
     	
-    	return "AC_bond_update";
-    }
-    
-    @GetMapping("/debtupdate")
-    public String debtUpdateForm() {
-    	
-    	return "AC_debt_update";
+    	return "redirect:/AC/bonddebt";
     }
     
 	@PostMapping("/debtupdate")
@@ -207,6 +195,6 @@ public class AC_BondDebtController {
 		
 		this.debtService.update(debtNumber, amount, priceField, maturityDate, description);
 		
-		return "AC_debt_update";
+		return "redirect:/AC/bonddebt";
 	}
 }

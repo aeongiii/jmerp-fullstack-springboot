@@ -38,6 +38,6 @@ public class AC_SlipController {
         Page<AC_PurchaseSlip> purchase = this.purchaseSlipService.getList(page);
         model.addAttribute("saleSlipList", sale);
         model.addAttribute("purchaseSlipList", purchase);
-        return "AC_slip";
+        return "ac/AC_slip";
     }
 }
