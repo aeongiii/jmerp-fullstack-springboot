@@ -26,7 +26,7 @@
 					<thead>
 				        <tr class="table-active">
 							<th>사원</th>
-			                <th>급여</th>
+			                <th>월 급여</th>
 			                <th>국민연금</th>
 			                <th>건강보험</th>
 			                <th>장기요양</th>
@@ -37,11 +37,23 @@
 			            </tr>
 			        </thead>
 			        <tbody>
-					<!-- 후에 데이터를 넣을것 
-						 필요한 데이터 : 사원 정보 - 사원, 급여
-						 taxrate의 값-->
+			            <!-- for each 문 -->
+			            <tr th:each="withholding : ${withholding}">
+			                <!-- 화면에 띄울 정보 -->
+			                <td th:text="${withholding.name}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[0], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[1], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[2], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[3], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[4], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[5], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[6], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.results[7], 3, 'COMMA')}"></td>
+			            </tr>
 			        </tbody>
-			    </table>
+			    </table>			    
+			    <!-- 페이징 프라그먼트 -->
+				<div th:replace="~{/paging::pagingFragment(paging=${withholding})}"></div>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
     </div> <!-- 컨테이너 플루이드 끝 -->
