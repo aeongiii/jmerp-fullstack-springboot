@@ -34,6 +34,9 @@
 				<table class="table table-hover">
 					<thead>
 						<tr class="table-active">
+							<th>
+								<input type="checkbox" class="allCheck">
+							</th>
 							<th>물품 이름</th>
 							<th>물품 코드</th>
 							<th>물품 단가 </th>
@@ -45,6 +48,9 @@
 					<tbody>
 						<!-- Thymeleaf 반복문 사용 -->
 						<tr th:each="itemCheek : ${paging.content}">
+							<th>
+								<input type="checkbox" class="regiCheck" th:value="${itemCheek.itemCode}" />
+							</th>
 							<th scope="row" th:text="${itemCheek.Itemname}">물품 이름</th>
 							<!-- Seller 엔티티로부터 Seller ID 추출 -->
 							<td th:text="${itemCheek.itemCode}">물품 코드</td>
@@ -70,14 +76,44 @@
 	</div> <!-- 컨테이너 플루이드 끝 -->
 
 
-
-
-
-
-
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$('.allCheck').change(function () {
+			const allCheck = $(this);
+			const allChecked = allCheck.prop('checked');
+			$('.regiCheck').prop('checked', allChecked);
+			$('.regiCheck:is(:disabled)').prop('checked', false);
+		})
 
+		$('.regiCheck').change(function () {
+			const checkboxMemberIdCount = $('.regiCheck').length;
+			const checkboxMemberIdCheckedCount = $('.regiCheck:checked').length;
+			const checkboxDisabledCount = $('regiCheck:is(disabled)').length;
+			const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
+			$('.allcheck').prop('checked', allChecked);
+		})
+	</script>
+
+	<form method="post" name="regiDeleteForm" action="/MG/accmg/DeleteAccount">
+		<input type="hidden" name="ids" value="" />
+	</form>
+
+	<script>
+		$('.btn-regiDelete').click(function () {
+			const values = $('.regiCheck:checked').map((index, el) => el.value).toArray();
+			if (values.length == 0) {
+				alert('선택한 회원이 없습니다');
+				return;
+			}
+			if(confirm('선택한 회원을 삭제 하시겠습니까?')==false){
+				return;
+			}
+			$('input[name=ids]').val(values.join(','))
+			$('form[name=regiDeleteForm').submit();
+		})
+	</script>
 </body>
 
 </html>
