@@ -3,6 +3,7 @@ package com.example.demo.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -22,10 +23,11 @@ import lombok.RequiredArgsConstructor;
 public class AC_TaxRateService {
 	
 	private final AC_TaxRateRepository taxRateRepository;
+	
 	private final HR_memRepository memRepository;
 	
-    public Page<AC_WithholdingForm> calculateTax(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page, pageSize);
+    public Page<AC_WithholdingForm> calculateTax(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
 		
 		List<HR_mem> memList = this.memRepository.findAll();
 		
@@ -59,6 +61,10 @@ public class AC_TaxRateService {
 	        calculateList.add(dto);
 	    }
 	    
-	    return new PageImpl<>(calculateList, pageable, calculateList.size());
+        int start = Math.toIntExact(pageable.getOffset());
+        int end = (start + pageable.getPageSize()) > calculateList.size() ? calculateList.size() : (start + pageable.getPageSize());
+        Page<AC_WithholdingForm> pageResult = new PageImpl<>(calculateList.subList(start, end), pageable, calculateList.size());
+        
+        return pageResult;
 	}
 }

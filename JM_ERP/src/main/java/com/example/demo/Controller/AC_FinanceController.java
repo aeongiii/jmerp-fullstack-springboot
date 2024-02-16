@@ -43,8 +43,8 @@ public class AC_FinanceController {
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
     	
-    	Page<AC_WithholdingForm> withholding = this.taxRateService.calculateTax(page, 10);
-    	model.addAttribute("withholding", withholding);
+    	Page<AC_WithholdingForm> withholdings = this.taxRateService.calculateTax(page); //jpa를 이용하지 않았기 때문에 다른 paging을 이용해야 한다.
+    	model.addAttribute("withholdings", withholdings);
     	
     	return "ac/AC_withholding_tax";
     }
