@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +58,35 @@ public class MG_itemController {
 
 		return "redirect:/MG/itemcheek";
 	}
-
+	
+	@PostMapping("/accmg/deleteRegi")
+	public String regitDelete(@RequestParam(name = "ids",defaultValue = "") String ids) {
+	    if(ids.isEmpty()) {
+	        // 빈 문자열인 경우의 처리 로직
+	        // 예: 오류 메시지를 표시하거나, 특정 페이지로 리다이렉션
+	        return "hi";
+	    }
+	    
+	    List<String> idsa = new ArrayList<>();
+	    for(String idstr : ids.split(",")) {
+	        try {
+	            // 빈 문자열을 체크하여 무시
+	            if(!idstr.trim().isEmpty()) {
+	                idsa.add(idstr);
+	            }
+	        } catch (NumberFormatException e) {
+	            // 로그를 남기거나, 문제의 idstr 값을 포함한 오류 메시지 반환
+	            System.out.println("숫자로 변환할 수 없는 입력 발견: " + idstr);
+	            // 적절한 오류 처리를 여기에 수행
+	        }
+	    }
+	    
+	    // idsa를 사용한 비즈니스 로직 수행
+	    MG_itemService.deleteId(idsa);
+	    
+	    return "redirect:/MG/accmg";
+	}
+	
 	@Autowired
 	private final MG_wmsService MG_wmsService;
 
