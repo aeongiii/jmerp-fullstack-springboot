@@ -18,10 +18,11 @@ import lombok.Setter;
 @Setter
 public class Mg_Sn {
 
+
 	@ManyToOne
-    @JoinColumn(name = "itemCode", referencedColumnName = "itemCode")
-    private Mg_item_Regi mgItemRegi;
-	//품목구분 코드 포린키
+	@JoinColumn(name = "wmsItemCode")
+	private Mg_item_Regi itemCode;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer snCount;

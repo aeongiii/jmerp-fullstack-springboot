@@ -55,6 +55,8 @@ compileJava {
     sourceCompatibility = '17' // Java 버전에 맞게 설정
     targetCompatibility = '17'
 }
+
+
 def webappDir = "$projectDir/src/main/my-app"
 
  sourceSets {

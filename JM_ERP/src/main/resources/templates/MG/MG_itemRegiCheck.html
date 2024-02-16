@@ -96,7 +96,7 @@
 		})
 	</script>
 
-	<form method="post" name="regiDeleteForm" action="/MG/accmg/DeleteAccount">
+	<form method="post" name="regiDeleteForm" action="/MG/accmg/deleteRegi">
 		<input type="hidden" name="ids" value="" />
 	</form>
 
@@ -104,10 +104,10 @@
 		$('.btn-regiDelete').click(function () {
 			const values = $('.regiCheck:checked').map((index, el) => el.value).toArray();
 			if (values.length == 0) {
-				alert('선택한 회원이 없습니다');
+				alert('선택한 뭎품이 없습니다');
 				return;
 			}
-			if(confirm('선택한 회원을 삭제 하시겠습니까?')==false){
+			if(confirm('선택한 물품 관련 데이터가 모두 사라집니다 정말 삭제하시겠습니까?')==false){
 				return;
 			}
 			$('input[name=ids]').val(values.join(','))
