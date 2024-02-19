@@ -56,5 +56,9 @@ public class MG_acoountService {
 			mgaccountmgRepository.deleteById(ids);
 		}
 	}
+	
+	public List<Mg_AccountMG_Entity> serchAccount(String accountName){
+		return mgaccountmgRepository.findByaccountNameContaining(accountName);
+	}
 //	헤이 문제풀지말고 공부를 하라고;
 }

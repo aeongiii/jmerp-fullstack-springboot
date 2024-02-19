@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Create Member</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f4f4f4;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+			margin: 0;
+		}
+
+		form {
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+
+		h2 {
+			color: #333;
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			color: #555;
+		}
+
+		input,
+		select {
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 16px;
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		input[type="submit"] {
+			background-color: #333;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #555;
+
+		}
+	</style>
+</head>
+
+<body>
+	<h2>거래처 수정</h2>
+
+<form th:action="@{/MG/accunntupdate/{accountCode}(accountCode=${item.accountCode})}" method="post">
+			
+		<input type="hidden" name="accountCode" th:value="${item.accountCode}" />
+		
+		
+		<!-- 이름 입력 -->
+		<label for="accountName">변경 거래처 이름:</label>
+		<input type="text" id="accountName" name="accountName" required><br>
+
+		<!-- 이메일 입력 -->
+		<label for="accountNum">변경 거래처 전화번호:</label>
+		<input type="tel" id="accountNum" name="accountNum" required><br>
+
+		<!-- 연락처 입력란 -->
+		<label for="accountManager">변경 담당자 명:</label>
+		<input type="text" id="accountManager" name="accountManager" required><br>
+
+		<!-- 제출 버튼 -->
+		<input type="submit" value="등록">
+	</form>
+	
+</body>
+
+</html>
