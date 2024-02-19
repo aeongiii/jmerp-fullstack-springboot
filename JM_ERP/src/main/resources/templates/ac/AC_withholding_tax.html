@@ -65,31 +65,6 @@
     <!-- Bootstrap JS 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-	    function searchTable() {
-		    // 입력된 검색어 가져오기
-		    var input, filter, table, tr, td, i, txtValue;
-		    input = document.getElementById("searchInput");
-		    filter = input.value.toUpperCase();
-		    table = document.getElementById("dataTable");
-		    tr = table.getElementsByTagName("tr");
-		
-		    // 각 행을 반복하며 필터링 적용
-		    for (i = 0; i < tr.length; i++) {
-		        // 각 열에 대해 검색어와 일치하는지 확인
-		        td = tr[i].getElementsByTagName("td");
-		        for (var j = 0; j < td.length; j++) {
-		            if (td[j]) {
-		                txtValue = td[j].textContent || td[j].innerText;
-		                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		                    tr[i].style.display = "";
-		                    break; // 일치하는 열이 있으면 다음 행으로 이동
-		                } else {
-		                    tr[i].style.display = "none"; // 일치하지 않으면 행 숨기기
-		                }
-		            }
-		        }
-		    }
-		}
 	</script>
 </body>
 </html>
