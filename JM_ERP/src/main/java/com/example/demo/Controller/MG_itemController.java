@@ -59,7 +59,7 @@ public class MG_itemController {
 		return "redirect:/MG/itemcheek";
 	}
 	
-	@PostMapping("/accmg/deleteRegi")
+	@PostMapping("/itemcreate/deleteRegi")
 	public String regitDelete(@RequestParam(name = "ids",defaultValue = "") String ids) {
 	    if(ids.isEmpty()) {
 	        // 빈 문자열인 경우의 처리 로직
@@ -84,7 +84,7 @@ public class MG_itemController {
 	    // idsa를 사용한 비즈니스 로직 수행
 	    MG_itemService.deleteId(idsa);
 	    
-	    return "redirect:/MG/accmg";
+	    return "redirect:/MG/itemcheek";
 	}
 	
 	@Autowired

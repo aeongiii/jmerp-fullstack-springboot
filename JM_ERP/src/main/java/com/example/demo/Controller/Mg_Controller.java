@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.Entity.HR_mem;
 import com.example.demo.Entity.Mg_AccountMG_Entity;
 
 import com.example.demo.Service.MG_acoountService;
@@ -34,6 +35,7 @@ public class Mg_Controller {
 	@Autowired
 	private final MG_acoountService mgser;
 
+	
 	@GetMapping("/accmg")
 	public String mgcheck(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
 		Page<Mg_AccountMG_Entity> paging = this.mgser.getList(page);
@@ -58,7 +60,23 @@ public class Mg_Controller {
 
 		return "redirect:/MG/accmg";
 	}
+	
+//	@GetMapping("/accmg")
+//	public String serchAccount(@RequestParam(value="search",required=false)String search,Model model) {
+//		List<Mg_AccountMG_Entity> accounts;
+//		
+//		if(search != null && !search.isEmpty()) {
+//			accounts = mgser.serchAccount(search);
+//	}else {
+//		accounts = mgser.accountCheek();
+//	}
+//		model.addAttribute("accounts",accounts);
+//	return "MG/MG_acccheck";
+//}
 
+	
+
+	
 	@GetMapping("/accunntupdate/{accountCode}")
 	public String showUpdateForm(@PathVariable(name = "accountCode") Long accountCode, Model model) {
 	    Optional<Mg_AccountMG_Entity> accountOp = mgser.findaccountCode(accountCode);
@@ -70,6 +88,10 @@ public class Mg_Controller {
 	        return "redirect:/MG/MG_acccheck";
 	    }
 	}
+	
+	
+	
+	
 	
 	@PostMapping("/accunntupdate/{accountCode}")
 	public String updateItem(@PathVariable("accountCode") Long accountCode,
@@ -89,7 +111,7 @@ public class Mg_Controller {
 	        return "redirect:/MG/accmg";
 	
 	}
-
+	
 	@PostMapping("/accmg/DeleteAccount")
 	public String accountDelete(@RequestParam(name = "ids",defaultValue = "") String ids) {
 	    if(ids.isEmpty()) {
