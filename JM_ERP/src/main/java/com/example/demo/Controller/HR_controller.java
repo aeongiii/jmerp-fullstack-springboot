@@ -189,7 +189,7 @@ public class HR_controller {
 // 근태내역 조회 (사원별 / 월별)
 	@GetMapping("/work/search")
 	public String listWork(Model model,  @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "type", required = false, defaultValue = "monthly") String type,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "month", required = false) Integer month,
             @RequestParam(value = "employeeId", required = false) String employeeId,
@@ -212,8 +212,11 @@ public class HR_controller {
 	        // 기본 조회 로직 (모든 근태 내역)
 	        paging = workService.searchAll(PageRequest.of(page, 10));
 	    }
+	    model.addAttribute("selectedType", type); // 현재 선택된 조회 조건을 모델에 추가
+	    
 	    List<HR_mem> employees = memService.getList(); 
-        model.addAttribute("employees", employees);
+        model.addAttribute("employees", employees);	// 사원 목록을 모델에 추가
+        
 		model.addAttribute("workList", paging.getContent());
 		model.addAttribute("paging", paging);
 		return "HR/HR_workSearch";

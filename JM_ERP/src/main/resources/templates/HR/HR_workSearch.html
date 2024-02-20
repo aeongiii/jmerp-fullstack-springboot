@@ -40,7 +40,7 @@
 				<div id="conditionFields">
 
 					<!-- '월별' 조회 조건 입력 필드 -->
-					<div id="monthlyCondition" style="display:none;">
+					<div id="monthlyCondition">
 						<form id="monthlyForm" action="/HR/work/search" method="get">
 							<input type="hidden" name="type" value="monthly">
 							<label for="yearSelect">연도:</label>
@@ -141,36 +141,47 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 	<script>
-		$(document).ready(function () {
-			// '월별' 조회를 위한 연도와 월 동적 생성 로직
-			function populateYearAndMonth() {
-				var currentYear = new Date().getFullYear();
-				$('#yearSelect').empty(); // 기존 옵션 제거
-				for (var year = 2015; year <= currentYear; year++) {
-					$('#yearSelect').append(new Option(year, year));
-				}
+    $(document).ready(function () {
+        // '월별' 조회를 위한 연도와 월 동적 생성 로직
+        function populateYearAndMonth() {
+            var currentYear = new Date().getFullYear();
+            var currentMonth = new Date().getMonth() + 1; // 현재 월; JavaScript는 0부터 시작하므로 +1
+            $('#yearSelect').empty(); // 기존 옵션 제거
+            for (var year = currentYear - 5; year <= currentYear; year++) { // 예: 지난 5년간의 연도
+                $('#yearSelect').append(new Option(year, year, year === currentYear));
+            }
 
-				$('#monthSelect').empty(); // 기존 옵션 제거
-				for (var month = 1; month <= 12; month++) {
-					$('#monthSelect').append(new Option(month, month));
-				}
-			}
+            $('#monthSelect').empty(); // 기존 옵션 제거
+            for (var month = 1; month <= 12; month++) {
+                $('#monthSelect').append(new Option(month, month, month === currentMonth));
+            }
+        }
 
-			// '월별' 버튼 선택 시
-			$('#btnradio1').change(function () {
-				$('#monthlyCondition').show();
-				$('#employeeCondition').hide();
-				populateYearAndMonth(); // 연도와 월을 동적으로 생성
-			});
+        // 페이지 로드 시 연도와 월을 동적으로 생성
+        populateYearAndMonth();
 
-			// '사원별' 버튼 선택 시
-			$('#btnradio2').change(function () {
-				$('#employeeCondition').show();
-				$('#monthlyCondition').hide();
-				// 사원 목록 생성은 서버 사이드에서 처리
-			});
-		});
-	</script>
+        // 선택한 조회 조건 유지 로직
+        var selectedType = 'monthly'; // 기본값 'monthly'; 서버로부터 받은 값으로 대체 가능
+        if (selectedType === 'monthly') {
+            $('#btnradio1').prop('checked', true).change();
+        } else if (selectedType === 'employee') {
+            $('#btnradio2').prop('checked', true).change();
+        }
+
+        // '월별' 버튼 선택 시
+        $('#btnradio1').change(function () {
+            $('#monthlyCondition').show();
+            $('#employeeCondition').hide();
+        });
+
+        // '사원별' 버튼 선택 시
+        $('#btnradio2').change(function () {
+            $('#employeeCondition').show();
+            $('#monthlyCondition').hide();
+        });
+    });
+</script>
+
 
 
 </body>
