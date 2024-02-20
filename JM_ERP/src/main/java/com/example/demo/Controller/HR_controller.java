@@ -42,7 +42,7 @@ import com.example.demo.Service.HR_workService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// feature/HRdoct/kye - 증명서 기능 추가.
+// feature/NOTmodal/kye - 모달 전으로 돌아옴
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
