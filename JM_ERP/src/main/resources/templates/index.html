@@ -10,7 +10,6 @@
 
 	<!-- CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -20,10 +19,33 @@
 	<div class="main-contents">
 			<!-- 사이드바 -->
 			<aside th:replace="~{sidebar :: sidebarFragment}"></aside>
-			<!-- 달력 -->
-			<div th:replace="~{calendar :: calendarFragment}"></div>
-    		
-			<div></div>
+			<div class="main-dayinfo"> 
+				<!-- 달력 -->
+				<div th:replace="~{calendar :: calendarFragment}"></div>
+	    		
+	    		<!-- 날씨 -->
+	    		<div class="main-weather">
+			    <dl>
+			      <dt>기온</dt>
+			      <dd class="temperature"></dd>
+			      <dt>위치</dt>
+			      <dd class="place"></dd>
+			      <dt>설명</dt>
+			      <dd class="description"></dd>
+			      <img class="wheather-icon" />
+			    </dl>
+			    </div>
+		    </div>
+			
+			<!-- contents -->
+			<div class="main-contents1"></div>
+			<!-- contents -->
+			<div class="main-contents2"></div>
+			<!-- contents -->
+			<div class="main-contents3"></div>
+			<!-- contents -->
+			<div class="main-contents4"></div>
+
 	</div> <!-- main contents 끝 -->
 	
 
@@ -34,6 +56,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
 	<script type="text/javascript" src="calendar.js"></script>
+	<script type="text/javascript" src="weather.js"></script>
 	
 	
 </body>

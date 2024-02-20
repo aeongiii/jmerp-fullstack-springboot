@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/seller/commissionrate -->
+<!-- http://localhost:8080/SD/product/pbproduct -->
 
 <head>
 	<title>Seller List</title>
@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 <body>
@@ -31,14 +31,23 @@
 				<table id="foo-table" class="table table-hover">
 					<thead>
 						<tr class="table-active">
+							<th>Product Code</th>
+							<th>Product Name</th>
+							<th>Price</th>
+							<th>Release Date</th>
+							<th>Description</th>
 							<th>Category</th>
-							<th>Rate</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="commissionRate : ${paging.content}">
-							<th scope="row" th:text="${commissionRate.category}">Category</th>
-							<td th:text="${commissionRate.rate}">Rate</td>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="product : ${productList}">
+							<th scope="row" th:text="${product.productCode}">Product Code</th>
+							<td th:text="${product.productName}">Product Name</td>
+							<td th:text="${product.price}">Price</td>
+							<td th:text="${product.releaseDate}">Release Date</td>
+							<td th:text="${product.description}">Description</td>
+							<td th:text="${product.category}">Category</td>
 						</tr>
 					</tbody>
 				</table>
@@ -47,7 +56,7 @@
 				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<a href="http://localhost:8080/SD/seller/setcommissionrate" class="btn btn-info" role="button">신규 등록</a>
+				<div th:replace="~{botton::bottonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
