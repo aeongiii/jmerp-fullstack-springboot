@@ -1,3 +1,7 @@
+.nav1, .nav2 {
+	height: 7.5vh;
+}
+
 .navbar-nav .nav-item {
     flex-grow: 1; /* Ensure equal spacing */
     text-align: center; /* Center align text */
