@@ -72,7 +72,7 @@
                     <!-- 데이터 테이블 끝-->
                     
                    	<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{/paging::pagingFragment(paging=${saleSlipList})}"></div>
+					<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${saleSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
 					<div th:replace="~{/botton::bottonFragment}"></div>
 
@@ -133,7 +133,6 @@
 	<script>
 	    $(document).ready(function () {
 	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
-	        var currentPage = localStorage.getItem('currentPage') || 1;
 	
 	        if (selectedOption === "option1") {
 	            $("#option1Content").show();

@@ -38,14 +38,32 @@ public class AC_FinanceController {
     }
     
     @GetMapping("/withholding") 
-    public String withholdingList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+    public String searchWithholding(Model model, 
+            @RequestParam(value = "page", defaultValue ="0") int page, 
+            @RequestParam(value = "keyword", required = false) String keyword, 
+            @RequestParam(value = "category", required = false) String category,
+            HttpServletRequest request) {
     	
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
     	
-    	Page<AC_WithholdingForm> withholdings = this.taxRateService.calculateTax(page); //jpa를 이용하지 않았기 때문에 다른 paging을 이용해야 한다.
+		Page<AC_WithholdingForm> withholdings = null;
+		
+	    if (category != null && !category.isEmpty()) {
+	    	
+	        if ("name".equals(category)) {
+	            withholdings = this.taxRateService.calculateTax(page, this.taxRateService.searchByName(keyword));
+	        } else if ("department".equals(category)) {
+	        	withholdings = this.taxRateService.calculateTax(page, this.taxRateService.searchByDeptName(keyword));
+	        }
+	        
+	    } else {
+	    	
+	    	withholdings = this.taxRateService.calculateTax(page, this.taxRateService.searchAll());
+	    }
+
     	model.addAttribute("withholdings", withholdings);
     	
     	return "ac/AC_withholding_tax";
-    }
+    }  
 }

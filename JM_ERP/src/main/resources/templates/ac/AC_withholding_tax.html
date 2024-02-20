@@ -21,16 +21,33 @@
             </div>
             <!-- 등록 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
-				<!--여기에 검색폼 만들기-->
-				<form action="" method="get">
-				    <label for="searchInput" class="form-label">테이블 검색</label>
-				    <input class="form-control me-sm-2" type="search" id="searchInput" placeholder="검색어를 입력하세요">
-				    <button type="button" class="btn btn-primary" onclick="searchTable()">검색</button>
-				</form>
+	            <!-- 검색폼 만들기 -->
+				<div class="mb-3">
+				    <form action="/AC/withholding" method="get">
+						<input type="hidden" id="pageNumber" name="page" th:value="0">
+				        <div class="row justify-content-end"> <!-- 오른쪽 정렬 -->
+				            <div class="col-auto"> <!-- 자동으로 열 맞춤 -->
+				                <input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
+				            </div>
+				            <div class="col-auto">
+				                <select class="form-select" name="category">
+				                    <option value="name">사원</option>
+				                    <option value="department">부서</option>
+				                    <!-- 원하는 검색 항목을 추가할 수 있습니다. -->
+				                </select>
+				            </div>
+				            <div class="col-auto">
+				                <button type="submit" class="btn btn-primary">검색</button>
+				            </div>
+				        </div>
+				    </form>
+				</div>
+	            
 				<table class = "table table-hover">
 					<thead>
 				        <tr class="table-active">
 							<th>사원</th>
+							<th>부서</th>
 			                <th>월 급여</th>
 			                <th>국민연금</th>
 			                <th>건강보험</th>
@@ -46,6 +63,7 @@
 			            <tr th:each="withholding : ${withholdings}">
 			                <!-- 화면에 띄울 정보 -->
 			                <td th:text="${withholding.name}"></td>
+			                <td th:text="${withholding.departName}"></td>
 			                <td th:text="${#numbers.formatInteger(withholding.results[0], 3, 'COMMA')}"></td>
 			                <td th:text="${#numbers.formatInteger(withholding.results[1], 3, 'COMMA')}"></td>
 			                <td th:text="${#numbers.formatInteger(withholding.results[2], 3, 'COMMA')}"></td>
@@ -57,8 +75,8 @@
 			            </tr>
 			        </tbody>
 			    </table>			    
-			    <!-- 페이징 프라그먼트 -->
-				<div th:replace="~{/paging::pagingFragment(paging=${withholdings})}"></div>
+			    <!-- 페이징 프라그먼트, withholding 전용 paging 만들기 -->
+				<div id="pagingFragment" th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${withholdings})}"></div>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
     </div> <!-- 컨테이너 플루이드 끝 -->
@@ -67,32 +85,29 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JQuery 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-	    function searchTable() {
-		    // 입력된 검색어 가져오기
-		    var input, filter, table, tr, td, i, txtValue;
-		    input = document.getElementById("searchInput");
-		    filter = input.value.toUpperCase();
-		    table = document.getElementById("dataTable");
-		    tr = table.getElementsByTagName("tr");
-		
-		    // 각 행을 반복하며 필터링 적용
-		    for (i = 0; i < tr.length; i++) {
-		        // 각 열에 대해 검색어와 일치하는지 확인
-		        td = tr[i].getElementsByTagName("td");
-		        for (var j = 0; j < td.length; j++) {
-		            if (td[j]) {
-		                txtValue = td[j].textContent || td[j].innerText;
-		                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-		                    tr[i].style.display = "";
-		                    break; // 일치하는 열이 있으면 다음 행으로 이동
-		                } else {
-		                    tr[i].style.display = "none"; // 일치하지 않으면 행 숨기기
-		                }
-		            }
-		        }
-		    }
-		}
+
+
+	<script type="text/javascript">
+		const urlParams = new URLSearchParams(window.location.search);
+		const keywordValue = urlParams.get('keyword') || "";
+		const categoryValue = urlParams.get('category') || "";
+		const currentPage = parseInt(urlParams.get('page')) || 0;
+	    
+		function nextPage() {
+	        const nextPageUrl = `${window.location.pathname}?page=${currentPage+1}&keyword=${keywordValue}&category=${categoryValue}`
+	        window.location.href = nextPageUrl;
+	    }
+	
+	    function prevPage() {
+	        const prevPageUrl = `${window.location.pathname}?page=${currentPage-1}&keyword=${keywordValue}&category=${categoryValue}`
+	        window.location.href = prevPageUrl;
+	    }
+	    
+	    function goToPage(pageNum) {
+	        const PageUrl = `${window.location.pathname}?page=${pageNum}&keyword=${keywordValue}&category=${categoryValue}`;
+	        window.location.href = PageUrl;
+    	}
+
 	</script>
 </body>
 </html>

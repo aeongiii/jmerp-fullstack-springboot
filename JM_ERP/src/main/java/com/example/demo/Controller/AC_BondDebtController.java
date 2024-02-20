@@ -33,15 +33,45 @@ public class AC_BondDebtController {
 	private final AC_DebtService debtService;
 	
     @GetMapping("/bonddebt")
-    public String List(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+    public String List(Model model,
+    		@RequestParam(value = "page", defaultValue ="0") int page,
+    		@RequestParam(value = "keyword", required = false) String keyword, 
+            @RequestParam(value = "category", required = false) String category,
+            HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
     	Page<AC_Bond> bonds = this.bondService.getList(page);
         Page<AC_Debt> debts = this.debtService.getList(page);
+		
+	    if (category != null && !category.isEmpty()) {
+	    	
+	        if ("date".equals(category)) {
+	            bonds = this.bondService.searchDateList(keyword, page);
+	            debts = this.debtService.searchDateList(keyword, page);
+	            
+	        } else if ("trader".equals(category)) {
+	        	bonds = this.bondService.searchTraderList(keyword, page);
+	        	debts = this.debtService.searchTraderList(keyword, page);
+	        	
+	        } else if ("amount".equals(category)) {
+	        	bonds = this.bondService.searchAmountList(keyword, page);
+	        	debts = this.debtService.searchAmountList(keyword, page);
+	        	
+	        } else if ("maturityDate".equals(category)) {
+	        	bonds = this.bondService.searchMaturityDateList(keyword, page);
+	        	debts = this.debtService.searchMaturityDateList(keyword, page);
+	        	
+	        } else if ("description".equals(category)) {
+	        	bonds = this.bondService.searchDescriptionList(keyword, page);
+	        	debts = this.debtService.searchDescriptionList(keyword, page);
+	        }
+	    }
+		
         model.addAttribute("bonds", bonds);
         model.addAttribute("debts", debts);
+        
         return "ac/AC_bond_debt";
     }
     
