@@ -290,7 +290,7 @@ public class HR_controller {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 
-		Page<HR_mem> paging = memService.searchAll(page);
+		Page<HR_cont> paging = contService.searchAll(page);
 		model.addAttribute("memList", paging.getContent());
 		model.addAttribute("paging", paging);
 		return "HR/HR_contList";
