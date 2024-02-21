@@ -3357,20 +3357,17 @@ textarea.form-control-lg {
     .dropdown-menu {
         display: none; /* 기본적으로 숨김 */
         flex-direction: row; /* 가로 방향으로 항목 정렬 */
-        right: 0vw;
     }
 
     /* 마우스 호버 시 드롭다운 메뉴 표시 */
-    .dropdown:hover .dropdown-menu {
-        display: flex;
+	.dropdown:hover .dropdown-menu {
+        display: block;
     }
 
     .dropdown-item {
         display: block; /* 각 항목을 블록 요소로 설정 */
         white-space: nowrap; /* 항목 텍스트가 줄바꿈 되지 않도록 설정 */
-      
-     
-     
+          
     }
 
 .dropup,
@@ -3427,6 +3424,8 @@ textarea.form-control-lg {
   --bs-dropdown-header-padding-x: 1rem;
   --bs-dropdown-header-padding-y: 0.5rem;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: var(--bs-dropdown-zindex);
   display: none;
   min-width: var(--bs-dropdown-min-width);
