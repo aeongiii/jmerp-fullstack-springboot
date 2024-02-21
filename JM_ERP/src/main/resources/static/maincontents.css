@@ -1,0 +1,104 @@
+.main-contents {
+	background-color:#fcfcfd;
+	z-index: 3;
+	width: 100%;
+	height: 85vh;
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+}
+
+.main-calendar {
+	position: absolute;
+	top: 100px;
+	left: 100px;
+}
+
+.main-weather {
+	position:absolute;
+	top: 100px;
+	left: 450px;
+}
+
+.main-contents1, .main-contents2, .main-contents3 {
+	width: 400px;
+	height: 400px;
+}
+
+.main-contents4 {
+	width: 1800px;
+	height: 280px;
+}
+.main-contents1 {
+	position: absolute;
+	top: 100px;
+	left: 650px;
+	flex-direction: column;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+.main-contents2 {
+	background-color: bisque;
+	position: absolute;
+	top: 100px;
+	left: 1075px;
+	flex-direction: column;
+	overflow: auto;
+	white-space: nowrap;
+}
+
+.main-contents3  {
+	position: absolute;
+	top: 100px;
+	left: 1500px;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	white-space: nowrap;
+}
+.main-contents1 table th, .main-contents1 table td,
+.main-contents2 table th, .main-contents2 table td,
+.main-contents3 table th, .main-contents3 table td {
+	font-size: 10px;
+	padding: 10px 5px;
+}
+
+.main-contents1-header,
+.main-contents2-header,
+.main-contents3-header {
+	display: flex;
+	flex-direction: row;
+	justify-content:left;
+}
+
+.main-contents1-header h1,
+.main-contents2-header h1,
+.main-contents3-header h1{
+	display: block;
+	margin-right: 3px;
+}
+
+.main-contents1-header div,
+.main-contents2-header div,
+.main-contents3-header div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}	
+
+
+.main-contents4{
+	background-color: lightgrey;
+	position: absolute;
+	top: 520px;
+	left: 100px;
+}
+
+.main-bg-image {
+	position: fixed;
+	z-index: 2;
+	opacity: 0.1;
+	width: 100%;
+	height: 100%;
+}

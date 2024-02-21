@@ -32,7 +32,7 @@ public class SD_SellerController {
 
 		Page<SD_Seller> paging = sellerService.searchAll(page);
 		model.addAttribute("paging", paging);
-		return "SD_Seller_list";
+		return "SD/SD_Seller_list";
 	}
 
 	@GetMapping("/sellercommission")
@@ -43,7 +43,7 @@ public class SD_SellerController {
 
 		Page<SD_SellerCommission> paging = sellerService.searchCommssion(page);
 		model.addAttribute("paging", paging);
-		return "SD_Commission_list";
+		return "SD/SD_Commission_list";
 	}
 
 	@GetMapping("/commissionrate")
@@ -54,7 +54,7 @@ public class SD_SellerController {
 
 		Page<SD_CommissionRate> paging = sellerService.searchCommssionRate(page);
 		model.addAttribute("paging", paging);
-		return "SD_CommissionRate_list";
+		return "SD/SD_CommissionRate_list";
 	}
 
 	@GetMapping("/sales")
@@ -65,7 +65,7 @@ public class SD_SellerController {
 
 		Page<SD_Sales> paging = sellerService.searchSales(page);
 		model.addAttribute("paging", paging);
-		return "SD_Sales_list";
+		return "SD/SD_Sales_list";
 	}
 
 	@GetMapping("/setcommissionrate")
@@ -78,12 +78,12 @@ public class SD_SellerController {
 									 @RequestParam(value = "rate") Double rate) {
 		
 		sellerService.setCommssionRate(category, rate);
-		return "SD_CommissionRate_Set";
+		return "SD/SD_CommissionRate_Set";
 	}
 
 	@GetMapping("/Register")
 	public String Reg() {
-		return "SD_sellerRegister";
+		return "SD/SD_sellerRegister";
 	}
 
 	@PostMapping("/Register")
