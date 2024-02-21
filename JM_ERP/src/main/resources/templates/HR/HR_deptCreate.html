@@ -8,8 +8,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<!-- CSS 연결 -->
+   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 
@@ -52,8 +52,8 @@
 								<td th:text="${dept.deptCode}"></td>
 								<td>
 									<!-- 부서별 수정. 삭제 버튼 -->
-									<a th:href="@{/HR/dept/update(deptName=${dept.deptName})}"
-										class="btn btn-primary">수정</a>
+									<!--<a th:href="@{/HR/dept/update(deptName=${dept.deptName})}"
+										class="btn btn-primary">수정</a>-->
 									<form th:action="@{'/HR/dept/delete/' + ${dept.deptName}}" method="post">
 										<input type="hidden" name="_method" value="delete" />
 										<button  class="btn btn-primary" type="submit">삭제</button>

@@ -6,8 +6,11 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<!-- CSS 연결 -->
+   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
+	<!-- jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -28,10 +31,52 @@
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
 					<label class="btn btn-outline-primary" for="btnradio1">월별</label>
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
 					<label class="btn btn-outline-primary" for="btnradio2">사원별</label>
 				</div>
 				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 조회 조건 입력 필드를 동적으로 추가할 공간 -->
+				<div id="conditionFields">
+
+					<!-- '월별' 조회 조건 입력 필드 -->
+					<div id="monthlyCondition">
+						<form id="monthlyForm" action="/HR/work/search" method="get">
+							<input type="hidden" name="type" value="monthly">
+							<label for="yearSelect">연도:</label>
+							<select id="yearSelect" name="year">
+								<!-- 연도 옵션 동적 생성 -->
+							</select>
+
+							<label for="monthSelect">월:</label>
+							<select id="monthSelect" name="month">
+								<!-- 월 옵션 동적 생성 -->
+							</select>
+
+							<button type="submit">조회</button>
+						</form>
+
+					</div>
+
+					<!-- '사원별' 조회 조건 입력 필드 -->
+					<div id="employeeCondition" style="display:none;">
+						<form id="employeeForm" action="/HR/work/search" method="get">
+							<input type="hidden" name="type" value="employee">
+							<label for="employeeSelect">사원:</label>
+							<select id="employeeSelect" name="employeeId">
+								<!-- 사원 목록을 서버에서 가져와 동적으로 생성하는 코드 -->
+								<!-- Thymeleaf를 사용하는 경우 예시: -->
+								<th:block th:each="employee : ${employees}">
+									<option th:value="${employee.employeeId}" th:text="${employee.name}"></option>
+								</th:block>
+							</select>
+
+							<button type="submit">조회</button>
+						</form>
+
+					</div>
+				</div>
+
 
 				<!-- 데이터 테이블 시작-->
 				<table class=" table table-hover">
@@ -94,6 +139,51 @@
 
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script>
+    $(document).ready(function () {
+        // '월별' 조회를 위한 연도와 월 동적 생성 로직
+        function populateYearAndMonth() {
+            var currentYear = new Date().getFullYear();
+            var currentMonth = new Date().getMonth() + 1; // 현재 월; JavaScript는 0부터 시작하므로 +1
+            $('#yearSelect').empty(); // 기존 옵션 제거
+            for (var year = currentYear - 5; year <= currentYear; year++) { // 지난 5년간의 연도
+                $('#yearSelect').append(new Option(year, year, year === currentYear));
+            }
+
+            $('#monthSelect').empty(); // 기존 옵션 제거
+            for (var month = 1; month <= 12; month++) {
+                $('#monthSelect').append(new Option(month, month, month === currentMonth));
+            }
+        }
+
+        // 페이지 로드 시 연도와 월을 동적으로 생성
+        populateYearAndMonth();
+
+        // 선택한 조회 조건 유지 로직
+        var selectedType = 'monthly'; // 기본값 'monthly'; 서버로부터 받은 값으로 대체 가능
+        if (selectedType === 'monthly') {
+            $('#btnradio1').prop('checked', true).change();
+        } else if (selectedType === 'employee') {
+            $('#btnradio2').prop('checked', true).change();
+        }
+
+        // '월별' 버튼 선택 시
+        $('#btnradio1').change(function () {
+            $('#monthlyCondition').show();
+            $('#employeeCondition').hide();
+        });
+
+        // '사원별' 버튼 선택 시
+        $('#btnradio2').change(function () {
+            $('#employeeCondition').show();
+            $('#monthlyCondition').hide();
+        });
+    });
+</script>
+
+
+
 </body>
 
 </html>
