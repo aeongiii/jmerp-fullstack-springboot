@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+	<!-- CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 
@@ -28,7 +28,8 @@
 
 
 				<!-- 폼 -->
-				<form th:action="@{/HR/cont/update/{id}(id=${HR_contUpdateForm.id})}" th:object="${HR_contUpdateForm}" method="post">
+				<form th:action="@{/HR/cont/update/{id}(id=${HR_contUpdateForm.id})}" th:object="${HR_contUpdateForm}"
+					method="post">
 					<input type="hidden" th:field="*{id}" /> <!-- id값 숨겨서 함께 전달 -->
 
 					<div class="mb-3">
