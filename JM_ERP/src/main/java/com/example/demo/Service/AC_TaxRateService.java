@@ -3,19 +3,21 @@ package com.example.demo.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.AC_TaxRate;
+import com.example.demo.Entity.HR_dept;
 import com.example.demo.Entity.HR_mem;
 import com.example.demo.Form.AC_WithholdingForm;
 import com.example.demo.Repository.AC_TaxRateRepository;
 import com.example.demo.Repository.HR_memRepository;
 
+import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -26,10 +28,30 @@ public class AC_TaxRateService {
 	
 	private final HR_memRepository memRepository;
 	
-    public Page<AC_WithholdingForm> calculateTax(int page) {
-        Pageable pageable = PageRequest.of(page, 10);
+	public List<HR_mem> searchAll() {
 		
-		List<HR_mem> memList = this.memRepository.findAll();
+		return this.memRepository.findAll();
+	}
+	
+	public List<HR_mem> searchByName(String keyword) {
+	    Specification<HR_mem> spec = (root, query, cb) -> {
+	        return cb.like(root.get("name"), "%" + keyword + "%");
+	    };
+	    return memRepository.findAll(spec);
+	}
+	
+	public List<HR_mem> searchByDeptName(String keyword) {
+	    Specification<HR_mem> spec = (root, query, cb) -> {
+	    	
+	    	Join<HR_mem, HR_dept> deptJoin = root.join("deptName");
+	    	
+	        return cb.like(deptJoin.get("deptName"), "%" + keyword + "%");
+	    };
+	    return memRepository.findAll(spec);
+	}
+	
+    public Page<AC_WithholdingForm> calculateTax(int page, List<HR_mem> memList) {
+        Pageable pageable = PageRequest.of(page, 10);
 		
 		List<AC_TaxRate> taxList = this.taxRateRepository.findAll();
 		
@@ -38,6 +60,7 @@ public class AC_TaxRateService {
 	    for (HR_mem mem : memList) {
 	        AC_WithholdingForm dto = new AC_WithholdingForm();
 	        String name = mem.getName();
+	        String depart = mem.getDeptName().getDeptName();
 	        int pay = mem.getRegularPay() / 12;
 	        int deductionAmount = 0; // 공제액 합계
 	        List<Integer> calculateTax = new ArrayList<>();
@@ -56,6 +79,7 @@ public class AC_TaxRateService {
 	        calculateTax.add(pay - deductionAmount);
 	        
 	        dto.setName(name);
+	        dto.setDepartName(depart);
 	        dto.setResults(calculateTax);
 	        
 	        calculateList.add(dto);

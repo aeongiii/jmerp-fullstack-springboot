@@ -1,2 +1,12 @@
+/* bootstrap css */
+@import "bootstrapLux.css";
+
+/* custom css */
+@import "navbar.css";
+@import "maincontents.css";
 @import "sidebar.css";
 @import "calendar.css";
+@import "weather.css";
+.modal:invalid {
+	display: none;
+}

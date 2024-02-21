@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>채권 조회</title>
     
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+    
 </head>
 <body>
     <!-- 네비게이션바 프라그먼트-->
@@ -43,7 +43,7 @@
 						</div>
 				
 				        <label for="debtAmount">변제 금액:</label>
-				        <input type="number" id="debtAmount" name="amount" value="0"><br>
+				        <input type="number" id="debtAmount" name="amount" value="0">만(원)<br>
 				
 				        <label for="debtMaturityDate">만기일 변경:</label>
 				        <input type="date" id="debtMaturityDate" name="maturityDate"><br>
@@ -89,7 +89,7 @@
 						</div>
 				
 				        <label for="amount">변제 금액:</label>
-				        <input type="number" id="bondAmount" name="amount" value="0"><br>
+				        <input type="number" id="bondAmount" name="amount" value="0">만(원)<br>
 				
 				        <label for="maturityDate">만기일 변경:</label>
 				        <input type="date" id="bondMaturityDate" name="maturityDate"><br>
@@ -116,12 +116,36 @@
             <!-- 테이블 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
                 <!-- 조건 조회 버튼 시작-->
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
-                    <label class="btn btn-outline-primary" for="btnradio1">채권 관리</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
-                    <label class="btn btn-outline-primary" for="btnradio2">채무 관리</label>
-                </div>
+				<div class="mb-3 d-flex justify-content-between align-items-center">
+				    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+				        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
+				        <label class="btn btn-outline-primary" for="btnradio1">채권 관리</label>
+				        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
+				        <label class="btn btn-outline-primary" for="btnradio2">채무 관리</label>
+				    </div>
+				    
+				    <form action="/AC/bonddebt" method="get" class="flex-grow-1">
+						<input type="hidden" id="pageNumber" name="page" th:value="0">
+				        <div class="d-flex justify-content-end"> <!-- 오른쪽 정렬 -->
+				            <div class="col-auto me-3"> <!-- 자동으로 열 맞춤 -->
+				                <input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
+				            </div>
+				            <div class="col-auto me-3">
+				                <select class="form-select" id="category" name="category">
+				                    <option value="date">발생 일자</option>
+				                    <option value="trader">거래처</option>
+				                    <option value="amount">최초 금액</option>
+				                    <option value="maturityDate">만기 일자</option>
+				                    <option value="description">적요</option>
+				                    <!-- 원하는 검색 항목을 추가할 수 있습니다. -->
+				                </select>
+				            </div>
+				            <div class="col-auto">
+				                <button type="submit" class="btn btn-primary">검색</button>
+				            </div>
+				        </div>
+				    </form>
+				</div>
                 <!-- 조건 조회 버튼 끝-->
                 
                 <!-- 옵션 1일때 시작 -->
@@ -134,10 +158,11 @@
 				                <th>발생 일자</th>
 				                <th>거래처</th>
 				                <th>최초 금액</th>
-				                <th>증감구분</th>
+				                <th>증감 구분</th>
 				                <th>남은 금액</th>
 				                <th>만기 일자</th>
 				                <th>적요</th>
+				                <th></th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -161,7 +186,7 @@
 				    </table>
                     <!-- 데이터 테이블 끝-->
 	                <!-- 페이징 프라그먼트 -->
-					<div th:replace="~{/paging::pagingFragment(paging=${bonds})}"></div>
+					<div th:replace="~{/ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div>
 					<!-- 버튼 프라그먼트 -->
 					<div th:replace="~{ac/AC_bond_debt_botton::bottonFragment}"></div>
                 </div> <!-- 옵션 1일 때 리스트 -->
@@ -176,10 +201,11 @@
 				                <th>발생 일자</th>
 				                <th>거래처</th>
 				                <th>최초 금액</th>
-				                <th>증감구분</th>
+				                <th>증감 구분</th>
 				                <th>남은 금액</th>
 				                <th>만기 일자</th>
 				                <th>적요</th>
+				                <th></th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -203,7 +229,7 @@
 				    </table>
                     <!-- 데이터 테이블 끝-->
                    	<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{/paging::pagingFragment(paging=${debts})}"></div>
+					<div th:replace="~{/ac/AC_paging::AC_pagingFragment(paging=${debts})}"></div>
 					<!-- 버튼 프라그먼트 -->
 					<div th:replace="~{ac/AC_bond_debt_botton::bottonFragment}"></div>
                 </div> <!-- 옵션 2일 때 리스트 -->
@@ -213,11 +239,12 @@
     
     <!-- Bootstrap JS 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
+	
+	<!-- JQuery 연결 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 	    $(document).ready(function () {
 	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
-	        var currentPage = localStorage.getItem('currentPage') || 1;
 	
 	        if (selectedOption === "option1") {
 	            $("#option1Content").show();
@@ -241,6 +268,30 @@
 	            window.location.href = currentUrl + "?page=0";
 	        });
 	    });
+	    
+	</script>
+	
+	<script type="text/javascript">
+		const urlParams = new URLSearchParams(window.location.search);
+		const keywordValue = urlParams.get('keyword') || "";
+		const categoryValue = urlParams.get('category') || "";
+		const currentPage = parseInt(urlParams.get('page')) || 0;
+	    
+		function nextPage() {
+	        const nextPageUrl = `${window.location.pathname}?page=${currentPage+1}&keyword=${keywordValue}&category=${categoryValue}`
+	        window.location.href = nextPageUrl;
+	    }
+	
+	    function prevPage() {
+	        const prevPageUrl = `${window.location.pathname}?page=${currentPage-1}&keyword=${keywordValue}&category=${categoryValue}`
+	        window.location.href = prevPageUrl;
+	    }
+	    
+	    function goToPage(pageNum) {
+	        const PageUrl = `${window.location.pathname}?page=${pageNum}&keyword=${keywordValue}&category=${categoryValue}`;
+	        window.location.href = PageUrl;
+    	}
+
 	</script>
 	
 	<script>
@@ -339,19 +390,19 @@
 	
 	<script>
 		$('#submitBondUpdate').click(function() {
-	    // 폼 안에 있는 입력 요소들의 값을 가져옴
-	    var priceField = $('#bondPriceField').val();
-	    var amount = $('#bondAmount').val();
-	    var maturityDate = $('#bondMaturityDate').val();
-	    
-	    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
-	    if (priceField === '0' && !maturityDate && amount === '0') {
-	        event.preventDefault(); // 폼 제출 막기
-	        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
-	    } else {
-	        $('#bondForm').submit(); // 조건이 충족되면 폼 제출
-	    }
-	});
+		    // 폼 안에 있는 입력 요소들의 값을 가져옴
+		    var priceField = $('#bondPriceField').val();
+		    var amount = $('#bondAmount').val();
+		    var maturityDate = $('#bondMaturityDate').val();
+		    
+		    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
+		    if (priceField === '0' && !maturityDate && amount === '0') {
+		        event.preventDefault(); // 폼 제출 막기
+		        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
+		    } else {
+		        $('#bondForm').submit(); // 조건이 충족되면 폼 제출
+		    }
+		});
 	</script>
 	
 	<script>

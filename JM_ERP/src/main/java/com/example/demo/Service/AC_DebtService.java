@@ -92,4 +92,29 @@ public class AC_DebtService {
         
         this.debtRepository.save(debt);
     }
+    
+    public Page<AC_Debt> searchDateList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.debtRepository.findByDateContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Debt> searchTraderList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.debtRepository.findByTraderContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Debt> searchAmountList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.debtRepository.findByAmountContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Debt> searchMaturityDateList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.debtRepository.findByMaturityDateContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Debt> searchDescriptionList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.debtRepository.findByDescriptionContaining(keyword, pageable);
+    }
 }
