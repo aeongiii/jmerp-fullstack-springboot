@@ -1,0 +1,239 @@
+/* 글꼴 url */
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(22, 4, 4);
+}
+
+.textbox {
+  display : flex;
+  justify-content: center;
+}
+
+.main--text{ /* main--text 위치 조정*/
+  max-width: 622px;
+  padding-top: var(--base-size-180, 180px);
+  padding-right : var(--base-size-20, 20px);
+}
+
+@keyframes fadeIn { /* animation 효과를 만들어 내기 위한 기초 공식.*/
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.theme1 {
+  border: 1px solid #c52222;
+  width: 600px;
+  height: 570px;
+  animation: fadeIn 800ms ease-out forwards; /* @keyframes 애니메이션 사용 */
+  animation-play-state: paused; /* 초기 상태에서 애니메이션 일시 정지 */
+  font-family: 'New Tegomin', serif; /* font 글꼴 설정, 글꼴들의 그룹 */
+}
+
+.theme1.on {
+  animation-play-state: running; /* 'on' 클래스가 추가될 때 애니메이션 재생 */
+  /*background-color: rgba(88, 88, 88, 0.8); /* 반투명 상태 나타내기 */
+}
+
+button {
+  position: relative;
+  width : 120px;
+  border : 0;
+  background-color : rgb(236, 129, 236);
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+br::selection{
+  color : yellow;
+}
+
+p::selection{
+  color : yellow;
+}
+
+.sentence--gray {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 90px;
+  font-family: 'New Tegomin', serif;
+  font-size : 16px;
+  top : 20px;
+  float: left;
+  left : 10px;
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt--email {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3.5s steps(130, end) forwards;
+  font-family: 'New Tegomin', serif;
+}
+
+.text--prompt--id {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3.5s steps(130, end) forwards;
+  font-family: 'New Tegomin', serif;
+}
+
+button.double--check {
+  width : 80px;
+  height : 27.3px;
+  font-size: 13.5px;
+  border-radius: 3px;
+  top : 1px;
+}
+
+.double--check::selection{
+  color : yellow;
+}
+
+.double--check::hover {
+
+}
+
+.text--prompt--password {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3.5s steps(130, end) forwards;
+}
+
+.text--prompt--employee {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 3.5s steps(130, end) forwards;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.sentence--gray::selection { /* 마우스 드래그 글자색 변경 */
+  color : yellow;
+}
+
+.box--id {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 100px;
+  font-size: 14px;
+  float: left;
+  left : 10px;
+}
+
+.text--prompt--id {
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt--id::selection {
+  color : yellow;
+}
+
+.box--email {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 100px;
+  font-size: 14px;
+  float: left;
+  left : 10px;
+}
+
+.text--prompt--email {
+  width : 580px;
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt--email::selection {
+  color : yellow;
+}
+
+.box--password {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 100px;
+  font-size: 14px;
+  float: left;
+  left : 10px;
+}
+
+.text--prompt--password {
+  width : 580px;
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt--password::selection{
+  color : yellow;
+}
+
+.box--employee {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 100px;
+  font-size: 14px;
+  float: left;
+  left : 10px;
+}
+
+.text--prompt--employee {
+  width : 580px;
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt--employee::selection{
+  color : yellow;
+}
+
+.button {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 40px;
+  float: left;
+  left : 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+/* 추후 추가 예정 */
+button.sign--up--button {}
+
+input[type=text] {
+  position: relative;
+  background-color : rgb(46, 43, 43);
+  border : 0;
+  width : 200px;
+  height : 25px;
+  font-size: 15px;
+  border-radius: 3px;
+  padding-left: 8px;
+  border-style: solid;
+  border-width : 1.3px;
+  border-color: rgb(86, 86, 241);
+  color : white;
+}
+
+.sign--up--button::selection{
+  color : yellow;
+}
