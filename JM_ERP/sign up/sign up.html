@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/sign up.css" rel = "stylesheet" />
+  <title>Login</title>
+</head>
+<body>
+  <canvas class = "canvas"></canvas>
+  <div class = "textbox">
+    <text class = "main--text">
+      <div class = "theme1">
+        <span data-target = "typing--text" class = "sentence--gray">
+          이 부분은 환영한다는 인사말을 쓰는 구간입니다
+          <br>
+          이 칸은 ERP에 대한 소개를 작성하는 구간입니다
+        </span>
+        <div class = "box--email">
+          <label for = "email" class = "text--prompt--email">
+            이메일을 입력해 주세요
+            <p></p>
+            → <input type = "text">
+          </label>
+        </div>
+        <div class = "box--id">
+          <label for = "id" class = "text--prompt--id">
+            생성할 아이디를 입력하여 주세요
+            <p></p>
+            → <input type = "text">&ensp; 
+            <button type = "button" class = "double--check" onclick = ""> 중복 확인 </button> <!-- DB를 연동해야 합니다 -->
+          </label>
+        </div>
+        <div class = "box--password">
+          <label for = "password" class = "text--prompt--password">
+            비밀번호를 입력해 주세요
+            <p></p>
+            → <input type = "text">
+          </label>
+        </div>
+        <div class = "box--employee">
+          <label for = "employee" class = "text--prompt--employee">
+            사원 번호를 입력하여 주세요
+            <p></p>
+            → <input type = "text">
+          </label>
+        </div>
+        <div class = "button">
+          <button type = "button" class = "sign--up--button" onclick = "location.href = 'https://www.naver.com/';"> 회원가입 </button>
+          <!-- button link 연결을 설정해야 합니다. 윗 부분인 'naver.com'에 링크를 넣어주시면 됩니다.-->
+        </div>
+      </div>
+    </text>
+  </div>
+</body>
+<script src = "sign up.js"></script>
+<script src = "double check.js"></script>
+<!-- 희망 사항 : 회원가입이 끝나면 깃허브 회원가입 영상(https://www.youtube.com/watch?v=t74E7IH5ynU)의 2분 52초부터 3초 간 영상처럼 구현하고 싶습니다...-->
+</html>
