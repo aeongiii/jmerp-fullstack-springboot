@@ -45,7 +45,6 @@ public class ERP_userSecurityService implements UserDetailsService {
 			System.out.println("관리자");
 		}else if("구매팀".equals(dept)) {
 			authorities.add(new SimpleGrantedAuthority(ERP_userRole.구매.getValue()));
-			System.out.println("구매");
 		}else if("회계팀".equals(dept)) {
 			authorities.add(new SimpleGrantedAuthority(ERP_userRole.회계.getValue()));
 		}else if("인사팀".equals(dept)) {
@@ -56,7 +55,6 @@ public class ERP_userSecurityService implements UserDetailsService {
 			authorities.add(new SimpleGrantedAuthority(ERP_userRole.생산.getValue()));
 		}else if("영업팀".equals(dept)) {
 			authorities.add(new SimpleGrantedAuthority(ERP_userRole.영업.getValue()));
-			System.out.println("영업");
 		}
 			return new User(user2.getUserId(), user2.getPassword(), authorities);
 	}

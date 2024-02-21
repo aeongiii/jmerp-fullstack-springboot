@@ -1,68 +1,35 @@
 <!-- 재고파트 account 버튼 -->
 <div th:fragment="MG_account_button">
+
+	
 	<a href="http://localhost:8080/MG/accmgcreate">
 		<button type="button" class="btn btn-info">거래처 등록
-
 		</button></a>
-	<button type="button" class="btn btn-info">거래처 삭제
-
+		
+		
+		
+	<button type="button" class="btn btn-info btn-delete" id="delete">거래처 삭제
 	</button></a>
-	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-		<button type="button" class="btn btn-primary">내보내기</button>
-		<div class="btn-group" role="group">
-			<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"></button>
-			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<a class="dropdown-item" href="#">Dropdown link</a>
-				<a class="dropdown-item" href="#">Dropdown link</a>
-			</div>
-		</div>
+	
+	
+	
+	
+	
+	
+	<div class="mb-3 d-flex justify-content-between align-items-center">
 	</div>
-	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-		<button type="button" class="btn btn-primary">인쇄</button>
-		<div class="btn-group" role="group">
-			<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"></button>
-			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<a class="dropdown-item" href="#">Dropdown link</a>
-				<a class="dropdown-item" href="#">Dropdown link</a>
-			</div>
-		</div>
-	</div>
-	<button type="button" class="btn btn-success">Excel Export</button>
+	
 </div>
-<!-- 물품 등록 account 버튼 -->
+</div>
+<!-- 물품 조회 버튼 -->
 <div th:fragment="MG_itemRegi_button">
 	<a href="http://localhost:8080/MG/itemcreate">
 		<button type="button" class="btn btn-info">물품 등록
-
 		</button></a>
-	<button type="button" class="btn btn-info">물품 삭제
+	<button type="button" class="btn btn-info btn-regiDelete" id="delete">물품 삭제
 
 	</button></a>
-	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-		<button type="button" class="btn btn-primary">내보내기</button>
-		<div class="btn-group" role="group">
-			<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"></button>
-			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<a class="dropdown-item" href="#">Dropdown link</a>
-				<a class="dropdown-item" href="#">Dropdown link</a>
-			</div>
-		</div>
-	</div>
-	<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-		<button type="button" class="btn btn-primary">인쇄</button>
-		<div class="btn-group" role="group">
-			<button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false"></button>
-			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-				<a class="dropdown-item" href="#">Dropdown link</a>
-				<a class="dropdown-item" href="#">Dropdown link</a>
-			</div>
-		</div>
-	</div>
-	<button type="button" class="btn btn-success">Excel Export</button>
+	<button type="button" class="btn btn-success">미완성</button>
 </div>
 
 <!-- 재고파트 useSelf 버튼 -->

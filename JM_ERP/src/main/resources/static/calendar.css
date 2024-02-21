@@ -1,0 +1,112 @@
+/* section calendar */
+
+.sec_cal {
+    width: 270px;
+    margin: 0 auto;
+    font-family: "NotoSansR";
+}
+
+.sec_cal .cal_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 58.5px;
+}
+
+.sec_cal .cal_nav .year-month {
+    width: 450px;
+    text-align: center;
+    line-height: 1;
+}
+
+.sec_cal .cal_nav .nav {
+    display: flex;
+    border: 1px solid #333333;
+    border-radius: 7.5px;
+}
+
+.sec_cal .cal_nav .go-prev,
+.sec_cal .cal_nav .go-next {
+    display: block;
+    width: 37.5px;
+    height: 58.5px;
+    font-size: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sec_cal .cal_nav .go-prev::before,
+.sec_cal .cal_nav .go-next::before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    border: 2.25px solid #000;
+    border-width: 2.25px 2.25px 0 0;
+    transition: border 0.1s;
+}
+
+.sec_cal .cal_nav .go-prev:hover::before,
+.sec_cal .cal_nav .go-next:hover::before {
+    border-color: #ed2a61;
+}
+
+.sec_cal .cal_nav .go-prev::before {
+    transform: rotate(-135deg);
+}
+
+.sec_cal .cal_nav .go-next::before {
+    transform: rotate(45deg);
+}
+
+.sec_cal .cal_wrap {
+    padding-top: 30px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.sec_cal .cal_wrap .days {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 0.75px solid #ddd;
+}
+
+.sec_cal .cal_wrap::after {
+    top: 201px;
+}
+
+.sec_cal .cal_wrap .day {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% / 7);
+    text-align: left;
+    color: #999;
+    font-size: 9px;
+    text-align: center;
+    border-radius:3.75px;
+}
+
+.current.today {background: rgb(242 242 242);}
+
+.sec_cal .cal_wrap .dates {
+    display: flex;
+    flex-flow: wrap;
+    height: 217.5px;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n -1) {
+    color: #3c6ffa;
+}
+
+.sec_cal .cal_wrap .day:nth-child(7n) {
+    color: #ed2a61;
+}
+
+.sec_cal .cal_wrap .day.disable {
+    color: #ddd;
+}

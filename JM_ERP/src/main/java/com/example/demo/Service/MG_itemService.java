@@ -66,4 +66,11 @@ public class MG_itemService {
 		    MG_itemRegiRepository.save(item);
 		}
 		
+		@Transactional
+		public void deleteId(List<String> id) {
+			for(String ids : id) {
+				MG_itemRegiRepository.deleteById(ids);
+			}
+		}
+		
 	}

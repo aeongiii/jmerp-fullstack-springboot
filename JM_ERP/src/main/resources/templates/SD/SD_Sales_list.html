@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/seller/sellercommission -->
+<!-- http://localhost:8080/seller/sales -->
 
 <head>
 	<title>Seller List</title>
@@ -9,62 +9,62 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
+				<div th:replace="~{SD/SD_arcodian :: arcodianFragment}"></div>
 			</div>
 
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 
+
 				<!-- 데이터 테이블 시작-->
 				<table id="foo-table" class="table table-hover">
 					<thead>
 						<tr class="table-active">
 							<th>ID</th>
-							<th>Seller ID</th>
-							<th>Total Sales</th>
-							<th>Paid Commission</th>
+							<th>Seller</th>
+							<th>Product</th>
+							<th>Quantity Sold</th>
+							<th>Sale Date</th>
+							<th>Total Sale Amount</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- Thymeleaf 반복문 사용 -->
-						<tr th:each="commission : ${paging.content}">
-							<th scope="row" th:text="${commission.num}">ID</th>
-							<!-- Seller 엔티티로부터 Seller ID 추출 -->
-							<td th:text="${commission.seller.sellerId}">Seller ID</td>
-							<td th:text="${commission.totalSales}">Total Sales</td>
-							<td th:text="${commission.paidCommission}">Paid Commission</td>
+						<tr th:each="sale : ${paging.content}">
+							<th scope="row" th:text="${sale.id}">ID</th>
+							<td th:text="${sale.seller.sellerId}">Seller</td>
+							<td th:text="${sale.product.id}">Product</td>
+							<td th:text="${sale.quantitySold}">Quantity Sold</td>
+							<td th:text="${sale.saleDate}">Sale Date</td>
+							<td th:text="${sale.totalSaleAmount}">Total Sale Amount</td>
 						</tr>
 					</tbody>
 				</table>
 				<!-- 데이터 테이블 끝-->
 
+
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{/paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{botton::bottonFragment}"></div>
+				<div th:replace="~{/botton::bottonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
 		</div> <!-- 컨테이너 플루이드 정의 끝 -->
 	</div> <!-- 컨테이너 플루이드 끝 -->
-
-
-
-
-
 
 
 	<!-- Bootstrap JS 연결 -->

@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,22 +33,52 @@ public class AC_BondDebtController {
 	private final AC_DebtService debtService;
 	
     @GetMapping("/bonddebt")
-    public String List(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+    public String List(Model model,
+    		@RequestParam(value = "page", defaultValue ="0") int page,
+    		@RequestParam(value = "keyword", required = false) String keyword, 
+            @RequestParam(value = "category", required = false) String category,
+            HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
     	Page<AC_Bond> bonds = this.bondService.getList(page);
         Page<AC_Debt> debts = this.debtService.getList(page);
+		
+	    if (category != null && !category.isEmpty()) {
+	    	
+	        if ("date".equals(category)) {
+	            bonds = this.bondService.searchDateList(keyword, page);
+	            debts = this.debtService.searchDateList(keyword, page);
+	            
+	        } else if ("trader".equals(category)) {
+	        	bonds = this.bondService.searchTraderList(keyword, page);
+	        	debts = this.debtService.searchTraderList(keyword, page);
+	        	
+	        } else if ("amount".equals(category)) {
+	        	bonds = this.bondService.searchAmountList(keyword, page);
+	        	debts = this.debtService.searchAmountList(keyword, page);
+	        	
+	        } else if ("maturityDate".equals(category)) {
+	        	bonds = this.bondService.searchMaturityDateList(keyword, page);
+	        	debts = this.debtService.searchMaturityDateList(keyword, page);
+	        	
+	        } else if ("description".equals(category)) {
+	        	bonds = this.bondService.searchDescriptionList(keyword, page);
+	        	debts = this.debtService.searchDescriptionList(keyword, page);
+	        }
+	    }
+		
         model.addAttribute("bonds", bonds);
         model.addAttribute("debts", debts);
-        return "AC_bond_debt";
+        
+        return "ac/AC_bond_debt";
     }
     
     @GetMapping("/bondregi")
     public String bondRegiForm() {
     	
-    	return "AC_bond_regi";
+    	return "ac/AC_bond_regi";
     }
     
     @PostMapping("/bondregi")
@@ -68,13 +99,13 @@ public class AC_BondDebtController {
     	this.bondService.regi(bondNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "AC_bond_regi";
+    	return "ac/AC_bond_regi";
     }
     
     @GetMapping("/debtregi")
     public String debtRegiForm() {
     	
-    	return "AC_debt_regi";
+    	return "ac/AC_debt_regi";
     }
     
     @PostMapping("/debtregi")
@@ -95,13 +126,7 @@ public class AC_BondDebtController {
     	this.debtService.regi(debtNumber, date, trader, amount, increaseDecreaseType, 
     			balance, maturityDate, description);
     	
-    	return "AC_debt_regi";
-    }
-    
-    @GetMapping("/bondupdate")
-    public String bondUpdateForm() {
-    	
-    	return "AC_bond_update";
+    	return "ac/AC_debt_regi";
     }
     
     @PostMapping("/bondupdate")
@@ -117,7 +142,16 @@ public class AC_BondDebtController {
     		priceField = -priceField;
     	}
     	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
-    	String description = "\n" + (LocalDate.now()) + ":";
+    	
+    	List<String> data = this.bondService.getDescriptionByBondNumber(bondNumber);
+    	
+    	String description = "";
+    	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    	
+    		description = "\n" + (LocalDate.now()) + ":";
+    	
+    	}
     	
     	if (priceField > 0) {
     		
@@ -128,7 +162,7 @@ public class AC_BondDebtController {
     	
     	if (priceField < 0) {
     		
-    		String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
+    		String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
     		
     		description = description + sDecrease;
     	}
@@ -142,54 +176,55 @@ public class AC_BondDebtController {
     	
     	this.bondService.update(bondNumber, amount, priceField, maturityDate, description);
     	
-    	return "AC_bond_update";
+    	return "redirect:/AC/bonddebt";
     }
     
-    @GetMapping("/debtupdate")
-    public String debtUpdateForm() {
+	@PostMapping("/debtupdate")
+	public String debtUpdate(
+			@RequestParam(name = "debtNumber") String debtNumber,
+			@RequestParam(name = "type") String type,
+			@RequestParam(name = "priceField") Double priceField,
+			@RequestParam(name = "amount") Double amount,
+			@RequestParam(name = "maturityDate", required = false) LocalDate maturityDate) {
+		
+		if (type.equals("할인")) {
+			
+			priceField = -priceField;
+		}
+		// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
+    	List<String> data = this.debtService.getDescriptionByDebtNumber(debtNumber);
     	
-    	return "AC_debt_update";
-    }
-    
-    @PostMapping("/debtupdate")
-    public String debtUpdate(
-    		@RequestParam(name = "debtNumber") String debtNumber,
-    		@RequestParam(name = "type") String type,
-    		@RequestParam(name = "priceField") Double priceField,
-    		@RequestParam(name = "amount") Double amount,
-    		@RequestParam(name = "maturityDate", required = false) LocalDate maturityDate) {
+    	String description = "";
     	
-    	if (type.equals("할인")) {
-    		
-    		priceField = -priceField;
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    	
+    		description = "\n" + (LocalDate.now()) + ":";
+    	
     	}
-    	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
-    	String description = "\n" + (LocalDate.now()) + ":";
-    	
-    	if (priceField > 0) {
-    		
-    		String sIncrease = " 채권 금액 " + priceField + "원 추가";
-    		
-    		description = description + sIncrease;
-    	}
-    	
-    	if (priceField < 0) {
-    		
-    		String sDecrease = " 채권 금액 " + priceField + "원 할인"; 
-    		
-    		description = description + sDecrease;
-    	}
-    	
-    	if (amount != 0) {
-    		
-    		String sAmount = " " + amount + "원 변제";
-    		
-    		description = description + sAmount;
-    	}
-    	
-    	this.debtService.update(debtNumber, amount, priceField, maturityDate, description);
-    	
-    	return "AC_debt_update";
-    }
-    
+
+		if (priceField > 0) {
+			
+			String sIncrease = " 채권 금액 " + priceField + "원 추가";
+			
+			description = description + sIncrease;
+		}
+		
+		if (priceField < 0) {
+			
+			String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
+			
+			description = description + sDecrease;
+		}
+		
+		if (amount != 0) {
+			
+			String sAmount = " " + amount + "원 변제";
+			
+			description = description + sAmount;
+		}
+		
+		this.debtService.update(debtNumber, amount, priceField, maturityDate, description);
+		
+		return "redirect:/AC/bonddebt";
+	}
 }

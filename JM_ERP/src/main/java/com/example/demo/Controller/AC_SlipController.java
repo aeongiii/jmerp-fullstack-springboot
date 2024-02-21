@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class AC_SlipController {
 	//전표관리를 당담하는 웹사이트
 	
-	@Autowired
 	private final AC_SaleSlipService saleSlipService;
-	
-	@Autowired
 	private final AC_PurchaseSlipService purchaseSlipService;
 	
 	@GetMapping("/slip")
@@ -38,6 +34,6 @@ public class AC_SlipController {
         Page<AC_PurchaseSlip> purchase = this.purchaseSlipService.getList(page);
         model.addAttribute("saleSlipList", sale);
         model.addAttribute("purchaseSlipList", purchase);
-        return "AC_slip";
+        return "ac/AC_slip";
     }
 }

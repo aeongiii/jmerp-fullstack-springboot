@@ -200,6 +200,7 @@
     scroll-behavior: smooth;
   }
 }
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -212,7 +213,6 @@ body {
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
 
 hr {
   margin: 1rem 0;
@@ -802,7 +802,6 @@ progress {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
 }
-
 
 .col {
   flex: 1 0 0%;
@@ -2101,6 +2100,7 @@ progress {
   padding-bottom: 2rem;
   font-size: 1.25rem;
 }
+
 .col-form-label-sm {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
@@ -2750,8 +2750,7 @@ textarea.form-control-lg {
   padding-right: 6rem;
 }
 
-.input-group > :not(:first-child):not(
--menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+.input-group > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
   margin-left: calc(0 * -1);
 }
 .valid-feedback {
@@ -3353,25 +3352,7 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-    /* 드롭다운 메뉴 기본 스타일 */
-    .dropdown-menu {
-        display: none; /* 기본적으로 숨김 */
-        flex-direction: row; /* 가로 방향으로 항목 정렬 */
-        right: 0vw;
-    }
 
-    /* 마우스 호버 시 드롭다운 메뉴 표시 */
-    .dropdown:hover .dropdown-menu {
-        display: flex;
-    }
-
-    .dropdown-item {
-        display: block; /* 각 항목을 블록 요소로 설정 */
-        white-space: nowrap; /* 항목 텍스트가 줄바꿈 되지 않도록 설정 */
-      
-     
-     
-    }
 
 .dropup,
 .dropend,
@@ -3427,6 +3408,8 @@ textarea.form-control-lg {
   --bs-dropdown-header-padding-x: 1rem;
   --bs-dropdown-header-padding-y: 0.5rem;
   position: absolute;
+  left: -50%;
+  transform:translateX(50%);
   z-index: var(--bs-dropdown-zindex);
   display: none;
   min-width: var(--bs-dropdown-min-width);
@@ -3775,25 +3758,6 @@ textarea.form-control-lg {
   list-style: none;
 }
 
-.navfontsize {
-	font-size: 1000px;
-	
-}
-
-.nav1 {
-    height: 7.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
-}
-
-.nav2 {
-    height: 9.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
-    height: 5.118vh; /* 첫 번째 네비게이션 바의 높이는 화면 높이의 41.18% */
-}
-
-.nav2 {
-    height: 7.882vh; /* 두 번째 네비게이션 바의 높이는 화면 높이의 58.82% */
-}
-
-
 .nav-link {
   display: block;
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
@@ -3947,7 +3911,6 @@ textarea.form-control-lg {
   flex-wrap: inherit;
   align-items: center;
   justify-content: space-between;
- 
 }
 .navbar-brand {
   padding-top: var(--bs-navbar-brand-padding-y);
@@ -11965,24 +11928,4 @@ th {
 .card .h5,
 .card .h6 {
   color: inherit;
-}
-
-/* Custom CSS */
-.navbar-nav .nav-item {
-    flex-grow: 1; /* Ensure equal spacing */
-    text-align: center; /* Center align text */
-}
-
-.navbar-nav .nav-link {
-    font-size: 1.2em; /* Increase font size */
-}
-
-.main-image {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.main-image > img {
-	width: 800px;
 }

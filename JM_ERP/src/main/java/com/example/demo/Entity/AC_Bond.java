@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,6 +24,8 @@ public class AC_Bond {
     private Double increaseDecreaseType; //(빚의 추가 및 할인)
     private Double balance; //(남은 금액)
     private LocalDate maturityDate;
+    
+    @Column(columnDefinition = "TEXT")
     private String description; // 적요에는 갚은 날짜를 입력
 
     // 생성자, 필요한 메소드는 롬복이 자동으로 생성해주므로 생략

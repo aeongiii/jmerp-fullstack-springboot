@@ -25,6 +25,11 @@ public class AC_BondService {
         return this.bondRepository.findAll();
     }
     
+    public List<String> getDescriptionByBondNumber(String bondNumber) {
+    	return this.bondRepository.findDescriptionByBondNumber(bondNumber);
+    }
+    
+    
     public void regi(String bondNumber,
     		LocalDate date,
     		String trader,
@@ -73,8 +78,8 @@ public class AC_BondService {
     		LocalDate maturityDate,
     		String description) {
     	
-        Optional<AC_Bond> oq = this.bondRepository.findById(bondNumber);
-        AC_Bond bond = oq.get();
+        Optional<AC_Bond> op = this.bondRepository.findById(bondNumber);
+        AC_Bond bond = op.get();
         
         Double newBalance = bond.getBalance() + increaseDecreaseType - amount;
         
@@ -92,5 +97,30 @@ public class AC_BondService {
         bond.setDescription(bond.getDescription() + description);
         
         this.bondRepository.save(bond);
+    }
+    
+    public Page<AC_Bond> searchDateList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.bondRepository.findByDateContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Bond> searchTraderList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.bondRepository.findByTraderContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Bond> searchAmountList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.bondRepository.findByAmountContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Bond> searchMaturityDateList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.bondRepository.findByMaturityDateContaining(keyword, pageable);
+    }
+    
+    public Page<AC_Bond> searchDescriptionList(String keyword, int page) {
+    	Pageable pageable = PageRequest.of(page, 10);
+    	return this.bondRepository.findByDescriptionContaining(keyword, pageable);
     }
 }

@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/bootstrapLux.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 	
 </head>
 
@@ -37,7 +37,7 @@
 							<th>수량</th>
 							<th>구분</th>
 							<th>작업</th>
-							<th>공장</th>
+							<th>가격(단위:만 원)</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,7 +49,7 @@
 							<td th:text="${rs.sTO}"></td>
 							<td th:text="${rs.prodCode.prodCode}"></td>
 							<td th:text="${rs.num}"></td>
-							<td th:text="${rs.prodCost}"></td>
+							<td data-th-text="${#numbers.formatInteger((rs.prodCost)/10000, 3, 'COMMA')}"></td>
 						</tr>
 					</tbody>
 
