@@ -3353,6 +3353,7 @@ textarea.form-control-lg {
   }
 }
 
+
 .dropup,
 .dropend,
 .dropdown,
@@ -3407,6 +3408,8 @@ textarea.form-control-lg {
   --bs-dropdown-header-padding-x: 1rem;
   --bs-dropdown-header-padding-y: 0.5rem;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: var(--bs-dropdown-zindex);
   display: none;
   min-width: var(--bs-dropdown-min-width);

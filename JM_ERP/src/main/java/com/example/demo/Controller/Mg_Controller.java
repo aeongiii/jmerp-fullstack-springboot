@@ -82,7 +82,7 @@ public class Mg_Controller {
 	    Optional<Mg_AccountMG_Entity> accountOp = mgser.findaccountCode(accountCode);
 	    if (accountOp.isPresent()) {
 	        model.addAttribute("item", accountOp.get());
-	        return "MG/MG_account_update"; // 해당 아이템을 수정할 수 있는 뷰 페이지
+	        return "MG/accmg"; // 해당 아이템을 수정할 수 있는 뷰 페이지
 	    } else {
 	        // 아이템이 존재하지 않는 경우의 처리
 	        return "redirect:/MG/MG_acccheck";
@@ -94,12 +94,12 @@ public class Mg_Controller {
 	
 	
 	@PostMapping("/accunntupdate/{accountCode}")
-	public String updateItem(@PathVariable("accountCode") Long accountCode,
+	public String updateItem(@PathVariable("accountCode") String accountCode,
 	                         @RequestParam("accountName") String accountName,
 	                         @RequestParam("accountNum") String accountNum,
 	                         @RequestParam("accountManager") String accountManager,
 	                         RedirectAttributes redirectAttributes) {
-	    Optional<Mg_AccountMG_Entity> itemOptional = mgser.findaccountCode(accountCode);
+	    Optional<Mg_AccountMG_Entity> itemOptional = mgser.findaccountCode(Long.parseLong(accountCode));
 	  
 	    Mg_AccountMG_Entity item = itemOptional.get();
 	        item.setAccountName(accountName);
@@ -107,7 +107,7 @@ public class Mg_Controller {
 	        item.setAccountManager(accountManager);
 	        
 	        mgser.save(item);
-	        redirectAttributes.addFlashAttribute("successMessage", "Item updated successfully!");
+	        
 	        return "redirect:/MG/accmg";
 	
 	}
