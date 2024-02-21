@@ -31,7 +31,7 @@ public class SD_ProductController {
 		Page<SD_Product> paging = productService.searchAllproduct(page);
 		model.addAttribute("paging",paging);
 		
-		return "SD_product_list";
+		return "SD/SD_product_list";
 	}
 	
 	@GetMapping("/pbproduct")
@@ -42,7 +42,7 @@ public class SD_ProductController {
 		Page<SD_PBproduct> paging = productService.searchPbproduct(page);
 		model.addAttribute("paging",paging);
 		
-		return "SD_pbProduct_list";
+		return "SD/SD_pbProduct_list";
 	}
 	
 	

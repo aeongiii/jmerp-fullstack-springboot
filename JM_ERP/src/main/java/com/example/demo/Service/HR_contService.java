@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.HR_cont;
@@ -74,6 +77,13 @@ public class HR_contService {
 	public void deleteCont(int id) {
 		contRepository.deleteById(id);
 		
+	}
+
+
+
+	public Page<HR_cont> searchAll(int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return contRepository.findAll(pageable);
 	}
 
 }

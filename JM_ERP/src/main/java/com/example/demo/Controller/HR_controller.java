@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,7 +43,7 @@ import com.example.demo.Service.HR_workService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// feature/HRdoct/kye - 증명서 기능 추가.
+// feature/NOTmodal/kye - 모달 전으로 돌아옴
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
@@ -187,12 +188,35 @@ public class HR_controller {
 
 // 근태내역 조회 (사원별 / 월별)
 	@GetMapping("/work/search")
-	public String listWork(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+	public String listWork(Model model,  @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "type", required = false, defaultValue = "monthly") String type,
+            @RequestParam(value = "year", required = false) Integer year,
+            @RequestParam(value = "month", required = false) Integer month,
+            @RequestParam(value = "employeeId", required = false) String employeeId,
 			HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 
+		// 기본적으로 모든 근태내역을 조회
 		Page<HR_work> paging = workService.searchAll(page);
+		
+		// 'type' 파라미터에 따른 분기 처리
+	    if ("monthly".equals(type) && year != null && month != null) {
+	        // 월별 조회 로직
+	        paging = workService.searchByMonth(year, month, PageRequest.of(page, 10));
+	    } else if ("employee".equals(type) && employeeId != null && !employeeId.isEmpty()) {
+	        // 사원별 조회 로직
+	        paging = workService.searchByEmployee(employeeId, PageRequest.of(page, 10));
+	        
+	    } else {
+	        // 기본 조회 로직 (모든 근태 내역)
+	        paging = workService.searchAll(PageRequest.of(page, 10));
+	    }
+	    model.addAttribute("selectedType", type); // 현재 선택된 조회 조건을 모델에 추가
+	    
+	    List<HR_mem> employees = memService.getList(); 
+        model.addAttribute("employees", employees);	// 사원 목록을 모델에 추가
+        
 		model.addAttribute("workList", paging.getContent());
 		model.addAttribute("paging", paging);
 		return "HR/HR_workSearch";
@@ -266,7 +290,7 @@ public class HR_controller {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 
-		Page<HR_mem> paging = memService.searchAll(page);
+		Page<HR_cont> paging = contService.searchAll(page);
 		model.addAttribute("memList", paging.getContent());
 		model.addAttribute("paging", paging);
 		return "HR/HR_contList";

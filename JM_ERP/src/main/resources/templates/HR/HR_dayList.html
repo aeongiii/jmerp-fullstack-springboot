@@ -6,8 +6,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<!-- CSS 연결 -->
+   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 <body>
@@ -58,7 +58,7 @@
 				</div>
 				<!-- 폼 끝-->
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{HR/HR_paging::HR_pagingFragment}"></div>
+				<!--<div th:replace="~{HR/HR_paging::HR_pagingFragment}"></div>-->
 				<!-- 버튼 프라그먼트 -->
 				<div th:replace="~{HR/HR_button::HR_buttonFragment}"></div>
 			</div>

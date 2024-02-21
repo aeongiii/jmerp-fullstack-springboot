@@ -2,6 +2,7 @@ package com.example.demo.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,14 +65,14 @@ public class HR_workService {
 
 		// workHour 계산
 		long hoursBetween = ChronoUnit.HOURS.between(workCreateForm.getStartTime(), workCreateForm.getEndTime());
-	    work.setWorkHour((int) hoursBetween);
-		
-	    // overtimeHour 및 overtimePay 설정
-	    if (workCreateForm.getOvertimeType() != null && !workCreateForm.getOvertimeType().isEmpty()) {
-	        work.setOvertimeHour(workCreateForm.getOvertimeHour());
-	        work.setOvertimePay(workCreateForm.getOvertimePay());
-	    }
-	    
+		work.setWorkHour((int) hoursBetween);
+
+		// overtimeHour 및 overtimePay 설정
+		if (workCreateForm.getOvertimeType() != null && !workCreateForm.getOvertimeType().isEmpty()) {
+			work.setOvertimeHour(workCreateForm.getOvertimeHour());
+			work.setOvertimePay(workCreateForm.getOvertimePay());
+		}
+
 		// HR_work 저장
 		workRepository.save(work);
 	}
@@ -104,46 +105,58 @@ public class HR_workService {
 		// HR_work 저장
 		workRepository.save(work);
 	}
-	
-// 근태내역 조회
-		public List<HR_work> getList() {
-			return this.workRepository.findAll();
-		}
-		
-		public Page<HR_work> searchAll(int page) {
-			Pageable pageable = PageRequest.of(page, 10);
-			return workRepository.findAll(pageable);
-		}
 
-		public HR_work getWorkById(int id) {
-			return workRepository.findById(id)
-					.orElseThrow(() -> new EntityNotFoundException("내역이 존재하지 않습니다."));
-		}
+// 근태내역 조회
+	public List<HR_work> getList() {
+		return this.workRepository.findAll();
+	}
+
+	public Page<HR_work> searchAll(int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return workRepository.findAll(pageable);
+	}
+
+	public Page<HR_work> searchAll(Pageable pageable) {
+		return workRepository.findAll(pageable);
+	}
+
+	public HR_work getWorkById(int id) {
+		return workRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("내역이 존재하지 않습니다."));
+	}
 
 // 근태내역 수정
-		public void updateWork(int id, @Valid HR_workUpdateForm workUpdateForm) {
-			HR_work work = getWorkById(id);
-			HR_mem employee = memRepository.findById(workUpdateForm.getEmployeeId())
-					.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));
-			
-			work.setName(employee.getName());
-			work.setEmployeeId(employee);
-			work.setEndTime(workUpdateForm.getEndTime());
-			work.setOvertimeHour(workUpdateForm.getOvertimeHour());
-			work.setOvertimePay(workUpdateForm.getOvertimePay());
-			work.setOvertimeType(workUpdateForm.getOvertimeType());
-			work.setStartTime(workUpdateForm.getStartTime());
-			work.setWorkHour(workUpdateForm.getWorkHour());
-			
-			
-			
+	public void updateWork(int id, @Valid HR_workUpdateForm workUpdateForm) {
+		HR_work work = getWorkById(id);
+		HR_mem employee = memRepository.findById(workUpdateForm.getEmployeeId())
+				.orElseThrow(() -> new EntityNotFoundException("사원이 존재하지 않습니다."));
 
-	        workRepository.save(work);
-		}
+		work.setName(employee.getName());
+		work.setEmployeeId(employee);
+		work.setEndTime(workUpdateForm.getEndTime());
+		work.setOvertimeHour(workUpdateForm.getOvertimeHour());
+		work.setOvertimePay(workUpdateForm.getOvertimePay());
+		work.setOvertimeType(workUpdateForm.getOvertimeType());
+		work.setStartTime(workUpdateForm.getStartTime());
+		work.setWorkHour(workUpdateForm.getWorkHour());
 
-		public void deleteWork(int id) {
-			workRepository.deleteById(id);
-			
-		}
+		workRepository.save(work);
+	}
+
+	public void deleteWork(int id) {
+		workRepository.deleteById(id);
+
+	}
+
+	// 월별 조회 로직 구현
+	public Page<HR_work> searchByMonth(int year, int month, Pageable pageable) {
+		LocalDate startDate = LocalDate.of(year, month, 1);
+		LocalDate endDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
+		return workRepository.findByWorkDateBetween(startDate, endDate, pageable);
+	}
+
+	// 사원별 조회 로직 구현
+	public Page<HR_work> searchByEmployee(String employeeId, Pageable pageable) {
+		return workRepository.findByEmployeeIdCustom(employeeId, pageable);
+	}
 
 }

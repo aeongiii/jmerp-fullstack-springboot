@@ -58,7 +58,7 @@ public class SD_MemberController {
 		
 		Page<SD_Member> paging = memberService.searchMember(page);
 		model.addAttribute("paging", paging);
-		return "SD_Member_list";
+		return "SD/SD_Member_list";
 	}
 	
 	
@@ -68,7 +68,7 @@ public class SD_MemberController {
 		Page<SD_Member> paging = memberService.searchMemberbyname(page,name);
 		System.out.println(name);
 		model.addAttribute("paging", paging);
-		return "SD_Member_list";
+		return "SD/SD_Member_list";
 	}
 	
 	
@@ -80,7 +80,7 @@ public class SD_MemberController {
 		
 		Page<SD_Purchase> paging = memberService.searchPurchase(page);
 		model.addAttribute("paging", paging);
-		return "SD_Purchase_list";
+		return "SD/SD_Purchase_list";
 	}
 	
 	

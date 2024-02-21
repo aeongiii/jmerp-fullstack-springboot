@@ -14,14 +14,14 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
 		<div class="row">
 
 			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
 			<div class="col-lg-2">
-				<div th:replace="~{SD_arcodian :: arcodianFragment}"></div>
+				<div th:replace="~{SD/SD_arcodian :: arcodianFragment}"></div>
 			</div>
 
 			<!-- 테이블 컬럼 (1:4 비율) -->
@@ -62,9 +62,9 @@
 				<!-- 데이터 테이블 끝-->
 
 				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{paging::pagingFragment}"></div>
+				<div th:replace="~{/paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{botton::bottonFragment}"></div>
+				<div th:replace="~{/botton::bottonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 
