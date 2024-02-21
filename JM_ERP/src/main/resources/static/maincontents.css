@@ -2,23 +2,14 @@
 	background-color:#fcfcfd;
 	z-index: 3;
 	width: 100%;
-	height: 85vh;
 	position: relative;
+	flex-direction: row;
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
+	padding-top: 70px;
+	justify-content:flex-end;
 }
 
-.main-calendar {
-	position: absolute;
-	top: 100px;
-	left: 100px;
-}
-
-.main-weather {
-	position:absolute;
-	top: 100px;
-	left: 450px;
-}
 
 .main-contents1, .main-contents2, .main-contents3 {
 	width: 400px;
@@ -30,9 +21,6 @@
 	height: 280px;
 }
 .main-contents1 {
-	position: absolute;
-	top: 100px;
-	left: 650px;
 	flex-direction: column;
 	overflow: auto;
 	white-space: nowrap;
@@ -40,18 +28,12 @@
 
 .main-contents2 {
 	background-color: bisque;
-	position: absolute;
-	top: 100px;
-	left: 1075px;
 	flex-direction: column;
 	overflow: auto;
 	white-space: nowrap;
 }
 
 .main-contents3  {
-	position: absolute;
-	top: 100px;
-	left: 1500px;
 	display: flex;
 	flex-direction: column;
 	overflow: auto;
