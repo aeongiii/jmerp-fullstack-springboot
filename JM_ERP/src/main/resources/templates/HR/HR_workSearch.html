@@ -31,7 +31,7 @@
 				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
 					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
 					<label class="btn btn-outline-primary" for="btnradio1">월별</label>
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
+					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
 					<label class="btn btn-outline-primary" for="btnradio2">사원별</label>
 				</div>
 				<!-- 조건 조회 버튼 끝-->
@@ -147,7 +147,7 @@
             var currentYear = new Date().getFullYear();
             var currentMonth = new Date().getMonth() + 1; // 현재 월; JavaScript는 0부터 시작하므로 +1
             $('#yearSelect').empty(); // 기존 옵션 제거
-            for (var year = currentYear - 5; year <= currentYear; year++) { // 예: 지난 5년간의 연도
+            for (var year = currentYear - 5; year <= currentYear; year++) { // 지난 5년간의 연도
                 $('#yearSelect').append(new Option(year, year, year === currentYear));
             }
 
