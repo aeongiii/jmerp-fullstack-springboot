@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채권 조회</title>
+    <title>채권, 채무 조회</title>
     
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     
@@ -155,10 +155,9 @@
 	<script src="/js/AC_javascript.js"></script>
 	
     <script>
-        // 변수를 정의하고 함수를 호출합니다.
-        var option1ContentId = "option1Content";
-        var option2ContentId = "option2Content";
-        initializePage(option1ContentId, option2ContentId);
+		$(document).ready(function() {
+        	initializePage("option1Content", "option2Content");
+        });
     </script>
 	
 	<script type="text/javascript">
@@ -166,65 +165,27 @@
 		const keywordValue = urlParams.get('keyword') || "";
 		const categoryValue = urlParams.get('category') || "";
 		const currentPage = parseInt(urlParams.get('page')) || 0;
-	    
+		
 		function nextPage() {
-	        const nextPageUrl = `${window.location.pathname}?page=${currentPage+1}&keyword=${keywordValue}&category=${categoryValue}`
-	        window.location.href = nextPageUrl;
-	    }
-	
-	    function prevPage() {
-	        const prevPageUrl = `${window.location.pathname}?page=${currentPage-1}&keyword=${keywordValue}&category=${categoryValue}`
-	        window.location.href = prevPageUrl;
-	    }
-	    
-	    function goToPage(pageNum) {
-	        const PageUrl = `${window.location.pathname}?page=${pageNum}&keyword=${keywordValue}&category=${categoryValue}`;
-	        window.location.href = PageUrl;
-    	}
-
+		    updatePage(currentPage + 1, keywordValue, categoryValue);
+		}
+		
+		function prevPage() {
+		    updatePage(currentPage - 1, keywordValue, categoryValue);
+		}
+		
+		function goToPage(pageNum) {
+		    updatePage(pageNum, keywordValue, categoryValue);
+		}
 	</script>
 	
 	<script>
-        // 수정 버튼 클릭 시 모달 열기
-	    $(document).on('click', '.open-bond-modal', function() {
-	        // 클릭된 버튼이 속한 행을 찾습니다.
-	        var $row = $(this).closest('tr');
-	        // 행에서 첫 번째 열의 텍스트(채권 번호)를 가져옵니다.
-	        var bondNumber = $row.find('td:first').text().trim();
-	        // 가져온 채권 번호를 출력합니다.
-        	$('#bondNumber').text(bondNumber);
-        	$('#submitBondNumber').val(bondNumber);
-            // 모달 열기
-            $('#bondModal').modal('show');
-		
-		    // 모달 닫기 버튼 클릭 시 모달 닫기
-		    $(document).on('click', '.close', function() {
-		        $('#bondModal').modal('hide');
-			});	    
-		});
-	</script>
-	
-	<script>
-        // 수정 버튼 클릭 시 모달 열기
-	    $(document).on('click', '.open-debt-modal', function() {
-	        // 클릭된 버튼이 속한 행을 찾습니다.
-	        var $row = $(this).closest('tr');
-	        // 행에서 첫 번째 열의 텍스트(채권 번호)를 가져옵니다.
-	        var debtNumber = $row.find('td:first').text().trim();
-	        // 가져온 채권 번호를 출력합니다.
-        	$('#debtNumber').text(debtNumber);
-        	$('#submitDebtNumber').val(debtNumber);
-            // 모달 열기
-            $('#debtModal').modal('show');
-		
-		    // 모달 닫기 버튼 클릭 시 모달 닫기
-		    $(document).on('click', '.close', function() {
-		        $('#debtModal').modal('hide');
-			});	    
+		$(document).ready(function() {
+		    modalOnClick('open-bond-modal', 'bondModal', 'bondNumber', 'submitBondNumber');
+		    modalOnClick('open-debt-modal', 'debtModal', 'debtNumber', 'submitDebtNumber');
 		});
 	</script>
 
-	
     <script>
 	    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
 	    document.getElementById('bondMaturityDate').min = getTodayDate();
@@ -232,36 +193,12 @@
 	</script>
 	
 	<script>
-		$('#submitBondUpdate').click(function() {
-		    // 폼 안에 있는 입력 요소들의 값을 가져옴
-		    var priceField = $('#bondPriceField').val();
-		    var amount = $('#bondAmount').val();
-		    var maturityDate = $('#bondMaturityDate').val();
-		    
-		    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
-		    if (priceField === '0' && !maturityDate && amount === '0') {
-		        event.preventDefault(); // 폼 제출 막기
-		        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
-		    } else {
-		        $('#bondForm').submit(); // 조건이 충족되면 폼 제출
-		    }
+		$(document).ready(function() {
+		    modalSubmit('submitBondUpdate', 'bondPriceField', 'bondAmount', 'bondMaturityDate', 'bondForm');
 		});
-	</script>
-	
-	<script>
-		$('#submitDebtUpdate').click(function() {
-		    // 폼 안에 있는 입력 요소들의 값을 가져옴
-		    var priceField = $('#debtPriceField').val();
-		    var amount = $('#debtAmount').val();
-		    var maturityDate = $('#debtMaturityDate').val();
-		    
-		    // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
-		    if (priceField === '0' && !maturityDate && amount === '0') {
-		        event.preventDefault(); // 폼 제출 막기
-		        alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
-		    } else {
-		        $('#debtForm').submit(); // 조건이 충족되면 폼 제출
-		    }
+		
+		$(document).ready(function() {
+		    modalSubmit('submitDebtUpdate', 'debtPriceField', 'debtAmount', 'debtMaturityDate', 'debtForm');
 		});
 	</script>
 </body>

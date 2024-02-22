@@ -1,19 +1,8 @@
-function nextPage(currentPage, keywordValue, categoryValue) {
-    const nextPageUrl = `${window.location.pathname}?page=${currentPage+1}&keyword=${keywordValue}&category=${categoryValue}`
-    window.location.href = nextPageUrl;
+// 페이지 이동함수
+function updatePage(page, keyword, category) {
+    const pageUrl = `${window.location.pathname}?page=${page}&keyword=${keyword}&category=${category}`;
+    window.location.href = pageUrl;
 }
-
-function prevPage(currentPage, keywordValue, categoryValue) {
-    const prevPageUrl = `${window.location.pathname}?page=${currentPage-1}&keyword=${keywordValue}&category=${categoryValue}`
-    window.location.href = prevPageUrl;
-}
-
-function goToPage(pageNum, keywordValue, categoryValue) {
-
-    const PageUrl = `${window.location.pathname}?page=${pageNum}&keyword=${keywordValue}&category=${categoryValue}`;
-    window.location.href = PageUrl;
-}
-
 // 오늘 날짜를 받는 함수
 function getTodayDate() {
     var today = new Date();
@@ -24,7 +13,7 @@ function getTodayDate() {
     return yyyy + '-' + mm + '-' + dd;
 }
 
-//라디오버튼을 2개로 나눠서 이용하는 함수
+// 라디오버튼을 2개로 나눠서 이용하는 함수
 function initializePage(option1ContentId, option2ContentId) {
     $(document).ready(function () {
         var selectedOption = localStorage.getItem('selectedOption') || "option1";
@@ -53,6 +42,46 @@ function initializePage(option1ContentId, option2ContentId) {
     });
 }
 
+// 모달을 열고 닫는 함수
+function modalOnClick(btnClass, modalId, modalNumberId, submitNumberId) {
+    // 수정 버튼 클릭 시 모달 열기
+    $(document).on('click', '.' + btnClass, function() {
+        // 클릭된 버튼이 속한 행을 찾습니다.
+        var $row = $(this).closest('tr');
+        // 행에서 첫 번째 열의 텍스트(채권 번호 또는 채무 번호)를 가져옵니다.
+        var number = $row.find('td:first').text().trim();
+        // 가져온 번호를 출력합니다.
+        $('#' + modalNumberId).text(number);
+        $('#' + submitNumberId).val(number);
+        // 모달 열기
+        $('#' + modalId).modal('show');
+
+        // 모달 닫기 버튼 클릭 시 모달 닫기
+        $(document).on('click', '.close', function() {
+            $('#' + modalId).modal('hide');
+        });    
+    });
+}
+
+// 모달의 폼 제출 함수
+function modalSubmit(submitId, priceFieldId, amountId, maturityDateId, formId) {
+    $('#' + submitId).click(function(event) {
+        // 폼 안에 있는 입력 요소들의 값을 가져옴
+        var priceField = $('#' + priceFieldId).val();
+        var amount = $('#' + amountId).val();
+        var maturityDate = $('#' + maturityDateId).val();
+        
+        // 증감 구분, 만기일자가 null 값이고, 변제 금액이 0인 경우 폼 제출을 막음
+        if (priceField === '0' && !maturityDate && amount === '0') {
+            event.preventDefault(); // 폼 제출 막기
+            alert('하나 이상의 변경값을 입력해 주세요.'); // 사용자에게 알림
+        } else {
+            $('#' + formId).submit(); // 조건이 충족되면 폼 제출
+        }
+    });
+}
+
+// 모달의 select 중 pricelabel 설명을 표시
 function showPriceField(typeId, priceLabelId, priceLabelNameId) {
     var selectBox = document.getElementById(typeId);
     var selectedValue = selectBox.options[selectBox.selectedIndex].value;
