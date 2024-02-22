@@ -130,32 +130,12 @@
 	
 	<!-- JQuery 연결 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-	    $(document).ready(function () {
-	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
+	<script src="/js/AC_javascript.js"></script>
 	
-	        if (selectedOption === "option1") {
-	            $("#option1Content").show();
-	            $("#option2Content").hide();
-	        } else if (selectedOption === "option2") {
-	            $("#option1Content").hide();
-	            $("#option2Content").show();
-	        }
-	        $("input[name='btnradio'][value='" + selectedOption + "']").prop('checked', true);
-	
-	        // 라디오 버튼 변경 시 로컬 스토리지에 저장
-	        $("input[name='btnradio']").change(function () {
-	            selectedOption = $(this).val();
-	            localStorage.setItem('selectedOption', selectedOption);
-	            
-	            // 페이지를 0으로 설정
-	            localStorage.setItem('currentPage', 0);
-	            
-	            // 현재 URL에서 페이지 파라미터를 제거한 뒤 페이지를 0으로 설정하여 리로드
-	            var currentUrl = window.location.href.split('?')[0];
-	            window.location.href = currentUrl + "?page=0";
-	        });
-	    });
-	</script>
+    <script>
+		$(document).ready(function() {
+        	initializePage("option1Content", "option2Content");
+        });
+    </script>
 </body>
 </html>
