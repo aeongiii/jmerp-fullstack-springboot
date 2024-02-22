@@ -21,7 +21,7 @@ public class SecurityConfig {
 				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
 
-				.requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
+	 			.requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/bootstrapLux.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/style.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/calendar.css")).permitAll()

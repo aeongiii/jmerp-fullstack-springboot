@@ -97,13 +97,13 @@
 						<input type="hidden" id="modalAccountCode" name="accountCode">
 						<div class="form-group">
 							<label for="accountName">거래처명:</label>
-							<input type="text" class="form-control" id="accountName" name="accountName" required>
+							<input type="text" class="form-control" id="accountName" name="accountName" >
 
 							<label for="accountNum">연락처:</label>
-							<input type="tel" class="form-control" id="accountNum" name="accountNum" maxlength="13" required>
+							<input type="tel" class="form-control" id="accountNum" name="accountNum" maxlength="13" >
 
 							<label for="accountManager">변경 담당자 명:</label>
-							<input type="text" class="form-control" id="accountManager" name="accountManager" required>
+							<input type="text" class="form-control" id="accountManager" name="accountManager" >
 						</div>
 						<!-- 추가 필드 -->
 				<div class="modal-footer">
@@ -176,8 +176,17 @@
 			const accountManager = document.getElementById('accountManager').value.trim();
 
 			// 필수 필드가 비어있는지 검사
-			if (!accountName || !accountNum || !accountManager) {
-				alert('모든 필드를 채워주세요.');
+			if (accountName.length===0) {
+				document.getElementById('accountName').focus();
+				event.preventDefault();
+				}
+			else if (accountNum.length===0) {
+				document.getElementById('accountNum').focus();
+				event.preventDefault();
+				}
+			else if (accountManager.length===0) {
+				document.getElementById('accountManager').focus();
+			
 				event.preventDefault(); // 폼 제출을 방지하여 등록이 되지 않도록 함
 			}
 		});
