@@ -44,7 +44,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// feature/NOTmodal/kye - 모달 전으로 돌아옴
+// feature/update2/kye - 코드 검토 및 정리
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
