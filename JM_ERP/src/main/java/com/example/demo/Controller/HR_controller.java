@@ -40,6 +40,7 @@ import com.example.demo.Service.HR_docService;
 import com.example.demo.Service.HR_memService;
 import com.example.demo.Service.HR_workService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -249,6 +250,15 @@ public class HR_controller {
 			// 유효성 검사에 실패한 경우, 동일한 폼으로 돌아가 오류 메시지 표시
 			return "HR/HR_workUpdate";
 		}
+		
+		// 서비스의 updateWork에서 EntityNotFoundException 오류 발생할 경우, 사용자에게 다시입력하도록 메시지 추가
+		try {
+	        workService.updateWork(id, workUpdateForm);
+	    } catch (EntityNotFoundException e) {
+	        model.addAttribute("errorMessage", "사원이 존재하지 않습니다. 다시 입력하세요.");
+	        return "HR/HR_workUpdate"; // 동일한 수정 페이지로 돌아가기
+	    }
+		
 		workService.updateWork(id, workUpdateForm);
 		return "redirect:/HR/work/search";
 	}
