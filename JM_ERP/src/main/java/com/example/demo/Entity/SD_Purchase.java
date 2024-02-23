@@ -33,9 +33,9 @@ public class SD_Purchase {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private SD_Product product;
-
-    @Column(name = "purchase_date")
-    private LocalDate purchaseDate;
+    
+    @Column(name = "product_EA")
+    private Integer productEA;
 
     @Column(name = "purchase_amount")
     private Integer purchaseAmount;
@@ -52,5 +52,5 @@ public class SD_Purchase {
     @Column(name = "card_number", length = 20)
     private String cardNumber;
 
-   
+   // 구매 갯수 추가
 }
