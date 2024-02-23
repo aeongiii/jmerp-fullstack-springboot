@@ -62,13 +62,13 @@
 <body>
 	<h2>거래처 등록</h2>
 
-	<form action="/MG/accmgcreate" method="post">
-
+	<form th:action="@{/MG/accmgcreate}" method="post">
+	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
 		<!-- 이름 입력 -->
 		<label for="accountName">거래처 이름:</label>
 		<input type="text" id="accountName" name="accountName" required><br>
-
+		 
 		<!-- 이메일 입력 -->
 		<label for="accountCode">사업자 번호:</label>
 		<input type="number" id="accountCode" name="accountCode" required><br>
@@ -78,6 +78,13 @@
 <label for="accountNum">연락처:</label>
 <input type="tel" id="accountNum" name="accountNum" required><br>
 
+        <!-- 직책 입력 -->
+        <label for="accountManager">담당자:</label>
+        <input type="text" id="accountManager" name="accountManager" required><br>
+
+                <!-- 제출 버튼 -->
+        <input type="submit" value="Create Member">
+    </form>
 <script>
     // 연락처 입력란 요소 가져오기
     var accountNumInput = document.getElementById('accountNum');
@@ -99,12 +106,5 @@
     });
 </script>
 
-        <!-- 직책 입력 -->
-        <label for="accountManager">담당자:</label>
-        <input type="text" id="accountManager" name="accountManager" required><br>
-
-                <!-- 제출 버튼 -->
-        <input type="submit" value="Create Member">
-    </form>
 </body>
 </html>

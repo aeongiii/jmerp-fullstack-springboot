@@ -16,6 +16,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "Mg_AccountMg")
 public class Mg_AccountMG_Entity {
+	public Mg_AccountMG_Entity() {
+		
+	}
+	
+	
 	@Id
 	private Long accountCode;
 	//거래처 사업자 번호
@@ -29,4 +34,11 @@ public class Mg_AccountMG_Entity {
 	@Column
 	private String accountManager;
 	//거래처 담당자 명
+	
+	public Mg_AccountMG_Entity(Long accountCode, String accountNum, String accountName, String accountManager) {
+        this.accountCode = accountCode;
+        this.accountNum = accountNum;
+        this.accountName = accountName;
+        this.accountManager = accountManager;
+    }
 }
