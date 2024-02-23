@@ -193,12 +193,16 @@ public class HR_controller {
 
 // 근태내역 조회 (사원별 / 월별)
 	@GetMapping("/work/search")
+	
+						  // @RequestParam = HTTP 요청에서 특정값을 가져와 메서드의 파라미터로 바인딩 ㄱㄴ ----> value = 요청 파라미터의 이름 / defaultValue = null이거나 빈 문자열일 경우 기본값
+						  // 																	   required = 요청 파라미터의 필수 여부. (기본값 true)
 	public String listWork(Model model,  @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "type", required = false, defaultValue = "monthly") String type,
             @RequestParam(value = "year", required = false) Integer year,
             @RequestParam(value = "month", required = false) Integer month,
             @RequestParam(value = "employeeId", required = false) String employeeId,
-			HttpServletRequest request) {
+			HttpServletRequest request) {	// HttpServletRequest = HTTP 요청에 대한 모든 정보를 저장 --> 메서드 파라미터로 사용 시 다양한 HTTP 정보에 접근 가능
+		
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 
@@ -206,18 +210,21 @@ public class HR_controller {
 		Page<HR_work> paging = workService.searchAll(page);
 		
 		// 'type' 파라미터에 따른 분기 처리
-	    if ("monthly".equals(type) && year != null && month != null) {
-	        // 월별 조회 로직
+			// type = 'monthly'이고, year와 month가 null이 아닐 경우 ---> 월별 조회 로직
+	    if ("monthly".equals(type) && year != null && month != null) { 
 	        paging = workService.searchByMonth(year, month, PageRequest.of(page, 10));
-	    } else if ("employee".equals(type) && employeeId != null && !employeeId.isEmpty()) {
-	        // 사원별 조회 로직
+	    }
+	    	// type = 'employee'이고, employeeId가 null 또는 빈 문자열이 아닐 경우 ---> 사원별 조회 로직
+	    else if ("employee".equals(type) && employeeId != null && !employeeId.isEmpty()) {
 	        paging = workService.searchByEmployee(employeeId, PageRequest.of(page, 10));
-	        
-	    } else {
-	        // 기본 조회 로직 (모든 근태 내역)
+	    } 
+	    	// 기본 조회 로직 (모든 근태 내역)
+	    else {
 	        paging = workService.searchAll(PageRequest.of(page, 10));
 	    }
-	    model.addAttribute("selectedType", type); // 현재 선택된 조회 조건을 모델에 추가
+	    
+	    // 현재 선택된 조회 조건을 모델에 추가
+	    model.addAttribute("selectedType", type); 
 	    
 	    List<HR_mem> employees = memService.getList(); 
         model.addAttribute("employees", employees);	// 사원 목록을 모델에 추가
