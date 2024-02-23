@@ -17,6 +17,9 @@
 <body>
 	<!-- 네비게이션바 프라그먼트-->
 	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+	<div class = "nav--space">
+	  <div class = "nav--stars"></div>
+	</div>
 	<!-- 사이드바 -->
 	<aside th:replace="~{sidebar :: sidebarFragment}"></aside>
 	
@@ -80,11 +83,6 @@
 				</tbody>
 			</table><!-- NB Product -->
 			
-
-			<!-- 페이징 프라그먼트 -->
-			<div th:replace="~{/paging::pagingFragment(paging=${regshop})}"></div>
-			<!-- 버튼 프라그먼트 -->
-			<div th:replace="~{/botton::bottonFragment}"></div>
 		</div> <!-- NB Product -->
 		
 		<!-- 매출/매입 전표 -->
@@ -144,10 +142,6 @@
 			    </table>
                <!--  데이터 테이블 끝-->
                 
-               	 <!--페이징 프라그먼트--> 
-				<div th:replace="~{/paging::pagingFragment(paging=${saleSlipList})}"></div>
-				 <!--버튼 프라그먼트--> 
-				<div th:replace="~{/botton::bottonFragment}"></div>
 
             </div>  <!--옵션 1일 때 리스트--> 
             
@@ -189,10 +183,7 @@
 			        </tbody>
 			    </table>
                 <!-- 데이터 테이블 끝-->
-                 <!--페이징 프라그먼트--> 
-				<div th:replace="~{/paging::pagingFragment(paging=${purchaseSlipList})}"></div>
-				 <!--버튼 프라그먼트--> 
-				<div th:replace="~{/botton::bottonFragment}"></div>
+
             </div>  <!--옵션 2일 때 리스트 -->
 		</div>  <!--매출/매입 전표 끝--> 
 		
@@ -243,7 +234,9 @@
 	<div class="sub-contents">
 		
 		<!-- contents -->
-		<div class="main-contents4"></div>
+		<div class="main-contents4">
+			
+		</div>
 		
 	</div>
 
