@@ -27,10 +27,7 @@ public class AC_SaleSlip {
     
     private Double amount; // 금액
     private Double VAT; // 부가세
-    private String cardNum; // 카드번호
-    private String cardName; // 카드명
     private String transactionType; // 거래유형
 
     private LocalDateTime createdAt; // 생성일자
-    private LocalDateTime updatedAt; // 수정일자
 }

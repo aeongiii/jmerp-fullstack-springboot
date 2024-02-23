@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,10 +9,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SD_Member;
+import com.example.demo.Entity.SD_Product;
 import com.example.demo.Entity.SD_Purchase;
-import com.example.demo.Entity.PC_PurchaseInquiry;
+import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Repository.SD_MemberRepository;
-import com.example.demo.Repository.PC_PurchaseInquiryRepository;
 import com.example.demo.Repository.SD_PurchaseRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -49,6 +50,22 @@ public class SD_MemberService {
 		
 		
 	}
+	
+//	public void RegPurchase(SD_Member member, SD_Seller seller, SD_Product product, int productEA, int purchaseAmount,
+//			boolean calcellation, String cardType, String cardNumber) {
+//		
+//		SD_Purchase p = new SD_Purchase();
+//		p.setMember(member);
+//		p.setSeller(seller);
+//		p.setProduct(product);
+//		p.setProductEA(productEA);
+//		p.setPurchaseAmount((int) (product.getPrice() * productEA));
+//		p.setTransactionTime(LocalDateTime.now());
+//		p.setCancellationReturnInfo(calcellation);
+//		p.setCardType(cardType);
+//		p.setCardNumber(cardNumber);
+//		purchaseRepository.save(p);
+//	}
 	
 	public Page<SD_Purchase> searchPurchase(int page) {
 		Pageable pageable = PageRequest.of(page, 10);

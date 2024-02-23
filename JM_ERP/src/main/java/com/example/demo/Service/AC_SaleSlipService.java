@@ -26,5 +26,6 @@ public class AC_SaleSlipService {
         Pageable pageable = PageRequest.of(page, 10);
         return this.saleSlipRepository.findAll(pageable);
     }
+    
 
 }

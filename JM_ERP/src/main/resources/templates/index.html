@@ -11,15 +11,11 @@
 	<!-- CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<link rel = "icon" type = "image.png" href = ".img/spaceship2.png"> <!-- 파비콘(favicon) 넣기 -->
 </head>
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
 	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
-	<div class = "nav--space">
-	  <div class = "nav--stars"></div>
-	</div>
 	<!-- 사이드바 -->
 	<aside th:replace="~{sidebar :: sidebarFragment}"></aside>
 	
@@ -83,6 +79,11 @@
 				</tbody>
 			</table><!-- NB Product -->
 			
+
+			<!-- 페이징 프라그먼트 -->
+			<div th:replace="~{/paging::pagingFragment(paging=${regshop})}"></div>
+			<!-- 버튼 프라그먼트 -->
+			<div th:replace="~{/botton::bottonFragment}"></div>
 		</div> <!-- NB Product -->
 		
 		<!-- 매출/매입 전표 -->
@@ -105,7 +106,7 @@
             <!-- 옵션 1일때 시작 -->
             <div id="option1Content" style="display: none;">
 				
-                 <!--데이터 테이블 시작-->
+                <!-- 데이터 테이블 시작-->
 			    <table class = "table table-hover">
 			       <thead>
 			            <tr>
@@ -115,37 +116,35 @@
 			                <th>적요</th>
 			                <th>금액</th>
 			                <th>부가세</th>
-			                <th>카드 번호</th>
-			                <th>카드 이름</th>
 			                <th>거래 유형</th>
 			                <th>생성 일자</th>
-			                <th>수정 일자</th>
 			            </tr>
 			        </thead>
 			        <tbody>
-			           <!--  for each 문 -->
+			            <!-- for each 문 -->
 			            <tr th:each="slip : ${saleSlipList}">
-							<!-- 화면에 띄울 정보--> 
+							<!-- 화면에 띄울 정보 -->
 			                <td th:text="${slip.slipCode}"></td>
 			                <td th:text="${slip.tradeDate}"></td>
 			                <td th:text="${slip.trader}"></td>
 			                <td th:text="${slip.description}"></td>
 			                <td th:text="${slip.amount}"></td>
 			                <td th:text="${slip.VAT}"></td>
-			                <td th:text="${slip.cardNum}"></td>
-			                <td th:text="${slip.cardName}"></td>
 			                <td th:text="${slip.transactionType}"></td>
 			                <td th:text="${slip.createdAt}"></td>
-			                <td th:text="${slip.updatedAt}"></td>
 			            </tr>
 			        </tbody>
 			    </table>
-               <!--  데이터 테이블 끝-->
+                <!-- 데이터 테이블 끝-->
                 
+               	<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${saleSlipList})}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{/botton::bottonFragment}"></div>
 
-            </div>  <!--옵션 1일 때 리스트--> 
+            </div> <!-- 옵션 1일 때 리스트 -->
             
-             <!--옵션 2일때 시작 -->
+            <!-- 옵션 2일때 시작 -->
             <div id="option2Content" style="display: none;">
 				                    <!-- 데이터 테이블 시작-->
 			   <table class = "table table-hover">
@@ -157,34 +156,31 @@
 			                <th>적요</th>
 			                <th>금액</th>
 			                <th>부가세</th>
-			                <th>카드 번호</th>
-			                <th>카드 이름</th>
 			                <th>거래 유형</th>
 			                <th>생성 일자</th>
-			                <th>수정 일자</th>
 			            </tr>
 			        </thead>
 			        <tbody>
-			             <!--for each 문 -->
+			            <!-- for each 문 -->
 			            <tr th:each="slip : ${purchaseSlipList}">
-							 <!--화면에 띄울 정보--> 
+							<!-- 화면에 띄울 정보 -->
 			                <td th:text="${slip.slipCode}"></td>
 			                <td th:text="${slip.tradeDate}"></td>
 			                <td th:text="${slip.trader}"></td>
 			                <td th:text="${slip.description}"></td>
 			                <td th:text="${slip.amount}"></td>
 			                <td th:text="${slip.VAT}"></td>
-			                <td th:text="${slip.cardNum}"></td>
-			                <td th:text="${slip.cardName}"></td>
 			                <td th:text="${slip.transactionType}"></td>
 			                <td th:text="${slip.createdAt}"></td>
-			                <td th:text="${slip.updatedAt}"></td>
 			            </tr>
 			        </tbody>
 			    </table>
                 <!-- 데이터 테이블 끝-->
-
-            </div>  <!--옵션 2일 때 리스트 -->
+                <!-- 페이징 프라그먼트 -->
+				<div th:replace="~{/paging::pagingFragment(paging=${purchaseSlipList})}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{/botton::bottonFragment}"></div>
+            </div> <!-- 옵션 2일 때 리스트 -->
 		</div>  <!--매출/매입 전표 끝--> 
 		
 		 <!--BOM--> 
@@ -234,9 +230,7 @@
 	<div class="sub-contents">
 		
 		<!-- contents -->
-		<div class="main-contents4">
-			
-		</div>
+		<div class="main-contents4"></div>
 		
 	</div>
 
