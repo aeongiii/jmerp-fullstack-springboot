@@ -23,7 +23,7 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-//				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
 			    
 				
 				.requestMatchers(new AntPathRequestMatcher("/maincontents.css")).permitAll()
@@ -58,7 +58,7 @@ public class SecurityConfig {
 				
 		)
 
-				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")))
+				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
 
 				.headers((headers) -> headers.addHeaderWriter(
 						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
