@@ -27,6 +27,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/cont/create}" th:object="${HR_contCreateForm}" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" th:field="*{id}" /> <!-- id값 숨겨서 함께 전달 -->
 
 					<div class="mb-3">

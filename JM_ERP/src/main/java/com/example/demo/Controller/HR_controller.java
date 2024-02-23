@@ -66,64 +66,69 @@ public class HR_controller {
 
 // ========================================= 1. 사원 =============================================
 
+// 사원 등록
 	@GetMapping("/mem/create")
 	public String create(Model model) {
 		List<HR_dept> deptList = deptService.getdeptList();
-		model.addAttribute("deptList", deptList);
-		model.addAttribute("HR_memCreateForm", new HR_memCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		model.addAttribute("deptList", deptList);	// 전체 사원 목록을 가져와 'deptList'라는 이름으로 모델에 추가
+		model.addAttribute("HR_memCreateForm", new HR_memCreateForm()); // 사원 등록 폼을 모델에 추가
 		return "HR/HR_memCreate";
 	}
 
 	@PostMapping("/mem/create")
 	public String create(@Valid HR_memCreateForm memCreateForm, Model model) {
 		String employeeId = memService.createEmployeeId(memCreateForm.getDeptName(), memCreateForm.getStartDate());
-		memCreateForm.setEmployeeId(employeeId); // 사원 번호를 폼 객체에 설정
-		memService.save(memCreateForm); // 사원 정보 저장
-		return "redirect:/HR/mem/list";
+		memCreateForm.setEmployeeId(employeeId); // 만들어진 사원 번호를 폼 객체의 employeeId에 설정
+		memService.save(memCreateForm); // 모든 사원 정보를 DB에 저장
+		return "redirect:/HR/mem/list";	
 	}
 
+// 사원 검색
 	@GetMapping("/mem/search") // 매개변수가 선택적임
 	public String search(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
 		if (keyword != null && !keyword.isEmpty()) {
-			List<HR_mem> searchResults = memService.search(keyword);
+			List<HR_mem> searchResults = memService.search(keyword);	// 키워드가 null이 아닐 경우 검색
 			model.addAttribute("searchResults", searchResults);
 		}
 		return "HR/HR_memSearch";
 	}
 
+// 전체 사원 검색
 	@GetMapping("/mem/list")
 	public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
 			HttpServletRequest request) {
-		String currentUrl = request.getRequestURI();
+		String currentUrl = request.getRequestURI();	// 현재 요청한 URL을 모델에 저장
 		model.addAttribute("currentUrl", currentUrl);
 
-		Page<HR_mem> paging = memService.searchAll(page);
-		model.addAttribute("memList", paging.getContent());
+		Page<HR_mem> paging = memService.searchAll(page);	// paging = 요청한 page 번호에 해당하는 페이지의 사원 목록 + 페이지 수 + 페이지 정보
+		model.addAttribute("memList", paging.getContent());	
 		model.addAttribute("paging", paging);
 		return "HR/HR_memList";
 	}
 
 // ========================================= 2. 부서 =============================================
 
+// 부서 등록
 	@GetMapping("/dept/create")
 	public String create2(Model model) {
 		List<HR_dept> deptList = deptService.getdeptList();
 		model.addAttribute("deptList", deptList);
-		model.addAttribute("HR_deptCreateForm", new HR_deptCreateForm()); // HR_deptCreateForm 객체를 모델에 추가
+		model.addAttribute("HR_deptCreateForm", new HR_deptCreateForm()); // 부서 등록 폼을 모델에 추가
 		return "HR/HR_deptCreate";
 	}
 
 	@PostMapping("/dept/create")
+						  // @valid 어노테이션 : 폼 데이터가 바인딩될때 유효성 검사(@NotEmpty, @Email 등 이미 선언된 제약조건을 검증)
+						  // @valid가 붙은 파라미터 "뒤에" BindingResult가 오면 --> 검증 오류 발생 시 BindingResult 객체에 저장함
 	public String create2(@Valid HR_deptCreateForm deptCreateForm, BindingResult result, Model model) {
-		if (result.hasErrors()) { // BindingResult : @Valid 에서 유효성 검증 오류 발생 시 다시 화면 출력
+		if (result.hasErrors()) { // 유효성 검증 오류 발생 시 다시 화면 출력
 			return "HR/HR_deptCreate";
 		}
-
-		deptService.save2(deptCreateForm.getDeptName());
+		deptService.save2(deptCreateForm.getDeptName());	// 새로운 부서코드 자동 생성 후 DB에 저장
 		return "redirect:/HR/dept/create";
 	}
 
-//부서 수정 -> 오류 발생.
+//부서 수정
 	@GetMapping("/dept/update")
 	public String update2(@RequestParam("deptName") String olddeptName, Model model) {
 		HR_dept dept = deptService.findByDeptName(olddeptName);
@@ -149,7 +154,7 @@ public class HR_controller {
 // 부서 삭제
 	@PostMapping("/dept/delete/{deptName}")
 	public String delete2(@PathVariable("deptName") String deptName) {
-		deptService.delete2(deptName);
+		deptService.delete2(deptName);	// ID값(=deptName)으로 해당 데이터 찾아서 삭제
 		return "redirect:/HR/dept/create";
 	}
 
@@ -159,14 +164,13 @@ public class HR_controller {
 	@GetMapping("/work/create")
 	public String createWork(Model model) {
 		List<HR_work> workList = workService.getworkList();
-		model.addAttribute("workList", workList);
-		model.addAttribute("HR_workCreateForm", new HR_workCreateForm()); // HR_memCreateForm 객체를 모델에 추가
+		model.addAttribute("workList", workList);	// 전체 근태 데이터 모델에 추가
+		model.addAttribute("HR_workCreateForm", new HR_workCreateForm()); // 폼 객체를 모델에 추가
 		return "HR/HR_workCreate";
 	}
 
 	@PostMapping("/work/create")
 	public String createWork(@Valid HR_workCreateForm workCreateForm, Model model) {
-
 		workService.saveWork(workCreateForm); // 사원 정보 저장
 		return "redirect:/HR/work/search";
 	}

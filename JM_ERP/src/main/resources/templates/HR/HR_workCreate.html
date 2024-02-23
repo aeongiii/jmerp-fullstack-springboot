@@ -40,6 +40,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/work/create}" th:object="${HR_workCreateForm}" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="mb-3">
 						<label for="employeeId" class="form-label">사원번호</label>
 						<input type="text" th:field="*{employeeId}" class="form-control">
