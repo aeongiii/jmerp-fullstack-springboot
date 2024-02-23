@@ -53,7 +53,7 @@
 						<input type="time" th:field="*{endTime}" class="form-control">
 					</div>
 					<div class="mb-3">
-						<label for="overtimeType" class="form-label">초과근무 시!!! 체크</label>
+						<label for="overtimeType" class="form-label">초과근무 (해당 시 체크)</label>
 						<div>
 							<input type="radio" id="nightWork" name="overtimeType" value="야근수당"
 								th:field="*{overtimeType}" onchange="checkOvertime()">
@@ -64,11 +64,11 @@
 								th:field="*{overtimeType}" onchange="checkOvertime()">
 							<label for="weekendWork">주말수당</label>
 						</div>
-						<div>
+						<!--<div>
 							<input type="radio" id="vacationWork" name="overtimeType" value="휴일수당"
 								th:field="*{overtimeType}" onchange="checkOvertime()">
 							<label for="vacationWork">휴일수당</label>
-						</div>
+						</div>-->
 					</div>
 
 					<div id="overtimeFields" style="display: none;">
@@ -84,7 +84,8 @@
 
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>
-				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<br>
+				<p><a class="btn btn-primary" href="http://localhost:8080/">홈으로 돌아가기</a></p>
 				<!-- 폼 끝-->
 
 
