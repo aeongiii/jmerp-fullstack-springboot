@@ -70,32 +70,7 @@ public class HR_deptService {
 			    if (oldDept != null) {
 			        memRepository.updateDeptName(newDept, oldDept);
 			    } 
-			 
-			 
-			 
-// 2 
-//			 List<HR_mem> employees = memRepository.findByDeptName(oldDept);
-//			 for (HR_mem employee : employees) {
-//			        employee.setDeptName(newDept);
-//			    }
-//			    memRepository.saveAll(employees);
-//			    
-//			    
-//			    for (HR_mem employee : employees) {
-//			        employee.setDeptName(newDept);
-//			    }
-//			    memRepository.saveAll(employees);
-			    
-			    
-			    
-// 1			    
-//			// 1) old 부서에 속한 모든 사원의 부서정보를 new 부서로 변경
-//			memRepository.updateDeptName(oldDeptName, newDeptName);
-//			
-//			// 2) new 부서 객체 생성하여 DB에 저장
-//			HR_dept newDept = new HR_dept();
-//			newDept.setDeptName(newDeptName);
-//			deptRepository.save(newDept);
+
 		}
 		
 	// 부서 삭제

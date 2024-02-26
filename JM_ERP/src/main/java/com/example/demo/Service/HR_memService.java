@@ -70,11 +70,13 @@ public class HR_memService {
 		// root : HR_mem 테이블 접근하는 기본 경로
 		// cb : CriteriaBuilder 인스턴스 => 쿼리 조건 구성 시 사용됨
 		Specification<HR_mem> spec = (root,query, cb) -> {	// 람다 표현식 :: (매개변수) -> { 쿼리문 조건(Predicate) 나열 }; 함수를 간결하게 정의하여 'HR_mem' 엔티티 필터링
+
 //			Predicate employeeIdPredicate = cb.like(root.get("employeeId"), "%" + keyword + "%");
 			Predicate bankNumPredicate = cb.like(root.get("bankNum"), "%" + keyword + "%");
 			Predicate namePredicate = cb.like(root.get("name"), "%" + keyword + "%");
 			Predicate emailPredicate = cb.like(root.get("email"), "%" + keyword + "%");
 			Predicate positionPredicate = cb.like(root.get("position"), "%" + keyword + "%");
+			
 			// 부서명의 경우 외래키이므로 HR_dept와의 조인을 통해 검색
 			Join<HR_mem, HR_dept> deptJoin = root.join("deptName");
 			Predicate deptNamePredicate = cb.like(deptJoin.get("deptName"),  "%" + keyword + "%");

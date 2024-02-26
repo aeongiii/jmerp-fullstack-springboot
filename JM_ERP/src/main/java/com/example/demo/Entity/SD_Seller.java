@@ -2,42 +2,30 @@ package com.example.demo.Entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 
-@Entity
 @Getter
 @Setter
+@Entity 
+@Table(name = "SD_Seller")		// 테이블명 지정
 public class SD_Seller {
 
     @Id
-    @Column(name = "seller_id", nullable = false)
-    private String sellerId; // 'seller'에서 'sellerId'로 변경
+    private String sellerId; // 사업자등록번호 (123-4567-8989 형식)
 
-    @Column(name = "business_number", nullable = false)
-    private String businessNumber;
+    private String sellerName;	// 판매자 이름
 
-    @Column(name = "contact_info", nullable = false)
-    private String contactInfo;
+    private String sellerPhoneNumber;	// 판매자 연락처
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    private String sellerEmail;	// 판매자 이메일
 
-    @Column(name = "ceo_name", nullable = false)
-    private String ceoName;
+    private String sellerAddress;	// 판매자 주소
 
-    @Column(name = "address", nullable = false)
-    private String address;
+    private LocalDate sellerJoinDate;	// 판매자 등록 날짜
 
-    @Column(name = "contract", nullable = false)
-    private boolean contract;
-
-    @Column(name = "registration_date", nullable = false)
-    private LocalDate registrationDate; // 'date'에서 'registrationDate'로 변경
-
-    // 다른 필드 및 메서드
 }
