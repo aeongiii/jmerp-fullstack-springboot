@@ -8,8 +8,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "SD_PBproduct") // 테이블명 지정
-public class SD_PBproduct {
+@Table(name = "SD_PBProduct") // 테이블명 지정
+public class SD_PBProduct {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
