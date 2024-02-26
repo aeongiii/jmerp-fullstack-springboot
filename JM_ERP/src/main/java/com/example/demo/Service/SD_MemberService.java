@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SD_Member;
 import com.example.demo.Entity.SD_Purchase;
-import com.example.demo.Entity.PC_PurchaseInquiry;
 import com.example.demo.Repository.SD_MemberRepository;
-import com.example.demo.Repository.PC_PurchaseInquiryRepository;
 import com.example.demo.Repository.SD_PurchaseRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -23,23 +21,12 @@ public class SD_MemberService {
 	private final SD_MemberRepository memberRepository;
 	private final SD_PurchaseRepository purchaseRepository;
 	
-	
-	public void RegMember(String memberId, String name, LocalDate dateOfBirth, String country, String contactNumber,
-			String email, String address, String gender,boolean membership
+	// 고객 등록
+	public void RegiMember(String memberId, String memberName, String memberPhoneNumber, String memberEmail, String memberAddress, LocalDate memberJoinDate
 			) {
 		
 		SD_Member m = new SD_Member();
-		m.setAddress(address);
 		m.setMemberId(memberId);
-		m.setAddress(address);
-		m.setContactNumber(contactNumber);
-		m.setCountry(country);
-		m.setDateOfBirth(dateOfBirth);
-		m.setEmail(email);
-		m.setGender(gender);
-		m.setName(name);
-		m.setJoinDate(LocalDate.now());
-		m.setMembership(false);
 		memberRepository.save(m);
 	}
 	
@@ -49,6 +36,22 @@ public class SD_MemberService {
 		
 		
 	}
+	
+//	public void RegPurchase(SD_Member member, SD_Seller seller, SD_Product product, int productEA, int purchaseAmount,
+//			boolean calcellation, String cardType, String cardNumber) {
+//		
+//		SD_Purchase p = new SD_Purchase();
+//		p.setMember(member);
+//		p.setSeller(seller);
+//		p.setProduct(product);
+//		p.setProductEA(productEA);
+//		p.setPurchaseAmount((int) (product.getPrice() * productEA));
+//		p.setTransactionTime(LocalDateTime.now());
+//		p.setCancellationReturnInfo(calcellation);
+//		p.setCardType(cardType);
+//		p.setCardNumber(cardNumber);
+//		purchaseRepository.save(p);
+//	}
 	
 	public Page<SD_Purchase> searchPurchase(int page) {
 		Pageable pageable = PageRequest.of(page, 10);

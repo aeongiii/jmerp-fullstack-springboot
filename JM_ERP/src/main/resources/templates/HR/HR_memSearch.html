@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<!-- CSS 연결 -->
-   <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 </head>
 
 <body>
@@ -28,14 +28,19 @@
 
 				<!-- 검색 폼 -->
 				<form action="/HR/mem/search" method="get">
-					<label for="name" class="form-label">사원 조회</label>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<br>
+					<h3 for="name" class="form-label">사원 조회</h3>
 					<input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
+					<br>
 					<button type="submit" class="btn btn-primary">검색</button>
 				</form>
-
-
+				<br>
+				<br>
+				
 				<!-- 검색 결과 반환 -->
 				<div th:if="${not #lists.isEmpty(searchResults)}">
+					<h3>검색결과</h3>
 					<table class="table table-hover">
 						<thead>
 							<tr class="table-active">

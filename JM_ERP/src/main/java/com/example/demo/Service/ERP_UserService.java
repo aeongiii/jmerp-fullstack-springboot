@@ -10,13 +10,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Entity.ERP_boardA;
+import com.example.demo.Entity.ERP_boardQ;
 import com.example.demo.Entity.ERP_user;
 import com.example.demo.Entity.ERP_userMailBox;
 import com.example.demo.Entity.HR_mem;
+import com.example.demo.Repository.ERP_boardARepository;
+import com.example.demo.Repository.ERP_boardQRepository;
 import com.example.demo.Repository.ERP_userMailBoxRepository;
 import com.example.demo.Repository.ERP_userRepository;
 import com.example.demo.Repository.HR_memRepository;
 
+import error.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -27,7 +32,10 @@ public class ERP_UserService {
 	private final HR_memRepository hr_memRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final ERP_userMailBoxRepository erp_userMailBoxRepository;
-
+	private final ERP_boardQRepository questionrepository;
+	private final ERP_boardARepository answerrepository;
+	
+	
 	public boolean createuser(String userId, String password, String name, String employeeId) throws Exception {
 
 		ERP_user user = new ERP_user();
@@ -116,5 +124,37 @@ public class ERP_UserService {
 		ERP_userMailBox mail = a.get();
 		mail.setCheckStatus(true);
 		erp_userMailBoxRepository.save(mail);
+	}
+	
+//	================= board Method =======================
+	
+	public Page<ERP_boardQ> QuestionGetList(int page){
+		Pageable pageable = PageRequest.of(page, 10);
+		return this.questionrepository.findAll(pageable);
+	}
+	
+	public ERP_boardQ getQuestion(Integer id) {
+		Optional<ERP_boardQ> question = this.questionrepository.findById(id);
+		if (question.isPresent()) {
+			return question.get();
+		} else {
+			throw new DataNotFoundException("question not found");
+		}
+	}
+	
+	public void createAnswer(ERP_boardQ question, String content) {
+		ERP_boardA answer = new ERP_boardA();
+		answer.setContent(content);
+		answer.setCreateDate(LocalDateTime.now());
+		answer.setQuestion(question);
+		this.answerrepository.save(answer);
+	}	
+	
+	public void createQuestion(String subject, String content) {
+		ERP_boardQ q = new ERP_boardQ();
+		q.setSubject(subject);
+		q.setContent(content);
+		q.setCreateDate(LocalDateTime.now());
+		this.questionrepository.save(q);
 	}
 }

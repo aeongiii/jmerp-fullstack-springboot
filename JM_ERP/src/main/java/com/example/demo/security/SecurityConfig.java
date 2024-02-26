@@ -15,12 +15,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+		
+		
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-
+			    
+				
+				.requestMatchers(new AntPathRequestMatcher("/maincontents.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/bootstrapLux.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/style.css")).permitAll()
@@ -29,6 +35,12 @@ public class SecurityConfig {
 				.requestMatchers(new AntPathRequestMatcher("/bootstrapMorph.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/dataTable.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/sidebar.css")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/index.html")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/navbar.html")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/navbar.css")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/weather.css")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/weather.js")).permitAll()
+				
 				
 				.requestMatchers(new AntPathRequestMatcher("/error/**")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher(
@@ -42,7 +54,8 @@ public class SecurityConfig {
 				.requestMatchers(new AntPathRequestMatcher("/AC/**")).hasAnyAuthority("ROLE_회계")
 				.requestMatchers(new AntPathRequestMatcher("/MG/**")).hasAnyAuthority("ROLE_구매")
 				.requestMatchers(new AntPathRequestMatcher("/HR/**")).hasAnyAuthority("ROLE_인사") // TODO 관리자 권한
-
+				
+				
 		)
 
 				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())

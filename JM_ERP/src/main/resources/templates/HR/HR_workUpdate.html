@@ -40,6 +40,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/work/update/{id}(id=${HR_workUpdateForm.id})}" th:object="${HR_workUpdateForm}" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<div class="mb-3">
 						<label for="employeeId" class="form-label">사원번호</label>
 						<input type="text" th:field="*{employeeId}" class="form-control">
@@ -64,11 +65,11 @@
 								th:field="*{overtimeType}" onchange="checkOvertime()">
 							<label for="weekendWork">주말수당</label>
 						</div>
-						<div>
+						<!--<div>
 							<input type="radio" id="vacationWork" name="overtimeType" value="휴일수당"
 								th:field="*{overtimeType}" onchange="checkOvertime()">
 							<label for="vacationWork">휴일수당</label>
-						</div>
+						</div>-->
 					</div>
 
 					<div id="overtimeFields" style="display: none;">
@@ -84,7 +85,8 @@
 
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>
-				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<br>
+				<p><a class="btn btn-primary" href="http://localhost:8080/">홈으로 돌아가기</a></p>
 				<!-- 폼 끝-->
 
 

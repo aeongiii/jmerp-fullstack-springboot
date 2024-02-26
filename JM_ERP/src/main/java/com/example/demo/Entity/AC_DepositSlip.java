@@ -11,10 +11,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "AC_purchase_silp")
+@Table(name = "AC_deposit_silp")
 @Getter
 @Setter
-public class AC_PurchaseSlip {
+public class AC_DepositSlip {
 
     @Id
     private String slipCode; // 전표 코드
@@ -27,10 +27,7 @@ public class AC_PurchaseSlip {
     
     private Double amount; // 금액
     private Double VAT; // 부가세
-    private String cardNum; // 카드번호
-    private String cardName; // 카드명
     private String transactionType; // 거래유형
 
     private LocalDateTime createdAt; // 생성일자
-    private LocalDateTime updatedAt; // 수정일자
 }
