@@ -5,10 +5,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Entity.AC_PurchaseSlip;
+import com.example.demo.Entity.AC_DepositSlip;
 
 @Repository
-public interface AC_PurchaseSlipRepository extends JpaRepository<AC_PurchaseSlip, String> {
+public interface AC_DepositSlipRepository extends JpaRepository<AC_DepositSlip, String> {
 	
-    Page<AC_PurchaseSlip> findAll(Pageable pageable);
+    Page<AC_DepositSlip> findAll(Pageable pageable);
 }

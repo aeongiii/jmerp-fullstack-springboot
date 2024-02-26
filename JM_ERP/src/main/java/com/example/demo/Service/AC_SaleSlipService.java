@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -27,5 +28,24 @@ public class AC_SaleSlipService {
         return this.saleSlipRepository.findAll(pageable);
     }
     
-
+    public List<AC_SaleSlip> save(List<Object> O) {
+    	
+    	List<AC_SaleSlip> list = new ArrayList<AC_SaleSlip>();
+    	
+//        String slipCode = ""; // 전표 코드
+//
+//        LocalDate tradeDate = ; // 거래일자
+//        String trader = ; // 거래처
+//        
+//        String description = 상품명 갯수; // 적요
+//        
+//        Double amount = ; // 금액
+//        Double VAT = ; // 부가세
+//        String transactionType = 대행 판매 / 자사 상품 판매; // 거래유형
+//
+//        LocalDateTime createdAt = save 함수가 실행된 시점; // 생성일자
+    	
+    	
+    	return new ArrayList<AC_SaleSlip>();
+    }
 }

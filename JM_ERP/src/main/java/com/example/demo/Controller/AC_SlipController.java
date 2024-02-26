@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.AC_PurchaseSlip;
+import com.example.demo.Entity.AC_DepositSlip;
 import com.example.demo.Entity.AC_SaleSlip;
-import com.example.demo.Service.AC_PurchaseSlipService;
+import com.example.demo.Entity.AC_WithdrawalSlip;
+import com.example.demo.Service.AC_DepositSlipService;
+import com.example.demo.Service.AC_DepositSlipService;
+import com.example.demo.Service.AC_WithdrawalSlipService;
 import com.example.demo.Service.AC_SaleSlipService;
+import com.example.demo.Service.AC_WithdrawalSlipService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -19,21 +23,45 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class AC_SlipController {
+	private final AC_WithdrawalSlipService withdrawalSlipService;
+	private final AC_DepositSlipService depositSlipService;
 	//전표관리를 당담하는 웹사이트
 	
-	private final AC_SaleSlipService saleSlipService;
-	private final AC_PurchaseSlipService purchaseSlipService;
-	
-	@GetMapping("/slip")
-	public String List(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+	@GetMapping("/transactionslip")
+	public String transactionslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
-    	Page<AC_SaleSlip> sale = this.saleSlipService.getList(page);
-        Page<AC_PurchaseSlip> purchase = this.purchaseSlipService.getList(page);
+    	Page<AC_WithdrawalSlip> withdrawal = this.withdrawalSlipService.getList(page);
+        Page<AC_DepositSlip> deposit = this.depositSlipService.getList(page);
+        model.addAttribute("withdrawalSlipList", withdrawal);
+        model.addAttribute("depositSlipList", deposit);
+        return "ac/AC_transactionslip";
+    }
+	
+	@GetMapping("/saleslip")
+	public String saleslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+	
+	@GetMapping("/transactionslip")
+	public String transactionslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+        
+    	String currentUrl = request.getRequestURI();
+		
+        return "ac/AC_saleslip";
+        model.addAttribute("withdrawalSlipList", withdrawal);
+        model.addAttribute("depositSlipList", deposit);
+        return "ac/AC_transactionslip";
+    }
+	
+	@GetMapping("/saleslip")
+	public String saleslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+        
+    	String currentUrl = request.getRequestURI();
+		model.addAttribute("currentUrl", currentUrl);
+		
+        Page<AC_SaleSlip> sale = this.saleSlipService.getList(page);
         model.addAttribute("saleSlipList", sale);
-        model.addAttribute("purchaseSlipList", purchase);
-        return "ac/AC_slip";
+        return "ac/AC_saleslip";
     }
 }
