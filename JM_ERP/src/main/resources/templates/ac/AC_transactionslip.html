@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채권 조회</title>
+    <title>입/출금 전표</title>
     
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
      
@@ -25,9 +25,9 @@
                 <!-- 조건 조회 버튼 시작-->
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
-                    <label class="btn btn-outline-primary" for="btnradio1">매출 전표</label>
+                    <label class="btn btn-outline-primary" for="btnradio1">입금 전표</label>
                     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
-                    <label class="btn btn-outline-primary" for="btnradio2">매입 전표</label>
+                    <label class="btn btn-outline-primary" for="btnradio2">출금 전표</label>
                 </div>
                 <!-- 조건 조회 버튼 끝-->
                 
@@ -50,7 +50,7 @@
 				        </thead>
 				        <tbody>
 				            <!-- for each 문 -->
-				            <tr th:each="slip : ${saleSlipList}">
+				            <tr th:each="slip : ${depositSlipList}">
 								<!-- 화면에 띄울 정보 -->
 				                <td th:text="${slip.slipCode}"></td>
 				                <td th:text="${slip.tradeDate}"></td>
@@ -66,7 +66,7 @@
                     <!-- 데이터 테이블 끝-->
                     
                    	<!-- 페이징 프라그먼트 -->
-					<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${saleSlipList})}"></div>
+					<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${depositSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
 					<div th:replace="~{/botton::bottonFragment}"></div>
 
@@ -90,7 +90,7 @@
 				        </thead>
 				        <tbody>
 				            <!-- for each 문 -->
-				            <tr th:each="slip : ${purchaseSlipList}">
+				            <tr th:each="slip : ${withdrawalSlipList}">
 								<!-- 화면에 띄울 정보 -->
 				                <td th:text="${slip.slipCode}"></td>
 				                <td th:text="${slip.tradeDate}"></td>
@@ -105,7 +105,7 @@
 				    </table>
                     <!-- 데이터 테이블 끝-->
 	                <!-- 페이징 프라그먼트 -->
-					<div th:replace="~{/paging::pagingFragment(paging=${purchaseSlipList})}"></div>
+					<div th:replace="~{/paging::pagingFragment(paging=${withdrawalSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
 					<div th:replace="~{/botton::bottonFragment}"></div>
                 </div> <!-- 옵션 2일 때 리스트 -->

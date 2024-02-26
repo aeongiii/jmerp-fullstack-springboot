@@ -20,3 +20,4 @@ public class SD_CommissionRate {
     
 }
 
+// 판매 수수료는 고정할 것 이니 지울 것

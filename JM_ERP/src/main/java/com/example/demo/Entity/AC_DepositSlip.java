@@ -11,10 +11,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "AC_purchase_silp")
+@Table(name = "AC_deposit_silp")
 @Getter
 @Setter
-public class AC_PurchaseSlip {
+public class AC_DepositSlip {
 
     @Id
     private String slipCode; // 전표 코드

@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -27,5 +28,11 @@ public class AC_SaleSlipService {
         return this.saleSlipRepository.findAll(pageable);
     }
     
-
+    public List<AC_SaleSlip> save() {
+    	
+    	List<AC_SaleSlip> list = new ArrayList<AC_SaleSlip>();
+    	
+    	
+    	return new ArrayList<AC_SaleSlip>();
+    }
 }

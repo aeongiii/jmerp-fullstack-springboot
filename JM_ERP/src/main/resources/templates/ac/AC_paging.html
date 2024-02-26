@@ -1,5 +1,5 @@
 <!-- AC_paging.html -->
-<div th:fragment="AC_pagingFragment">
+<div th:fragment="AC_pagingFragment" th:if="${paging.totalPages > 0}">
     <div class="pagination justify-content-center">
         <ul class="pagination">
             <!-- 이전 페이지 -->
