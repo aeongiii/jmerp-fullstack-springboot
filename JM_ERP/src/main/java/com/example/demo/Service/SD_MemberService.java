@@ -1,7 +1,6 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,9 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SD_Member;
-import com.example.demo.Entity.SD_Product;
 import com.example.demo.Entity.SD_Purchase;
-import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Repository.SD_MemberRepository;
 import com.example.demo.Repository.SD_PurchaseRepository;
 
@@ -24,23 +21,12 @@ public class SD_MemberService {
 	private final SD_MemberRepository memberRepository;
 	private final SD_PurchaseRepository purchaseRepository;
 	
-	
-	public void RegMember(String memberId, String name, LocalDate dateOfBirth, String country, String contactNumber,
-			String email, String address, String gender,boolean membership
+	// 고객 등록
+	public void RegiMember(String memberId, String memberName, String memberPhoneNumber, String memberEmail, String memberAddress, LocalDate memberJoinDate
 			) {
 		
 		SD_Member m = new SD_Member();
-		m.setAddress(address);
 		m.setMemberId(memberId);
-		m.setAddress(address);
-		m.setContactNumber(contactNumber);
-		m.setCountry(country);
-		m.setDateOfBirth(dateOfBirth);
-		m.setEmail(email);
-		m.setGender(gender);
-		m.setName(name);
-		m.setJoinDate(LocalDate.now());
-		m.setMembership(false);
 		memberRepository.save(m);
 	}
 	
