@@ -23,7 +23,7 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-//				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
 			    
 				
 				.requestMatchers(new AntPathRequestMatcher("/maincontents.css")).permitAll()
