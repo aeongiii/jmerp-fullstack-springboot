@@ -25,7 +25,8 @@ public class SD_SellerCommission {
     @Column(name = "paid_commission")
     private Double paidCommission; // 지불한 수수료
 
-    // Constructors, Getters, Setters
+
+ // 사용 안함 !!!!!!! 삭제 예정 !!!!!!!!!!!
 }
 
 
