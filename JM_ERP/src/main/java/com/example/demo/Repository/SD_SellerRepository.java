@@ -8,5 +8,5 @@ import com.example.demo.Entity.SD_Seller;
 
 public interface SD_SellerRepository extends JpaRepository<SD_Seller, String>{
 
-	Page<SD_Seller> findAll(Pageable pageabel);
+	Page<SD_Seller> findAll(Pageable pageable);
 }
