@@ -51,3 +51,6 @@ public class SD_Product {
 	    @JoinColumn(name = "seller_id")
 	    private SD_Seller seller;
 }
+
+
+//사용 안함 !!!!!!! 삭제 예정 !!!!!!!!!!!

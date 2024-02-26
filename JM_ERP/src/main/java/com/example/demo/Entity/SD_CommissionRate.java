@@ -20,3 +20,4 @@ public class SD_CommissionRate {
     
 }
 
+// 사용 안함 !!!!!!! 삭제 예정 !!!!!!!!!!!

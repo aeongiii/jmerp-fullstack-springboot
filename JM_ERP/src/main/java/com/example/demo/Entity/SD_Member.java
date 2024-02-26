@@ -2,51 +2,30 @@ package com.example.demo.Entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
+@Entity 
+@Table(name = "SD_Member")		// 테이블명 지정
 public class SD_Member {
 
     @Id
-    @Column(name = "member_id")
-    private String memberId;
+    private String memberId;	// 기본키 : 고객 아이디
 
-    @Column(name = "name", nullable = false, length = 100)
-    private String name;
+    private String memberName;	// 고객이름
 
-    @Column(name = "date_of_birth")
-    private LocalDate dateOfBirth;
+    private String memberPhoneNumber;	// 고객전화번호
 
-    @Column(name = "country", nullable = false, length = 50)
-    private String country;
+    private String memberEmail;	// 고객이메일
 
-    @Column(name = "contact_number", nullable = false, length = 20)
-    private String contactNumber;
+    private String memberAddress;	// 고객주소
 
-    @Column(name = "email", nullable = false, length = 100)
-    private String email;
-
-    @Column(name = "address", length = 255)
-    private String address;
-
-    @Column(name = "gender", length = 10)
-    private String gender;
-
-    @Column(name = "join_date")
-    private LocalDate joinDate;
-    
-    @Column(name = "membership")
-    private boolean membership;
-    
-    @Column(name = "credit_date")
-    private LocalDate credit_date;
-
+    private LocalDate memberJoinDate;	// 고객가입날짜
 
     
 }
