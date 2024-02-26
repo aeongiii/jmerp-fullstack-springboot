@@ -11,8 +11,6 @@ import com.example.demo.Entity.AC_DepositSlip;
 import com.example.demo.Entity.AC_SaleSlip;
 import com.example.demo.Entity.AC_WithdrawalSlip;
 import com.example.demo.Service.AC_DepositSlipService;
-import com.example.demo.Service.AC_DepositSlipService;
-import com.example.demo.Service.AC_WithdrawalSlipService;
 import com.example.demo.Service.AC_SaleSlipService;
 import com.example.demo.Service.AC_WithdrawalSlipService;
 
@@ -23,9 +21,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Controller
 public class AC_SlipController {
+	//전표관리를 당담하는 웹사이트
+	
 	private final AC_WithdrawalSlipService withdrawalSlipService;
 	private final AC_DepositSlipService depositSlipService;
-	//전표관리를 당담하는 웹사이트
+	private final AC_SaleSlipService saleSlipService;
 	
 	@GetMapping("/transactionslip")
 	public String transactionslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
@@ -35,20 +35,6 @@ public class AC_SlipController {
 		
     	Page<AC_WithdrawalSlip> withdrawal = this.withdrawalSlipService.getList(page);
         Page<AC_DepositSlip> deposit = this.depositSlipService.getList(page);
-        model.addAttribute("withdrawalSlipList", withdrawal);
-        model.addAttribute("depositSlipList", deposit);
-        return "ac/AC_transactionslip";
-    }
-	
-	@GetMapping("/saleslip")
-	public String saleslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
-	
-	@GetMapping("/transactionslip")
-	public String transactionslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
-        
-    	String currentUrl = request.getRequestURI();
-		
-        return "ac/AC_saleslip";
         model.addAttribute("withdrawalSlipList", withdrawal);
         model.addAttribute("depositSlipList", deposit);
         return "ac/AC_transactionslip";
