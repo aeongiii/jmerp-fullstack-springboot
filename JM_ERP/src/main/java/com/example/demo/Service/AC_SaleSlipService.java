@@ -1,5 +1,7 @@
 package com.example.demo.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,24 +30,52 @@ public class AC_SaleSlipService {
         return this.saleSlipRepository.findAll(pageable);
     }
     
-    public List<AC_SaleSlip> save(List<Object> O) {
+//    public List<AC_SaleSlip> save(List<SD_purchase> purchaseList) {
+//    	
+//    	List<AC_SaleSlip> list = new ArrayList<AC_SaleSlip>();
     	
-    	List<AC_SaleSlip> list = new ArrayList<AC_SaleSlip>();
-    	
-//        String slipCode = ""; // 전표 코드
 //
-//        LocalDate tradeDate = ; // 거래일자
-//        String trader = ; // 거래처
-//        
-//        String description = 상품명 갯수; // 적요
-//        
-//        Double amount = ; // 금액
-//        Double VAT = ; // 부가세
-//        String transactionType = 대행 판매 / 자사 상품 판매; // 거래유형
+//    		new List<AC_SaleSlip> slips = new ArrayList<AC_SaleSlip>();
+    	
+//			new List<AC_SaleSlip> slipList = getList();
+    	
+//			String yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yy"+"MM"));
+//			int i = 1;
+//			int j = 1;
+//    		for (list : purchaseList) {
+
+//				if (getList().size() == j) {
+//					getList로 가져온 형식이 yyMM"숫자"이므로
+//					if ((getList().get(j-1).subString(0,4)).equals(yearMonth)) {
+//						i++;
+//					}
+    
+//					j++;
+// 					continue;
+//    			}
+    	
+//    			slip.setSlipCode(String.format("%s%03d", yearMonth, i));
+//    			slip.setTradeDate(list.getTradeDate);
+//    			slip.setTrader(list.getMemberId);
+//    			slip.setDescription(list.getProductCode() + " " + list.getProductEA() + "개");
+//    			slip.setAmount(list.getPurchaseAmount);
+//    			slip.setVAT(list.getPurchaseAmount / 10);
+//				
+//				String product = list.getSellerName();    
+//				    
+//    			if (!Seller.equals("달토끼")) {
+//    			    transactionType = "대행판매";
+//    			} else if (product.equals("달토끼")) {
+//        			transactionType = "자가판매";
+//    			} else {
+//        			transactionType = "기타";
+//    			}
+//				slip.setTransactionType(TransactionType);
+//    			slip.setCreatedAT(localDateTime.now());
+//			}
 //
-//        LocalDateTime createdAt = save 함수가 실행된 시점; // 생성일자
+//    	}
     	
-    	
-    	return new ArrayList<AC_SaleSlip>();
-    }
+//    	return this.saleSlipRepository.saveAll(slipList);
+//    }
 }
