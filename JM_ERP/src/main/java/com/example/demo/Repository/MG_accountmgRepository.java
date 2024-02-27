@@ -14,4 +14,6 @@ public interface MG_accountmgRepository extends JpaRepository<Mg_AccountMG_Entit
 	Page<Mg_AccountMG_Entity> findAll(Pageable pageable);
 	
 	List<Mg_AccountMG_Entity> findByaccountNameContaining(String accountName);
+	
+	List<Mg_AccountMG_Entity> findAll();
 }
