@@ -25,13 +25,15 @@ public class SD_PBProduct {
 
 	private String productCode; // 상품코드 (pb_1 형식)
 
-	private int price; // 판매금액
+	private int PriceEA; // 1개당 판매금액
 
 	private LocalDate registrationDate; // 상품등록날짜 (2024-01-01 형식)
 	
 	private String imageFileLink; // 이미지파일 링크
 	
 	private String description; // 적요
+	
+	private int totalSaleEA; // 총 판매된 수량
 
   
 }

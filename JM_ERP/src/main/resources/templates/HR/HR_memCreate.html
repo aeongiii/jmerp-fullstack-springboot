@@ -29,7 +29,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/mem/create}" th:object="${HR_memCreateForm}" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+					<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 					<div class="mb-3">
 						<label for="name" class="form-label">이름</label>
 						<input type="text" th:field="*{name}" class="form-control">

@@ -59,9 +59,9 @@ public class SD_MemberService {
 	}
 
 	
-	public Page<SD_Member> searchMemberbyname(int page,String name){
-		Pageable pageable = PageRequest.of(page,10);
-		return memberRepository.findByName(name,pageable);
-		
-	}
+//	public Page<SD_Member> searchMemberbyname(int page,String name){
+//		Pageable pageable = PageRequest.of(page,10);
+//		return memberRepository.findByName(name,pageable);
+//		
+//	}
 }
