@@ -33,21 +33,6 @@
 			
 			        <label for="maturityDate">만기일:</label>
 			        <input type="date" id="maturityDate" name="maturityDate" required><br>
-			        
-			        <script>
-						// 오늘 날짜를 가져오는 함수
-					    function getTodayDate() {
-					        var today = new Date();
-					        var dd = String(today.getDate()).padStart(2, '0');
-					        var mm = String(today.getMonth() + 1).padStart(2, '0'); // 1월은 0으로 시작하므로 1을 더해줍니다.
-					        var yyyy = today.getFullYear();
-					
-					        return yyyy + '-' + mm + '-' + dd;
-					    }
-					
-					    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
-					    document.getElementById('maturityDate').min = getTodayDate();
-					</script>
 			
 			        <label for="description">적요:</label>
 			        <input type="text" id="description" name="description" required><br>
@@ -60,7 +45,14 @@
     
     <!-- Bootstrap JS 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
     <!-- JQuery 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/AC_javascript.js"></script>
+    
+    <script>
+    // maturityDate 입력 필드의 min 속성을 오늘 날짜로 설정
+    document.getElementById('maturityDate').min = getTodayDate();
+	</script>
 </body>
 </html>

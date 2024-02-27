@@ -1,56 +1,43 @@
 package com.example.demo.Entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@Table(name = "SD_Purchase") // 테이블명 지정
 public class SD_Purchase {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id", nullable = false)
-    private SD_Member member;
-   
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private SD_Seller seller;
-  
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private SD_Product product;
+	@ManyToOne // 한 고객이 여러 구매내역을 가질 수 있음
+	@JoinColumn(name = "memberId", referencedColumnName = "memberId")
+	private SD_Member memberId; // 고객 아이디 (외래키로 참조)
 
-    @Column(name = "purchase_date")
-    private LocalDate purchaseDate;
+	@ManyToOne // 한 판매자의 사업자등록번호가 여러번 기록될 수 있음 (여러 사람이 구매할 경우)
+	@JoinColumn(name = "sellerId", referencedColumnName = "sellerId")
+	private SD_Seller sellerId; // 사업자등록번호 (외래키로 참조)
 
-    @Column(name = "purchase_amount")
-    private Integer purchaseAmount;
+	private String productCode; // 상품코드
 
-    @Column(name = "transaction_time")
-    private LocalDateTime transactionTime;
+	private int productEA; // 구매수량
 
-    @Column(name = "cancellation_return_info")
-    private boolean cancellationReturnInfo;
+	private int purchaseAmount; // 구매금액
 
-    @Column(name = "card_type", length = 50)
-    private String cardType;
+	private LocalDateTime purchaseTime; // 거래일시
 
-    @Column(name = "card_number", length = 20)
-    private String cardNumber;
+	private String cardNumber; // 결제한 카드번호
 
-   
 }

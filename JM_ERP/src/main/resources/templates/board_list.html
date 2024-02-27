@@ -1,0 +1,26 @@
+<html layout:decorate="~{board_layout}">
+	<div layout:fragment="content" class="container my-3">
+		<table class="table">
+		    <thead class="table-dark">
+		        <tr>
+					<th>번호</th>
+		            <th>제목</th>
+		            <th>작성일시</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="question, loop : ${questionlist}">
+					<td th:text="${loop.count}"></td>
+					<td>
+						<a th:href="@{|/user/board/Qdetail/${question.id}|}" 
+						th:text="${question.subject}"></a>
+					</td>
+		            <td th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}"></td>
+		        </tr>
+		    </tbody>
+		</table>
+		<div th:replace="~{/paging::pagingFragment(paging=${questionlist})}"></div>
+		<a th:href="@{/user/board/Qcreate}" class="btn btn-primary">질문 등록</a>
+		
+	</div>
+</html>

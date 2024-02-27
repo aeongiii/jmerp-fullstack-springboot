@@ -30,6 +30,7 @@
 				<!-- 폼 -->
 				<form th:action="@{/HR/cont/update/{id}(id=${HR_contUpdateForm.id})}" th:object="${HR_contUpdateForm}"
 					method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" th:field="*{id}" /> <!-- id값 숨겨서 함께 전달 -->
 
 					<div class="mb-3">
@@ -73,7 +74,8 @@
 
 					<button type="submit" class="btn btn-primary">수정</button>
 				</form>
-				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<br>
+				<p><a class="btn btn-primary" href="http://localhost:8080/">홈으로 돌아가기</a></p>a></p>
 				<!-- 폼 끝-->
 
 

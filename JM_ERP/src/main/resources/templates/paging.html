@@ -1,10 +1,8 @@
-<!--============================= main paging =========================-->
-
  <!-- 페이징 처리 -->
 <div th:fragment ="pagingFragment" th:if="${paging.totalPages > 1}">
-  <!-- 이전 페이지 링크 -->
-  <ul class="pagination pagination-lg justify-content-center" th:classappend="${paging.isFirst() ? 'disabled' : ''}">
-    <li class="page-item disabled">
+  <ul class="pagination pagination-lg justify-content-center" >
+  	<!-- 이전 페이지 링크 -->
+    <li class="page-item" th:classappend="${paging.hasPrevious()} ?  '' : 'disabled'">
       <a class="page-link" th:href="@{${currentUrl}(page=${paging.number - 1})}">&laquo;</a>
     </li>
     
@@ -12,12 +10,10 @@
     <li class="page-item" th:each="pageNum : ${#numbers.sequence(0, paging.totalPages - 1)}"
         th:classappend="${pageNum == paging.number ? 'active' : ''}">
       <a class="page-link" th:href="@{${currentUrl}(page=${pageNum})}" th:text="${pageNum + 1}"></a>
-      
-
     </li>
     
     <!-- 다음 페이지 링크 -->
-    <li class="page-item" th:classappend="${paging.isLast() ? 'disabled' : ''}">
+    <li class="page-item" th:classappend="${paging.hasNext()} ?  '': 'disabled'">
       <a class="page-link" th:href="@{${currentUrl}(page=${paging.number + 1})}">&raquo;</a>
     </li>
   </ul>

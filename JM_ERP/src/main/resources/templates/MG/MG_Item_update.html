@@ -64,7 +64,7 @@
 	<h2>물품 등록</h2>
 
 <form th:action="@{/MG/itemupdate/{itemCode}(itemCode=${item.itemCode})}" method="post">
-			
+			 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 		<input type="hidden" name="itemCode" th:value="${item.itemCode}" />
 		<!-- 이름 입력 -->
 		<label for="itemName">변경 물품명:</label>

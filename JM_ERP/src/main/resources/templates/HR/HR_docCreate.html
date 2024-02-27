@@ -28,6 +28,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/doc/create}" th:object="${HR_docCreateForm}" method="post">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 					<input type="hidden" th:field="*{docNum}" /> <!-- id값 숨겨서 함께 전달 -->
 
 					<div class="mb-3">
@@ -63,7 +64,8 @@
 
 					<button type="submit" class="btn btn-primary">등록</button>
 				</form>
-				<p><a class="btn btn-primary" href="http://localhost:8080/HR/mem/list">홈으로 돌아가기</a></p>
+				<br>
+				<p><a class="btn btn-primary" href="http://localhost:8080/">홈으로 돌아가기</a></p>
 				<!-- 폼 끝-->
 
 
