@@ -32,8 +32,10 @@ public class PC_PurchaseInquiry {
     @Column(name = "warehouse_name", length = 100)
     private String warehouseName;
     // 창고명
-    @Column(name = "imported_voucher", length = 100)
-    private String importedVoucher;
+    @Column(name = "acceptance", length = 100)
+    private String acceptance;
     //전표 카드거래만
+    
+
     // 기본 생성자, getter, setter는 Lombok 어노테이션을 통해 자동 생성됩니다.
 }
