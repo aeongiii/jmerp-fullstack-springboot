@@ -98,6 +98,9 @@ a {
   background-color: black;
   overflow: hidden;
   transition: .5s;
+  background-image : url('image/space2.png');
+  background-size: cover;
+  background-position: center;
 }
 
 .side-bar ul > li > a {
