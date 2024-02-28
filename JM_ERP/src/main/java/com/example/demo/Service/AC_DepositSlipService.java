@@ -33,10 +33,12 @@ public class AC_DepositSlipService {
 //    	즉 자사 물품 판매시에는 판매 전표와 동일한 결과가, 대행 판매 물품에 대해서는 다른 결과가 나오게 끔
 //    	즉 판매수수료는 면세수익으로 표현 가능 과세물품, 면세물품
 //
-//    			new List<AC_SaleSlip> slip = new arrayList<AC_SaleSlip>();
+//    		new List<AC_DepositSlip> slip = new arrayList<AC_DepositSlip>();
+    
+//			int i = 1;
 //    		for (seller : SD_seller) {
-//    		for(saleSlip : AC_saleSlip) {
-//    			if (saleSlip.getCratedAT()) {
+//    		for (saleSlip : AC_saleSlip) {
+//    			if (getList().size() >= i) {
 //    				continue;
 //    			}
 //    			
@@ -55,6 +57,7 @@ public class AC_DepositSlipService {
 //    		}
 //
 //    		NB가 아닌경우의 전표는 전표 코드를 제외한 saleSlip과 동일 - 어떻게 가져올 것인가
+//			SaleSlipRepository 에서 findBy 사용?
 //
 //    	}
 //    }

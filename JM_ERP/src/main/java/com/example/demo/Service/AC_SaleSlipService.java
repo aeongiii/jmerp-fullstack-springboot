@@ -44,7 +44,7 @@ public class AC_SaleSlipService {
 //			int j = 1;
 //    		for (list : purchaseList) {
 
-//				if (getList().size() == j) {
+//				if (getList().size() >= j) {
 //					getList로 가져온 형식이 yyMM"숫자"이므로
 //					if ((getList().get(j-1).subString(0,4)).equals(yearMonth)) {
 //						i++;
