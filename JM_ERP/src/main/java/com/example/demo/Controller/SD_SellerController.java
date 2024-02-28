@@ -31,7 +31,7 @@ public class SD_SellerController {
 
 	private final SD_SellerService sellerService;
 	private final SD_NBProductService nbService;
-// 커밋 메시지 다시 작성!
+
 // 판매자 등록 
 	@GetMapping("/create")
 	public String sellerCreate(Model model) {
