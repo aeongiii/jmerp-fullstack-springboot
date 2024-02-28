@@ -19,13 +19,19 @@ public class SD_PBProduct {
 	@JoinColumn(name = "sellerId", referencedColumnName = "sellerId")
 	private SD_Seller sellerId; // 사업자등록번호 (외래키로 참조)
 
+	private String sellerName;	// 판매자이름
+	
 	private String category; // 상품분류
 
 	private String productName; // 상품명
 
 	private String productCode; // 상품코드 (pb_1 형식)
 
-	private int PriceEA; // 1개당 판매금액
+	private int priceEA; // 1개당 판매금액
+	
+	private int totalSaleEA =0; // 총 판매수량
+	
+	private int totalPrice; // 총 판매수량
 
 	private LocalDate registrationDate; // 상품등록날짜 (2024-01-01 형식)
 	
@@ -33,7 +39,6 @@ public class SD_PBProduct {
 	
 	private String description; // 적요
 	
-	private int totalSaleEA; // 총 판매된 수량
 
   
 }

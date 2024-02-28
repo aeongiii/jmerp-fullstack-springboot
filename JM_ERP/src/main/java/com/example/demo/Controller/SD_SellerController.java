@@ -1,18 +1,55 @@
 package com.example.demo.Controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.Form.SD_sellerCreateForm;
 import com.example.demo.Service.SD_SellerService;
 
-@RequestMapping("SD/seller")
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
+@RequestMapping("/SD/seller")
 public class SD_SellerController {
 
 	@Autowired
 	private SD_SellerService sellerService;
 
+	
+// 셀러 등록
+	@GetMapping("/create")
+	public String sellerCreate(Model model) {
+		model.addAttribute("SD_sellerCreateForm", new SD_sellerCreateForm()); // 셀러 등록 폼을 모델에 추가
+		return "SD/SD_sellerCreate";
+	}
+	
+	@PostMapping("/create")
+	public String sellerCreate(@Valid SD_sellerCreateForm sellerCreateForm, Model model) {
+		SD_SellerService.save(sellerCreateForm); // 모든 셀러 정보를 DB에 저장
+		return "redirect:/SD/member/list";	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	@GetMapping("/list")
 //	public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
 //			HttpServletRequest request) {
