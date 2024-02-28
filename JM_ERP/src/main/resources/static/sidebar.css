@@ -95,7 +95,7 @@ a {
   z-index: 4;
   min-height: 100vh;
   width: 80px;
-  background-color: black;
+  background-color: #333F50;
   overflow: hidden;
   transition: .5s;
 }
@@ -144,7 +144,7 @@ a {
 }
 
 .side-bar ul > li:hover > a {
-  background-color: #888
+  background-color: #326393
 }
 
 .side-bar > ul > li {
