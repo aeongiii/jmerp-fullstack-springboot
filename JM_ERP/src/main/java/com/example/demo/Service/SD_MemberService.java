@@ -27,7 +27,7 @@ public class SD_MemberService {
 	private final SD_MemberRepository memberRepository;
 	private final SD_PurchaseRepository purchaseRepository;
 
-// 고객 등록
+// 고객 등록 폼 저장
 	public void saveMember(SD_memberCreateForm form) {
 
 		// 현재 날짜
