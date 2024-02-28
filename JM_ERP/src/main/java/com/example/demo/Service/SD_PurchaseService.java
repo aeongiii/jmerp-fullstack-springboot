@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class SD_PurchaseService {
-	
+
 	private final SD_PurchaseRepository purchaseRepository;
 	private final SD_MemberRepository memberRepository;
 
@@ -27,15 +27,18 @@ public class SD_PurchaseService {
 		return purchaseRepository.findAll(pageable);
 	}
 	
-	
-	
+	public List<SD_Purchase> getList() {
+		return this.purchaseRepository.findAll();
+	}
+
 	// 고객 조회 로직 구현
-		public Page<SD_Purchase> searchByMemberId(String memberId, Pageable pageable) {
-			return purchaseRepository.findByMemberId(memberId, pageable);
-		}
+	public Page<SD_Purchase> searchByMemberId(String memberId, Pageable pageable) {
+		return purchaseRepository.findByMemberId(memberId, pageable);
+	}
 
-		public List<SD_Purchase> getList() {
-			return this.purchaseRepository.findAll();
-		}
-
+	// 고객 아이디로 구매내역 찾기
+	public Page<SD_Purchase> findByMemberId(String memberId, int page) {
+		Pageable pageable = PageRequest.of(page, 10);
+		return purchaseRepository.findByMemberId(memberId, pageable);
+	}
 }

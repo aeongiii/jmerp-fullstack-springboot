@@ -47,9 +47,8 @@ public class SD_MemberService {
 	public Page<SD_Member> searchAll(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
 		return memberRepository.findAll(pageable);
-	}	
-	
-	
+	}
+
 // 구매내역 조회
 	public Page<SD_Purchase> searchPurchase(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
@@ -64,12 +63,8 @@ public class SD_MemberService {
 
 // 고객 조회
 	public List<SD_Member> findAllMembers() {
-	    return memberRepository.findAll();
+		return memberRepository.findAll();
 	}
 
-//	public Page<SD_Member> searchMemberbyname(int page,String name){
-//		Pageable pageable = PageRequest.of(page,10);
-//		return memberRepository.findByName(name,pageable);
-//		
-//	}
+
 }

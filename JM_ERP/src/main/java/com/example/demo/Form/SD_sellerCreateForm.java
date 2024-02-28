@@ -17,7 +17,7 @@ public class SD_sellerCreateForm {
 	@NotEmpty(message = "판매자명은 필수항목입니다.")
     private String sellerName;	// 판매자 이름
 
-	@NotEmpty(message = "연락처는 필수항목입니다.")
+	@NotEmpty(message = "전화번호는 필수항목입니다.")
     private String sellerPhoneNumber;	// 판매자 연락처
 
 	@NotEmpty(message = "이메일은 필수항목입니다.")
