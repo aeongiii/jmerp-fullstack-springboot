@@ -1,5 +1,7 @@
 package com.example.demo.Service;
 
+import java.time.LocalDate;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +33,18 @@ public class PC_PurchaseService {
 		return purchaseInquiryRepository.findAll(pageable);
 	}
 	
+	
+	public void purchaseSave(LocalDate PurchaseDate, String clientName, String itemName ,Double totalAmount, String warehouseName, String importedVoucher) {
+		PC_PurchaseInquiry purchase = new PC_PurchaseInquiry();
+		
+		purchase.setPurchaseDate(PurchaseDate);
+		purchase.setClientName(clientName);
+		purchase.setItemName(itemName);
+		purchase.setTotalAmount(totalAmount);
+		purchase.setWarehouseName(warehouseName);
+		purchase.setImportedVoucher(importedVoucher);
+		purchaseInquiryRepository.save(purchase);
+	}
 
 }
 

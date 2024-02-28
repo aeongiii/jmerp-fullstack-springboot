@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<!-- http://localhost:8080/purchase/ordersheet -->
+<!-- http://localhost:8080/purchase/purchaseinquiry -->
 
 <head>
 	<title>Seller List</title>
@@ -14,15 +14,14 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
-		<div class="row">
-
-			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
+			<div class="row">
 			<div class="col-lg-2">
-			<div th:replace="~{PC_arcodian :: PC_arcodianFragment}"></div>
+			<div th:replace="~{PC/PC_arcodian :: PC_arcodianFragment}"></div>
 			</div>
+		
 
 
 
@@ -40,29 +39,28 @@
 				<!-- 데이터 테이블 시작-->
 				<table class="table table-hover">
 					<thead>
-						<tr class="table-active">
-							<th>Order Number</th>
+						<tr class ="table-active">
+							<th>ID</th>
+							<th>Purchase Date</th>
 							<th>Client Name</th>
-							<th>Contact Person</th>
-							<th>Item</th>
-							<th>Delivery Date</th>
-							<th>Amount</th>
-							<th>Completion Status</th>
-							<th>Progress Status</th>
-							<th>Project Name</th>
+							<th>Item Name</th>
+							<th>Total Amount</th>
+							<th>importedVoucher \</th>
+							<th>Warehouse Name</th>
+						
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="orderSheet : ${paging.content}">
-							<th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
-							<td th:text="${orderSheet.clientName}">Client Name</td>
-							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
-							<td th:text="${orderSheet.item}">Item</td>
-							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
-							<td th:text="${orderSheet.amount}">Amount</td>
-							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
-							<td th:text="${orderSheet.progressStatus}">Progress Status</td>
-							<td th:text="${orderSheet.projectName}">Project Name</td>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="inquiry : ${paging.content}">
+							<th scope="row" th:text="${inquiry.num}">ID</th>
+							<td th:text="${inquiry.PurchaseDate}">Purchase Date</td>
+							<td th:text="${inquiry.clientName}">Client Name</td>
+							<td th:text="${inquiry.itemName}">Item Name</td>
+							<td th:text="${inquiry.totalAmount}">Total Amount</td>
+							<td th:text="${inquiry.importedVoucher}">importedVoucher Type</td>
+							<td th:text="${inquiry.warehouseName}">Warehouse Name</td>
+							
 						</tr>
 					</tbody>
 				</table>
@@ -71,7 +69,7 @@
 				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{botton::bottonFragment}"></div>
+				<div th:replace="~{PC/botton::bottonFragment}"></div>
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 

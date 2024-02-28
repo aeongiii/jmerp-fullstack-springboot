@@ -57,6 +57,12 @@ public class MG_acoountService {
 		}
 	}
 	
+	public List<Mg_AccountMG_Entity> accountManager(){
+		return mgaccountmgRepository.findAll();
+	}
+	
+	
+	
 	public List<Mg_AccountMG_Entity> serchAccount(String accountName){
 		return mgaccountmgRepository.findByaccountNameContaining(accountName);
 	}

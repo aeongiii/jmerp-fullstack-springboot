@@ -10,6 +10,7 @@
 
 	<!-- Bootstrap CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+	<link rel = "icon" href "img/favicon-inquiry4.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
 </head>
 
 <body>
@@ -82,7 +83,7 @@
 	</div> <!-- 컨테이너 플루이드 끝 -->
 	<!-- 딜리트 폼 -->
 	<form method="post" name="accountDeleteForm" th:action="@{/MG/accmg/DeleteAccount(DeleteAccount=${accountCode})}">
-		 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+		 <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 		<input type="hidden" name="ids" value="" />
 	</form>
 
@@ -96,7 +97,7 @@
 				</div>
 				<div class="modal-body">
 					<form id="updateForm" th:action="@{/MG/accountupdate/accountCode(accountCode=${accountCode})}" method="post">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 						<input type="hidden" id="modalAccountCode" name="accountCode">
 						<div class="form-group">
 							<label for="accountName">거래처명:</label>
