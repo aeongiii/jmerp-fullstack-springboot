@@ -2,12 +2,14 @@ package com.example.demo.Controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.Entity.Mg_AccountMG_Entity;
 import com.example.demo.Entity.PC_OrderSheet;
 import com.example.demo.Entity.PC_PurchaseInquiry;
-import com.example.demo.Repository.MG_accountmgRepository;
+import com.example.demo.Entity.PD_Cost;
 import com.example.demo.Service.MG_acoountService;
 import com.example.demo.Service.PC_PurchaseService;
+import com.example.demo.Service.PD_CostService;
 
 import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/PC/purchase")
@@ -29,7 +32,8 @@ public class PC_Purchasecontroller {
 	private PC_PurchaseService purchaseservice; 
 	@Autowired
 	private MG_acoountService accountMg;
-	
+	@Autowired
+	private PD_CostService costService;
 
     
 	@GetMapping("/ordersheet")
@@ -42,6 +46,46 @@ public class PC_Purchasecontroller {
 		return "PC/PC_OrderSheet_list";
 	}
 	
+	
+	@GetMapping("/ordersheet/create/{id}")
+	public String ordersheetCreateUrl(
+			@PathVariable("id")Long id,
+			Model model) {
+		Optional<PC_PurchaseInquiry> ids = purchaseservice.findpurchase(id);
+		
+		
+		model.addAttribute("ids",ids);
+		
+		return "PC/PC_OrderSheetReg";
+	}
+	
+	@PostMapping("/ordersheet/create/{id}")
+	public String ordersheetCreateUrl(@PathVariable("id") Long num) {
+		
+		
+		
+		
+		
+		return "redirect:/PC/purchase/ordersheet";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//----------------------------------------------------------------------------------------------------------------	
+	
+	
 	@GetMapping("/purchaseinquiry")
 	public String searchPurchaseInquiry(Model model, @RequestParam(value="page",defaultValue ="0") int page,HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
@@ -53,27 +97,27 @@ public class PC_Purchasecontroller {
 	}
 	
 	@GetMapping("/purchaseinquiry/create")
-	public String purchaseCreateUrl(Model model) {
+	public String purchaseCreateUrl(Model model,Model model1) {
 		List<Mg_AccountMG_Entity> account = accountMg.accountManager();
+		List<PD_Cost> costList =  costService.getList();
 		
 		model.addAttribute("account",account);
-		
+		model1.addAttribute("costList",costList);
 		return "PC/PC_purchaseinquiry_create";
 	}
 		
 	@PostMapping("/purchaseinquiry/create")
 	public String purchaseCreateform(
 		@RequestParam(value="clientName") String clientName,
-		@RequestParam(value="importedVoucher") String importedVoucher,
 		@RequestParam(value="itemName") String itemName,
 		@RequestParam(value="PurchaseDate") LocalDate PurchaseDate,
 		@RequestParam(value="totalAmount") Double totalAmount,
 		@RequestParam(value="warehouseName") String warehouseName)
 		 {
 	
+		String acceptance = "아니요";
 		
-		
-		purchaseservice.purchaseSave( PurchaseDate,  clientName,  itemName , totalAmount,  warehouseName,importedVoucher);
+		purchaseservice.purchaseSave( PurchaseDate,  clientName,  itemName , totalAmount,  warehouseName,acceptance);
 		
 		return "redirect:/PC/purchase/purchaseinquiry";
 	}
