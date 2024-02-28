@@ -1,0 +1,4 @@
+*.lock
+*.log
+.metadata/
+JM_ERP/build.gradle.rej
