@@ -30,7 +30,7 @@
 
 				<!-- 신규 부서 등록 폼 -->
 				<form th:action="@{/HR/dept/create}" th:object="${HR_deptCreateForm}" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<!--	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 					<div class="mb-3">
 						<h3>부서 추가</h3>
 						<!--<label for="deptName" class="form-label"></label>-->
