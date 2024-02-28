@@ -28,7 +28,7 @@
 
 				<!-- 폼 -->
 				<form th:action="@{/HR/day/create}" th:object="${HR_dayCreateForm}" method="post">
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		<!--			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 					<div class="mb-3">
 						<label for="dayWorkName" class="form-label">이름</label>
 						<input type="text" th:field="*{dayWorkName}" class="form-control">

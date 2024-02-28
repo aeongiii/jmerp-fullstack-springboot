@@ -1,3 +1,4 @@
+
 package com.example.demo.Repository;
 
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ public interface SD_MemberRepository extends JpaRepository<SD_Member, String> {
 
 	Page<SD_Member> findAll(Pageable pageable);
 	
-	Page<SD_Member> findByName(String name,Pageable pageable);
+//	Page<SD_Member> findByName(String name,Pageable pageable);
 	
 	
 	
