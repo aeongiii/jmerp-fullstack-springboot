@@ -31,8 +31,8 @@ public class SD_SellerController {
 
 	private final SD_SellerService sellerService;
 	private final SD_NBProductService nbService;
-
-// 판매자 등록
+// 커밋 메시지 다시 작성!
+// 판매자 등록 
 	@GetMapping("/create")
 	public String sellerCreate(Model model) {
 		model.addAttribute("SD_sellerCreateForm", new SD_sellerCreateForm()); // 셀러 등록 폼을 모델에 추가
