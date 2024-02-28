@@ -32,12 +32,16 @@ public class SD_Purchase {
 
 	private String productCode; // 상품코드
 
-	private int productEA; // 구매수량
+	private int priceEA; // 1개당 가격
 
-	private int purchaseAmount; // 구매금액
+	private int totalPurchaseEA; // 구매수량
+	
+	private int totalPrice; // 총판매금액
 
 	private LocalDateTime purchaseTime; // 거래일시
 
-	private String cardNumber; // 결제한 카드번호
+	private String memberCardNumber; // 결제한 카드번호
+	
+	private String sellerName; // 판매자 이름
 
 }

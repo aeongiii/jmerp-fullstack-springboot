@@ -27,5 +27,11 @@ public class SD_Member {
 
     private LocalDate memberJoinDate;	// 고객가입날짜
 
-    
+    private String memberCardNumber;	// 카드번호
+
+    @Override
+    public String toString() {
+        return memberId;
+    }
+
 }
