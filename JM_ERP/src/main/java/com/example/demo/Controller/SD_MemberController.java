@@ -1,15 +1,28 @@
-package com.example.demo.Controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import lombok.RequiredArgsConstructor;
-
-@RequiredArgsConstructor
-@Controller
-@RequestMapping("/SD/member")
-public class SD_MemberController {
-	
+//package com.example.demo.Controller;
+//
+//import java.time.LocalDate;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.domain.Page;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//
+//import com.example.demo.Entity.SD_Member;
+//import com.example.demo.Entity.SD_Purchase;
+//import com.example.demo.Service.SD_MemberService;
+//
+//import jakarta.servlet.http.HttpServletRequest;
+//import lombok.RequiredArgsConstructor;
+//
+//@RequiredArgsConstructor
+//@Controller
+//@RequestMapping("/SD/member")
+//public class SD_MemberController {
+//	
 //	@Autowired
 //	private final SD_MemberService memberService;
 //	
@@ -32,7 +45,7 @@ public class SD_MemberController {
 //			@RequestParam("membership") boolean membership
 //
 //			) { 
-//	memberService.RegiMember(memberId, name, dateOfBirth, country, contactNumber, email, address, gender, membership);
+//	memberService.RegMember(memberId, name, dateOfBirth, country, contactNumber, email, address, gender, membership);
 //		return "Complete_RegMember";
 //	}
 //	
@@ -69,8 +82,8 @@ public class SD_MemberController {
 //		model.addAttribute("paging", paging);
 //		return "SD/SD_Purchase_list";
 //	}
-	
-	
-
-	
-}
+//	
+//	
+//
+//	
+//}

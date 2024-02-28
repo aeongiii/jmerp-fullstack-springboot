@@ -1,18 +1,29 @@
-package com.example.demo.Controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.example.demo.Service.SD_SellerService;
-
-@RequestMapping("SD/seller")
-@Controller
-public class SD_SellerController {
-
-	@Autowired
-	private SD_SellerService sellerService;
-
+//package com.example.demo.Controller;
+//
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.domain.Page;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//
+//import com.example.demo.Entity.SD_CommissionRate;
+//import com.example.demo.Entity.SD_Sales;
+//import com.example.demo.Entity.SD_Seller;
+//import com.example.demo.Entity.SD_SellerCommission;
+//import com.example.demo.Service.SD_SellerService;
+//
+//import jakarta.servlet.http.HttpServletRequest;
+//
+//@RequestMapping("SD/seller")
+//@Controller
+//public class SD_SellerController {
+//
+//	@Autowired
+//	private SD_SellerService sellerService;
+//
 //	@GetMapping("/list")
 //	public String search(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
 //			HttpServletRequest request) {
@@ -85,5 +96,5 @@ public class SD_SellerController {
 //
 //		return "redirect:/SD/seller/list";
 //	}
-
-}
+//
+//}

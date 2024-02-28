@@ -1,7 +1,9 @@
-.container-fluid{
+.nav1 {
 	z-index: 5;
 }
-
+.nav2 {
+	z-index: 4;
+}
 .nav1, .nav2 {
 	height: 7.5vh;
 }
@@ -22,18 +24,38 @@
   right : 0;
   bottom : 0;
   overflow: hidden;
-  background-color: black;
+  background-color: transparent;
   width : 100%;
-  height: 142px;
-  opacity: 0.4;
-  z-index: 1;
+  height: 71px;
+  opacity: 1;
+  z-index: -1;
 }
 
 .nav--stars{
   width : 100%;
   height : 71px;
-  background-image: radial-gradient(2px 2px at 50px 200px, #eee, rgba(0, 0, 0, 0)),radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),radial-gradient(3px 4px at 120px 40px, #ddd, rgba(0, 0, 0, 0)), radial-gradient(3px 4px at 200px 50px, #e6db78, rgba(0,0, 0, 0)), radial-gradient(2px 2px at 300px 60px, #ff960e, rgba(0,0,0,0)), radial-gradient(4px 5px at 370px 40px, #ecc7ae, rgba(0,0,0,0)), radial-gradient(2px 3px at 450px 70px, #eee, rgba(0,0,0,0)), radial-gradient(3px 3px at 530px 65px, #00a9ca, rgba(0,0,0,0)), radial-gradient(4px 5px at 620px 30px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 1.5px at 700px 10px, #fae843, rgba(0,0,0,0)), radial-gradient(4px 3px at 770px 55px, #fff8b5, rgba(0,0,0,0)), radial-gradient(1.8px 2.3px at 845px 35px, #ddd, rgba(0,0,0,0)), radial-gradient(3px 3px at 910px 65px, #fda838dc, rgba(0,0,0,0)), radial-gradient(2px 3px at 990px 38px, #4b7bff, rgba(0,0,0,0)), radial-gradient(2px 2px at 1060px 27px, #eee, rgba(0,0,0,0)), radial-gradient(5px 5px at 1150px 48px, #eede4dd0, rgba(0,0,0,0)), radial-gradient(2px 2px at 1220px 23px, #ff6868ce, rgba(0,0,0,0)),radial-gradient(3px 4px at 1300px 25px, rgb(255, 241, 41), rgba(0,0,0,0)), radial-gradient(2px 3px at 1380px 55px, #eee, rgba(0,0,0,0)); /* 원형 그라데이션 효과(각각 하나씩 구현하였습니다.) */
-  background-repeat: repeat;
+  background-image: radial-gradient(2px 2px at 50px 200px, #eee, rgba(0, 0, 0, 0)),
+  					radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
+  					radial-gradient(3px 4px at 120px 40px, #ddd, rgba(0, 0, 0, 0)), 
+  					radial-gradient(3px 4px at 200px 50px, #e6db78, rgba(0,0, 0, 0)), 
+  					radial-gradient(2px 2px at 300px 60px, #ff960e, rgba(0,0,0,0)), 
+  					radial-gradient(4px 5px at 370px 40px, #ecc7ae, rgba(0,0,0,0)), 
+  					radial-gradient(3px 3px at 530px 65px, #00a9ca, rgba(0,0,0,0)), 
+  					radial-gradient(4px 5px at 620px 30px, #ffffff, rgba(0,0,0,0)), 
+  					radial-gradient(2px 1.5px at 700px 10px, #fae843, rgba(0,0,0,0)), 
+  					radial-gradient(4px 3px at 770px 55px, #fff8b5, rgba(0,0,0,0)), 
+  					radial-gradient(1.8px 2.3px at 845px 35px, #ddd, rgba(0,0,0,0)), 
+  					radial-gradient(3px 3px at 910px 65px, #fda838dc, rgba(0,0,0,0)), 
+  					radial-gradient(2px 3px at 990px 38px, #4b7bff, rgba(0,0,0,0)), 
+  					radial-gradient(2px 2px at 1060px 27px, #eee, rgba(0,0,0,0)), 
+  					radial-gradient(5px 5px at 1150px 48px, #eede4dd0, rgba(0,0,0,0)), 
+  					radial-gradient(2px 2px at 1220px 23px, #ff6868ce, rgba(0,0,0,0)),
+  					radial-gradient(3px 4px at 1300px 25px, rgb(255, 241, 41), rgba(0,0,0,0)), 
+  					radial-gradient(2px 3px at 1380px 55px, #eee, rgba(0,0,0,0)), 
+  					radial-gradient(3px 3px at 1450px 40px, rgb(255,241,40), rgba(0,0,0,0)),
+  					radial-gradient(2px 2px at 1520px 60px, #eee, rgba(0,0,0,0)), 
+  					radial-gradient(3px 4px at 1590px 30px, rgb(255,240,38), rgba(0,0,0,0)); /* 원형 그라데이션 효과(각각 하나씩 구현하였습니다.) */
+  background-repeat: repeat-x;
   /* background-size: 1400px 71px; - 미정 */
 }
 

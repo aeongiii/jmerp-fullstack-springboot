@@ -1,21 +1,28 @@
-package com.example.demo.Controller;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.example.demo.Service.SD_productService;
-
-import lombok.RequiredArgsConstructor;
-@RequiredArgsConstructor
-@RequestMapping("/SD/product")
-@Controller
-public class SD_ProductController {
-
-	private final SD_productService productService; 
-	
-	
-
-	
+//package com.example.demo.Controller;
+//
+//import org.springframework.data.domain.Page;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+//import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestParam;
+//
+//import com.example.demo.Entity.SD_PBproduct;
+//import com.example.demo.Entity.SD_Product;
+//import com.example.demo.Service.SD_productService;
+//
+//import jakarta.servlet.http.HttpServletRequest;
+//import lombok.RequiredArgsConstructor;
+//@RequiredArgsConstructor
+//@RequestMapping("/SD/product")
+//@Controller
+//public class SD_ProductController {
+//
+//	private final SD_productService productService; 
+//	
+//	
+//
+//	
 //	@GetMapping("/regshop")
 //	public String searchAllproduct(Model model,@RequestParam(value="page",defaultValue ="0") int page,HttpServletRequest request ) {
 //		String currentUrl = request.getRequestURI();
@@ -56,4 +63,4 @@ public class SD_ProductController {
 ////		
 ////		return "product_detail";
 ////	}
-}
+//}
