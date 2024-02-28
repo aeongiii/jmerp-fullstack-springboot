@@ -37,15 +37,15 @@ public class AC_SaleSlipService {
     	
     	List<AC_SaleSlip> saveSlipList = new ArrayList<AC_SaleSlip>();
     	
-		AC_SaleSlip slips = new AC_SaleSlip();
-	
 		List<AC_SaleSlip> slipList = getList();
 	
 		String yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yy"+"MM"));
 		int i = 1;
 		int j = 1;
 		for (SD_Purchase list : purchaseList) {
-
+			
+			AC_SaleSlip slips = new AC_SaleSlip();
+			
 			if (slipList.size() >= j) {
 //				getList로 가져온 형식이 yyMM"숫자"이므로
 				if ((slipList.get(j-1).getSlipCode().substring(0, 4)).equals(yearMonth)) {
@@ -60,7 +60,7 @@ public class AC_SaleSlipService {
 			slips.setTradeDate(list.getPurchaseTime().toLocalDate());
 			slips.setTrader(list.getMemberId().toString());
 			slips.setDescription(list.getProductCode() + " " + list.getTotalPurchaseEA() + "개");
-			slips.setAmount(list.getTotalPurchaseEA());
+			slips.setAmount(list.getTotalPrice());
 			
 			String product = list.getSellerName();    
 			    
@@ -77,6 +77,7 @@ public class AC_SaleSlipService {
 			slips.setCreatedAt(LocalDateTime.now());
 			
 			saveSlipList.add(slips);
+			i++;
 		}
     	
     	return this.saleSlipRepository.saveAll(saveSlipList);
