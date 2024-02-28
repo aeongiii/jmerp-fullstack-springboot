@@ -23,6 +23,7 @@ public class SD_PBProduct {
 	
 	private String category; // 상품분류
 
+	@Column (columnDefinition = "TEXT")
 	private String productName; // 상품명
 
 	private String productCode; // 상품코드 (pb_1 형식)
@@ -35,8 +36,10 @@ public class SD_PBProduct {
 
 	private LocalDate registrationDate; // 상품등록날짜 (2024-01-01 형식)
 	
+	@Column (columnDefinition = "TEXT")
 	private String imageFileLink; // 이미지파일 링크
 	
+	@Column (columnDefinition = "TEXT")
 	private String description; // 적요
 	
 

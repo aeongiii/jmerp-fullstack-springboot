@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,6 +24,7 @@ public class SD_Member {
 
     private String memberEmail;	// 고객이메일
 
+    @Column (columnDefinition = "TEXT")
     private String memberAddress;	// 고객주소
 
     private LocalDate memberJoinDate;	// 고객가입날짜
