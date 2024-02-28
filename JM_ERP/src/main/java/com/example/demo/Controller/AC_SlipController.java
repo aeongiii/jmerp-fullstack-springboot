@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,6 +14,7 @@ import com.example.demo.Entity.AC_WithdrawalSlip;
 import com.example.demo.Service.AC_DepositSlipService;
 import com.example.demo.Service.AC_SaleSlipService;
 import com.example.demo.Service.AC_WithdrawalSlipService;
+import com.example.demo.Service.SD_PurchaseService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +28,10 @@ public class AC_SlipController {
 	private final AC_WithdrawalSlipService withdrawalSlipService;
 	private final AC_DepositSlipService depositSlipService;
 	private final AC_SaleSlipService saleSlipService;
+	private final SD_PurchaseService purchaseService;
 	
 	@GetMapping("/transactionslip")
-	public String transactionslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+	public String transactionSlipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
@@ -41,7 +44,7 @@ public class AC_SlipController {
     }
 	
 	@GetMapping("/saleslip")
-	public String saleslipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
+	public String saleSlipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
         
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
@@ -50,4 +53,11 @@ public class AC_SlipController {
         model.addAttribute("saleSlipList", sale);
         return "ac/AC_saleslip";
     }
+	
+	@PostMapping("/saleslip")
+	public String saleSlipUpdate() {
+		
+		this.saleSlipService.update(this.purchaseService.getList());
+		return "redirect:/AC/saleslip";
+	}
 }
