@@ -47,7 +47,7 @@ public class MainController {
         model.addAttribute("bomlist", bomlist);
         model.addAttribute("saleSlipList", sale);
         model.addAttribute("purchaseSlipList", purchase);
-        model.addAttribute("regshop",paging);
+//        model.addAttribute("regshop",paging);
     	return "index"; // resources/templates/index.html을 가리킵니다.
     }
 }
