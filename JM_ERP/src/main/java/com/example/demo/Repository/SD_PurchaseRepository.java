@@ -18,4 +18,3 @@ public interface SD_PurchaseRepository extends JpaRepository<SD_Purchase, Long> 
     Page<SD_Purchase> findByMemberId(@Param("memberId")String memberId, Pageable pageable);
 
 }
-

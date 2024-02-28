@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>고객별 구매내역 조회</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
+
+	<!-- jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+
+				<h3>판매자명 조회</h3>
+
+				<form id="sellerForm" action="/SD/seller/search" method="get">
+					<label for="sellerNameSelect">판매자명:</label>
+					<select id="sellerSelect" name="sellerId">
+						<th:block th:each="seller : ${sellers}">
+							<option th:value="${seller.sellerId}" th:text="${seller.sellerName}"></option>
+						</th:block>
+					</select>
+
+
+					<button type="submit">조회</button>
+				</form>
+
+				<h3>조회 결과</h3>
+
+				<!-- 데이터 테이블 시작-->
+				<table class=" table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>판매자명</th>
+							<th>상품명</th>
+							<th>상품코드</th>
+							<th>상품분류</th>
+							<th>총판매수량</th>
+							<th>총판매금액</th>
+							<th>상품등록날짜</th>
+							<th></th> <!-- 사업자등록번호, 개당판매금액, 이미지파일 링크, 적요는 화면출력 X -->
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="nb : ${nbProductList}">
+							<td th:text="${nb.sellerName}"></td>
+							<td th:text="${nb.productName}"></td>
+							<td th:text="${nb.productCode}"></td>
+							<td th:text="${nb.category}"></td>
+							<td th:text="${nb.totalSaleEA}"></td>
+							<td th:text="${nb.totalPrice}"></td>
+							<td th:text="${nb.registrationDate}"></td>
+							<td>
+								<!-- 수정. 삭제 버튼 -->
+								<a th:href="@{'/SD/seller/update/' + ${nb.sellerName}}" class="btn btn-primary">수정</a>
+								<form th:action="@{'/SD/seller/delete/' + ${nb.sellerName}}" method="post">
+									<input type="hidden" name="_method" value="delete" />
+									<button class="btn btn-primary" type="submit">삭제</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{SD/SD_paging::SD_pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{SD/SD_button::SD_buttonFragment}"></div>
+
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
