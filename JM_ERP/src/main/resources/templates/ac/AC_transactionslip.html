@@ -12,7 +12,9 @@
 <body>
     <!-- 네비게이션바 프라그먼트-->
     <nav th:replace="~{/navbar :: navbarFragment}"></nav>
-
+	
+	<div th:replace="~{/ac/AC_modal :: modalFragment}"></div>
+	
     <div class="container-fluid">
         <div class="row">
 
@@ -44,9 +46,9 @@
 				                <th>거래자</th>
 				                <th>적요</th>
 				                <th>금액</th>
-				                <th>부가세</th>
 				                <th>거래 유형</th>
 				                <th>생성 일자</th>
+				                <th></th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -57,10 +59,12 @@
 				                <td th:text="${slip.tradeDate}"></td>
 				                <td th:text="${slip.trader}"></td>
 				                <td th:text="${slip.description}"></td>
-				                <td th:text="${slip.amount}"></td>
-				                <td th:text="${slip.VAT}"></td>
+				                <td th:text="${#numbers.formatInteger(slip.amount, 3, 'COMMA')}"></td>
 				                <td th:text="${slip.transactionType}"></td>
 				                <td th:text="${slip.createdAt}"></td>
+				                <td>
+							        <button class="btn btn-primary open-slip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
+							    </td>
 				            </tr>
 				        </tbody>
 				    </table>
@@ -69,13 +73,13 @@
                    	<!-- 페이징 프라그먼트 -->
 					<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${depositSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{/botton::bottonFragment}"></div>
+					<div th:replace="~{ac/AC_slip_botton::depositBottonFragment}"></div>
 
                 </div> <!-- 옵션 1일 때 리스트 -->
                 
                 <!-- 옵션 2일때 시작 -->
                 <div id="option2Content" style="display: none;">
-					                    <!-- 데이터 테이블 시작-->
+				<!-- 데이터 테이블 시작-->
 				   <table class = "table table-hover">
 					   <thead>
 				            <tr>
@@ -84,9 +88,9 @@
 				                <th>거래자</th>
 				                <th>적요</th>
 				                <th>금액</th>
-				                <th>부가세</th>
 				                <th>거래 유형</th>
 				                <th>생성 일자</th>
+				                <th></th>
 				            </tr>
 				        </thead>
 				        <tbody>
@@ -97,18 +101,20 @@
 				                <td th:text="${slip.tradeDate}"></td>
 				                <td th:text="${slip.trader}"></td>
 				                <td th:text="${slip.description}"></td>
-				                <td th:text="${slip.amount}"></td>
-				                <td th:text="${slip.VAT}"></td>
+				                <td th:text="${#numbers.formatInteger(slip.amount, 3, 'COMMA')}"></td>
 				                <td th:text="${slip.transactionType}"></td>
 				                <td th:text="${slip.createdAt}"></td>
+				                <td>
+							        <button class="btn btn-primary open-slip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
+							    </td>
 				            </tr>
 				        </tbody>
 				    </table>
                     <!-- 데이터 테이블 끝-->
 	                <!-- 페이징 프라그먼트 -->
-					<div th:replace="~{/paging::pagingFragment(paging=${withdrawalSlipList})}"></div>
+					<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${withdrawalSlipList})}"></div>
 					<!-- 버튼 프라그먼트 -->
-					<div th:replace="~{/botton::bottonFragment}"></div>
+					<div th:replace="~{ac/AC_slip_botton::withdrawalBottonFragment}"></div>
                 </div> <!-- 옵션 2일 때 리스트 -->
             </div> <!-- 테이블 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
@@ -126,5 +132,29 @@
         	initializePage("option1Content", "option2Content");
         });
     </script>
+    
+    <script type="text/javascript">
+		const urlParams = new URLSearchParams(window.location.search);
+		const currentPage = parseInt(urlParams.get('page')) || 0;
+		
+		function nextPage() {
+		    updatePage(currentPage + 1);
+		}
+		
+		function prevPage() {
+		    updatePage(currentPage - 1);
+		}
+		
+		function goToPage(pageNum) {
+		    updatePage(pageNum);
+		}
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		    modalOnClick('open-slip-modal', 'slipModal');
+		});
+	</script>
+	
 </body>
 </html>

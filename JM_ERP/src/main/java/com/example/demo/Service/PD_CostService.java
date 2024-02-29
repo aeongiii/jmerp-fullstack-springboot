@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -37,5 +38,9 @@ public class PD_CostService {
 		cost.setCost(money);
 		this.costrepository.save(cost);
 		return cost;
+	}
+	
+	public Optional<PD_Cost> getCost(String id){
+		return costrepository.findByprodNameContaining(id);
 	}
 }

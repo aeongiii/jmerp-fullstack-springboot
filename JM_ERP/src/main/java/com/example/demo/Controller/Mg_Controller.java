@@ -1,13 +1,17 @@
 package com.example.demo.Controller;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,7 +85,12 @@ public class Mg_Controller {
 	                         @RequestParam("accountName") String accountName,
 	                         @RequestParam("accountNum") String accountNum,
 	                         @RequestParam("accountManager") String accountManager,
-	                         RedirectAttributes redirectAttributes) {
+	                         RedirectAttributes redirectAttributes,
+	                         Principal principal) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		if (authorities.stream().anyMatch(auth -> "2".equals(auth.getAuthority()) || "3".equals(auth.getAuthority()))) {
+		
 	    Optional<Mg_AccountMG_Entity> itemOptional = mgser.findaccountCode(Long.parseLong(accountCode));
 	  
 	    Mg_AccountMG_Entity item = itemOptional.get();
@@ -92,7 +101,8 @@ public class Mg_Controller {
 	        mgser.save(item);
 	        
 	        return "redirect:/MG/accmg";
-	
+		}
+		else return"MG/failupdatemodal";
 	}
 	
 	@PostMapping("/accmg/DeleteAccount")

@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +20,8 @@ public interface SD_SellerRepository extends JpaRepository<SD_Seller, String>{
 	// 판매자 이름으로 판매자 정보 조회
 	SD_Seller findBySellerName(String sellerName);
 
+	    
+	//회계 전표에서 사용  
+	    @Query("SELECT s.sellerName FROM SD_Seller s")
+	    List<String> findAllSellerName();
 }

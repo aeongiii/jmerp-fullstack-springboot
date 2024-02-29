@@ -27,6 +27,10 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class PC_Purchasecontroller {
 	
+	double asd=123;
+	Integer asdd =123;
+	
+	double a = asd*asdd;
 	
 	@Autowired
 	private PC_PurchaseService purchaseservice; 
@@ -50,20 +54,37 @@ public class PC_Purchasecontroller {
 	@GetMapping("/ordersheet/create/{id}")
 	public String ordersheetCreateUrl(
 			@PathVariable("id")Long id,
-			Model model) {
-		Optional<PC_PurchaseInquiry> ids = purchaseservice.findpurchase(id);
+			
+			
+			Model model ,Model model1) {
 		
+		
+		Optional<PC_PurchaseInquiry> ids = purchaseservice.findpurchase(id);
+		Optional<PD_Cost> costList =  costService.getCost(ids.get().getItemName());
 		
 		model.addAttribute("ids",ids);
+		model1.addAttribute("costList",costList);
+		
 		
 		return "PC/PC_OrderSheetReg";
 	}
 	
 	@PostMapping("/ordersheet/create/{id}")
-	public String ordersheetCreateUrl(@PathVariable("id") Long num) {
+	public String ordersheetCreateUrl(
+			@PathVariable("id") Long num,
+			@RequestParam("clinetName")String clinetName,
+			@RequestParam("contactPerson") String contactPerson,
+			@RequestParam("item")String item,
+			@RequestParam("deliveryDate")LocalDate deliveryDate,
+			@RequestParam("Count")Double Count,
+			@RequestParam("totalPrice") Long totalPrice
+		) {
 		
+	
+		String bool = "예";
+		String completionStatus = "N";
 		
-		
+		purchaseservice.orderSheetSave(clinetName, contactPerson, item, deliveryDate, Count, completionStatus,totalPrice,bool,num);
 		
 		
 		return "redirect:/PC/purchase/ordersheet";
@@ -111,13 +132,13 @@ public class PC_Purchasecontroller {
 		@RequestParam(value="clientName") String clientName,
 		@RequestParam(value="itemName") String itemName,
 		@RequestParam(value="PurchaseDate") LocalDate PurchaseDate,
-		@RequestParam(value="totalAmount") Double totalAmount,
+		@RequestParam(value="totalCount") Double totalCount,
 		@RequestParam(value="warehouseName") String warehouseName)
 		 {
 	
 		String acceptance = "아니요";
 		
-		purchaseservice.purchaseSave( PurchaseDate,  clientName,  itemName , totalAmount,  warehouseName,acceptance);
+		purchaseservice.purchaseSave( PurchaseDate,  clientName,  itemName , totalCount,  warehouseName,acceptance);
 		
 		return "redirect:/PC/purchase/purchaseinquiry";
 	}

@@ -25,8 +25,7 @@ public class AC_DepositSlip {
     @Column(columnDefinition = "TEXT")
     private String description; // 적요
     
-    private Double amount; // 금액
-    private Double VAT; // 부가세
+    private int amount; // 금액
     private String transactionType; // 거래유형
 
     private LocalDateTime createdAt; // 생성일자
