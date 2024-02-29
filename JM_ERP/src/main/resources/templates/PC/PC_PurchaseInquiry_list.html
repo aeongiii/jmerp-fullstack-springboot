@@ -17,24 +17,24 @@
 	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
-			<div class="row">
+		<div class="row" style="display:flex !important;">
 			<div class="col-lg-2">
-			<div th:replace="~{PC/PC_arcodian :: PC_arcodianFragment}"></div>
-			</div>
-		
-
-
-
+				<div th:replace="~{PC/PC_arcodian :: PC_arcodianFragment}"></div>
+				<div class="form-inline" style="justify-content:end;"></div>
+			</div> <!-- End of col-lg-2 -->
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
+				<!-- 검색창 시작 -->
+				<div class="input-group" style="display:flex; width:250px; float:right; :active{border :none}";>
+					<input type="text" id="serchpurchase" class="form-control bg-light border-hober small" th:value="${kw}">
+					<div class="input-group-append">
+						<button class="btn btn-primary" type="button" id="btn_search">
+							검색
+							
+						</button>
+					</div>
 				</div>
-				<!-- 조건 조회 버튼 끝-->
+				<!-- End of input-group(검색창)-->
 
 				<!-- 데이터 테이블 시작-->
 				<table class="table table-hover">
@@ -45,9 +45,7 @@
 							<th>Client Name</th>
 							<th>Item Name</th>
 							<th>Total Amount</th>
-							<th>importedVoucher \</th>
-							<th>Warehouse Name</th>
-						
+							<th>확인여부</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -58,9 +56,9 @@
 							<td th:text="${inquiry.clientName}">Client Name</td>
 							<td th:text="${inquiry.itemName}">Item Name</td>
 							<td th:text="${inquiry.totalAmount}">Total Amount</td>
-							<td th:text="${inquiry.importedVoucher}">importedVoucher Type</td>
-							<td th:text="${inquiry.warehouseName}">Warehouse Name</td>
-							
+							<td>
+								<a th:text="${inquiry.acceptance}" th:href="@{/PC/purchase/ordersheet/create/{id}(id=${inquiry.num})}"></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -70,11 +68,9 @@
 				<div th:replace="~{paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
 				<div th:replace="~{PC/botton::bottonFragment}"></div>
-			</div>
-			<!-- 테이블 컬럼 끝(1:4 비율) -->
+			</div> <!-- End of row -->
+		</div> <!-- End of container-fluid-->
 
-		</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	</div> <!-- 컨테이너 플루이드 끝 -->
 
 
 

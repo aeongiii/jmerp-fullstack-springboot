@@ -2152,7 +2152,6 @@ progress {
   background-color: #EAF3F2;
   border-color: #97d2f3;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(47, 164, 231, 0.25);
 }
 .form-control::-webkit-date-and-time-value {
   min-width: 85px;
@@ -4828,6 +4827,12 @@ textarea.form-control-lg {
   --bs-pagination-border-radius: var(--bs-border-radius-lg);
 }
 
+.pagination-md {
+  --bs-pagination-padding-x: 1rem;
+  --bs-pagination-padding-y: 0.5rem;
+  --bs-pagination-font-size: 1rem;
+  --bs-pagination-border-radius: (var(--bs-border-radius-lg)+var(--bs-border-radius-sm))/2;
+}
 .pagination-sm {
   --bs-pagination-padding-x: 0.5rem;
   --bs-pagination-padding-y: 0.25rem;

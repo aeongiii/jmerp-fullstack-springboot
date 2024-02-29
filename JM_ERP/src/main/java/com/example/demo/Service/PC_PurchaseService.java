@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,8 +34,13 @@ public class PC_PurchaseService {
 		return purchaseInquiryRepository.findAll(pageable);
 	}
 	
+	public Optional<PC_PurchaseInquiry> findpurchase(Long id){
+		return purchaseInquiryRepository.findById(id);
+		
+	}
 	
-	public void purchaseSave(LocalDate PurchaseDate, String clientName, String itemName ,Double totalAmount, String warehouseName, String importedVoucher) {
+	
+	public void purchaseSave(LocalDate PurchaseDate, String clientName, String itemName ,Double totalAmount, String warehouseName, String acceptance) {
 		PC_PurchaseInquiry purchase = new PC_PurchaseInquiry();
 		
 		purchase.setPurchaseDate(PurchaseDate);
@@ -42,7 +48,7 @@ public class PC_PurchaseService {
 		purchase.setItemName(itemName);
 		purchase.setTotalAmount(totalAmount);
 		purchase.setWarehouseName(warehouseName);
-		purchase.setImportedVoucher(importedVoucher);
+		purchase.setAcceptance(acceptance);
 		purchaseInquiryRepository.save(purchase);
 	}
 
