@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Entity.ERP_approval;
 import com.example.demo.Entity.ERP_boardQ;
 import com.example.demo.Entity.ERP_userMailBox;
+import com.example.demo.Form.ERP_approvalForm;
 import com.example.demo.Form.ERP_boardAForm;
 import com.example.demo.Form.ERP_boardQForm;
 import com.example.demo.Form.ERP_sendMailForm;
@@ -168,7 +170,36 @@ public class ERP_Controller {
 		return String.format("redirect:/user/board/Qdetail/%s", id);
 	}
 	
+//	================  approval control ==============
 	
+	@GetMapping("/approval/create")
+	public String questionCreate(ERP_approvalForm approvalform) {
+		return "ERP_approvalCreate";
+	}
+	
+	@PostMapping("/approval/create")
+	public String questionCreate(@Valid ERP_approvalForm approvalform, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			return"ERP_approvalCreate";
+		}
+		this.erp_UserService.createApproval(approvalform.getSubject(), approvalform.getContent());
+		
+		return "redirect:/user/approval/list";
+	}
+	
+	@GetMapping("/approval/list")
+	public String approvalList(Model model, @RequestParam(value="page", defaultValue="0") int page) {
+		Page<ERP_approval> approvalList = this.erp_UserService.approvalList(page);
+		model.addAttribute("approvalList", approvalList);  
+		return "ERP_approvalList";
+	}
+	
+	@GetMapping(value ="/approval/detail/{id}")
+	public String approvalDetail(Model model, @PathVariable("id") Integer id) {
+		ERP_approval approval = this.erp_UserService.getApproval(id);
+		model.addAttribute("approval", approval);
+		return "ERP_approvalDetail";
+	}
 	
 }
 
