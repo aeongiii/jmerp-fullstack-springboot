@@ -5,10 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.Entity.ERP_boardQ;
+import com.example.demo.Entity.ERP_approval;
 
 @Repository
-public interface ERP_boardQRepository extends JpaRepository<ERP_boardQ, Integer>{
+public interface ERP_approvalRepository extends JpaRepository<ERP_approval, Integer>{
 	
-	Page<ERP_boardQ> findAll(Pageable pageable);
+	Page<ERP_approval> findAll(Pageable pageable);
+	
 }

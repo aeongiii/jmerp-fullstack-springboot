@@ -13,6 +13,7 @@ a {
   margin-left: 10px;
   margin-top: 20px;
   margin-bottom: 50px;
+  position: relative;
 }
 
 .side-bar__icon-1 {
@@ -80,6 +81,7 @@ a {
 
 .side-bar ul {
 	padding: 0;
+	position: relative;
 }
 .side-bar > ul ul {
   display: none;
@@ -98,10 +100,8 @@ a {
   background-color: #333F50;
   overflow: hidden;
   transition: .5s;
-  background-image : url('image/space2.png');
-  background-size: cover;
-  background-position: center;
 }
+
 
 .side-bar ul > li > a {
   display: block;
@@ -156,5 +156,9 @@ a {
 
 .side-bar > ul > li:hover > ul {
   display: block;
+}
+.side-bar > ul > li:hover > ul::hover {
+  display: block;
+  overflow: visible;
 }
 /* 사이드바-메뉴 끝 */
