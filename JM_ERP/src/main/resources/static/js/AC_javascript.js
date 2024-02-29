@@ -1,8 +1,15 @@
-// 페이지 이동함수
+// 조회 페이지 이동함수
 function updatePage(page, keyword, category) {
     const pageUrl = `${window.location.pathname}?page=${page}&keyword=${keyword}&category=${category}`;
     window.location.href = pageUrl;
 }
+
+// 조회 없는 페이지 이동함수
+function updatePage(page) {
+    const pageUrl = `${window.location.pathname}?page=${page}`;
+    window.location.href = pageUrl;
+}
+
 // 오늘 날짜를 받는 함수
 function getTodayDate() {
     var today = new Date();
@@ -42,7 +49,7 @@ function initializePage(option1ContentId, option2ContentId) {
     });
 }
 
-// 모달을 열고 닫는 함수
+// 채권 채무 수정 모달을 열고 닫는 함수
 function modalOnClick(btnClass, modalId, modalNumberId, submitNumberId) {
     // 수정 버튼 클릭 시 모달 열기
     $(document).on('click', '.' + btnClass, function() {
@@ -53,6 +60,21 @@ function modalOnClick(btnClass, modalId, modalNumberId, submitNumberId) {
         // 가져온 번호를 출력합니다.
         $('#' + modalNumberId).text(number);
         $('#' + submitNumberId).val(number);
+        // 모달 열기
+        $('#' + modalId).modal('show');
+
+        // 모달 닫기 버튼 클릭 시 모달 닫기
+        $(document).on('click', '.close', function() {
+            $('#' + modalId).modal('hide');
+        });    
+    });
+}
+
+// 전표 모달을 열고 닫는 함수(안에 내용 변화가 없는 모달 - 임시조치)
+function modalOnClick(btnClass, modalId) {
+    // 수정 버튼 클릭 시 모달 열기
+    $(document).on('click', '.' + btnClass, function() {
+
         // 모달 열기
         $('#' + modalId).modal('show');
 

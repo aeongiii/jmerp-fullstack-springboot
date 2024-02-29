@@ -35,13 +35,15 @@ public class AC_SaleSlipService {
     // 갱신 버튼 만든뒤 되는지 확인 하기 - 현재 제일 맨 윗줄 데이터만 갱신 누를때마다 하나씩 추가되는 중
     public List<AC_SaleSlip> update(List<SD_Purchase> purchaseList) {
     	
-    	List<AC_SaleSlip> saveSlipList = new ArrayList<AC_SaleSlip>();
+    	List<AC_SaleSlip> updateSlipList = new ArrayList<AC_SaleSlip>();
     	
 		List<AC_SaleSlip> slipList = getList();
 	
 		String yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yy"+"MM"));
-		int i = 1;
-		int j = 1;
+		
+		int i = 1; // 전표 코드 숫자에 영향을 줌
+		int j = 1; // 원래 있던 전표의 갯수 확인용
+		
 		for (SD_Purchase list : purchaseList) {
 			
 			AC_SaleSlip slips = new AC_SaleSlip();
@@ -52,14 +54,14 @@ public class AC_SaleSlipService {
 					i++;
 				}
 
-				j++;
+				j++; // slipList의 갯수
 				continue;
 			}
-	
+// 판매내역이 slipList의 갯수를 넘어갔다면 갱신 시작	
 			slips.setSlipCode(String.format("%s%03d", yearMonth, i));
 			slips.setTradeDate(list.getPurchaseTime().toLocalDate());
 			slips.setTrader(list.getMemberId().toString());
-			slips.setDescription(list.getProductCode() + " " + list.getTotalPurchaseEA() + "개");
+			slips.setDescription(list.getProductCode() + " " + list.getTotalPurchaseEA() + "개"); // 상품 코드로 저장됨 상품명을 가져올 방법을 찾을 것
 			slips.setAmount(list.getTotalPrice());
 			
 			String product = list.getSellerName();    
@@ -74,12 +76,12 @@ public class AC_SaleSlipService {
     			transactionType = "기타";
 			}
 			slips.setTransactionType(transactionType);
-			slips.setCreatedAt(LocalDateTime.now());
+			slips.setCreatedAt(LocalDateTime.now()); // 나노초 까지 포함 됨 바꿀것
 			
-			saveSlipList.add(slips);
+			updateSlipList.add(slips);
 			i++;
 		}
     	
-    	return this.saleSlipRepository.saveAll(saveSlipList);
+    	return this.saleSlipRepository.saveAll(updateSlipList);
     }
 }

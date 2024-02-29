@@ -1,5 +1,8 @@
 package com.example.demo.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.AC_DepositSlip;
+import com.example.demo.Entity.AC_SaleSlip;
 import com.example.demo.Repository.AC_DepositSlipRepository;
+import com.example.demo.Repository.SD_NBProductRepository;
+import com.example.demo.Repository.SD_PBProductRepository;
+import com.example.demo.Repository.SD_SellerRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class AC_DepositSlipService {
 	
 	private final AC_DepositSlipRepository depositSlipRepository;
+	private final SD_NBProductRepository NBProductRepository;
+	private final SD_PBProductRepository PBProductRepository;
+	private final SD_SellerRepository sellerRepository;
 	
     public List<AC_DepositSlip> getList() {
         return this.depositSlipRepository.findAll();
@@ -28,37 +38,74 @@ public class AC_DepositSlipService {
         return this.depositSlipRepository.findAll(pageable);
     }
     
-//    public AC_DepositSlip save() { // 전표 갱신 시 마다 수익을 정산?	
-//    	갱신시마다 각 판매 등록 업체로부터 팔린 갯 수 만큼 수익 정산, 자사물품 판매시에는 수익을 바로 정산
-//    	즉 자사 물품 판매시에는 판매 전표와 동일한 결과가, 대행 판매 물품에 대해서는 다른 결과가 나오게 끔
-//    	즉 판매수수료는 면세수익으로 표현 가능 과세물품, 면세물품
-//
-//    		new List<AC_DepositSlip> slip = new arrayList<AC_DepositSlip>();
-    
-//			int i = 1;
-//    		for (seller : SD_seller) {
-//    		for (saleSlip : AC_saleSlip) {
-//    			if (getList().size() >= i) {
-//    				continue;
-//    			}
-//    			
-//    			if(NB & seller) {
-//    				revenue += saleSlip.getAmount() / 20 (5%)
-//    			}
-//    			
-//    			slip.setSlipCode()
-//    			slip.setTradeDate(LocalDate.now)
-//    			slip.setTrader(seller)
-//    			slip.setDescription(대행판매 건수?)
-//    			slip.setAmount(revenue)
-//    			slip.setVAT(없음)
-//    			slip.setTransactionType("판매수수료")
-//    			slip.setCreatedAT(LocalDate.now())
-//    		}
-//
-//    		NB가 아닌경우의 전표는 전표 코드를 제외한 saleSlip과 동일 - 어떻게 가져올 것인가
-//			SaleSlipRepository 에서 findBy 사용?
-//
-//    	}
-//    }
+    public List<AC_DepositSlip> update(List<AC_SaleSlip> saleSlipList) { // 전표 갱신 시 마다 수익을 정산
+//    	갱신시마다 각 판매 등록 업체로부터 팔린 갯 수 만큼 수익 정산
+//    	판매수수료는 면세수익으로 표현 가능 과세물품, 면세물품
+
+		List<AC_DepositSlip> updateSlipList = new ArrayList<AC_DepositSlip>();
+
+		List<AC_DepositSlip> slipList = getList();    
+
+		String yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yy"+"MM"));
+		
+		int n = 0; // 반복 횟수    
+
+		for (String seller : this.sellerRepository.findAllSellerName()) {
+
+			int i = 1 + n; // 전표 코드 숫자에 영향을 줌
+			int j = 1; // 전표의 갯수
+			int k = 0; // 판매 건수 추적
+			int revenue = 0; // 수익
+
+			AC_DepositSlip slips = new AC_DepositSlip();
+
+			for (AC_SaleSlip slip : saleSlipList) {
+								
+				if (slipList.size() >= j) {
+					//getList로 가져온 형식이 yyMM"숫자"이므로
+					if ((slipList.get(j-1).getSlipCode().substring(0, 4)).equals(yearMonth)) {
+						i++;
+					}
+		
+					j++;
+					continue;
+				}
+				
+    			if(seller.equals(this.NBProductRepository.findSellerNameByProductCode(slip.getDescription().split(" ")[0]))
+    					&& !seller.equals("달토끼")) {
+    				revenue += slip.getAmount() / 20; // (5%)
+					k++;
+    			}
+
+				if(seller.equals(this.PBProductRepository.findSellerNameByProductCode(slip.getDescription().split(" ")[0]))
+    					&& seller.equals("달토끼")) {
+					revenue += slip.getAmount();
+					k++;
+				}
+			}
+			
+			if (k == 0) {
+				
+				continue;
+			}
+			
+			slips.setSlipCode(String.format("%s%03d", yearMonth, i));
+			slips.setTradeDate(LocalDate.now());
+			slips.setTrader(seller);
+			slips.setDescription("판매 건수 : " + k + "건");
+			slips.setAmount(revenue);
+			slips.setTransactionType("판매수수료");
+			slips.setCreatedAt(LocalDateTime.now());
+			
+			if(seller.equals("달토끼")) {
+				
+				slips.setTransactionType("자사품 판매 수익");
+			}
+					
+			updateSlipList.add(slips);
+
+			n++;
+		}
+	    return this.depositSlipRepository.saveAll(updateSlipList);
+	}
 }

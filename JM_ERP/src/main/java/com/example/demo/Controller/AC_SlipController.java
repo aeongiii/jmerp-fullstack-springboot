@@ -43,6 +43,16 @@ public class AC_SlipController {
         return "ac/AC_transactionslip";
     }
 	
+	@PostMapping("/transactionslip")
+	public String transactionSlipUpdate(@RequestParam("transaction") String transaction) {
+		
+		if (transaction.equals("deposit")) {
+		
+		this.depositSlipService.update(this.saleSlipService.getList());
+		}
+		return "redirect:/AC/transactionslip";
+	}
+	
 	@GetMapping("/saleslip")
 	public String saleSlipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
         
