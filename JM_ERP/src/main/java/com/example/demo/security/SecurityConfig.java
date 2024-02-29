@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,12 +21,18 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		
-		
+	
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-			    
+				.requestMatchers(new AntPathRequestMatcher("/user/**")).permitAll()
+//				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+				
+				.requestMatchers(new AntPathRequestMatcher("/ERP_login.html")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/bootstrapCustom1.css")).permitAll()
+				
 				.requestMatchers(new AntPathRequestMatcher("/paging.html")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/sign up.html")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/sign up.js")).permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/sign up.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/maincontents.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/bootstrapLux.css")).permitAll()
@@ -41,7 +48,7 @@ public class SecurityConfig {
 				.requestMatchers(new AntPathRequestMatcher("/weather.css")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher("/weather.js")).permitAll()
 				
-				
+
 				.requestMatchers(new AntPathRequestMatcher("/error/**")).permitAll()
 				.requestMatchers(new AntPathRequestMatcher(
 						"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"))

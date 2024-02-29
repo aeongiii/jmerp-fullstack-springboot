@@ -25,8 +25,8 @@ public class PC_PurchaseInquiry {
     @Column(name = "item_name", nullable = false, length = 200)
     private String itemName;
     //품목명
-    @Column(name = "total_amount", nullable = false)
-    private Double totalAmount;
+    @Column(name = "total_count", nullable = false)
+    private Double totalCount;
     //총 수량
 
     @Column(name = "warehouse_name", length = 100)

@@ -29,12 +29,7 @@
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
 				<!-- 조건 조회 버튼 시작-->
-				<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio1">계약중</label>
-					<input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked="">
-					<label class="btn btn-outline-primary" for="btnradio2">계약 해지</label>
-				</div>
+		
 				<!-- 조건 조회 버튼 끝-->
 
 				<!-- 데이터 테이블 시작-->
@@ -49,7 +44,7 @@
 							<th>Amount</th>
 							<th>Completion Status</th>
 							<th>Progress Status</th>
-							<th>Project Name</th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -59,10 +54,10 @@
 							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
 							<td th:text="${orderSheet.item}">Item</td>
 							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
-							<td th:text="${orderSheet.amount}">Amount</td>
+							<td th:text="${orderSheet.Count}">Amount</td>
 							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
-							<td th:text="${orderSheet.progressStatus}">Progress Status</td>
-							<td th:text="${orderSheet.projectName}">Project Name</td>
+							<td th:text="${#numbers.formatInteger(orderSheet.totalPrice, 3, 'COMMA')}+원">Progress Status</td>
+				
 						</tr>
 					</tbody>
 				</table>
