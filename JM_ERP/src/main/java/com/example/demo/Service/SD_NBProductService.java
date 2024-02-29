@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -70,6 +71,11 @@ public class SD_NBProductService {
 //		--> 코드 업데이트 위해 다시 저장
 	    nbRepository.save(savedNB);
 		
+	}
+	
+// 상품 조회
+	public List<SD_NBProduct> findAllMembers() {
+		return nbRepository.findAll();
 	}
 
 
