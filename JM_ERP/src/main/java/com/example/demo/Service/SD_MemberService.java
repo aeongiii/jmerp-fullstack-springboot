@@ -56,12 +56,6 @@ public class SD_MemberService {
 		return purchaseRepository.findAll(pageable);
 	}
 
-// 고객 등록 폼 저장
-	public static void save(@Valid SD_memberCreateForm memCreateForm) {
-		// TODO Auto-generated method stub
-
-	}
-
 // 고객 조회
 	public List<SD_Member> findAllMembers() {
 		return memberRepository.findAll();
