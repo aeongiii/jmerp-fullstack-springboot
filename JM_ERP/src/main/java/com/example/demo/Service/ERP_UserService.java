@@ -10,11 +10,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.Entity.ERP_approval;
 import com.example.demo.Entity.ERP_boardA;
 import com.example.demo.Entity.ERP_boardQ;
 import com.example.demo.Entity.ERP_user;
 import com.example.demo.Entity.ERP_userMailBox;
 import com.example.demo.Entity.HR_mem;
+import com.example.demo.Repository.ERP_approvalRepository;
 import com.example.demo.Repository.ERP_boardARepository;
 import com.example.demo.Repository.ERP_boardQRepository;
 import com.example.demo.Repository.ERP_userMailBoxRepository;
@@ -34,7 +36,7 @@ public class ERP_UserService {
 	private final ERP_userMailBoxRepository erp_userMailBoxRepository;
 	private final ERP_boardQRepository questionrepository;
 	private final ERP_boardARepository answerrepository;
-	
+	private final ERP_approvalRepository approvalrepository;
 	
 	public boolean createuser(String userId, String password, String name, String employeeId) throws Exception {
 
@@ -156,5 +158,30 @@ public class ERP_UserService {
 		q.setContent(content);
 		q.setCreateDate(LocalDateTime.now());
 		this.questionrepository.save(q);
+	}
+	
+//================= approval Method =======================
+
+	public Page<ERP_approval> approvalList(int page){
+		Pageable pageable = PageRequest.of(page, 10);
+		return this.approvalrepository.findAll(pageable);
+	}
+	
+	public ERP_approval getApproval(Integer id) {
+		Optional<ERP_approval> approval = this.approvalrepository.findById(id);
+		if (approval.isPresent()) {
+			return approval.get();
+		} else {
+			throw new DataNotFoundException("question not found");
+		}
+	}
+	
+	public void createApproval(String subject, String content) {
+		ERP_approval a = new ERP_approval();
+		a.setSubject(subject);
+		a.setContent(content);
+		a.setCreateDate(LocalDateTime.now());
+		a.setDewDate(LocalDateTime.now().plusDays(3));
+		this.approvalrepository.save(a);
 	}
 }

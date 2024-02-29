@@ -38,14 +38,13 @@ public class PC_OrderSheet {
     @Column(name = "delivery_date", nullable = false)
     private LocalDate deliveryDate;
     //납기일
-    @Column(name = "amount", nullable = false)
-    private Double amount;
+    @Column(name = "Count", nullable = false)
+    private Double Count;
     //수량
     @Column(name = "completion_status", length = 50)
     private String completionStatus;
     //종결여부 예/아니오
-    @Column(name = "progress_status", length = 50)
-    private String progressStatus;
-    //진행상항
-    
+
+    @Column
+    private Long totalPrice;
 }
