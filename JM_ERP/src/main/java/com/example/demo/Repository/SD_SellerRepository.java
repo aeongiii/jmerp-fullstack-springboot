@@ -15,4 +15,7 @@ public interface SD_SellerRepository extends JpaRepository<SD_Seller, String>{
 	 @Query("SELECT s FROM SD_Seller s WHERE s.sellerId <> '000-00-00000'")
 	    Page<SD_Seller> findAllExceptSpecificSellerId(Pageable pageable);
 
+	// 판매자 이름으로 판매자 정보 조회
+	SD_Seller findBySellerName(String sellerName);
+
 }

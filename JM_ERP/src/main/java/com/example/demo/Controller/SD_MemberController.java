@@ -44,7 +44,7 @@ public class SD_MemberController {
 	
 	@PostMapping("/create")
 	public String memberCreate(@Valid SD_memberCreateForm memCreateForm, Model model) {
-		SD_MemberService.save(memCreateForm); // 모든 고객  정보를 DB에 저장
+		memberService.saveMember(memCreateForm); // 모든 고객  정보를 DB에 저장
 		return "redirect:/SD/member/list";	
 	}
 	
