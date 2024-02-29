@@ -141,7 +141,6 @@ public class AC_BondDebtController {
     		
     		priceField = -priceField;
     	}
-    	// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
     	
     	List<String> data = this.bondService.getDescriptionByBondNumber(bondNumber);
     	
@@ -191,7 +190,7 @@ public class AC_BondDebtController {
 			
 			priceField = -priceField;
 		}
-		// 지금은 엔티티가 varchar 타입이기 때문에 줄바꿈이 저장이 안됨
+
     	List<String> data = this.debtService.getDescriptionByDebtNumber(debtNumber);
     	
     	String description = "";

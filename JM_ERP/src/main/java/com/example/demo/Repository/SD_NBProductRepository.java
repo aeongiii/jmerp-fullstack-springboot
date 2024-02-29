@@ -1,4 +1,3 @@
-
 package com.example.demo.Repository;
 
 import org.springframework.data.domain.Page;
@@ -6,9 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.Entity.SD_NBProduct;
 
+@Repository
 public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long> {
 	
     Page<SD_NBProduct> findAll(Pageable pageable);
@@ -17,5 +18,7 @@ public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long
     @Query("SELECT nb FROM SD_NBProduct nb WHERE nb.sellerId.sellerId = :sellerId")
     Page<SD_NBProduct> findBySellerId(@Param("sellerId")String sellerId, Pageable pageable);
 
-
+    // 회계에서 사용
+    @Query("SELECT nb.sellerName FROM SD_NBProduct nb WHERE nb.productCode = :productCode")
+    String findSellerNameByProductCode(@Param("productCode") String productCode);
 }

@@ -19,12 +19,12 @@ public class AC_Month {
     private String monthId; // 년/월 (예: "202401")
 
     private Double revenue; // 수익
-    private Double VAT; // 부가세(금)
-    private Double expense; // 비용
+    private Double VAT; // 부가세(금) 
+    private Double expense; // 비용(지출)
     private Double netIncome; // 순수익
 
     @Column(columnDefinition = "TEXT")
-    private String description; // 설명 또는 주석
+    private String description; // 설명 또는 주석 -- 판매 수수료는 부가세를 지출하지 않고 자사 물품 판매시에만 부가세를 지불
 
     private LocalDateTime createdAt; // 생성일자
     private LocalDateTime updatedAt; // 수정일자

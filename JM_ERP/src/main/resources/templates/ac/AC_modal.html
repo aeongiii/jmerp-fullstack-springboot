@@ -90,4 +90,94 @@
 	        </div>
 	    </div>
 	</div>
+	
+	<!-- 전표 모달 -->
+	<div class="modal" id="slipModal">
+	    <div class="modal-dialog modal-lg">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">전표</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+					
+					<!-- 회사명과 전표번호 입력란 -->
+				    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+				        <div>
+				            <strong>회사명:</strong> [여기에 회사명 입력]
+				        </div>
+				        <div>
+				            <strong>전표번호:</strong> [여기에 전표번호 입력]
+				        </div>
+				    </div>
+	                <!-- 내용 -->
+	                <table class="slip-table">
+	                    <tbody>
+	                        <tr>
+	                            <td rowspan="2">유형</td>
+	                            <td rowspan="2">적요</td>
+	                            <td colspan="2">금액</td>
+	                        </tr>
+	                        <tr>
+	                            <td>차변</td>
+	                            <td>대변</td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">수익정보</td>
+	                            <td>상품명</td>
+	                            <td rowspan="2">지출금액</td>
+	                            <td rowspan="2">수익금액</td>
+	                        </tr>
+	                        <tr>
+	                            <td>상품정보</td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">과세정보</td>
+	                            <td>상품명</td>
+	                            <td rowspan="2">지출금액</td>
+	                            <td rowspan="2">수익금액</td>
+	                        </tr>
+	                        <tr>
+	                            <td>상품정보</td>
+	                        </tr>
+	                        <tr>
+	                            <td>합계</td>
+	                            <td>정보</td>
+	                            <td>차변금액합</td>
+	                            <td>대변금액합</td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	
+	                <!-- 전표 생성날짜 입력란 -->
+	                <div class="slip-date">
+	                    <strong>전표 생성날짜:</strong> [여기에 전표 생성날짜 입력]
+	                </div>
+	            </div>
+	            <!-- 모달 푸터 -->
+	            <div class="modal-footer"></div>
+	        </div>
+	    </div>
+	</div>
+	
+	<style>
+	    .slip-table {
+	        width: 100%;
+	        border-collapse: collapse;
+	    }
+	
+	    .slip-table th,
+	    .slip-table td {
+	        border: 1px solid black;
+	        padding: 8px;
+	        text-align: left;
+	    }
+	
+	    .slip-table th {
+	        background-color: #f2f2f2;
+	    }
+	</style>
+
 </div>
