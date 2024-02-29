@@ -36,11 +36,11 @@ public class SD_NBProduct {
 
 	private String productCode; // 상품코드 (pb_1 형식)
 
-	private int priceEA; // 1개당 판매금액
+	private int priceEA = 0; // 1개당 판매금액
 
 	private int totalSaleEA = 0; // 총 판매수량
 
-	private int totalPrice; // 총 가격
+	private int totalPrice = 0; // 총 가격
 
 	private LocalDate registrationDate; // 상품등록날짜 (2024-01-01 형식)
 
