@@ -5,10 +5,15 @@
 	<title>JM_ERP</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
+	
 	 <!--Bootstrap CSS 연결--> 
 	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-	<link rel = "icon" href "img/favicon-inquiry3.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+	<!-- 파비콘(favicon) 넣기-->
+	<link rel="icon" href "/img/favicon--inquiry3.png" type="image/png" sizes="16x16"> 
+	
+	
 </head>
 
 <body>
@@ -53,7 +58,7 @@
 							<td th:text="${bom.rawNum}"></td>
 							<td th:text="${bom.workTime}"></td>
 						</tr>
-					</tbody>
+					</tbody>    
 				</table>
 				 <!--데이터 테이블 끝-->
 				
