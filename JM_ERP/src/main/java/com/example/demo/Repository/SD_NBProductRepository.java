@@ -19,4 +19,3 @@ public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long
 
 
 }
-
