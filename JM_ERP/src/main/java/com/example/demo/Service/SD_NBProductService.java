@@ -29,4 +29,5 @@ public class SD_NBProductService {
 			Pageable pageable = PageRequest.of(page, 10);
 			return nbRepository.findAll(pageable);
 		}
+
 }
