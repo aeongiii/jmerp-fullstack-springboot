@@ -41,10 +41,10 @@
 					<thead>
 						<tr class ="table-active">
 							<th>ID</th>
-							<th>Purchase Date</th>
-							<th>Client Name</th>
-							<th>Item Name</th>
-							<th>Total Amount</th>
+							<th>요청일</th>
+							<th>거래처 이름</th>
+							<th>물품 명</th>
+							<th>갯수</th>
 							<th>확인여부</th>
 						</tr>
 					</thead>
@@ -55,9 +55,10 @@
 							<td th:text="${inquiry.PurchaseDate}">Purchase Date</td>
 							<td th:text="${inquiry.clientName}">Client Name</td>
 							<td th:text="${inquiry.itemName}">Item Name</td>
-							<td th:text="${inquiry.totalAmount}">Total Amount</td>
+							<td th:text="${inquiry.totalCount}">Total Amount</td>
 							<td>
-								<a th:text="${inquiry.acceptance}" th:href="@{/PC/purchase/ordersheet/create/{id}(id=${inquiry.num})}"></a>
+								<a th:text="${inquiry.acceptance}" th:href="@{/PC/purchase/ordersheet/create/{id}(id=${inquiry.num})}"
+								></a>
 							</td>
 						</tr>
 					</tbody>
