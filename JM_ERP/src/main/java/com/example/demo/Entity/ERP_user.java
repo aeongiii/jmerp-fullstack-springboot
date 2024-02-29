@@ -30,5 +30,7 @@ public class ERP_user {
     @OneToOne
     @JoinColumn(name = "employeeId" )
     private HR_mem HR_mem;
+    
+    private Integer rank;
 	
 }

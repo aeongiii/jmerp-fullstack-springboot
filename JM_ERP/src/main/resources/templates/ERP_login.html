@@ -6,13 +6,13 @@
 	<title>Sign Up</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}">
-	<link rel = "icon" href "img/favicon-login.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<link rel = "icon" href "/img/favicon-login.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
 </head>
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 	<br>
 	<br>
 	<br>
@@ -50,7 +50,11 @@
 	</div>
 
 
+	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- JQuery 연결 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
 
 </html>

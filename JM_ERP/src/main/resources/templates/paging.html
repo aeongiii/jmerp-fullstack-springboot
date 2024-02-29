@@ -1,6 +1,6 @@
  <!-- 페이징 처리 -->
 <div th:fragment ="pagingFragment" th:if="${paging.totalPages > 1}">
-  <ul class="pagination justify-content-center" >
+  <ul class="pagination pagination-md justify-content-center" >
   	<!-- 이전 페이지 링크 -->
     <li class="page-item" th:classappend="${paging.hasPrevious()} ?  '' : 'disabled'">
       <a class="page-link" th:href="@{${currentUrl}(page=0)}">&laquo;</a>

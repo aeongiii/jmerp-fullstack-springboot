@@ -16,68 +16,55 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+   @Bean
+   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-		
-		
-		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-				.requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-			    
-				.requestMatchers(new AntPathRequestMatcher("/paging.html")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/maincontents.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/user/signup")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/bootstrapLux.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/style.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/calendar.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/calendar.js")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/bootstrapMorph.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/dataTable.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/sidebar.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/index.html")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/navbar.html")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/navbar.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/weather.css")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/weather.js")).permitAll()
-				
-				
-				.requestMatchers(new AntPathRequestMatcher("/error/**")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher(
-						"https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"))
-				.permitAll().requestMatchers(new AntPathRequestMatcher("/")).authenticated()
-				.requestMatchers(new AntPathRequestMatcher("/user/**")).authenticated() // 전체 공개
+      http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+            .requestMatchers(new AntPathRequestMatcher("/user/**")).permitAll()
+//            .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
+            
+            .requestMatchers(new AntPathRequestMatcher("/ERP_login.html")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/img/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/paging.html")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/index.html")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/navbar.html")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher("/error/**")).permitAll()
+            .requestMatchers(new AntPathRequestMatcher(
+                  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"))
+            .permitAll().requestMatchers(new AntPathRequestMatcher("/")).authenticated()
+            .requestMatchers(new AntPathRequestMatcher("/**")).hasAnyAuthority("ROLE_관리자") // 전체 공개
+            .requestMatchers(new AntPathRequestMatcher("/PC/**")).hasAnyAuthority("ROLE_구매")
+            .requestMatchers(new AntPathRequestMatcher("/PC/**")).hasAnyAuthority("ROLE_구매")
+            .requestMatchers(new AntPathRequestMatcher("/SD/**")).hasAnyAuthority("ROLE_영업")
+            .requestMatchers(new AntPathRequestMatcher("/PD/**")).hasAnyAuthority("ROLE_생산")
+            .requestMatchers(new AntPathRequestMatcher("/AC/**")).hasAnyAuthority("ROLE_회계")
+            .requestMatchers(new AntPathRequestMatcher("/MG/**")).hasAnyAuthority("ROLE_구매")
+            .requestMatchers(new AntPathRequestMatcher("/HR/**")).hasAnyAuthority("ROLE_인사") // TODO 관리자 권한
 
-				.requestMatchers(new AntPathRequestMatcher("/PC/**")).hasAnyAuthority("ROLE_구매")
-				.requestMatchers(new AntPathRequestMatcher("/SD/**")).hasAnyAuthority("ROLE_영업")
-				.requestMatchers(new AntPathRequestMatcher("/PD/**")).hasAnyAuthority("ROLE_생산")
-				.requestMatchers(new AntPathRequestMatcher("/AC/**")).hasAnyAuthority("ROLE_회계")
-				.requestMatchers(new AntPathRequestMatcher("/MG/**")).hasAnyAuthority("ROLE_구매")
-				.requestMatchers(new AntPathRequestMatcher("/HR/**")).hasAnyAuthority("ROLE_인사") // TODO 관리자 권한
-				
-				
-		)
+      )
 
-				.csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
+            .csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
 
-				.headers((headers) -> headers.addHeaderWriter(
-						new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-				.formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
+            .headers((headers) -> headers.addHeaderWriter(
+                  new XFrameOptionsHeaderWriter(XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
+            .formLogin((formLogin) -> formLogin.loginPage("/user/login").defaultSuccessUrl("/"))
 
-				.logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-						.logoutSuccessUrl("/").invalidateHttpSession(true));
+            .logout((logout) -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                  .logoutSuccessUrl("/").invalidateHttpSession(true));
 
-		return http.build();
-	}
+      return http.build();
+   }
 
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+   @Bean
+   PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
+   }
 
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
-			throws Exception {
-		return authenticationConfiguration.getAuthenticationManager();
-	}
+   @Bean
+   AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+         throws Exception {
+      return authenticationConfiguration.getAuthenticationManager();
+   }
 }

@@ -8,15 +8,15 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>JTM 게시판</title>
+    <title>JTM 결재</title>
 </head>
 <body>
 	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<aside th:replace="~{/sidebar :: sidebarFragment}"></aside>
 	<div class="container">
-		<h5 class="my-3 border-bottom pb-2">질문등록</h5>
-		<form th:action="@{/user/board/Qcreate}" th:object="${ERP_boardQForm}" method="post">
+		<h5 class="my-3 border-bottom pb-2">결재등록</h5>
+		<form th:action="@{/user/approval/create}" th:object="${ERP_approvalForm}" method="post">
 			
 			<div class="mb-3">
 				<label for="subject" class="form-label">제목</label>
@@ -26,6 +26,7 @@
 				<label for="content" class="form-label">내용</label>
 				<textarea th:field="*{content}" class="form-control" rows="10"></textarea>
 			</div>
+			<!--todo 결재받을 사람 정하기 -->
 			<input type="submit" value="저장하기" class="btn btn-primary my-2">
 		</form>
 	</div>
