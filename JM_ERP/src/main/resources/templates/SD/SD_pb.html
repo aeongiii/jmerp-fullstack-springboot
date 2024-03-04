@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>판매자 상품 목록</title>
+	<title>자체제작 상품 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -31,29 +31,10 @@
 			<div class="col-lg-10">
 				
 				<!-- 상품 등록 버튼 -->
-				<a href="http://localhost:8080/SD/product/nbcreate" class="btn btn-primary">상품등록</a>
-
-				<!-- 전체 NB상품 조회 버튼 -->
-				<a href="http://localhost:8080/SD/product/nb" class="btn btn-primary">전체조회</a>
+				<a href="http://localhost:8080/SD/product/pbcreate" class="btn btn-primary">상품등록</a>
 				<br><br>
-				
-				<h3>판매자별 상품 조회</h3>
-				
-				<form id="sellerForm" action="/SD/product/nb" method="get">
-					<label for="sellerNameSelect">판매자명:</label>
-					<select id="sellerSelect" name="sellerId">
-						<th:block th:each="seller : ${sellers}">
-							<option th:value="${seller.sellerId}" th:text="${seller.sellerName}"></option>
-						</th:block>
-					</select>
 
-
-					<button type="submit">조회</button>
-				</form>
-				
-				<br>
-				
-				<h3>조회 결과</h3>
+				<h3>전체 상품 조회</h3>
 
 				<!-- 데이터 테이블 시작-->
 				<table class=" table table-hover">
@@ -72,22 +53,22 @@
 					</thead>
 
 					<tbody>
-						<tr th:each="nb : ${nbProductList}">
-							<td th:text="${nb.sellerName}"></td>
-							<td th:text="${nb.category}"></td>
+						<tr th:each="pb : ${pbProductList}">
+							<td th:text="${pb.sellerName}"></td>
+							<td th:text="${pb.category}"></td>
 							<td>
-								<img th:src="${nb.imageFileLink}" alt="상품 이미지" style="width:100px; height:auto;">
+								<img th:src="${pb.imageFileLink}" alt="상품 이미지" style="width:100px; height:auto;">
 							</td>			
-							<td th:text="${nb.productName}"></td>
-							<td th:text="${nb.productCode}"></td>
-							<td th:text="${nb.priceEA}"></td>
-							<td th:text="${nb.description}"></td>
-							<td th:text="${nb.registrationDate}"></td>
+							<td th:text="${pb.productName}"></td>
+							<td th:text="${pb.productCode}"></td>
+							<td th:text="${pb.priceEA}"></td>
+							<td th:text="${pb.description}"></td>
+							<td th:text="${pb.registrationDate}"></td>
 							<td>
 								<!-- 수정. 삭제 버튼 -->
-								<a th:href="@{'/SD/product/nb/update/' + ${nb.sellerName}}"
+								<a th:href="@{'/SD/product/pb/update/' + ${pb.sellerName}}"
 									class="btn btn-primary">수정</a>
-								<form th:action="@{'/SD/product/nb/delete/' + ${nb.sellerName}}" method="post">
+								<form th:action="@{'/SD/product/pb/delete/' + ${pb.sellerName}}" method="post">
 									<input type="hidden" name="_method" value="delete" />
 									<button class="btn btn-primary" type="submit">삭제</button>
 								</form>
