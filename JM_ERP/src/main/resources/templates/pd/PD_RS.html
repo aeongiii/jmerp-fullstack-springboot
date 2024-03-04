@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<!-- localhost8080/PD/wo -->
+	<!-- localhost8080/PD/rs -->
 <head>
 	<title>JM_ERP</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
 
 	<!-- Bootstrap CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/scs/style.css}">
-	<link rel = "icon" href ="/img/favicon--inquiry3.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<link rel="icon" href ="/img/favicon--inquiry3.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
 	
 </head>
 
@@ -61,7 +63,7 @@
 				<!-- 페이징 프라그먼트 -->
 				<div th:replace="~{/paging::pagingFragment}"></div>
 				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{pd/PD_button::PD_wo-buttonFragment}"></div>
+				<div th:replace="~{pd/PD_button::PD_rs-buttonFragment}"></div>
 				
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->		
