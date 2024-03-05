@@ -21,4 +21,8 @@ public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long
     // 회계에서 사용
     @Query("SELECT nb.sellerName FROM SD_NBProduct nb WHERE nb.productCode = :productCode")
     String findSellerNameByProductCode(@Param("productCode") String productCode);
+    
+    // 회계에서 사용
+    @Query("SELECT nb.productName FROM SD_NBProduct nb WHERE nb.productCode = :productCode")
+    String findProductNameByProductCode(@Param("productCode") String productCode);
 }
