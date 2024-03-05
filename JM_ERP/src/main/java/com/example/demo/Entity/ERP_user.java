@@ -31,6 +31,6 @@ public class ERP_user {
     @JoinColumn(name = "employeeId" )
     private HR_mem HR_mem;
     
-    private Integer rank;
+//    private Integer rank;
 	
 }
