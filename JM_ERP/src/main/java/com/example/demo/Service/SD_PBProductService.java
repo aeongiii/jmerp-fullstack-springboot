@@ -11,8 +11,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SD_PBProduct;
+import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Form.SD_PBProductCreateForm;
 import com.example.demo.Repository.SD_PBProductRepository;
+import com.example.demo.Repository.SD_SellerRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +24,8 @@ public class SD_PBProductService {
 
 	@Autowired
 	private final SD_PBProductRepository pbRepository;
+	private final SD_SellerRepository sellerRepository;
+	private final SD_SellerService sellerService;
 
 // 자체상품 모두 조회(페이징)
 	public Page<SD_PBProduct> searchAll(int page) {
@@ -39,9 +43,11 @@ public class SD_PBProductService {
 		// 새로운 상품 객체 생성
 		SD_PBProduct newPB = new SD_PBProduct();
 		
-		// sellerName을 이용하여 sellerID 조회
-	
-//		newPB.setSellerId(sellerId);
+		// html로부터 숨겨진 필드로 전달받은 sellerName을 이용하여 sellerID 조회
+		String strSellerId = sellerService.findSellerIdBySellerName(form.getSellerName());
+		SD_Seller sellerId = sellerService.findById(strSellerId);
+		newPB.setSellerId(sellerId);
+		
 //		newPB.setSellerName(form.getSellerName());
 //		newPB.setTotalSaleEA(form.getTotalSaleEA());
 //		newPB.setTotalPrice(form.getTotalPrice());

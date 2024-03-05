@@ -30,7 +30,7 @@ public class SD_PBProduct {
 
 	private int priceEA; // 1개당 판매금액
 	
-	private int totalSaleEA =0; // 총 판매수량
+	private int totalSaleEA = 0; // 총 판매수량
 	
 	private int totalPrice; // 총 판매수량
 

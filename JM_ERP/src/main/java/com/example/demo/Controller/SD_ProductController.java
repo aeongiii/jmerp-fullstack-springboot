@@ -76,11 +76,7 @@ public class SD_ProductController {
 		return "redirect:/SD/product/nb";
 	}
 
-	// 판매자 상품수정
 
-	// 판매자 상품삭제
-
-	// 판매자 상품조회
 
 // ===============================================================================================================================
 
@@ -105,13 +101,20 @@ public class SD_ProductController {
 // 자체상품 등록
 	@GetMapping("/pbcreate")
 	public String PBProductCreate(Model model) {
+		List<SD_Seller> sellerList = sellerService.getSellerList();
+		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("SD_PBProductCreateForm", new SD_PBProductCreateForm()); // pb상품 등록 폼을 모델에 추가
 		return "SD/SD_PBProductCreate";
 	}
 
 	@PostMapping("/pbcreate")
 	public String PBProductCreate(@Valid SD_PBProductCreateForm pbCreateForm, Model model) {
+
+//		pbCreateForm.setSellerId("000-00-00000");	// 직접 설정까지 했는데 왜 안들어갈까.. ㅠㅠ
+//		pbCreateForm.setSellerName("달토끼");
+
 		pbService.savePBProduct(pbCreateForm); // 상품코드를 form 및 DB에 저장
+
 		return "redirect:/SD/product/pb";
 	}
 }

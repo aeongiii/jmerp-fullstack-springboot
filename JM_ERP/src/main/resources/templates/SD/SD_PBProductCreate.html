@@ -29,6 +29,17 @@
 				<form th:action="@{/SD/product/pbcreate}" th:object="${SD_PBProductCreateForm}" method="post">
 					<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
 
+					<!-- 실제로 입력받지는 않는 내용 -->
+					<!--<input type="hidden" name="sellerId" th:value="${SD_PBProductCreateForm.sellerId}" />
+					<input type="hidden" name="sellerName" th:value="${SD_PBProductCreateForm.sellerName}" />-->
+
+					<div class="mb-3">
+						<label for="sellerName" class="form-label">판매자명</label>
+						<input type="text" readonly class="form-control" id="sellerName" name="sellerName"
+							value="달토끼" />
+					</div>
+
+
 					<div class="mb-3">
 						<label for="category" class="form-label">상품분류</label>
 						<div>

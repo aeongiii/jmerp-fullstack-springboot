@@ -13,10 +13,10 @@ import lombok.Setter;
 public class SD_PBProductCreateForm {
 
 	@NotEmpty(message = "사업자등록번호는 필수항목입니다.")
-	private String sellerId = "000-00-00000"; // 사업자등록번호 (외래키로 참조)
+	private String sellerId; // 사업자등록번호 (외래키로 참조)
 
 	@NotEmpty(message = "판매자명은 필수항목입니다.")
-	private String sellerName = "달토끼"; // 판매자이름
+	private String sellerName; // 판매자이름
 
 	@NotEmpty(message = "상품분류는 필수항목입니다.")
 	private String category; // 상품분류
