@@ -14,7 +14,7 @@
 					<!-- 수정 내용 -->
 		 			<form id="debtForm" th:action="@{/AC/debtupdate}" method="post">
 						
-						채권 번호: <span id="debtNumber"></span><br>
+						채무 번호: <span id="debtNumber"></span><br>
 						
 						<label for="debtType">증감 구분:</label>
 						<select id="debtType" name="type" onchange="showPriceField('debtType', 'debtPriceLabel', 'debtPriceLabelName')">
@@ -106,17 +106,17 @@
 					<!-- 회사명과 전표번호 입력란 -->
 				    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
 				        <div>
-				            <strong>회사명:</strong> [여기에 회사명 입력]
+				            <strong>회사명:</strong> (주)달토끼
 				        </div>
 				        <div>
-				            <strong>전표번호:</strong> [여기에 전표번호 입력]
+				            <strong>전표번호:</strong> <span id="slipNumber"></span>
 				        </div>
 				    </div>
 	                <!-- 내용 -->
 	                <table class="slip-table">
 	                    <tbody>
 	                        <tr>
-	                            <td rowspan="2">유형</td>
+	                            <td rowspan="2">계정명</td>
 	                            <td rowspan="2">적요</td>
 	                            <td colspan="2">금액</td>
 	                        </tr>
@@ -125,35 +125,44 @@
 	                            <td>대변</td>
 	                        </tr>
 	                        <tr>
-	                            <td rowspan="2">수익정보</td>
-	                            <td>상품명</td>
-	                            <td rowspan="2">지출금액</td>
-	                            <td rowspan="2">수익금액</td>
+	                            <td rowspan="2">상품</td>
+	                            <td><span id="trader1"></td>
+	                            <td rowspan="2"><span id="amountL1"></td>
+	                            <td rowspan="2"><span id="amountR1"></td>
 	                        </tr>
 	                        <tr>
-	                            <td>상품정보</td>
+	                            <td><span id="description1"></td>
 	                        </tr>
 	                        <tr>
-	                            <td rowspan="2">과세정보</td>
-	                            <td>상품명</td>
-	                            <td rowspan="2">지출금액</td>
-	                            <td rowspan="2">수익금액</td>
+	                            <td rowspan="2">부가세대급금</td>
+	                            <td><span id="trader2"></td>
+	                            <td rowspan="2"><span id="amountL2"></td>
+	                            <td rowspan="2"><span id="amountR2"></td>
 	                        </tr>
 	                        <tr>
-	                            <td>상품정보</td>
+	                            <td><span id="description2"></td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">계좌</td>
+	                            <td><span id="trader3"></td>
+	                            <td rowspan="2"><span id="amountL3"></td>
+	                            <td rowspan="2"><span id="amountR3"></td>
+	                        </tr>
+	                        <tr>
+	                            <td><span id="description3"></td>
 	                        </tr>
 	                        <tr>
 	                            <td>합계</td>
 	                            <td>정보</td>
-	                            <td>차변금액합</td>
-	                            <td>대변금액합</td>
+	                            <td><span id="totalAmountL"></td>
+	                            <td><span id="totalAmountR"></td>
 	                        </tr>
 	                    </tbody>
 	                </table>
 	
 	                <!-- 전표 생성날짜 입력란 -->
 	                <div class="slip-date">
-	                    <strong>전표 생성날짜:</strong> [여기에 전표 생성날짜 입력]
+	                    <strong>전표 생성날짜:</strong> <span id="createAt"></span>
 	                </div>
 	            </div>
 	            <!-- 모달 푸터 -->

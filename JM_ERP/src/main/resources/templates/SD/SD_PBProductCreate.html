@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>판매자 상품 등록</title>
+	<title>자체제작 상품 등록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -26,17 +26,19 @@
 			<div class="col-lg-10">
 
 				<!-- 폼 -->
-				<form th:action="@{/SD/product/nbcreate}" th:object="${SD_NBProductCreateForm}" method="post">
+				<form th:action="@{/SD/product/pbcreate}" th:object="${SD_PBProductCreateForm}" method="post">
 					<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
+
+					<!-- 실제로 입력받지는 않는 내용 -->
+					<!--<input type="hidden" name="sellerId" th:value="${SD_PBProductCreateForm.sellerId}" />
+					<input type="hidden" name="sellerName" th:value="${SD_PBProductCreateForm.sellerName}" />-->
+
 					<div class="mb-3">
 						<label for="sellerName" class="form-label">판매자명</label>
-						<select id="sellerSelect" name="sellerName" th:field="*{sellerName}" class="form-control">
-							<option value="" th:text="선택"></option>
-							<option th:each="seller : ${sellerList}" th:value="${seller.sellerName}"
-								data-seller-id="${seller.sellerId}" th:text="${seller.sellerName}">
-							</option>
-						</select>
+						<input type="text" readonly class="form-control" id="sellerName" name="sellerName"
+							value="달토끼" />
 					</div>
+
 
 					<div class="mb-3">
 						<label for="category" class="form-label">상품분류</label>
@@ -69,8 +71,6 @@
 						<label for="productName" class="form-label">상품명</label>
 						<input type="text" th:field="*{productName}" class="form-control">
 					</div>
-
-
 
 					<div class="mb-3">
 						<label for="priceEA" class="form-label">개당 판매금액</label>

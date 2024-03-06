@@ -22,6 +22,8 @@ public class AC_DepositSlip {
     private LocalDate tradeDate; // 거래일자
     private String trader; // 거래처
     
+    private int descriptionEA; // 적요에 넣을 갯수
+    
     @Column(columnDefinition = "TEXT")
     private String description; // 적요
     

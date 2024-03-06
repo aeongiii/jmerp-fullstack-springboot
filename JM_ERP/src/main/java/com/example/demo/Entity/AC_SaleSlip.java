@@ -22,6 +22,10 @@ public class AC_SaleSlip {
     private LocalDate tradeDate; // 거래일자
     private String trader; // 거래처
     
+    private String productCode; // 판매 상품코드
+    
+    private String seller; // 판매자
+    
     @Column(columnDefinition = "TEXT")
     private String description; // 적요
     
