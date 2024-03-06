@@ -32,6 +32,12 @@ public class HR_memService {
 		return this.memRepository.findAll();
 	}
 	
+	public HR_mem getMem(String name) {
+		HR_mem user = this.memRepository.findByName(name);
+		
+		return user;
+	}
+	
 // 사원번호 자동 생성
 	public String createEmployeeId(String deptName, LocalDate startDate) {
 		// 입사연도 2자리 추출
