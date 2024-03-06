@@ -44,19 +44,29 @@
 				</div>
 				
 				<table class = "table table-hover"> <!--style="display: none;" 후에 불러오기-->
-				    <tbody>
-				        <tr><td>계정명</td><td th:text="${monthIncome.monthId}"></td></tr>
-				        <tr><td>1. 매출</td> <td></td></tr>
-				        <tr><td>자사 판매가</td> <td></td></tr>
-				        <tr><td>자사 판매품 부가세</td> <td></td></tr>
-				        <tr><td>대행 판매 수수료</td> <td></td></tr>
-				        <tr><td>2. 매입</td> <td></td></tr>
-				        <tr><td>원재료 구입</td> <td></td></tr>
-				        <tr><td>3. 원천 징수</td> <td></td></tr>
-				        <tr><td>직원 급여</td> <td></td></tr>
-				        <tr><td>4. 총 순수익</td> <td></td></tr>
-				    </tbody>
-				</table>
+					<thead>
+				        <tr class="table-active">
+			                <th>년/월</th>
+			                <th>수익</th>
+			                <th>부가세</th>
+			                <th>비용</th>
+			                <th>순수익</th>
+			                <th>수정 일자</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <!-- for each 문 -->
+			            <tr th:unless="${monthIncome == null}">
+			                <!-- 화면에 띄울 정보 -->
+			                <td th:text="${monthIncome.monthId}"></td>
+			                <td th:text="${#numbers.formatInteger(monthIncome.revenue, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(monthIncome.VAT, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(monthIncome.expense, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(monthIncome.netIncome, 3, 'COMMA')}"></td>
+			                <td th:text="${#temporals.format(monthIncome.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+			            </tr>
+			        </tbody>
+			    </table>
 			    <!-- 후에 알맞은 페이징과 버튼을 만들것
 				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div>
 				<div th:replace="~{AC_bond_debt_botton::bottonFragment}"></div> -->

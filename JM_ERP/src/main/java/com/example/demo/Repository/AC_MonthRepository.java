@@ -7,5 +7,6 @@ import com.example.demo.Entity.AC_Month;
 
 @Repository
 public interface AC_MonthRepository extends JpaRepository<AC_Month, String> {
-
+	
+	AC_Month findByMonthId(String keyword);
 }

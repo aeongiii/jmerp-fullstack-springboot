@@ -23,6 +23,10 @@ public class PC_PurchaseService {
 
 	private final PC_OrderSheetRepository orderSheetRepository;
 	private final PC_PurchaseInquiryRepository purchaseInquiryRepository;
+	
+	public List<PC_OrderSheet> getOrderSheetList() {
+		return this.orderSheetRepository.findAll();
+	}
 
 	public Page<PC_OrderSheet> searchOrderSheet(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
