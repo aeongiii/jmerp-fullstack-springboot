@@ -9,12 +9,13 @@ canvas {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 50px;
+	margin-top: 110px;
 }
 .textbox {
   display : flex;
   justify-content: center;
-  flex-direction: column;	
+  flex-direction: column;
+  width : 600px;
 }
 
 .main--text{ /* main--text 위치 조정*/

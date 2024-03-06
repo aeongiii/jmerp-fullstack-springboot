@@ -112,3 +112,118 @@
         </div>
     </div>
 </nav>
+
+
+<!-- sign up(회원가입) 전용 navbar fragment입니다.  -->
+<nav th:fragment="signup--navbarFragment" class="navbar navbar-expand-lg bg-primary nav1" data-bs-theme="dark">
+    <div  class="container-fluid ">
+		<img class="main-logo" src="/img/spaceship_original.png"/>
+        <a class="navbar-brand" href="http://localhost:8080/">JM_ERP</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item" >
+                    <a class="nav-link active" href="http://localhost:8080/" th:text ="${login_username}">Home
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+
+                   <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/user/login}">Login</a>
+                    <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Logout</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/user/mail">편지보관함</a>
+                        <a class="dropdown-item" href="http://localhost:8080/user/mailsend">편지쓰기</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input class="form-control me-sm-2" type="search" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <div class = "nav--space">
+  		<div class = "nav--stars"></div>
+	</div>
+</nav>
+
+<nav th:fragment="signup--navbarFragment" class="navbar navbar-expand-lg bg-dark2 nav1" data-bs-theme="dark">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto justify-content-center w-100">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">My Page</a>
+                </li>
+                
+               <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle mainmenu-link navfontsize" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Marketing</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/SD/sale/best">영업 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/member/list">고객 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/seller/list">판매자 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/SD/product/nb">상품 관리</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Separated link</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Accounting</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/AC/bonddebt">채무/채권 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/AC/transactionslip">전표 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/AC/month">재무 관리</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">HR</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/HR/mem/list">사원관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/HR/dept/create">부서관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/HR/work/search">근태관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/HR/cont/list">근로계약서 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/HR/day/list">일용근무 관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/HR/doc/list">증명서 관리</a>
+               		</div>	
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Product</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/PD/bom">BOM</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PD/wo">작업지시서</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PD/wh">작업내역</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PD/rs">생산관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PD/qc">품질관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/PD/cost">원가관리</a>
+
+                    </div>
+                </li>
+                             
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Purchase/Resource</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="http://localhost:8080/PC/purchase/ordersheet">발주관리/미완</a>
+                        <a class="dropdown-item" href="http://localhost:8080/MG/itemcheek">물품등록/조회</a>
+                        <a class="dropdown-item" href="http://localhost:8080/MG/accmg">거래처관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/MG/wmsrelese">창고관리</a>
+                        <a class="dropdown-item" href="http://localhost:8080/MG/useCheck">비품사용</a>
+                    </div>
+                </li>
+        </div>
+    </div>
+</nav>
