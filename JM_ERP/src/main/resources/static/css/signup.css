@@ -1,0 +1,118 @@
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgb(36, 45, 55);
+}
+
+.signupform {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 50px;
+}
+.textbox {
+  display : flex;
+  justify-content: center;
+  flex-direction: column;	
+}
+
+.main--text{ /* main--text 위치 조정*/
+  max-width: 622px;
+  padding-top: var(--base-size-180, 180px);
+  padding-right : var(--base-size-20, 20px);
+}
+
+@keyframes fadeIn { /* animation 효과를 만들어 내기 위한 기초 공식.*/
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.theme1 {
+	border-style: none ;
+  
+  animation: fadeIn 800ms ease-out forwards; /* @keyframes 애니메이션 사용 */
+  animation-play-state: running; /* 초기 상태에서 애니메이션 일시 정지 */
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+.text--prompt {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 0.8s steps(130, end) forwards;
+}
+
+button {
+  position: relative;
+  width : 120px;
+  border : 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+}
+
+.double--check {
+  position: relative;
+  width : 120px;
+  border : 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: #ffffff;
+  background-color: #6D8CAC;
+}
+
+br::selection{
+  color : yellow;
+}
+
+p::selection{
+  color : yellow;
+}
+
+.sentence--gray {
+  display: flex;
+  position: relative;
+  width : 580px;
+  height : 90px;
+  font-size : 16px;
+  top : 20px;
+  float: left;
+  left : 10px;
+  color : rgb(105, 202, 235);
+}
+
+.sentence--gray::selection { /* 마우스 드래그 글자색 변경 */
+  color : yellow;
+}
+
+.text--prompt {
+  color : rgb(105, 202, 235);
+}
+
+.text--prompt::selection {
+  color : yellow;
+}
+
+input[type=password] {
+	position: relative;
+  background-color: #F1F1F1;
+  padding-left: 8px;
+  color : rgb(36, 45, 55);
+  opacity: 0.7;
+  margin: 7px 0px;
+  cursor: default;
+}
+input[type=text] {
+  position: relative;
+  background-color: #F1F1F1;
+  padding-left: 8px;
+  color : rgb(36, 45, 55);
+  opacity: 0.7;
+  margin: 10px 0px;
+  cursor: default;
+}

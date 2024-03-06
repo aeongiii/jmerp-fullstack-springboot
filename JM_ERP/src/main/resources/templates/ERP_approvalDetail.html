@@ -35,11 +35,14 @@
 						</div>
 					</div>
 					<div class="btn-group-lg" th:id="${authority[0]}" th:name="${authority[1]}">
-						<button type="button" class="btn btn-primary disabled " name="ROLE_구매부">미완료</button>
+						<button type="button" class="btn btn-secondary disabled " name="ROLE_구매부">구매부</button>
 												
-						<button type="button" class="btn btn-primary disabled " name="ROLE_인사부">미완료</button>
+						<button type="button" class="btn btn-secondary disabled " name="ROLE_인사부">인사부</button>
 						
-						<button type="button" class="btn btn-primary disabled " name="ROLE_생산부">미완료</button>
+						<button type="button" class="btn btn-secondary disabled " name="ROLE_생산부">생산부</button>
+					</div>
+					<div th:each="principal : ${principal}">
+						<span th:text="${principal}"></span>
 					</div>
 				</div>
 			</div>

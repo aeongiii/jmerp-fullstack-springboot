@@ -42,7 +42,7 @@ public class SD_SellerController {
 	@PostMapping("/create")
 	public String sellerCreate(@Valid SD_sellerCreateForm sellerCreateForm, Model model) {
 		sellerService.saveSeller(sellerCreateForm); // 모든 셀러 정보를 DB에 저장
-		return "redirect:/SD/member/list";
+		return "redirect:/SD/seller/list";
 	}
 
 // 전체 판매자 목록 조회

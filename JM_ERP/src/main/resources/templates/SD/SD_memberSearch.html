@@ -54,7 +54,6 @@
 							<th>거래일시</th>
 							<th>카드번호</th>
 							<th>판매자명</th> <!-- 사업자등록번호, 개당판매금액은 화면출력 X -->
-							<th></th>
 						</tr>
 					</thead>
 
@@ -67,14 +66,7 @@
 							<td th:text="${#temporals.format(p.purchaseTime, 'yyyy-MM-dd HH:mm')}"></td>	<!-- 타임리프 날짜 포맷 기능 : 특정 형식으로 출력 -->
 							<td th:text="${p.memberCardNumber}"></td>
 							<td th:text="${p.sellerName}"></td>
-							<td>
-								<!-- 수정. 삭제 버튼 -->
-								<a th:href="@{'/SD/member/update/' + ${p.memberId}}" class="btn btn-primary">수정</a>
-								<form th:action="@{'/SD/member/delete/' + ${p.memberId}}" method="post">
-									<input type="hidden" name="_method" value="delete" />
-									<button class="btn btn-primary" type="submit">삭제</button>
-								</form>
-							</td>
+
 						</tr>
 					</tbody>
 				</table>
