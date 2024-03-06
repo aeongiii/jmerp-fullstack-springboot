@@ -31,13 +31,39 @@ public class AC_SlipController {
 	private final SD_PurchaseService purchaseService;
 	
 	@GetMapping("/transactionslip")
-	public String transactionSlipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
-        
+	public String transactionSlipList(Model model, 
+			@RequestParam(value = "page", defaultValue ="0") int page,
+    		@RequestParam(value = "keyword", required = false) String keyword, 
+            @RequestParam(value = "category", required = false) String category,
+            HttpServletRequest request) {
+		
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
     	Page<AC_WithdrawalSlip> withdrawal = this.withdrawalSlipService.getList(page);
         Page<AC_DepositSlip> deposit = this.depositSlipService.getList(page);
+        
+	    if (category != null && !category.isEmpty()) {
+	    	
+	        if ("date".equals(category)) {
+	            withdrawal = this.withdrawalSlipService.searchTradeDateList(keyword, page);
+	            deposit = this.depositSlipService.searchTradeDateList(keyword, page);
+	            
+	        } else if ("trader".equals(category)) {
+	        	withdrawal = this.withdrawalSlipService.searchTraderList(keyword, page);
+	            deposit = this.depositSlipService.searchTraderList(keyword, page);
+	        	
+	        } else if ("description".equals(category)) {
+	        	withdrawal = this.withdrawalSlipService.searchDescriptionList(keyword, page);
+	            deposit = this.depositSlipService.searchDescriptionList(keyword, page);
+	        
+	        } else if ("transactionType".equals(category)) {
+	        	withdrawal = this.withdrawalSlipService.searchTransactionTypeList(keyword, page);
+	            deposit = this.depositSlipService.searchTransactionTypeList(keyword, page);	            
+	        }
+	    }
+        
+        
         model.addAttribute("withdrawalSlipList", withdrawal);
         model.addAttribute("depositSlipList", deposit);
         return "ac/AC_transactionslip";
@@ -54,12 +80,36 @@ public class AC_SlipController {
 	}
 	
 	@GetMapping("/saleslip")
-	public String saleSlipList(Model model, @RequestParam(value = "page", defaultValue ="0") int page, HttpServletRequest request) {
-        
+	public String saleSlipList(Model model,     		
+			@RequestParam(value = "page", defaultValue ="0") int page,
+    		@RequestParam(value = "keyword", required = false) String keyword, 
+            @RequestParam(value = "category", required = false) String category,
+            HttpServletRequest request) {
+		
     	String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
         Page<AC_SaleSlip> sale = this.saleSlipService.getList(page);
+        
+	    if (category != null && !category.isEmpty()) {
+	    	
+	        if ("tradeDate".equals(category)) {
+	            sale = this.saleSlipService.searchTradeDateList(keyword, page);
+	            
+	        } else if ("trader".equals(category)) {
+	        	sale = this.saleSlipService.searchTraderList(keyword, page);
+	        	
+	        } else if ("seller".equals(category)) {
+	        	sale = this.saleSlipService.searchSellerList(keyword, page);
+	        	
+	        } else if ("description".equals(category)) {
+	        	sale = this.saleSlipService.searchDescriptionList(keyword, page);
+	        
+	        } else if ("transactionType".equals(category)) {
+	        	sale = this.saleSlipService.searchTransactionTypeList(keyword, page);
+	        }
+	    }
+        
         model.addAttribute("saleSlipList", sale);
         return "ac/AC_saleslip";
     }

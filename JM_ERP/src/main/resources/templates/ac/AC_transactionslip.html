@@ -26,11 +26,35 @@
             <!-- 테이블 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
                 <!-- 조건 조회 버튼 시작-->
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
-                    <label class="btn btn-outline-primary" for="btnradio1">입금 전표</label>
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
-                    <label class="btn btn-outline-primary" for="btnradio2">출금 전표</label>
+                <div class="mb-3 d-flex justify-content-between align-items-center">
+	                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+	                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="option1" th:checked="${option == 'option1'}">
+	                    <label class="btn btn-outline-primary" for="btnradio1">입금 전표</label>
+	                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="option2" th:checked="${option == 'option2'}">
+	                    <label class="btn btn-outline-primary" for="btnradio2">출금 전표</label>
+	                </div>
+                    
+                    <form action="/AC/transactionslip" method="get" class="flex-grow-1">
+						<input type="hidden" id="pageNumber" name="page" th:value="0">
+				        <div class="d-flex justify-content-end"> <!-- 오른쪽 정렬 -->
+				            <div class="col-auto me-3"> <!-- 자동으로 열 맞춤 -->
+				                <input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
+				            </div>
+				            <div class="col-auto me-3">
+				                <select class="form-select" id="category" name="category">
+				                    <option value="date">거래 일자</option>
+				                    <option value="trader">거래처</option>
+				                    <option value="description">적요</option>
+				                    <option value="transactionType">거래 유형</option>
+				                    <!-- 원하는 검색 항목을 추가할 수 있습니다. -->
+				                </select>
+				            </div>
+				            <div class="col-auto">
+				                <button type="submit" class="btn btn-primary">검색</button>
+				            </div>
+				        </div>
+				    </form>
+                    
                 </div>
                 <!-- 조건 조회 버튼 끝-->
                 
@@ -43,7 +67,7 @@
 				            <tr>
 				                <th>전표 코드</th>
 				                <th>거래 일자</th>
-				                <th>거래자</th>
+				                <th>거래처</th>
 				                <th>적요</th>
 				                <th>금액</th>
 				                <th>거래 유형</th>
@@ -61,9 +85,9 @@
 				                <td th:text="${slip.description}"></td>
 				                <td th:text="${#numbers.formatInteger(slip.amount, 3, 'COMMA')}"></td>
 				                <td th:text="${slip.transactionType}"></td>
-				                <td th:text="${slip.createdAt}"></td>
+				                <td th:text="${#temporals.format(slip.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
 				                <td>
-							        <button class="btn btn-primary open-slip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
+							        <button class="btn btn-primary open-depositSlip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
 							    </td>
 				            </tr>
 				        </tbody>
@@ -85,7 +109,7 @@
 				            <tr>
 				                <th>전표 코드</th>
 				                <th>거래 일자</th>
-				                <th>거래자</th>
+				                <th>거래처</th>
 				                <th>적요</th>
 				                <th>금액</th>
 				                <th>거래 유형</th>
@@ -103,9 +127,9 @@
 				                <td th:text="${slip.description}"></td>
 				                <td th:text="${#numbers.formatInteger(slip.amount, 3, 'COMMA')}"></td>
 				                <td th:text="${slip.transactionType}"></td>
-				                <td th:text="${slip.createdAt}"></td>
+				                <td th:text="${#temporals.format(slip.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
 				                <td>
-							        <button class="btn btn-primary open-slip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
+							        <button class="btn btn-primary open-withdrawalSlip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
 							    </td>
 				            </tr>
 				        </tbody>
@@ -152,7 +176,11 @@
 	
 	<script>
 		$(document).ready(function() {
-		    modalOnClick('open-slip-modal', 'slipModal');
+		    depositSlipModalOnClick('open-depositSlip-modal', 'slipModal');
+		});
+		
+		$(document).ready(function() {
+		    withdrawalSlipModalOnClick('open-withdrawalSlip-modal', 'slipModal');
 		});
 	</script>
 	

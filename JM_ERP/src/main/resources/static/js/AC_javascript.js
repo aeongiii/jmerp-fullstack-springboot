@@ -70,10 +70,128 @@ function modalOnClick(btnClass, modalId, modalNumberId, submitNumberId) {
     });
 }
 
-// 전표 모달을 열고 닫는 함수(안에 내용 변화가 없는 모달 - 임시조치)
-function modalOnClick(btnClass, modalId) {
+// 입금 전표 모달을 열고 닫는 함수(안에 내용 변화가 없는 모달 - 임시조치)
+function depositSlipModalOnClick(btnClass, modalId) {
     // 수정 버튼 클릭 시 모달 열기
     $(document).on('click', '.' + btnClass, function() {
+		// 클릭된 버튼이 속한 행을 찾습니다.
+        var $row = $(this).closest('tr')
+        // 행의 순서를 찾습니다.
+		var number = $row.find('td:first').text().trim();
+		var trader = $row.find('td:nth-child(3)').text().trim();
+		var description = $row.find('td:nth-child(4)').text().trim();
+		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
+		var createAt = $row.find('td:nth-child(7)').text().trim();
+		
+		$('#slipNumber').text(number);
+		$('#trader1').text(trader);
+		$('#trader2').text(trader);
+		$('#trader3').text(trader);
+		$('#description1').text(description);
+		$('#description2').text(description);
+		$('#description3').text(description);
+		
+		// 반올림
+        if (trader === '달토끼') {
+            $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
+            $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());         
+        } else {
+            $('#amountR1').text((amount).toLocaleString());
+            $('#amountR2').text("");           
+        }
+        
+        $('#amountL3').text((amount).toLocaleString());
+        $('#totalAmountL').text((amount).toLocaleString());
+        $('#totalAmountR').text((amount).toLocaleString());
+        
+        $('#createAt').text(createAt);
+
+        // 모달 열기
+        $('#' + modalId).modal('show');
+
+        // 모달 닫기 버튼 클릭 시 모달 닫기
+        $(document).on('click', '.close', function() {
+            $('#' + modalId).modal('hide');
+        });    
+    });
+}
+
+// 출금 전표 모달을 열고 닫는 함수(안에 내용 변화가 없는 모달 - 임시조치)
+function withdrawalSlipModalOnClick(btnClass, modalId) {
+    // 수정 버튼 클릭 시 모달 열기
+    $(document).on('click', '.' + btnClass, function() {
+		// 클릭된 버튼이 속한 행을 찾습니다.
+        var $row = $(this).closest('tr')
+        // 행의 순서를 찾습니다.
+		var number = $row.find('td:first').text().trim();
+		var trader = $row.find('td:nth-child(3)').text().trim();
+		var description = $row.find('td:nth-child(4)').text().trim();
+		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
+		var createAt = $row.find('td:nth-child(7)').text().trim();		
+		
+		$('#slipNumber').text(number);
+		$('#trader1').text(trader);
+		$('#trader2').text(trader);
+		$('#trader3').text(trader);
+		$('#description1').text(description);
+		$('#description2').text(description);
+		$('#description3').text(description);
+		
+		// 반올림
+        if (trader === '달토끼') {
+            $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
+            $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());         
+        } else {
+            $('#amountR1').text((amount).toLocaleString());
+            $('#amountR2').text("");           
+        }
+        
+        $('#amountL3').text((amount).toLocaleString());
+        $('#totalAmountL').text((amount).toLocaleString());
+        $('#totalAmountR').text((amount).toLocaleString());
+        
+        $('#createAt').text(createAt);
+
+        // 모달 열기
+        $('#' + modalId).modal('show');
+
+        // 모달 닫기 버튼 클릭 시 모달 닫기
+        $(document).on('click', '.close', function() {
+            $('#' + modalId).modal('hide');
+        });    
+    });
+}
+
+// 판매 전표 모달을 열고 닫는 함수(안에 내용 변화가 없는 모달 - 임시조치)
+function saleSlipModalOnClick(btnClass, modalId) {
+    // 수정 버튼 클릭 시 모달 열기
+    $(document).on('click', '.' + btnClass, function() {
+		// 클릭된 버튼이 속한 행을 찾습니다.
+        var $row = $(this).closest('tr')
+        // 행의 순서를 찾습니다.
+		var number = $row.find('td:first').text().trim();
+		var trader = $row.find('td:nth-child(3)').text().trim();
+		var description = $row.find('td:nth-child(4)').text().trim();
+		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
+		var createAt = $row.find('td:nth-child(7)').text().trim();
+		var seller = $row.find('td:nth-child(9)').text().trim();
+		
+		$('#slipNumber').text(number);
+		$('#trader1').text(seller);
+		$('#trader2').text(seller);
+		$('#trader3').text(seller);
+		$('#description1').text(description);
+		$('#description2').text(description);
+		$('#description3').text(description);
+		
+		// 반올림
+        $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
+        $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());
+        $('#amountL3').text((amount).toLocaleString());
+        $('#totalAmountL').text((amount).toLocaleString());
+        $('#totalAmountR').text((amount).toLocaleString());
+        
+        $('#createAt').text(createAt);
 
         // 모달 열기
         $('#' + modalId).modal('show');
