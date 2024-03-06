@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>고객별 구매내역 조회</title>
+	<title>자체제작 상품 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,6 +12,7 @@
 	<!-- jQuery CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
+
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
@@ -24,49 +25,54 @@
 				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
 			</div>
 
+
+
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
+				
+				<!-- 상품 등록 버튼 -->
+				<a href="http://localhost:8080/SD/product/pbcreate" class="btn btn-primary">상품등록</a>
+				<br><br>
 
-				<h3>고객 아이디 조회</h3>
-
-				<form id="memberForm" action="/SD/member/search" method="get">
-					<label for="memberSelect">아이디:</label>
-					<select id="memberSelect" name="memberId">
-						<th:block th:each="member : ${members}">
-							<option th:value="${member.memberId}" th:text="${member.memberId}"></option>
-						</th:block>
-					</select>
-
-
-					<button type="submit">조회</button>
-				</form>
-
-				<h3>조회 결과</h3>
+				<h3>전체 상품 조회</h3>
 
 				<!-- 데이터 테이블 시작-->
 				<table class=" table table-hover">
 					<thead>
 						<tr class="table-active">
-							<th>고객아이디</th>
+							<th>판매자명</th>
+							<th>상품분류</th>
+							<th>이미지</th>
+							<th>상품명</th>
 							<th>상품코드</th>
-							<th>구매수량</th>
-							<th>판매금액</th>
-							<th>거래일시</th>
-							<th>카드번호</th>
-							<th>판매자명</th> <!-- 사업자등록번호, 개당판매금액은 화면출력 X -->
+							<th>개당 판매금액</th>
+							<th>상품설명</th>
+							<th>상품등록날짜</th>
+							<th></th> <!-- 사업자등록번호, 총판매수량, 총가격은 화면출력 X -->
 						</tr>
 					</thead>
 
 					<tbody>
-						<tr th:each="p : ${purchaseList}">
-							<td th:text="${p.memberId}"></td>
-							<td th:text="${p.productCode}"></td>
-							<td th:text="${p.totalPurchaseEA}"></td>
-							<td th:text="${p.totalPrice}"></td>
-							<td th:text="${#temporals.format(p.purchaseTime, 'yyyy-MM-dd HH:mm')}"></td>	<!-- 타임리프 날짜 포맷 기능 : 특정 형식으로 출력 -->
-							<td th:text="${p.memberCardNumber}"></td>
-							<td th:text="${p.sellerName}"></td>
-
+						<tr th:each="pb : ${pbProductList}">
+							<td th:text="${pb.sellerName}"></td>
+							<td th:text="${pb.category}"></td>
+							<td>
+								<img th:src="${pb.imageFileLink}" alt="상품 이미지" style="width:100px; height:auto;">
+							</td>			
+							<td th:text="${pb.productName}"></td>
+							<td th:text="${pb.productCode}"></td>
+							<td th:text="${pb.priceEA}"></td>
+							<td th:text="${pb.description}"></td>
+							<td th:text="${pb.registrationDate}"></td>
+							<td>
+								<!-- 수정. 삭제 버튼 -->
+								<a th:href="@{'/SD/product/pb/update/' + ${pb.sellerName}}"
+									class="btn btn-primary">수정</a>
+								<form th:action="@{'/SD/product/pb/delete/' + ${pb.sellerName}}" method="post">
+									<input type="hidden" name="_method" value="delete" />
+									<button class="btn btn-primary" type="submit">삭제</button>
+								</form>
+							</td>
 						</tr>
 					</tbody>
 				</table>
