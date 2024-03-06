@@ -24,6 +24,54 @@
 	<aside th:replace="~{sidebar :: sidebarFragment}"></aside>
 	
 	<div class="main-contents">
+		<div class="main-board" >
+			<h1>게시판</h1>
+			<table class="table">
+			    <thead class="table-dark">
+			        <tr>
+						<th>번호</th>
+			            <th>제목</th>
+			            <th>작성일시</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr th:each="question, loop : ${questionlist}">
+						<td th:text="${loop.count}"></td>
+						<td>
+							<a th:href="@{|/user/board/Qdetail/${question.id}|}" 
+							th:text="${question.subject}"></a>
+						</td>
+			            <td th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}"></td>
+			        </tr>
+			    </tbody>
+			</table>
+		</div>
+		
+		<div class="main-approval">
+			<h1>결재상신</h1>
+			<table class="table">
+			    <thead class="table-dark">
+			        <tr>
+									<th>번호</th>
+			            <th>제목</th>
+			            <th>작성일시</th>
+			            <th>마감일시</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr th:each="approval, loop : ${approvalList}">
+						<td th:text="${loop.count}"></td>
+						<td>
+							<a th:href="@{|/user/approval/detail/${approval.id}|}" 
+							th:text="${approval.subject}"></a>
+						</td>
+			          	<td th:text="${#temporals.format(approval.createDate,'yyyy-MM-dd HH:mm')}"></td>
+				        <td th:text="${#temporals.format(approval.dewDate,'yyyy-MM-dd HH:mm')}"></td>    
+			        </tr>
+			    </tbody>
+			</table>
+				
+		</div>
 		<!-- 달력 -->
 		<div th:replace="~{calendar :: calendarFragment}"></div>
 		
@@ -39,7 +87,6 @@
 	      <img class="wheather-icon" />
 	    </dl>
 	    </div>
-
 		
 	</div>
 
@@ -51,37 +98,9 @@
 	<!-- JQuery 연결 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	
-	<script type="text/javascript" src="calendar.js"></script>
-	<script type="text/javascript" src="weather.js"></script>
-	<script>
-	    $(document).ready(function () {
-	        var selectedOption = localStorage.getItem('selectedOption') || "option1";
-	        var currentPage = localStorage.getItem('currentPage') || 1;
-	
-	        if (selectedOption === "option1") {
-	            $("#option1Content").show();
-	            $("#option2Content").hide();
-	        } else if (selectedOption === "option2") {
-	            $("#option1Content").hide();
-	            $("#option2Content").show();
-	        }
-	        $("input[name='btnradio'][value='" + selectedOption + "']").prop('checked', true);
-	
-	        // 라디오 버튼 변경 시 로컬 스토리지에 저장
-	        $("input[name='btnradio']").change(function () {
-	            selectedOption = $(this).val();
-	            localStorage.setItem('selectedOption', selectedOption);
-	            
-	            // 페이지를 0으로 설정
-	            localStorage.setItem('currentPage', 0);
-	            
-	            // 현재 URL에서 페이지 파라미터를 제거한 뒤 페이지를 0으로 설정하여 리로드
-	            var currentUrl = window.location.href.split('?')[0];
-	            window.location.href = currentUrl + "?page=0";
-	        });
-	    });
-	</script>
-	
+	<script type="text/javascript" src="/js/calendar.js"></script>
+	<script type="text/javascript" src="/js/weather.js"></script>
+		
 </body>
 
 </html>
