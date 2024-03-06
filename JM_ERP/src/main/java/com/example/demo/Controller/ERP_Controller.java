@@ -197,13 +197,12 @@ public class ERP_Controller {
 	}
 	
 	@GetMapping(value ="/approval/detail/{id}")
-	public String approvalDetail(Model model, @PathVariable("id") Integer id, Principal principal) {
+	public String approvalDetail(Model model, @PathVariable("id") Integer id) {
 		ERP_approval approval = this.erp_UserService.getApproval(id);
 		model.addAttribute("approval", approval);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("authority", authentication.getAuthorities());
-		model.addAttribute("principal",principal);
 		return "ERP_approvalDetail";
 	}
 	

@@ -11,12 +11,12 @@ window.onload = function() {
 				button[i].addEventListener("click",()=>{
 					if(button[0].innerText==='미완료'){
 				for(var i=0; i<button.length; i++){
-					button[i].classList.toggle('btn-primary');
-					button[i].innerText='완료';
+					button[i].classList.replace('btn-secondary', 'btn-primary');
+					button[i].innerText = '완료';	
 				}
 			} else {
 				for(var i=0; i<button.length; i++){
-					button[i].classList.toggle('btn-primary');
+					button[i].classList.replace('btn-primary','btn-secondary');
 					button[i].innerText='미완료';
 				}
 			}
