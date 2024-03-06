@@ -26,8 +26,8 @@ public class ERP_userSecurityService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-		Optional<ERP_user> user = this.erp_userRepository.findByuserId(userId);
-
+		Optional<ERP_user> user = this.erp_userRepository.findByUserId(userId);
+		
 		if (user.isEmpty()) {
 			throw new UsernameNotFoundException("사용자 찾기 불가");
 
