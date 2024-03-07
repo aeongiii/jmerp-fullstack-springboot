@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,9 +19,11 @@ public interface AC_WithdrawalSlipRepository extends JpaRepository<AC_Withdrawal
     @Query("SELECT w FROM AC_WithdrawalSlip w WHERE CAST(w.tradeDate AS string) LIKE %:keyword%")
     Page<AC_WithdrawalSlip> findByTradeDateContaining(@Param("keyword") String keyword, Pageable pageable);
     
-    Page<AC_WithdrawalSlip> findByTraderContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_WithdrawalSlip> findByTraderContaining(String keyword, Pageable pageable);
     
-    Page<AC_WithdrawalSlip> findByDescriptionContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_WithdrawalSlip> findByDescriptionContaining(String keyword, Pageable pageable);
     
-    Page<AC_WithdrawalSlip> findByTransactionTypeContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_WithdrawalSlip> findByTransactionTypeContaining(String keyword, Pageable pageable);
+    
+    List<AC_WithdrawalSlip> findBySlipCodeContaining(String keyword);
 }

@@ -35,7 +35,7 @@ public class ERP_userSecurityService implements UserDetailsService {
 
 		ERP_user user2 = user.get();
 
-		String dept = user2.getHR_mem().getDeptName().getDeptName();
+		String dept = user2.getHR_mem().getDeptName().getDeptName().toString();
 		String position = user2.getHR_mem().getPosition();
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		// TODO 권한설정 공부 후 내용 적기

@@ -23,6 +23,10 @@ public class PC_PurchaseService {
 
 	private final PC_OrderSheetRepository orderSheetRepository;
 	private final PC_PurchaseInquiryRepository purchaseInquiryRepository;
+	
+	public List<PC_OrderSheet> getOrderSheetList() {
+		return this.orderSheetRepository.findAll();
+	}
 
 	public Page<PC_OrderSheet> searchOrderSheet(int page) {
 		Pageable pageable = PageRequest.of(page, 10);
@@ -81,4 +85,20 @@ public class PC_PurchaseService {
 		purchaseInquiryRepository.save(purchase);
 	}
 
+	
+	public Optional<PC_OrderSheet> orderSheetfindId(Long id){
+		return orderSheetRepository.findById(id);
+	}
+	
+	public void orderSheetupdate(Long id,LocalDate deliveryDate,String contactPerson) {
+		PC_OrderSheet orderSheet = orderSheetRepository.findById(id).get();
+
+				
+		orderSheet.setDeliveryDate(deliveryDate);
+		orderSheet.setContactPerson(contactPerson);
+		
+		orderSheetRepository.save(orderSheet);
+	}
+	
+	
 }

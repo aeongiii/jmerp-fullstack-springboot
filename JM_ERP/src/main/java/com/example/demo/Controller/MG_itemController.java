@@ -58,35 +58,60 @@ public class MG_itemController {
 
 		return "redirect:/MG/itemcheek";
 	}
-	
+
 	@PostMapping("/itemcreate/deleteRegi")
-	public String regitDelete(@RequestParam(name = "ids",defaultValue = "") String ids) {
-	    if(ids.isEmpty()) {
-	        // 빈 문자열인 경우의 처리 로직
-	        // 예: 오류 메시지를 표시하거나, 특정 페이지로 리다이렉션
-	        return "hi";
-	    }
-	    
-	    List<String> idsa = new ArrayList<>();
-	    for(String idstr : ids.split(",")) {
-	        try {
-	            // 빈 문자열을 체크하여 무시
-	            if(!idstr.trim().isEmpty()) {
-	                idsa.add(idstr);
-	            }
-	        } catch (NumberFormatException e) {
-	            // 로그를 남기거나, 문제의 idstr 값을 포함한 오류 메시지 반환
-	            System.out.println("숫자로 변환할 수 없는 입력 발견: " + idstr);
-	            // 적절한 오류 처리를 여기에 수행
-	        }
-	    }
-	    
-	    // idsa를 사용한 비즈니스 로직 수행
-	    MG_itemService.deleteId(idsa);
-	    
-	    return "redirect:/MG/itemcheek";
+	public String regitDelete(@RequestParam(name = "ids", defaultValue = "") String ids) {
+
+		List<String> idsa = new ArrayList<>();
+		for (String idstr : ids.split(",")) {
+			try {
+				// 빈 문자열을 체크하여 무시
+				if (!idstr.trim().isEmpty()) {
+					idsa.add(idstr);
+				}
+			} catch (NumberFormatException e) {
+				// 로그를 남기거나, 문제의 idstr 값을 포함한 오류 메시지 반환
+				System.out.println("숫자로 변환할 수 없는 입력 발견: " + idstr);
+				// 적절한 오류 처리를 여기에 수행
+			}
+		}
+
+		// idsa를 사용한 비즈니스 로직 수행
+		MG_itemService.deleteId(idsa);
+
+		return "redirect:/MG/itemcheek";
 	}
-	
+
+	@GetMapping("/itemupdate/{itemCode}")
+	public String showUpdateForm(@PathVariable(name = "itemCode") String itemCode, Model model) {
+		Optional<Mg_item_Regi> itemOptional = MG_itemService.findItemCode(itemCode);
+		if (itemOptional.isPresent()) {
+			model.addAttribute("item", itemOptional.get());
+			return "MG/MG_Item_update"; // 해당 아이템을 수정할 수 있는 뷰 페이지
+		} else {
+			// 아이템이 존재하지 않는 경우의 처리
+			return "redirect:/MG/itemcheek";
+		}
+	}
+
+	@PostMapping("/itemupdate/{itemCode}")
+	public String updateItem(@PathVariable("itemCode") String itemCode, @RequestParam("itemName") String itemName,
+			@RequestParam("itemCost") Integer itemCost, @RequestParam("itemType") String itemType,
+			RedirectAttributes redirectAttributes) {
+		Optional<Mg_item_Regi> itemOptional = MG_itemService.findItemCode(itemCode);
+
+		Mg_item_Regi item = itemOptional.get();
+		item.setItemname(itemName);
+		item.setItemCost(itemCost);
+		item.setItemType(itemType);
+		MG_itemService.save(item);
+		redirectAttributes.addFlashAttribute("successMessage", "Item updated successfully!");
+		return "redirect:/MG/itemcheek";
+
+	}
+
+//=================================================================================================	
+
 	@Autowired
 	private final MG_wmsService MG_wmsService;
 
@@ -149,6 +174,8 @@ public class MG_itemController {
 		return "MG/MG_wmsReleseCheck";
 	}
 
+//	========================================================================================
+
 	private final MG_useSelf MG_useSelf;
 
 	@GetMapping("/useselfcreate")
@@ -174,38 +201,11 @@ public class MG_itemController {
 		return "MG/MG_useSelfcheck";
 	}
 
-	@GetMapping("/itemupdate/{itemCode}")
-	public String showUpdateForm(@PathVariable(name = "itemCode") String itemCode, Model model) {
-	    Optional<Mg_item_Regi> itemOptional = MG_itemService.findItemCode(itemCode);
-	    if (itemOptional.isPresent()) {
-	        model.addAttribute("item", itemOptional.get());
-	        return "MG/MG_Item_update"; // 해당 아이템을 수정할 수 있는 뷰 페이지
-	    } else {
-	        // 아이템이 존재하지 않는 경우의 처리
-	        return "redirect:/MG/itemcheek";
-	    }
-	}
-	
-	@PostMapping("/itemupdate/{itemCode}")
-	public String updateItem(@PathVariable("itemCode") String itemCode,
-	                         @RequestParam("itemName") String itemName,
-	                         @RequestParam("itemCost") Integer itemCost,
-	                         @RequestParam("itemType") String itemType,
-	                         RedirectAttributes redirectAttributes) {
-	    Optional<Mg_item_Regi> itemOptional = MG_itemService.findItemCode(itemCode);
-	  
-	        Mg_item_Regi item = itemOptional.get();
-	        item.setItemname(itemName);
-	        item.setItemCost(itemCost);
-	        item.setItemType(itemType);
-	        MG_itemService.save(item);
-	        redirectAttributes.addFlashAttribute("successMessage", "Item updated successfully!");
-	        return "redirect:/MG/itemcheek";
-	
+	@PostMapping("/useCheck/Delete")
+	public String accountDelete(@RequestParam(name = "ids", defaultValue = "") Integer ids) {
+
+		MG_useSelf.useDelete(ids);
+		return "redirect:/MG/useCheck";
 	}
 
-	
-	
-	
-	
 }
