@@ -1,11 +1,16 @@
 package com.example.demo.Controller;
 
+import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +18,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Entity.Mg_AccountMG_Entity;
+import com.example.demo.Entity.Mg_item_Regi;
 import com.example.demo.Entity.PC_OrderSheet;
 import com.example.demo.Entity.PC_PurchaseInquiry;
 import com.example.demo.Entity.PD_Cost;
+import com.example.demo.Repository.PC_OrderSheetRepository;
 import com.example.demo.Service.MG_acoountService;
 import com.example.demo.Service.PC_PurchaseService;
 import com.example.demo.Service.PD_CostService;
@@ -26,11 +34,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @RequestMapping("/PC/purchase")
 @Controller
 public class PC_Purchasecontroller {
-	
-	double asd=123;
-	Integer asdd =123;
-	
-	double a = asd*asdd;
 	
 	@Autowired
 	private PC_PurchaseService purchaseservice; 
@@ -77,9 +80,9 @@ public class PC_Purchasecontroller {
 			@RequestParam("item")String item,
 			@RequestParam("deliveryDate")LocalDate deliveryDate,
 			@RequestParam("Count")Double Count,
-			@RequestParam("totalPrice") Long totalPrice
+			@RequestParam("totalPrice") Long totalPrice,
+			@RequestParam("acceptance") String acceptance
 		) {
-		
 	
 		String bool = "예";
 		String completionStatus = "N";
@@ -88,15 +91,45 @@ public class PC_Purchasecontroller {
 		
 		
 		return "redirect:/PC/purchase/ordersheet";
+		}
+
+	@GetMapping("/ordersheetupdate/{id}")
+	public String showUpdateForm(@PathVariable(name = "id") Long id, Model model) {
+		Optional<PC_OrderSheet> orderOp = purchaseservice.orderSheetfindId(id);
+		model.addAttribute("orderOP", orderOp);
+		
+		return "redirect:/PC/purchase/ordersheet";
 	}
 	
 	
+	@PostMapping("/ordersheetupdate/{id}")
+	public String updateItem(@PathVariable("id") Long id,
+	                         @RequestParam("deliveryDate") LocalDate deliveryDate,
+	                         @RequestParam("contactPerson") String contactPerson ,
+	                         RedirectAttributes redirectAttributes,
+	                         Principal principal) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+		if (authorities.stream().anyMatch(auth -> "2".equals(auth.getAuthority()) || "3".equals(auth.getAuthority()))) {
+		
+			Optional<PC_OrderSheet> orderOptional = purchaseservice.orderSheetfindId(id);
+			
+	 PC_OrderSheet order = orderOptional.get();
+	 order.setDeliveryDate(deliveryDate);
+	 order.setContactPerson(contactPerson);
+	 
+	 purchaseservice.orderSheetupdate(id,deliveryDate, contactPerson);
+			
+	          
+	        return "redirect:/PC/purchase/ordersheet";
+		}
+		else {
+			return "fali";
+		}
 	
 	
 	
-	
-	
-	
+	}
 	
 	
 	
@@ -127,6 +160,7 @@ public class PC_Purchasecontroller {
 		return "PC/PC_purchaseinquiry_create";
 	}
 		
+	
 	@PostMapping("/purchaseinquiry/create")
 	public String purchaseCreateform(
 		@RequestParam(value="clientName") String clientName,

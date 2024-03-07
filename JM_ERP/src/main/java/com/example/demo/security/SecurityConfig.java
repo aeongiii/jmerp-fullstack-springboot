@@ -21,6 +21,7 @@ public class SecurityConfig {
 
 
       http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+
     		   .requestMatchers(new AntPathRequestMatcher("/user/**")).permitAll()
    		    .requestMatchers(new AntPathRequestMatcher("/ERP_login.html")).permitAll()
    		    .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
@@ -39,6 +40,7 @@ public class SecurityConfig {
    		    .requestMatchers(new AntPathRequestMatcher("/AC/**")).hasAnyAuthority("ROLE_회계","ROLE_관리자")
    		    .requestMatchers(new AntPathRequestMatcher("/HR/**")).hasAnyAuthority("ROLE_인사","ROLE_관리자")
 )
+
             .csrf((csrf) -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")).disable())
 
             .headers((headers) -> headers.addHeaderWriter(
