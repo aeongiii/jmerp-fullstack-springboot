@@ -451,6 +451,11 @@ label {
   display: inline-block;
 }
 
+/* 통일성을 위해 넣었습니다. */
+label::selection {
+	color : yellow;
+}
+
 button {
   border-radius: 0;
 }
