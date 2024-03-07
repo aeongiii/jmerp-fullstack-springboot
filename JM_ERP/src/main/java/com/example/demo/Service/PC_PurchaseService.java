@@ -85,4 +85,20 @@ public class PC_PurchaseService {
 		purchaseInquiryRepository.save(purchase);
 	}
 
+	
+	public Optional<PC_OrderSheet> orderSheetfindId(Long id){
+		return orderSheetRepository.findById(id);
+	}
+	
+	public void orderSheetupdate(Long id,LocalDate deliveryDate,String contactPerson) {
+		PC_OrderSheet orderSheet = orderSheetRepository.findById(id).get();
+
+				
+		orderSheet.setDeliveryDate(deliveryDate);
+		orderSheet.setContactPerson(contactPerson);
+		
+		orderSheetRepository.save(orderSheet);
+	}
+	
+	
 }

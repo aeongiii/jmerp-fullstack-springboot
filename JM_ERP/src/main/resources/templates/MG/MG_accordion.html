@@ -1,6 +1,4 @@
-
-
-<div class="accordion" id="accordionExample" th:fragment ="accordionFragment">
+<div class="accordion" id="accordionExample" th:fragment="accordionFragment">
 	<!-- 아코디언 아이템 1 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingOne">
@@ -9,13 +7,13 @@
 				상품관리
 			</button>
 		</h2>
-		<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+		<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
 			data-bs-parent="#accordionExample">
 			<div class="accordion-body">
 				<a class="dropdown-item" href="http://localhost:8080/MG/itemcheek">물품조회</a>
 				<br>
 				<a class="dropdown-item" href="http://localhost:8080/MG/itemcreate">물품 등록</a>
-				
+
 			</div>
 		</div>
 	</div>
@@ -37,8 +35,7 @@
 				<a class="dropdown-item" href="http://localhost:8080/MG/relesecreate">창고 출고 등록</a>
 				<br>
 				<a class="dropdown-item" href="http://localhost:8080/MG/recivingcreate">창고 입고 등록</a>
-				<br>
-				<a class="dropdown-item" href="http://localhost:8080/MG/recivingcreate">시리얼 넘버 조회 (미완)</a>
+
 			</div>
 		</div>
 	</div>
@@ -59,14 +56,13 @@
 				<a class="dropdown-item" href="http://localhost:8080/MG/useselfcreate">비품 사용 등록</a>
 				<br>
 				<a class="dropdown-item" href="http://localhost:8080/MG/useCheck">비품 사용 조회</a>
-				<br>
-				<a class="dropdown-item" href="#">기능 삽입</a>
+
 			</div>
 		</div>
 	</div>
 
 
-	
+
 	<!-- 아코디언 아이템 5 -->
 	<div class="accordion-item">
 		<h2 class="accordion-header" id="headingFive">
@@ -79,9 +75,10 @@
 			data-bs-parent="#accordionExample">
 			<div class="accordion-body">
 				<a class="dropdown-item" href="http://localhost:8080/MG/accmg">거래처 조회</a>
-				
 				<br>
-				<a class="dropdown-item" href="#">기능 삽입</a>
+				<a class="dropdown-item" href="http://localhost:8080/PC/purchase/ordersheet">발주서 조회</a>
+				<br>
+				<a class="dropdown-item" href="http://localhost:8080/PC/purchase/purchaseinquiry">구매현황</a>
 			</div>
 		</div>
 	</div>

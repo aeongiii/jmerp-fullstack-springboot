@@ -1,13 +1,12 @@
 package com.example.demo.Service;
 
-import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 
 import com.example.demo.Entity.Use_Self;
 import com.example.demo.Repository.MG_useselfRepository;
@@ -35,4 +34,11 @@ public class MG_useSelf {
 		return this.MG_useselfRepository.findAll(pageable);
 		
 	}
-}
+	
+	public void useDelete(Integer accountcode) {
+		
+			MG_useselfRepository.deleteById(accountcode);
+		}
+	}
+		
+
