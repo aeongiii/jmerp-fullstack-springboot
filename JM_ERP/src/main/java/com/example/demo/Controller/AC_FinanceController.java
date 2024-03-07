@@ -37,7 +37,7 @@ public class AC_FinanceController {
     	
         AC_Month monthIncome = this.monthService.search(year, month);
         model.addAttribute("monthIncome", monthIncome);
-        return "ac/AC_monthold";
+        return "ac/AC_month";
     }
     
     @GetMapping("/withholding") 

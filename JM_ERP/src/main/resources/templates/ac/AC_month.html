@@ -43,18 +43,54 @@
 					</div>
 				</div>
 				
-				<table class = "table table-hover"> <!--style="display: none;" 후에 불러오기-->
+				<table class = "table table-hover">
+					<thead>
+						<tr class="table-active" th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">계정명</td> 
+							<td style="font-weight: bold;">
+						        <span th:text="${#strings.substring(monthIncome.monthId, 0, 4)} + '년 '"></span>
+						        <span th:text="${#strings.substring(monthIncome.monthId, 4, 6)} + '월'"></span>
+						    </td>
+						</tr>
+				    </thead>
+				    
 				    <tbody>
-				        <tr><td>계정명</td><td th:text="${monthIncome.monthId}"></td></tr>
-				        <tr><td>1. 매출</td> <td></td></tr>
-				        <tr><td>자사 판매가</td> <td></td></tr>
-				        <tr><td>자사 판매품 부가세</td> <td></td></tr>
-				        <tr><td>대행 판매 수수료</td> <td></td></tr>
-				        <tr><td>2. 매입</td> <td></td></tr>
-				        <tr><td>원재료 구입</td> <td></td></tr>
-				        <tr><td>3. 원천 징수</td> <td></td></tr>
-				        <tr><td>직원 급여</td> <td></td></tr>
-				        <tr><td>4. 총 순수익</td> <td></td></tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">1. 매출</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.Revenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>자사 판매가</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.PBRevenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>자사 판매품 부가세</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.VAT, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>대행 판매 수수료</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.NBRevenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">2. 매입</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.expense, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>원재료 구입</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.expense, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">3. 원천 징수</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.pay, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>직원 급여</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.pay, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">4. 총 순수익</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.netIncome, 3, 'COMMA')}"></td>
+						</tr>
 				    </tbody>
 				</table>
 			    <!-- 후에 알맞은 페이징과 버튼을 만들것
