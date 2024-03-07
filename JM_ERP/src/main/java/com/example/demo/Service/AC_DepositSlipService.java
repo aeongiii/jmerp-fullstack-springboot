@@ -119,7 +119,7 @@ public class AC_DepositSlipService {
 				continue;
 			}
 			
-			slips.setSlipCode(String.format("%s%03d", yearMonth, i));
+			slips.setSlipCode(String.format("%sD%03d", yearMonth, i));
 			slips.setTradeDate(LocalDate.now());
 			slips.setTrader(seller);
 			slips.setDescriptionEA(k);
