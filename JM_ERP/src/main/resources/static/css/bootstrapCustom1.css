@@ -451,6 +451,11 @@ label {
   display: inline-block;
 }
 
+/* 통일성을 위해 넣었습니다. */
+label::selection {
+	color : yellow;
+}
+
 button {
   border-radius: 0;
 }
@@ -12100,6 +12105,11 @@ textarea.form-control-lg {
 }
 .navbar.bg-dark {
   background-image: linear-gradient(#6D8CAC, #6D8CAC 60%, #6D8CAC);
+}
+
+/* sign up(회원가입) 전용 css입니다. */
+.navbar.bg-dark2 {
+  background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0) 60%, rgb(0, 0, 0));
 }
 
 .navbar-brand,
