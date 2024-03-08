@@ -23,7 +23,7 @@ public class SD_SaleController {
 	@Autowired
 	private final SD_SaleService saleService;
 	
-// 카테고리별 총 판매량 비교
+// 1. 카테고리별 총 판매량 비교
 	@GetMapping("/nb")
 	public String nbGraph(Model model) {
 		
@@ -41,13 +41,10 @@ public class SD_SaleController {
 		return "SD/SD_saleNB";
 	}
 	
-// 자체제작 상품별 판매량 비교	 
-	
-	
-	
+
 	
 
-// 카테고리 내 상품별 판매량 비교
+// 2. 카테고리 내 상품별 판매량 비교
 	@GetMapping("/category")
 	public String categoryGraph(Model model) {
 
@@ -75,4 +72,10 @@ public class SD_SaleController {
 		
 		return "SD/SD_saleCategory";
 	}
+	
+	
+// 3. 자체제작 상품별 판매량 비교	 
+	
+	
+	
 }
