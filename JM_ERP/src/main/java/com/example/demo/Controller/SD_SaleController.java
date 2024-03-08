@@ -41,7 +41,7 @@ public class SD_SaleController {
 		return "SD/SD_saleNB";
 	}
 	
-// 자체제작 상품별 판매량 비교	
+// 자체제작 상품별 판매량 비교	 
 	
 	
 	
