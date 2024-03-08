@@ -89,13 +89,13 @@
 						</tr>
 				        <tr th:if="${monthIncome != null}">
 							<td style="font-weight: bold;">4. 총 순수익</td> 
-							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.netIncome, 3, 'COMMA')}"></td>
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.netIncome, 3, 'COMMA')}"></td>					
 						</tr>
 				    </tbody>
 				</table>
 			    <!-- 후에 알맞은 페이징과 버튼을 만들것
-				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div>
-				<div th:replace="~{AC_bond_debt_botton::bottonFragment}"></div> -->
+				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div> -->
+				<button type="button" class="btn btn-success" th:if="${monthIncome != null}">Excel Export</button>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
     </div> <!-- 컨테이너 플루이드 끝 -->

@@ -103,7 +103,7 @@ public class AC_DepositSlipService {
 				
     			if(seller.equals(this.NBProductRepository.findSellerNameByProductCode(slip.getProductCode()))
     					&& !seller.equals("달토끼")) {
-    				revenue += slip.getAmount() / 20; // (5%)
+    				revenue += (slip.getAmount() / 20) - (slip.getAmount() / 20) % 10; // (5%, 1의 자리 절삭)
 					k++;
     			}
 
