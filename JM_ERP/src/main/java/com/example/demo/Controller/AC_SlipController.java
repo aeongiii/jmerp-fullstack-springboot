@@ -14,6 +14,7 @@ import com.example.demo.Entity.AC_WithdrawalSlip;
 import com.example.demo.Service.AC_DepositSlipService;
 import com.example.demo.Service.AC_SaleSlipService;
 import com.example.demo.Service.AC_WithdrawalSlipService;
+import com.example.demo.Service.PC_PurchaseService;
 import com.example.demo.Service.SD_PurchaseService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,7 +29,8 @@ public class AC_SlipController {
 	private final AC_WithdrawalSlipService withdrawalSlipService;
 	private final AC_DepositSlipService depositSlipService;
 	private final AC_SaleSlipService saleSlipService;
-	private final SD_PurchaseService purchaseService;
+	private final SD_PurchaseService SD_PurchaseService;
+	private final PC_PurchaseService PC_PurchaseService;
 	
 	@GetMapping("/transactionslip")
 	public String transactionSlipList(Model model, 
@@ -75,8 +77,15 @@ public class AC_SlipController {
 		if (transaction.equals("deposit")) {
 		
 		this.depositSlipService.update(this.saleSlipService.getList());
+		
+		}
+		
+		if (transaction.equals("withdrawal")) {
+			
+			this.withdrawalSlipService.update(this.PC_PurchaseService.getOrderSheetList());
 		}
 		return "redirect:/AC/transactionslip";
+		
 	}
 	
 	@GetMapping("/saleslip")
@@ -117,7 +126,7 @@ public class AC_SlipController {
 	@PostMapping("/saleslip")
 	public String saleSlipUpdate() {
 		
-		this.saleSlipService.update(this.purchaseService.getList());
+		this.saleSlipService.update(this.SD_PurchaseService.getList());
 		return "redirect:/AC/saleslip";
 	}
 }

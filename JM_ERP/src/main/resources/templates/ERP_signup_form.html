@@ -10,38 +10,47 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
-	<br>
-	<br>
-	<br>
+	<nav th:replace="~{/navbar :: signup--navbarFragment}"></nav>
 
-	<form th:action="@{/user/signup}" th:object="${signupForm}" method="post">
-		<div class="container">
-			<div class="form-group">
-				<label for="userId">User ID</label>
-				<input type="text" th:field="*{userId}" class="form-control" id="userId" placeholder="Enter User ID">
+	<canvas class = "canvas"></canvas>
+	<form th:action="@{/user/signup}" th:object="${signupForm}" method="post" class="signupform">
+		<div class = "textbox">
+			<div class="theme1">
+				<span data-target = "typing--text" class = "sentence--gray">
+		          이 곳은 여러분에게 새로운 시작이 될 곳입니다.
+		          <br>
+		          회원가입을 통해 저희 ERP의 일원이 되어주세요.
+		          <br>
+		        </span>
 			</div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
-			</div>
-			<div class="form-group">
-				<label for="name">Name</label>
-				<input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter Name">
+			<div class="theme1">
+				<div class="form-group text--prompt" >
+					<label for="userId">User ID</label>
+					<input type="text" th:field="*{userId}" class="form-control" id="userId" placeholder="Enter User ID">
+					<button type = "button" class = "btn double--check" onclick = ""> 중복 확인 </button> <!-- DB를 연동해야 합니다 -->
+				</div>
+				<div class="form-group text--prompt">
+					<label for="password">Password</label>
+					<input type="password" th:field="*{password}" class="form-control" id="password" placeholder="Password">
+				</div>
+				<div class="form-group text--prompt">
+					<label for="name">Name</label>
+					<input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter Name">
+				</div>
+	
+				<div class="form-group text--prompt">
+					<label for="employeeId">사원번호</label>
+					<input  type="text" th:field="*{employeeId}" class="form-control" id="employeeId" name ="employeeId" placeholder="사원번호 입력">
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="employeeId">사원번호</label>
-				<input  type="text" th:field="*{employeeId}" class="form-control" id="employeeId" name ="employeeId" placeholder="사원번호 입력">
+			<div class="container-fluid d-flex justify-content-center align-items-center">
+				<button type="submit" class="btn btn-primary">Sign Up</button>
 			</div>
-		</div>
-		<br>
-		<br>
-		<div class="container-fluid d-flex justify-content-center align-items-center">
-			<button type="submit" class="btn btn-primary">Sign Up</button>
 		</div>
 	</form>
-
+	
+	<script src = "/js/signup.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

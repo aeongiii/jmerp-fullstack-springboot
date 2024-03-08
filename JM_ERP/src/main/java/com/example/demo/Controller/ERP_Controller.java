@@ -9,6 +9,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -197,13 +199,20 @@ public class ERP_Controller {
 	}
 	
 	@GetMapping(value ="/approval/detail/{id}")
-	public String approvalDetail(Model model, @PathVariable("id") Integer id) {
+	public String approvalDetail(Model model, @PathVariable("id") Integer id, Principal principal) {
 		ERP_approval approval = this.erp_UserService.getApproval(id);
 		model.addAttribute("approval", approval);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("authority", authentication.getAuthorities());
+		model.addAttribute("principal",principal);
 		return "ERP_approvalDetail";
 	}
 	
+	
+
 }
+
+	
+	 
+

@@ -38,6 +38,11 @@ public class ERP_UserService {
 	private final ERP_boardARepository answerrepository;
 	private final ERP_approvalRepository approvalrepository;
 	
+	public Optional<ERP_user> getName(String userid) {
+		Optional<ERP_user> user = erp_userRepository.findByUserId(userid);
+		return user;
+	}
+	
 	public boolean createuser(String userId, String password, String name, String employeeId) throws Exception {
 
 		ERP_user user = new ERP_user();
@@ -74,8 +79,8 @@ public class ERP_UserService {
 			mail.setMediaFile(mediaFile);
 			mail.setSubject(subject);
 
-			Optional<ERP_user> user = erp_userRepository.findByuserId(sendUser);
-			Optional<ERP_user> user2 = erp_userRepository.findByuserId(reciveUser);
+			Optional<ERP_user> user = erp_userRepository.findByUserId(sendUser);
+			Optional<ERP_user> user2 = erp_userRepository.findByUserId(reciveUser);
 
 			if (user.isPresent()) {
 				ERP_user sendU = user.get();
@@ -120,6 +125,7 @@ public class ERP_UserService {
 		return erp_userMailBoxRepository.findById(num);
 
 	}
+	
 
 	public void checkmailstatus(Long num) {
 		Optional<ERP_userMailBox> a = erp_userMailBoxRepository.findById(num);

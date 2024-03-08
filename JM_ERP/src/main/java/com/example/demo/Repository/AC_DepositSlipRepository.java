@@ -1,5 +1,7 @@
 package com.example.demo.Repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,9 +19,11 @@ public interface AC_DepositSlipRepository extends JpaRepository<AC_DepositSlip, 
     @Query("SELECT d FROM AC_DepositSlip d WHERE CAST(d.tradeDate AS string) LIKE %:keyword%")
     Page<AC_DepositSlip> findByTradeDateContaining(@Param("keyword") String keyword, Pageable pageable);
     
-    Page<AC_DepositSlip> findByTraderContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_DepositSlip> findByTraderContaining(String keyword, Pageable pageable);
     
-    Page<AC_DepositSlip> findByDescriptionContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_DepositSlip> findByDescriptionContaining(String keyword, Pageable pageable);
     
-    Page<AC_DepositSlip> findByTransactionTypeContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_DepositSlip> findByTransactionTypeContaining(String keyword, Pageable pageable);
+    
+    List<AC_DepositSlip> findBySlipCodeContaining(String keyword);
 }

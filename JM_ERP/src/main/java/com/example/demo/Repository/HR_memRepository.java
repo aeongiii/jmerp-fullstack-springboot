@@ -22,5 +22,8 @@ public interface HR_memRepository extends JpaRepository<HR_mem, String>, JpaSpec
 
 // 2
 	List<HR_mem> findByDeptName(HR_dept Dept);
+
+// 3
+	HR_mem findByName(String name);
 	
 }

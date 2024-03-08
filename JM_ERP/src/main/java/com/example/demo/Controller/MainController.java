@@ -6,13 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.demo.Entity.AC_DepositSlip;
-import com.example.demo.Entity.AC_SaleSlip;
-import com.example.demo.Entity.PD_BOM;
-import com.example.demo.Service.AC_DepositSlipService;
-
-import com.example.demo.Service.AC_SaleSlipService;
-import com.example.demo.Service.PD_BOMService;
+import com.example.demo.Entity.ERP_approval;
+import com.example.demo.Entity.ERP_boardQ;
+import com.example.demo.Service.ERP_UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -21,32 +17,19 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class MainController {
 	
-	private final PD_BOMService bomservice;
-	private final AC_SaleSlipService saleSlipService;
-
-//	private final SD_NBProductService nbProductService;
-
-	private final AC_DepositSlipService purchaseSlipService;
-
-
+	private final ERP_UserService userservice;
 	
 	@GetMapping("/")
     public String index(Model model, @RequestParam(value="page", defaultValue="0") int page, HttpServletRequest request) {
     	String currentUrl = request.getRequestURI();
     	model.addAttribute("currentUrl", currentUrl);
     	
-    	Page<PD_BOM> bomlist = bomservice.getList(page);
-    	Page<AC_SaleSlip> sale = this.saleSlipService.getList(page);
-
-//    	Page<SD_NBProduct> paging = NBProductService.searchAllproduct(page);
-
-    	Page<AC_DepositSlip> purchase = this.purchaseSlipService.getList(page);
-    
-    	
-        model.addAttribute("bomlist", bomlist);
-        model.addAttribute("saleSlipList", sale);
-        model.addAttribute("purchaseSlipList", purchase);
-//        model.addAttribute("regshop",paging);
+    	Page<ERP_approval> approvalList = this.userservice.approvalList(page);
+    	Page<ERP_boardQ> questionList = this.userservice.QuestionGetList(page);
+		
+    	model.addAttribute("approvalList", approvalList);  
+		model.addAttribute("questionlist", questionList); 
+    	      
     	return "index"; // resources/templates/index.html을 가리킵니다.
     }
 }

@@ -105,7 +105,7 @@ public class AC_SaleSlipService {
     			transactionType = "기타";
 			}
 			
-			slips.setSlipCode(String.format("%s%03d", yearMonth, i));
+			slips.setSlipCode(String.format("%sS%03d", yearMonth, i));
 			slips.setTradeDate(list.getPurchaseTime().toLocalDate());
 			slips.setTrader(list.getMemberId().toString());
 			slips.setProductCode(ProductCode);

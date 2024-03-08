@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -9,7 +10,7 @@
 
 	<!-- Bootstrap CSS 연결 -->
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-	<link rel = "icon" href ="img/favicon-inquiry4.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+	<link rel = "icon" href ="/img/favicon--inquiry4.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
 </head>
 
 <body>
@@ -159,4 +160,170 @@ $(document).ready(function() {
 	
 </body>
 
+=======
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+	<title>물품 조회</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<link rel="icon" href="img/favicon-inquiry4.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
+			</div>
+			<!-- 모달 창 마크업 -->
+			<div class="modal fade" id="itemDetailModal" tabindex="-1" role="dialog"
+				aria-labelledby="itemDetailModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="itemDetailModalLabel">물품 상세 정보</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- 상세 정보를 여기에 로드 -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>
+								<input type="checkbox" class="allCheck">
+							</th>
+							<th>물품 이름</th>
+							<th>물품 코드</th>
+							<th>물품 단가 </th>
+							<th>물품 종류 </th>
+							<th>물품 등록 날짜 </th>
+							<th>수정/삭제</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Thymeleaf 반복문 사용 -->
+
+						<tr th:each="itemCheek : ${paging.content}">
+							<th>
+								<input type="checkbox" class="regiCheck" th:value="${itemCheek.itemCode}" />
+							</th>
+							<th scope="row" th:text="${itemCheek.Itemname}">물품 이름</th>
+							<!-- Seller 엔티티로부터 Seller ID 추출 -->
+							<td>
+								<a href="javascript:void(0);" class="item-code-link" data-code="${itemCheek.itemCode}"
+									th:text="${itemCheek.itemCode}"></a>
+							</td>
+							<td th:text="${itemCheek.itemCost}">물품 단가</td>
+							<td th:text="${itemCheek.itemType}">물품 종류</td>
+							<td th:text="${itemCheek.itemReciving}">물품 등록 날짜</td>
+							<td>
+								<a th:href="@{/MG/itemupdate/{itemCode}(itemCode=${itemCheek.itemCode})}"
+									class="btn btn-primary" style="border-radius : 10px 10px 3px 3px">수정</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{MG/MG_paging::itemPageing}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{MG/MG_accountbotton::MG_itemRegi_button}"></div>
+				<div th:replace="~{MG/MG_modal::regiCheckModal}">
+					<button type="button"></button>
+				</div>
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$('.allCheck').change(function () {
+			const allCheck = $(this);
+			const allChecked = allCheck.prop('checked');
+			$('.regiCheck').prop('checked', allChecked);
+			$('.regiCheck:is(:disabled)').prop('checked', false);
+		})
+
+		$('.regiCheck').change(function () {
+			const checkboxMemberIdCount = $('.regiCheck').length;
+			const checkboxMemberIdCheckedCount = $('.regiCheck:checked').length;
+			const checkboxDisabledCount = $('regiCheck:is(disabled)').length;
+			const allChecked = (checkboxMemberIdCount - checkboxDisabledCount) == checkboxMemberIdCheckedCount;
+			$('.allcheck').prop('checked', allChecked);
+		})
+	</script>
+
+	<form method="post" name="regiDeleteForm" action="/MG/itemcreate/deleteRegi">
+		<input type="hidden" name="ids" value="" />
+	</form>
+
+	<script>
+		$('.btn-regiDelete').click(function () {
+			const values = $('.regiCheck:checked').map((index, el) => el.value).toArray();
+			if (values.length == 0) {
+				alert('선택한 물품이 없습니다');
+				return;
+			}
+			if (confirm('선택한 물품 관련 데이터가 모두 사라집니다 정말 삭제하시겠습니까?') == false) {
+				return;
+			}
+			$('input[name=ids]').val(values.join(','))
+			$('form[name=regiDeleteForm').submit();
+		})
+	</script>
+	<script>
+		$(document).ready(function () {
+			$('.item-code-link').click(function () {
+				var itemCode = $(this).data('code'); // 클릭된 요소에서 data-code 속성 값 가져오기
+
+				// 예시: AJAX 요청을 사용하여 서버로부터 상세 정보를 가져오고 모달 내용 업데이트
+				$.ajax({
+					url: 'itemcheek' + itemCode, // 서버의 상세 정보 엔드포인트
+					type: 'GET',
+					success: function (data) {
+						$('#itemDetailModal .modal-body').html(data); // 모달 본문에 상세 정보 채우기
+						$('#itemDetailModal').modal('show'); // 모달 창 표시
+					},
+					error: function (request, status, error) {
+						alert('상세 정보를 불러오는 데 실패했습니다.');
+					}
+				});
+			});
+		});
+	</script>
+
+</body>
+
+>>>>>>> ecbc34ebb7de3306f9c4ea7024171a864e309313
 </html>

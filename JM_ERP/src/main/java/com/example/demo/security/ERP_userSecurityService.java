@@ -26,8 +26,8 @@ public class ERP_userSecurityService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-		Optional<ERP_user> user = this.erp_userRepository.findByuserId(userId);
-
+		Optional<ERP_user> user = this.erp_userRepository.findByUserId(userId);
+		
 		if (user.isEmpty()) {
 			throw new UsernameNotFoundException("사용자 찾기 불가");
 
@@ -35,7 +35,7 @@ public class ERP_userSecurityService implements UserDetailsService {
 
 		ERP_user user2 = user.get();
 
-		String dept = user2.getHR_mem().getDeptName().getDeptName();
+		String dept = user2.getHR_mem().getDeptName().getDeptName().toString();
 		String position = user2.getHR_mem().getPosition();
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		// TODO 권한설정 공부 후 내용 적기
