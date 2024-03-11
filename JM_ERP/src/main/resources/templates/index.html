@@ -24,11 +24,41 @@
 	<aside th:replace="~{sidebar :: sidebarFragment}"></aside>
 	
 	<div class="main-contents">
-		<div class="main-board" >
+		
+		<!-- 달력 -->
+		
+			<!--Add buttons to initiate auth sequence and sign out-->
+			<button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+			<button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+			
+			<pre id="content" style="white-space: pre-wrap;"></pre>
+		<div id='wrap'>
+
+			<div id='calendar'></div>
+			
+			<div style='clear:both'></div>
+		</div>
+
+		
+		<!-- 날씨 -->
+		<div class="main-weather">
+	    <dl>
+	      <dt>기온</dt>
+	      <dd class="temperature"></dd>
+	      <dt>위치</dt>
+	      <dd class="place"></dd>
+	      <dt>설명</dt>
+	      <dd class="description"></dd>
+	      <img class="wheather-icon" />
+	    </dl>
+	    </div>
+	    
+	    <!-- 게시판 -->
+		<div class="main-board bg-light" >
 			<h1>게시판</h1>
-			<table class="table">
-			    <thead class="table-dark">
-			        <tr>
+			<table class="table table-hover">
+			    <thead>
+			        <tr class="table-active">
 						<th>번호</th>
 			            <th>제목</th>
 			            <th>작성일시</th>
@@ -47,11 +77,11 @@
 			</table>
 		</div>
 		
-		<div class="main-approval">
+		<div class="main-approval bg-light">
 			<h1>결재상신</h1>
-			<table class="table">
-			    <thead class="table-dark">
-			        <tr>
+			<table class="table table-hover">
+			    <thead >
+			        <tr class="table-active">
 									<th>번호</th>
 			            <th>제목</th>
 			            <th>작성일시</th>
@@ -72,21 +102,6 @@
 			</table>
 				
 		</div>
-		<!-- 달력 -->
-		<div th:replace="~{calendar :: calendarFragment}"></div>
-		
-		<!-- 날씨 -->
-		<div class="main-weather">
-	    <dl>
-	      <dt>기온</dt>
-	      <dd class="temperature"></dd>
-	      <dt>위치</dt>
-	      <dd class="place"></dd>
-	      <dt>설명</dt>
-	      <dd class="description"></dd>
-	      <img class="wheather-icon" />
-	    </dl>
-	    </div>
 		
 	</div>
 
@@ -100,6 +115,8 @@
 	
 	<script type="text/javascript" src="/js/calendar.js"></script>
 	<script type="text/javascript" src="/js/weather.js"></script>
+	<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 		
 </body>
 
