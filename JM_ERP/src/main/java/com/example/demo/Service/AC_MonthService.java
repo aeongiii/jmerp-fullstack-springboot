@@ -62,7 +62,7 @@ public class AC_MonthService {
     			
     			PBRevenue += d.getAmount();
     		
-    			VAT += (d.getAmount() / 11) / 10 * 10;
+    			VAT += ((d.getAmount() / 11) / 10) * 10;
     		}
     		
     		else {

@@ -113,7 +113,7 @@
 				        </div>
 				    </div>
 	                <!-- 내용 -->
-	                <table class="slip-table">
+	                <table id="dataTable" class="slip-table">
 	                    <tbody>
 	                        <tr>
 	                            <td rowspan="2">계정명</td>
@@ -159,14 +159,15 @@
 	                        </tr>
 	                    </tbody>
 	                </table>
-	
-	                <!-- 전표 생성날짜 입력란 -->
-	                <div class="slip-date">
-	                    <strong>전표 생성날짜:</strong> <span id="createAt"></span>
-	                </div>
 	            </div>
 	            <!-- 모달 푸터 -->
-	            <div class="modal-footer"></div>
+	            <div class="modal-footer" style="display: flex; justify-content: space-between;">
+				    <button id="exportBtn" type="button" class="btn btn-success">Excel Export</button>
+				    <!-- 전표 생성날짜 입력란 -->
+				    <div class="slip-date">
+				        <strong>전표 생성날짜:</strong> <span id="createAt"></span>
+				    </div>
+				</div>
 	        </div>
 	    </div>
 	</div>
@@ -188,5 +189,4 @@
 	        background-color: #f2f2f2;
 	    }
 	</style>
-
 </div>

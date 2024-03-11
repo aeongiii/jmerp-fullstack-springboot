@@ -253,7 +253,7 @@ function saleSlipModalOnClick(btnClass, modalId) {
         // 모달 열기
         $('#' + modalId).modal('show');
         
-        $('#info').text('판매 : ' + seller + ' / ' + Math.round(amount * 10 / 11).toLocaleString() + ' / ' + Math.round(amount * 1 / 11).toLocaleString());
+        $('#info').text('판매 : ' + seller + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());
 
         // 모달 닫기 버튼 클릭 시 모달 닫기
         $(document).on('click', '.close', function() {
@@ -295,4 +295,18 @@ function showPriceField(typeId, priceLabelId, priceLabelNameId) {
     } else {
         priceLabel.style.display = "none";
     }
+}
+
+// 현재 창의 데이터 엑셀 저장(수정 중 - ajax 사용하여 페이지 데이터도 들고오기?)
+function exportToExcel(tableId, btn) {
+    document.getElementById(btn).addEventListener('click', function() {
+        // 테이블 데이터를 가져오는 코드
+        var table = document.getElementById(tableId);
+        
+        // Excel 파일 생성
+        var wb = XLSX.utils.table_to_book(table);
+        
+        // Excel 파일 다운로드
+        XLSX.writeFile(wb, tableId + '.xlsx');
+    });
 }

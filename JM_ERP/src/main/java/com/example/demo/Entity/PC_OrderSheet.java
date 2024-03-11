@@ -47,4 +47,8 @@ public class PC_OrderSheet {
 
     @Column
     private Long totalPrice;
+    
+    
+    @Column(name = "findNum", length = 100)
+    private Long findNum;
 }

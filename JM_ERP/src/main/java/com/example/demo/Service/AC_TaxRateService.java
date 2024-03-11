@@ -68,9 +68,22 @@ public class AC_TaxRateService {
 	        pay = pay - (pay % 10);
 	        calculateTax.add(pay);
 	        
+	        boolean count = true;
+	        
 	        for (AC_TaxRate tax : taxList) {
 	            Double taxRate = tax.getTaxRate();
 	            int taxAmount = (int) (pay * taxRate) - (int) (pay * taxRate) % 10;
+	            
+	            if (count) {
+	            	
+	            	if (taxAmount > 265500) {
+	            		
+	            		taxAmount = 265500;
+	            	}
+	            	
+	            	count = false;
+	            }
+	            
 	            calculateTax.add(taxAmount);
 	            deductionAmount += taxAmount;
 	        }

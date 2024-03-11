@@ -29,17 +29,25 @@
 				<div id="myDiv" th:data-ids="${ids.get().totalCount}"></div>
 				<div id="myDiv1" th:data-costList="${costList.get().cost}"></div>
 				<!-- 폼 -->
+
 				<form th:action="@{/PC/purchase/ordersheet/create/{id}(id=${ids.get().num})}" method="post">
 
 					<div class="mb-3">
 						<label for="deliveryDate" class="form-label">납기일</label>
 						<input type="date" id="deliveryDate" name="deliveryDate" class="form-control" required>
+
+
 					</div>
 					<div class="mb-3">
-						<label for="clinetName" class="form-label">거래처 명</label>
-						<input type="text" th:value="${ids.get().clientName}" id="clinetName" name="clinetName"
-							class="form-control" required readonly>
+						<label for="clientName" class="form-label">거래처 명</label>
+						<select id="clientName" name="clientName" class="form-control">
+							<option value="" th:text="선택"></option>
+							<option th:each="accountmg : ${account}" th:value="${accountmg.accountName}"
+								th:text="${accountmg.accountName}"></option>
+						</select>
 					</div>
+
+
 
 					<div class="mb-3">
 						<label for="item" class="form-label">품목 명</label>
@@ -87,22 +95,16 @@
 					<div class="mb-3">
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
+					<input type="hidden" th:value="${ids.get().PurchaseDate}" class="Datecomparison" id="PurchaseDate">
+
+					</input>
 				</form>
-
-
-
-
-
 				<!-- 폼 끝-->
-
-
 			</div>
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
-
 		</div> <!-- 컨테이너 플루이드 정의 끝 -->
 	</div> <!-- 컨테이너 플루이드 끝 -->
-
-
+	
 
 
 	<!-- Bootstrap JS 연결 -->
@@ -119,7 +121,31 @@
 		});
 
 	</script>
+	<script>
 
+
+		var selectedDate = document.getElementById('PurchaseDate').value;
+
+
+
+		document.getElementById('deliveryDate').addEventListener('change', function () {
+			var deliveryDate = this.value;
+
+			var deliveryDateObj = new Date(deliveryDate);
+			var selectedDateObj = new Date(selectedDate);
+			var date = (deliveryDateObj < selectedDateObj);
+
+			if (date) {
+
+			alert('납기일은 요청일 보다 전날에 신청할수 없습니다');			}
+
+			});
+
+	</script>
+
+	<!--document.getElementById('deliveryDate').addEventListener('change', function() {
+        var selectedDate = this.value; // 사용자가 선택한 날짜
+        console.log('선택된 날짜:', selectedDate);-->
 
 
 </body>

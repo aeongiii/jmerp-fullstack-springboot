@@ -167,8 +167,8 @@ public class AC_BondDebtController {
     		description = description + sAmount;
     	}
     	
-    	if (!data.get(0).contains(String.valueOf(LocalDate.now())) && description.equals("")) {
-        	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    		
     		description = "\n" + (LocalDate.now()) + ":" + description;
     	
     	}
