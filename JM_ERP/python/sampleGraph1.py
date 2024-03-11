@@ -39,9 +39,9 @@ try:
     # 꺾은선 그래프 생성
     plt.figure(figsize=(10, 8))
     plt.plot(list(total_sales_by_category.keys()), list(total_sales_by_category.values()), marker='o', linestyle='-')
-    plt.title('카테고리별 총 판매량 비교')
+    #plt.title('카테고리별 총 판매량 비교')
     plt.xlabel('카테고리')
-    plt.ylabel('총 판매량(EA)')
+    plt.ylabel('총 판매량')
     plt.xticks(rotation=45)
     plt.grid(True)
 

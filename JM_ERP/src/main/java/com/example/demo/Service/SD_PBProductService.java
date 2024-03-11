@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -24,7 +25,6 @@ public class SD_PBProductService {
 
 	@Autowired
 	private final SD_PBProductRepository pbRepository;
-	private final SD_SellerRepository sellerRepository;
 	private final SD_SellerService sellerService;
 
 // 자체상품 모두 조회(페이징)
@@ -70,5 +70,10 @@ public class SD_PBProductService {
 //		--> 코드 업데이트 위해 다시 저장
 	    pbRepository.save(savedPB);
 		
+	}
+
+	public List<SD_PBProduct> getList() {
+		List<SD_PBProduct> pbList = pbRepository.findAll();
+		return pbList;
 	}
 }
