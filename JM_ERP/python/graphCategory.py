@@ -24,9 +24,9 @@ filtered_df = df[df['category'] == target_category]
 # productName마다 totalSaleEA의 값을 합산하여, '상품별 총 구매수량' 막대 그래프 생성!
 filtered_df.groupby('productName')['totalSaleEA'].sum().plot(kind='bar')
 
-plt.title(f"Total Sale Quantity by Product in {target_category} Category")  # 제목
-plt.ylabel('Total Sale Quantity')   # Y축 이름 설정
-plt.xlabel('Product Name')          # X축 이름 설정
+#plt.title('카테고리 상품별 판매량 비교')  # 제목
+plt.ylabel('제품명')   # Y축 이름 설정
+plt.xlabel('총 판매량')          # X축 이름 설정
 plt.xticks(rotation=45)             # 라벨 객체의 이름을 45도 회전(겹치지 않도록)
 plt.tight_layout()                  # 그래프 레이아웃을 자동으로 조정 (범위 넘어가지 않도록)
 
