@@ -146,12 +146,6 @@ public class AC_BondDebtController {
     	
     	String description = "";
     	
-    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
-    	
-    		description = "\n" + (LocalDate.now()) + ":";
-    	
-    	}
-    	
     	if (priceField > 0) {
     		
     		String sIncrease = " 채권 금액 " + priceField + "원 추가";
@@ -171,6 +165,12 @@ public class AC_BondDebtController {
     		String sAmount = " " + amount + "원 변제";
     		
     		description = description + sAmount;
+    	}
+    	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    		
+    		description = "\n" + (LocalDate.now()) + ":" + description;
+    	
     	}
     	
     	this.bondService.update(bondNumber, amount, priceField, maturityDate, description);

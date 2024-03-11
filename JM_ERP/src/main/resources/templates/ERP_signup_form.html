@@ -10,16 +10,17 @@
 
 <body>
 	<!-- 네비게이션바 프라그먼트-->
-	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+	<nav th:replace="~{/navbar :: signup--navbarFragment}"></nav>
 
 	<canvas class = "canvas"></canvas>
 	<form th:action="@{/user/signup}" th:object="${signupForm}" method="post" class="signupform">
 		<div class = "textbox">
 			<div class="theme1">
 				<span data-target = "typing--text" class = "sentence--gray">
-		          이 부분은 환영한다는 인사말을 쓰는 구간입니다
+		          이 곳은 여러분에게 새로운 시작이 될 곳입니다.
 		          <br>
-		          이 칸은 ERP에 대한 소개를 작성하는 구간입니다
+		          회원가입을 통해 저희 ERP의 일원이 되어주세요.
+		          <br>
 		        </span>
 			</div>
 			<div class="theme1">

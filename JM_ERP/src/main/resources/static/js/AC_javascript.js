@@ -20,6 +20,55 @@ function getTodayDate() {
     return yyyy + '-' + mm + '-' + dd;
 }
 
+// 년도와 월을 받는 함수
+function getYearMonth(years, months) {
+    var yearSelect = document.getElementById(years);
+    var monthSelect = document.getElementById(months);
+
+    var currentYear = new Date().getFullYear();
+    var currentMonth = new Date().getMonth() + 1;
+
+    // 년도 채우기
+    for (var year = 2020; year <= currentYear; year++) {
+        var option = document.createElement("option");
+        option.text = year;
+        option.value = year;
+        yearSelect.add(option);
+    }
+
+    // 월 채우기
+    for (var month = 1; month <= 12; month++) {
+        // 현재 년도인 경우, 현재 월까지만 채웁니다.
+        if (currentYear === parseInt(yearSelect.value, 10)) {
+            if (month > currentMonth) {
+                break;
+            }
+        }
+
+        var option = document.createElement("option");
+        option.text = month;
+        option.value = month;
+        monthSelect.add(option);
+    }
+
+    // 년도가 변경될 때마다 월 옵션을 업데이트
+    yearSelect.addEventListener("change", function () {
+        var selectedYear = parseInt(yearSelect.value, 10);
+        monthSelect.innerHTML = ""; // 기존의 월 옵션 제거
+
+        // 선택된 년도가 현재 년도와 같은지 확인
+        var maxMonth = (selectedYear === currentYear) ? currentMonth : 12;
+
+        // 새로운 월 옵션 추가
+        for (var month = 1; month <= maxMonth; month++) {
+            var option = document.createElement("option");
+            option.text = month;
+            option.value = month;
+            monthSelect.add(option);
+        }
+    });
+}
+
 // 라디오버튼을 2개로 나눠서 이용하는 함수
 function initializePage(option1ContentId, option2ContentId) {
     $(document).ready(function () {
@@ -80,7 +129,7 @@ function depositSlipModalOnClick(btnClass, modalId) {
 		var number = $row.find('td:first').text().trim();
 		var trader = $row.find('td:nth-child(3)').text().trim();
 		var description = $row.find('td:nth-child(4)').text().trim();
-		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
+		var amount = parseInt($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
 		var createAt = $row.find('td:nth-child(7)').text().trim();
 		
 		$('#slipNumber').text(number);
@@ -91,10 +140,15 @@ function depositSlipModalOnClick(btnClass, modalId) {
 		$('#description2').text(description);
 		$('#description3').text(description);
 		
+		var cal = Math.round(amount * 1 / 11);
+		
+		var VAT = cal - (cal % 10);
+		var netIncome = amount - VAT;
+		
 		// 반올림
         if (trader === '달토끼') {
-            $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
-            $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());         
+            $('#amountR1').text(netIncome.toLocaleString());
+            $('#amountR2').text(VAT.toLocaleString());         
         } else {
             $('#amountR1').text((amount).toLocaleString());
             $('#amountR2').text("");           
@@ -126,7 +180,7 @@ function withdrawalSlipModalOnClick(btnClass, modalId) {
 		var number = $row.find('td:first').text().trim();
 		var trader = $row.find('td:nth-child(3)').text().trim();
 		var description = $row.find('td:nth-child(4)').text().trim();
-		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
+		var amount = parseInt($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
 		var createAt = $row.find('td:nth-child(7)').text().trim();		
 		
 		$('#slipNumber').text(number);
@@ -137,16 +191,15 @@ function withdrawalSlipModalOnClick(btnClass, modalId) {
 		$('#description2').text(description);
 		$('#description3').text(description);
 		
+		var cal = Math.round(amount * 1 / 11);
+		
+		var VAT = cal - (cal % 10);
+		var netIncome = amount - VAT;
+		
 		// 반올림
-        if (trader === '달토끼') {
-            $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
-            $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());         
-        } else {
-            $('#amountR1').text((amount).toLocaleString());
-            $('#amountR2').text("");           
-        }
-        
-        $('#amountL3').text((amount).toLocaleString());
+        $('#amountL1').text(netIncome.toLocaleString());
+        $('#amountL2').text(VAT.toLocaleString());
+        $('#amountR3').text((amount).toLocaleString());
         $('#totalAmountL').text((amount).toLocaleString());
         $('#totalAmountR').text((amount).toLocaleString());
         
@@ -170,7 +223,6 @@ function saleSlipModalOnClick(btnClass, modalId) {
         var $row = $(this).closest('tr')
         // 행의 순서를 찾습니다.
 		var number = $row.find('td:first').text().trim();
-		var trader = $row.find('td:nth-child(3)').text().trim();
 		var description = $row.find('td:nth-child(4)').text().trim();
 		var amount = parseFloat($row.find('td:nth-child(5)').text().trim().replace(/,/g, ''));
 		var createAt = $row.find('td:nth-child(7)').text().trim();
@@ -184,9 +236,14 @@ function saleSlipModalOnClick(btnClass, modalId) {
 		$('#description2').text(description);
 		$('#description3').text(description);
 		
+		var cal = Math.round(amount * 1 / 11);
+		
+		var VAT = cal - (cal % 10);
+		var netIncome = amount - VAT;
+		
 		// 반올림
-        $('#amountR1').text(Math.round(amount * 10 / 11).toLocaleString());
-        $('#amountR2').text(Math.round(amount * 1 / 11).toLocaleString());
+        $('#amountR1').text(netIncome.toLocaleString());
+        $('#amountR2').text(VAT.toLocaleString());
         $('#amountL3').text((amount).toLocaleString());
         $('#totalAmountL').text((amount).toLocaleString());
         $('#totalAmountR').text((amount).toLocaleString());
@@ -195,6 +252,8 @@ function saleSlipModalOnClick(btnClass, modalId) {
 
         // 모달 열기
         $('#' + modalId).modal('show');
+        
+        $('#info').text('판매 : ' + seller + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());
 
         // 모달 닫기 버튼 클릭 시 모달 닫기
         $(document).on('click', '.close', function() {
@@ -236,4 +295,18 @@ function showPriceField(typeId, priceLabelId, priceLabelNameId) {
     } else {
         priceLabel.style.display = "none";
     }
+}
+
+// 현재 창의 데이터 엑셀 저장(수정 중 - ajax 사용하여 페이지 데이터도 들고오기?)
+function exportToExcel(tableId, btn) {
+    document.getElementById(btn).addEventListener('click', function() {
+        // 테이블 데이터를 가져오는 코드
+        var table = document.getElementById(tableId);
+        
+        // Excel 파일 생성
+        var wb = XLSX.utils.table_to_book(table);
+        
+        // Excel 파일 다운로드
+        XLSX.writeFile(wb, tableId + '.xlsx');
+    });
 }

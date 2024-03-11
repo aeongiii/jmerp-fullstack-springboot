@@ -6,7 +6,7 @@
     <title>채무 등록</title>
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel="icon" href="/img/favicon-register1.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
+    <link rel="icon" href="/img/favicon--register1.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
     
 </head>
 <body>
@@ -25,17 +25,17 @@
             <div class="col-lg-10">
 			    <form th:action="@{/AC/debtregi}" method="post">
 			
-			        <label for="trader">거래자:</label>
-			        <input type="text" id="trader" name="trader" required><br>
+			        <label for="trader">거래자</label>
+			        <input type="text" id="trader" class = "form-control" name="trader" required><br>
 			
-			        <label for="amount">금액:</label>
-			        <input type="number" id="amount" name="amount" required><br>
+			        <label for="amount">금액</label>
+			        <input type="number" id="amount" class = "form-control" name="amount" required><br>
 			
-			        <label for="maturityDate">만기일:</label>
-			        <input type="date" id="maturityDate" name="maturityDate" required><br>
+			        <label for="maturityDate">만기일</label>
+			        <input type="date" id="maturityDate" class = "form-control" name="maturityDate" required><br>
 			
-			        <label for="description">적요:</label>
-			        <input type="text" id="description" name="description" required><br>
+			        <label for="description">적요</label>
+			        <input type="text" id="description" class = "form-control" name="description" required><br>
 			        
 			        <input type="submit" value="등록">
 			    </form>

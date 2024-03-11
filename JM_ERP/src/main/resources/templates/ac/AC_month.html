@@ -6,7 +6,7 @@
     <title>수익 조회</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel = "icon" href "img/favicon-profit.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+    <link rel = "icon" href = "/img/favicon--profit.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
     
 </head>
 <body>
@@ -23,37 +23,79 @@
             
              <!-- 등록 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
+				<div class="d-flex justify-content-end"> <!-- 오른쪽 정렬 -->
+					<div class="col-auto me-3"> <!-- 자동으로 열 맞춤 -->
+						<form action="/AC/month" method="get" class="flex-grow-1">
+						    <select id="year" name="year">
+						        <!-- JavaScript로 옵션을 추가 -->
+						    </select>
+							
+							<label>년</label>
+							
+						    <select id="month" name="month">
+						        <!-- JavaScript로 옵션을 추가 -->
+						    </select>
+						    
+						    <label>월</label>
+						    
+						    <button type="submit" class="btn btn-primary">조회</button>
+						</form>
+					</div>
+				</div>
+				
 				<table class = "table table-hover">
 					<thead>
-				        <tr class="table-active">
-			                <th>년/월</th>
-			                <th>수익</th>
-			                <th>부가세</th>
-			                <th>비용</th>
-			                <th>순수익</th>
-			                <th>적요</th>
-			                <th>생성 일자</th>
-			                <th>수정 일자</th>
-			            </tr>
-			        </thead>
-			        <tbody>
-			            <!-- for each 문 -->
-			            <tr th:each="month : ${monthIncome}">
-			                <!-- 화면에 띄울 정보 -->
-			                <td th:text="${month.monthId}"></td>
-			                <td th:text="${month.revenu}"></td>
-			                <td th:text="${month.VAT}"></td>
-			                <td th:text="${month.expense}"></td>
-			                <td th:text="${month.netIncome}"></td>
-			                <td th:text="${month.description}"></td>
-			                <td th:text="${month.createdAt}"></td>
-			                <td th:text="${month.updatedAt}"></td>
-			            </tr>
-			        </tbody>
-			    </table>
+						<tr class="table-active" th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">계정명</td> 
+							<td style="font-weight: bold;">
+						        <span th:text="${#strings.substring(monthIncome.monthId, 0, 4)} + '년 '"></span>
+						        <span th:text="${#strings.substring(monthIncome.monthId, 4, 6)} + '월'"></span>
+						    </td>
+						</tr>
+				    </thead>
+				    
+				    <tbody>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">1. 매출</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.Revenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>자사 판매가</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.PBRevenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>자사 판매품 부가세</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.VAT, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>대행 판매 수수료</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.NBRevenue, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">2. 매입</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.expense, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>원재료 구입</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.expense, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">3. 원천 징수</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.pay, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td>직원 급여</td> 
+							<td th:text="${#numbers.formatInteger(monthIncome.pay, 3, 'COMMA')}"></td>
+						</tr>
+				        <tr th:if="${monthIncome != null}">
+							<td style="font-weight: bold;">4. 총 순수익</td> 
+							<td style="font-weight: bold;" th:text="${#numbers.formatInteger(monthIncome.netIncome, 3, 'COMMA')}"></td>					
+						</tr>
+				    </tbody>
+				</table>
 			    <!-- 후에 알맞은 페이징과 버튼을 만들것
-				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div>
-				<div th:replace="~{AC_bond_debt_botton::bottonFragment}"></div> -->
+				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${bonds})}"></div> -->
+				<button type="button" class="btn btn-success" th:if="${monthIncome != null}">Excel Export</button>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
     </div> <!-- 컨테이너 플루이드 끝 -->
@@ -62,5 +104,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- JQuery 연결 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/AC_javascript.js"></script>
+    
+<script>
+	getYearMonth('year', 'month');
+</script>
+
+    
 </body>
 </html>

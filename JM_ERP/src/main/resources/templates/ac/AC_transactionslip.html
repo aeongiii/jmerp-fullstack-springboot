@@ -6,7 +6,7 @@
     <title>입/출금 전표</title>
     
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-    <link rel="icon" href="/img/favicon-inquiry1.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
+    <link rel="icon" href="/img/favicon--inquiry1.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
      
 </head>
 <body>
@@ -64,7 +64,7 @@
                     <!-- 데이터 테이블 시작-->
 				    <table class = "table table-hover">
 				       <thead>
-				            <tr>
+				            <tr class="table-active">
 				                <th>전표 코드</th>
 				                <th>거래 일자</th>
 				                <th>거래처</th>
@@ -106,7 +106,7 @@
 				<!-- 데이터 테이블 시작-->
 				   <table class = "table table-hover">
 					   <thead>
-				            <tr>
+				            <tr class="table-active">
 				                <th>전표 코드</th>
 				                <th>거래 일자</th>
 				                <th>거래처</th>
@@ -149,6 +149,10 @@
 	
 	<!-- JQuery 연결 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- SheetJS 라이브러리를 CDN을 통해 불러옵니다. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+	
 	<script src="/js/AC_javascript.js"></script>
 	
     <script>
@@ -182,6 +186,10 @@
 		$(document).ready(function() {
 		    withdrawalSlipModalOnClick('open-withdrawalSlip-modal', 'slipModal');
 		});
+	</script>
+	
+	<script>	
+		exportToExcel("dataTable", "exportBtn")
 	</script>
 	
 </body>

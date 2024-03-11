@@ -17,11 +17,11 @@ public interface AC_SaleSlipRepository extends JpaRepository<AC_SaleSlip, String
     @Query("SELECT s FROM AC_SaleSlip s WHERE CAST(s.tradeDate AS string) LIKE %:keyword%")
     Page<AC_SaleSlip> findByTradeDateContaining(@Param("keyword") String keyword, Pageable pageable);
     
-    Page<AC_SaleSlip> findByTraderContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_SaleSlip> findByTraderContaining(String keyword, Pageable pageable);
     
-    Page<AC_SaleSlip> findBySellerContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_SaleSlip> findBySellerContaining(String keyword, Pageable pageable);
     
-    Page<AC_SaleSlip> findByDescriptionContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_SaleSlip> findByDescriptionContaining(String keyword, Pageable pageable);
     
-    Page<AC_SaleSlip> findByTransactionTypeContaining(@Param("keyword") String keyword, Pageable pageable);
+    Page<AC_SaleSlip> findByTransactionTypeContaining(String keyword, Pageable pageable);
 }
