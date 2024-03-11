@@ -31,18 +31,11 @@
 				<form action="/PC/purchase/purchaseinquiry/create" method="post">
 					
 					<div class="mb-3">
-						<label for="PurchaseDate" class="form-label">구매일자</label>
+						<label for="PurchaseDate" class="form-label">요청날짜</label>
 						<input type="date" id="PurchaseDate" name="PurchaseDate" class="form-control" required>
 					</div>
 
-					<div class="mb-3">
-						<label for="clientName" class="form-label">거래처 명</label>
-						<select id="clientName" name="clientName" class="form-control">
-							<option value="" th:text="선택"></option>
-							<option th:each="accountmg : ${account}" th:value="${accountmg.accountName}"
-								th:text="${accountmg.accountName}"></option>
-						</select>
-					</div>
+			
 
 					<div class="mb-3">
 						<label for="itemName" class="form-label">상품명</label>
@@ -65,7 +58,7 @@
 						</select>
 					</div>
 					<div class="mb-3">
-					<button type="submit" class="btn btn-primary">Submit</button>
+					<button type="submit" class="btn btn-primary">제출</button>
 					</div>
 				</form>
 
