@@ -34,21 +34,24 @@ function getYearMonth(years, months) {
         option.text = year;
         option.value = year;
         yearSelect.add(option);
+        
+        // 현재 년도를 기본값으로 선택
+        if (year === currentYear) {
+            option.selected = true;
+        }
     }
 
     // 월 채우기
     for (var month = 1; month <= 12; month++) {
-        // 현재 년도인 경우, 현재 월까지만 채웁니다.
-        if (currentYear === parseInt(yearSelect.value, 10)) {
-            if (month > currentMonth) {
-                break;
-            }
-        }
-
         var option = document.createElement("option");
         option.text = month;
         option.value = month;
         monthSelect.add(option);
+
+        // 현재 월을 기본값으로 선택
+        if (month === currentMonth) {
+            option.selected = true;
+        }
     }
 
     // 년도가 변경될 때마다 월 옵션을 업데이트
@@ -65,9 +68,15 @@ function getYearMonth(years, months) {
             option.text = month;
             option.value = month;
             monthSelect.add(option);
+
+            // 현재 월을 기본값으로 선택
+            if (month === currentMonth && selectedYear === currentYear) {
+                option.selected = true;
+            }
         }
     });
 }
+
 
 // 라디오버튼을 2개로 나눠서 이용하는 함수
 function initializePage(option1ContentId, option2ContentId) {
@@ -297,16 +306,56 @@ function showPriceField(typeId, priceLabelId, priceLabelNameId) {
     }
 }
 
-// 현재 창의 데이터 엑셀 저장(수정 중 - ajax 사용하여 페이지 데이터도 들고오기?)
+// 페이징이 없는 단일 화면에 출력되는 결과를 엑셀 함수에 저장될 때 사용
 function exportToExcel(tableId, btn) {
     document.getElementById(btn).addEventListener('click', function() {
-        // 테이블 데이터를 가져오는 코드
         var table = document.getElementById(tableId);
-        
-        // Excel 파일 생성
-        var wb = XLSX.utils.table_to_book(table);
-        
-        // Excel 파일 다운로드
-        XLSX.writeFile(wb, tableId + '.xlsx');
+
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Sheet1');
+
+        // HTML 테이블에서 데이터를 읽어와서 엑셀 시트에 추가합니다.
+        var rows = table.querySelectorAll('tr');
+        rows.forEach(function(row) {
+            var rowData = [];
+            row.querySelectorAll('td').forEach(function(cell) {
+                rowData.push(cell.innerText);
+            });
+            worksheet.addRow(rowData);
+        });
+
+        // 열 폭 자동 조정
+        worksheet.columns.forEach(function(column) {
+            var maxLength = 0;
+
+            column.eachCell(function(cell) {
+                var textLength = cell.value ? cell.value.toString().length : 0;
+                maxLength = Math.max(maxLength, textLength);
+            });
+
+            // 한글이 포함된 열의 폭을 자동 조정
+            if (containsKorean(column)) {
+                column.width = maxLength * 2; // 예시 폭 계산식
+            } else {
+                column.width = maxLength; // 다른 열의 기본 폭
+            }
+        });
+
+        // 엑셀 파일 다운로드
+        workbook.xlsx.writeBuffer().then(function(buffer) {
+            saveAs(new Blob([buffer]), tableId + '.xlsx');
+        });
     });
+}
+
+// 열의 셀에 한글이 포함되어 있는지 확인하는 함수
+function containsKorean(column) {
+    var isKorean = false;
+    column.eachCell(function(cell) {
+        var cellText = cell.value ? cell.value.toString() : '';
+        if (/[\u3130-\u318F\uAC00-\uD7A3]/.test(cellText)) {
+            isKorean = true;
+        }
+    });
+    return isKorean;
 }

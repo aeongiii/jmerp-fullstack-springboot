@@ -28,6 +28,8 @@ public class AC_TaxRateService {
 	
 	private final HR_memRepository memRepository;
 	
+	int nationalPension = 265500;
+	
 	public List<HR_mem> searchAll() {
 		
 		return this.memRepository.findAll();
@@ -76,9 +78,9 @@ public class AC_TaxRateService {
 	            
 	            if (count) {
 	            	
-	            	if (taxAmount > 265500) {
+	            	if (taxAmount > this.nationalPension) {
 	            		
-	            		taxAmount = 265500;
+	            		taxAmount = this.nationalPension;
 	            	}
 	            	
 	            	count = false;
