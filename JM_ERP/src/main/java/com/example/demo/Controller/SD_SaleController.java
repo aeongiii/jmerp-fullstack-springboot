@@ -27,7 +27,7 @@ public class SD_SaleController {
 	private final SD_SaleService saleService;
 	private final SD_PBProductService pbService;
 
-// 1. 카테고리별 총 판매량 비교
+// 1. 카테고리별 총 판매량 비교 
 	@GetMapping("/nb")
 	public String nbGraph(Model model) {
 
