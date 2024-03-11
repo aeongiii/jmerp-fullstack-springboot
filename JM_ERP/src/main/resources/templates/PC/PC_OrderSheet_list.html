@@ -56,61 +56,71 @@
 							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
 							<td th:text="${orderSheet.Count}">Amount</td>
 							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
-							<td th:text="${#numbers.formatInteger(orderSheet.totalPrice, 3, 'COMMA')}+원">Progress Status</td>
+							<td th:text="${#numbers.formatInteger(orderSheet.totalPrice, 3, 'COMMA')}+원">Progress Status
+							</td>
 							<td>
 								<button type="button" th:data-orderOp="${orderSheet.orderNumber}"
 									class="btn btn-primary orderupdateButton">수정</button>
 							</td>
-							
+
 						</tr>
 					</tbody>
 				</table>
 				<!-- 데이터 테이블 끝-->
-			
 
 
-			<!-- 페이징 프라그먼트 -->
-			<div th:replace="~{paging::pagingFragment}"></div>
-			<!-- 버튼 프라그먼트 -->
-			<div th:replace="~{PC/botton::bottonFragment}"></div>
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{PC/botton::bottonFragment}"></div>
 			</div>
 		</div>
 		<!-- 테이블 컬럼 끝(1:4 비율) -->
 
 	</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	
+
 
 	<div class="modal" id="orderUpdateModal">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title">발주 수정</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<form id="orderupdateForm" th:action="@{/PC/purchase/ordersheetupdate/id(id=${orderNumber})}"
-									method="post">
-									<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
-									<input type="hidden" id="modalorderNum" name="modarNum">
-									<div class="form-group">
-										<label for="deliveryDate">납기일:</label>
-										<input type="date" class="form-control" id="deliveryDate" name="deliveryDate">
-
-										<label for="contactPerson">담당자:</label>
-										<input type="text" class="form-control" id="contactPerson" name="contactPerson">
-
-
-									</div>
-									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary">등록</button>
-									</div>
-								</form>
-
-							</div>
-						</div>
-					</div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">발주 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
+				<div class="modal-body">
+					<form id="orderupdateForm" th:action="@{/PC/purchase/ordersheetupdate/id(id=${orderNumber})}"
+						method="post">
+						<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
+						<input type="hidden" id="modalorderNum" name="modarNum">
+						<div class="form-group">
+							<label for="deliveryDate">납기일:</label>
+							<input type="date" class="form-control" id="deliveryDate" name="deliveryDate">
+
+							<label for="contactPerson">담당자:</label>
+							<input type="text" class="form-control" id="contactPerson" name="contactPerson">
+
+							<label for="clientName" class="form-label">거래처 명</label>
+							<select id="clientName" name="clientName" class="form-control">
+								<option value="" th:text="선택"></option>
+								<option th:each="accountmg : ${account}" th:value="${accountmg.accountName}"
+									th:text="${accountmg.accountName}"></option>
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">등록</button>
+						</div>
+
+						<input type="hidden" th:each="idss:${ids}" th:value="${idss.findNum}" class="Datecomparison"
+							id="PurchaseDate">
+
+						</input>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
@@ -119,17 +129,48 @@
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
-<script>
-    document.querySelectorAll('.orderupdateButton').forEach(button => {
-        button.addEventListener('click', function () {
-            const order = this.getAttribute('data-orderOp');
-            document.getElementById('orderupdateForm').action = `/PC/purchase/ordersheetupdate/${order}`;
-            document.getElementById('modalorderNum').value = order;
-            $('#orderUpdateModal').modal('show');
-        });
-    });
-</script>
+
+	<script>
+		document.querySelectorAll('.orderupdateButton').forEach(button => {
+			button.addEventListener('click', function () {
+				const order = this.getAttribute('data-orderOp');
+				document.getElementById('orderupdateForm').action = `/PC/purchase/ordersheetupdate/${order}`;
+				document.getElementById('modalorderNum').value = order;
+				$('#orderUpdateModal').modal('show');
+			});
+		});
+	</script>
+
+	<script>
+
+
+		var selectedDate = document.getElementById('PurchaseDate').value;
+
+
+
+		document.getElementById('deliveryDate').addEventListener('change', function () {
+			var deliveryDate = this.value;
+
+			var deliveryDateObj = new Date(deliveryDate);
+			var selectedDateObj = new Date(selectedDate);
+			var date = (deliveryDateObj < selectedDateObj);
+
+			if (date) {
+
+				alert('납기일은 요청일 보다 전날에 신청할수 없습니다');
+			}
+
+		});
+
+	</script>
+	<script>
+		
+	</script>
+
+
+
+
+
 </body>
 
 </html>

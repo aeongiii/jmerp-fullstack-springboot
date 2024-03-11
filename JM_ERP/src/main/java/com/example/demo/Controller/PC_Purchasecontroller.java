@@ -44,12 +44,21 @@ public class PC_Purchasecontroller {
 
     
 	@GetMapping("/ordersheet")
-	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page,HttpServletRequest request) {
+	public String search(Model model, @RequestParam(value="page",defaultValue ="0") int page,
+			
+			HttpServletRequest request) {
 		String currentUrl = request.getRequestURI();
 		model.addAttribute("currentUrl", currentUrl);
 		
+		List<Mg_AccountMG_Entity> account = accountMg.accountManager();
 		Page<PC_OrderSheet> paging = purchaseservice.searchOrderSheet(page);
+		List<PC_OrderSheet> ids=purchaseservice.getOrderSheetList();
+		List<PC_PurchaseInquiry> pur = purchaseservice.findallpurchase();
+		
+		model.addAttribute("pur", pur);
 		model.addAttribute("paging", paging);
+		model.addAttribute("account", account);
+		model.addAttribute("ids", ids);
 		return "PC/PC_OrderSheet_list";
 	}
 	
@@ -57,17 +66,16 @@ public class PC_Purchasecontroller {
 	@GetMapping("/ordersheet/create/{id}")
 	public String ordersheetCreateUrl(
 			@PathVariable("id")Long id,
-			
-			
 			Model model ,Model model1) {
 		
-		
+		List<Mg_AccountMG_Entity> account = accountMg.accountManager();
 		Optional<PC_PurchaseInquiry> ids = purchaseservice.findpurchase(id);
 		Optional<PD_Cost> costList =  costService.getCost(ids.get().getItemName());
 		
+		
 		model.addAttribute("ids",ids);
 		model1.addAttribute("costList",costList);
-		
+		model1.addAttribute("account", account);
 		
 		return "PC/PC_OrderSheetReg";
 	}
@@ -75,7 +83,7 @@ public class PC_Purchasecontroller {
 	@PostMapping("/ordersheet/create/{id}")
 	public String ordersheetCreateUrl(
 			@PathVariable("id") Long num,
-			@RequestParam("clinetName")String clinetName,
+			@RequestParam("clientName")String clientName,
 			@RequestParam("contactPerson") String contactPerson,
 			@RequestParam("item")String item,
 			@RequestParam("deliveryDate")LocalDate deliveryDate,
@@ -86,19 +94,23 @@ public class PC_Purchasecontroller {
 	
 		String bool = "예";
 		String completionStatus = "N";
+		Optional<PC_PurchaseInquiry> purc = purchaseservice.findpurchase(num);
 		
-		purchaseservice.orderSheetSave(clinetName, contactPerson, item, deliveryDate, Count, completionStatus,totalPrice,bool,num);
-		
+		purc.get().setClientName(clientName);
+		purchaseservice.orderSheetSave(clientName, contactPerson, item, deliveryDate, Count, completionStatus,totalPrice,bool,num);
+		purchaseservice.purchaseClienteName(clientName,num);
 		
 		return "redirect:/PC/purchase/ordersheet";
 		}
 
+	
 	@GetMapping("/ordersheetupdate/{id}")
-	public String showUpdateForm(@PathVariable(name = "id") Long id, Model model) {
+	public String showUpdateForm(@PathVariable(name = "id") Long id, Model model,Model model1) {
 		Optional<PC_OrderSheet> orderOp = purchaseservice.orderSheetfindId(id);
+		
 		model.addAttribute("orderOP", orderOp);
 		
-		return "redirect:/PC/purchase/ordersheet";
+		return "/PC/PC_OrderSheet_list";
 	}
 	
 	
@@ -106,8 +118,10 @@ public class PC_Purchasecontroller {
 	public String updateItem(@PathVariable("id") Long id,
 	                         @RequestParam("deliveryDate") LocalDate deliveryDate,
 	                         @RequestParam("contactPerson") String contactPerson ,
+	                         @RequestParam("clientName") String clientName, 
 	                         RedirectAttributes redirectAttributes,
-	                         Principal principal) {
+	                         Principal principal,
+	                         Model model) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		if (authorities.stream().anyMatch(auth -> "2".equals(auth.getAuthority()) || "3".equals(auth.getAuthority()))) {
@@ -115,6 +129,7 @@ public class PC_Purchasecontroller {
 			Optional<PC_OrderSheet> orderOptional = purchaseservice.orderSheetfindId(id);
 			
 	 PC_OrderSheet order = orderOptional.get();
+	 
 	 order.setDeliveryDate(deliveryDate);
 	 order.setContactPerson(contactPerson);
 	 
@@ -163,7 +178,6 @@ public class PC_Purchasecontroller {
 	
 	@PostMapping("/purchaseinquiry/create")
 	public String purchaseCreateform(
-		@RequestParam(value="clientName") String clientName,
 		@RequestParam(value="itemName") String itemName,
 		@RequestParam(value="PurchaseDate") LocalDate PurchaseDate,
 		@RequestParam(value="totalCount") Double totalCount,
@@ -172,7 +186,7 @@ public class PC_Purchasecontroller {
 	
 		String acceptance = "아니요";
 		
-		purchaseservice.purchaseSave( PurchaseDate,  clientName,  itemName , totalCount,  warehouseName,acceptance);
+		purchaseservice.purchaseSave( PurchaseDate,    itemName , totalCount,  warehouseName,acceptance);
 		
 		return "redirect:/PC/purchase/purchaseinquiry";
 	}
