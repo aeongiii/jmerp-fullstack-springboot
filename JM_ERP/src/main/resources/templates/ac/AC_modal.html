@@ -101,7 +101,7 @@
 	                <button type="button" class="close">&times;</button>
 	            </div>
 	            <!-- 모달 본문 -->
-	            <div class="modal-body">
+	            <div id="myModal" class="modal-body">
 					
 					<!-- 회사명과 전표번호 입력란 -->
 				    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
@@ -159,14 +159,15 @@
 	                        </tr>
 	                    </tbody>
 	                </table>
+	                <br>
+					<!-- 전표 생성날짜 입력란 -->
+					<div class="slip-date" style="text-align: right;">
+					    <strong>전표 생성날짜:</strong> <span id="createAt"></span>
+					</div>
 	            </div>
-	            <!-- 모달 푸터 -->
-	            <div class="modal-footer" style="display: flex; justify-content: space-between;">
-				    <button id="exportBtn" type="button" class="btn btn-success">Excel Export</button>
-				    <!-- 전표 생성날짜 입력란 -->
-				    <div class="slip-date">
-				        <strong>전표 생성날짜:</strong> <span id="createAt"></span>
-				    </div>
+				<!-- 모달 푸터 -->
+				<div class="modal-footer" style="display: flex; justify-content: flex-end;">
+				    <button id="printButton" type="button" class="btn btn-success" onclick="printModal('myModal')">인쇄</button>
 				</div>
 	        </div>
 	    </div>

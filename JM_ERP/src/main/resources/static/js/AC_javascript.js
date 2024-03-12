@@ -157,10 +157,12 @@ function depositSlipModalOnClick(btnClass, modalId) {
 		// 반올림
         if (trader === '달토끼') {
             $('#amountR1').text(netIncome.toLocaleString());
-            $('#amountR2').text(VAT.toLocaleString());         
+            $('#amountR2').text(VAT.toLocaleString());    
+            $('#info').text('입금 : ' + trader + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());     
         } else {
             $('#amountR1').text((amount).toLocaleString());
-            $('#amountR2').text("");           
+            $('#amountR2').text("");
+            $('#info').text('입금 : ' + trader + ' / ' + amount.toLocaleString());
         }
         
         $('#amountL3').text((amount).toLocaleString());
@@ -171,6 +173,8 @@ function depositSlipModalOnClick(btnClass, modalId) {
 
         // 모달 열기
         $('#' + modalId).modal('show');
+        
+        
 
         // 모달 닫기 버튼 클릭 시 모달 닫기
         $(document).on('click', '.close', function() {
@@ -216,6 +220,8 @@ function withdrawalSlipModalOnClick(btnClass, modalId) {
 
         // 모달 열기
         $('#' + modalId).modal('show');
+        
+        $('#info').text('출금 : ' + trader + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());
 
         // 모달 닫기 버튼 클릭 시 모달 닫기
         $(document).on('click', '.close', function() {
@@ -306,6 +312,12 @@ function showPriceField(typeId, priceLabelId, priceLabelNameId) {
     }
 }
 
+// 버튼에 value 값 지정 List 전체의 엑셀을 만들때 사용
+function setButtonValue(value) {
+    document.getElementById('buttonValue').value = value;
+    document.getElementById('exportForm').submit();
+}
+
 // 페이징이 없는 단일 화면에 출력되는 결과를 엑셀 함수에 저장될 때 사용
 function exportToExcel(tableId, btn) {
     document.getElementById(btn).addEventListener('click', function() {
@@ -329,16 +341,22 @@ function exportToExcel(tableId, btn) {
             var maxLength = 0;
 
             column.eachCell(function(cell) {
-                var textLength = cell.value ? cell.value.toString().length : 0;
+                var text = cell.value ? cell.value.toString() : '';
+                var textLength = 0;
+
+                // 한글인 경우 길이를 2로 계산, 그 외에는 1로 계산
+                for (var i = 0; i < text.length; i++) {
+                    if (isKorean(text[i])) {
+                        textLength += 2;
+                    } else {
+                        textLength += 1;
+                    }
+                }
+
                 maxLength = Math.max(maxLength, textLength);
             });
 
-            // 한글이 포함된 열의 폭을 자동 조정
-            if (containsKorean(column)) {
-                column.width = maxLength * 2; // 예시 폭 계산식
-            } else {
-                column.width = maxLength; // 다른 열의 기본 폭
-            }
+            column.width = Math.max(12, maxLength); // 열의 폭을 조정합니다.
         });
 
         // 엑셀 파일 다운로드
@@ -348,14 +366,43 @@ function exportToExcel(tableId, btn) {
     });
 }
 
-// 열의 셀에 한글이 포함되어 있는지 확인하는 함수
-function containsKorean(column) {
-    var isKorean = false;
-    column.eachCell(function(cell) {
-        var cellText = cell.value ? cell.value.toString() : '';
-        if (/[\u3130-\u318F\uAC00-\uD7A3]/.test(cellText)) {
-            isKorean = true;
-        }
-    });
-    return isKorean;
+// 한글인지 판별하는 함수
+function isKorean(char) {
+    var charCode = char.charCodeAt(0);
+    return (
+        (charCode >= 0x1100 && charCode <= 0x11FF) ||
+        (charCode >= 0x3130 && charCode <= 0x318F) ||
+        (charCode >= 0xAC00 && charCode <= 0xD7A3)
+    );
+}
+
+function printModal(modalId) {
+    // 모달 창의 내용 가져오기
+    var modalContent = document.getElementById(modalId).innerHTML;
+
+    // 현재 페이지에 임시적으로 프린트 영역 추가
+    var printArea = document.createElement('div');
+    printArea.id = 'printArea';
+    printArea.style.position = 'absolute';
+    printArea.style.left = '0';
+    printArea.style.top = '0';
+    printArea.style.width = '100%'; // 페이지 너비
+    printArea.style.height = '100%'; // 페이지 높이
+    printArea.style.visibility = 'hidden';
+    printArea.innerHTML = modalContent;
+    document.body.appendChild(printArea);
+
+    // 모달 내용만을 인쇄하기 위해 CSS 추가
+    var style = document.createElement('style');
+    style.innerHTML = '@media print { body * { visibility: hidden; } #printArea, #printArea * { visibility: visible; } }';
+    document.head.appendChild(style);
+
+    // 모달 내용만을 인쇄
+    window.print();
+
+    // 프린트 영역 제거
+    printArea.parentNode.removeChild(printArea);
+
+    // 추가한 CSS 제거
+    style.parentNode.removeChild(style);
 }
