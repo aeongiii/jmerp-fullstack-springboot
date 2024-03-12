@@ -215,10 +215,10 @@ body {
 
 hr {
   margin: 1rem 0;
-  color: inherit;
+  color: white;
   border: 0;
   border-top: var(--bs-border-width) solid;
-  opacity: 0.25;
+  opacity: 0.35;
 }
 
 h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
@@ -2131,16 +2131,20 @@ progress {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  color: var(--bs-body-color);
+  color: rgba(var(--bs-black-rgb), var(--bs-bg-opacity));
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-color: #EAF3F2;
+  background-color: var(--bs-gray-200);
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.form-control::placeholder {
+	color : rgb(79, 79, 79) !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
@@ -3667,7 +3671,6 @@ textarea.form-control-lg {
   padding: var(--bs-dropdown-item-padding-y) var(--bs-dropdown-item-padding-x);
   clear: both;
   font-weight: 400;
-  color: var(--bs-dropdown-link-color);
   text-align: inherit;
   text-decoration: none;
   white-space: nowrap;
@@ -9526,6 +9529,8 @@ textarea.form-control-lg {
   }
   .me-sm-2 {
     margin-right: 0.5rem !important;
+    color : black !important;
+    background-image: linear-gradient(#edeff2, #e9ecef 60%, #dbdee1) !important;
   }
   .me-sm-3 {
     margin-right: 1rem !important;
@@ -12083,7 +12088,7 @@ textarea.form-control-lg {
   }
 }
 .navbar.bg-primary {
-  background-image: linear-gradient(#326393, #326393 60%, #326393);
+  background-image: linear-gradient(#383939, #002e5b 60%, #104981);
 }
 .navbar.bg-secondary {
   background-image: linear-gradient(#edeff2, #e9ecef 60%, #dbdee1);
@@ -12104,7 +12109,7 @@ textarea.form-control-lg {
   background-image: linear-gradient(#f9fafb, #f8f9fa 60%, #e9eaeb);
 }
 .navbar.bg-dark {
-  background-image: linear-gradient(#6D8CAC, #6D8CAC 60%, #6D8CAC);
+  background-image: linear-gradient(#1a4673, #265689 90%, #1f5289);
 }
 
 /* sign up(회원가입) 전용 css입니다. */
