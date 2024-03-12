@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.Entity.SD_Member;
 import com.example.demo.Entity.SD_PBProduct;
+import com.example.demo.Service.SD_MemberService;
 import com.example.demo.Service.SD_PBProductService;
 import com.example.demo.Service.SD_SaleService;
 
@@ -24,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class SD_SaleController {
 
 	@Autowired
+	private final SD_MemberService memberService;
 	private final SD_SaleService saleService;
 	private final SD_PBProductService pbService;
 
@@ -93,7 +96,7 @@ public class SD_SaleController {
 		}
 		String pbProductName = sb.toString();
 
-		String imagePath = "src/main/resources/static/img/SD_graphPB.png"; // 이미지 이름 변경하면서 imageName 안 쓰게 됨
+		String imagePath = "src/main/resources/static/img/SD_graphPB.png";
 		String imageWebPath = "/img/SD_graphPB.png";
 
 		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
@@ -107,4 +110,31 @@ public class SD_SaleController {
 		return "SD/SD_salePB";
 	}
 
+	
+	
+// 4. 회원별 구매 카테고리 분석
+	
+	@GetMapping("/member")
+	public String memberGraph(Model model) {
+		
+		List<SD_Member> memberList = memberService.getList();
+		model.addAttribute("memberList", memberList);
+
+		String imagePath = "src/main/resources/static/img/SD_graph_choihaeun456.png";
+		String imageWebPath = "/img/SD_graph_choihaeun456.png";	// 첫번째 회원의 그래프가 있다면 전체 다 존재한다고 봄
+
+		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
+		if (!Files.exists(Paths.get(imagePath))) {
+			// 이미지가 존재하지 않는 경우, 그래프 생성 로직 실행
+			imageWebPath = saleService.graph_member();
+		}
+		// 모델에 그래프 추가
+		model.addAttribute("SD_graphMember", imageWebPath);
+
+		return "SD/SD_saleMember";
+		
+		
+		
+	}
+	
 }
