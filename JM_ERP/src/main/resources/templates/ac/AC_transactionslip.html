@@ -150,8 +150,10 @@
 	<!-- JQuery 연결 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	
-	<!-- SheetJS 라이브러리를 CDN을 통해 불러옵니다. -->
+    <!-- SheetJS 라이브러리를 CDN을 통해 불러옵니다. -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
 	
 	<script src="/js/AC_javascript.js"></script>
 	
@@ -186,10 +188,6 @@
 		$(document).ready(function() {
 		    withdrawalSlipModalOnClick('open-withdrawalSlip-modal', 'slipModal');
 		});
-	</script>
-	
-	<script>	
-		exportToExcel("dataTable", "exportBtn")
 	</script>
 	
 </body>
