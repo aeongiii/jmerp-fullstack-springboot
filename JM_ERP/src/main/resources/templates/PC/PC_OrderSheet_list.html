@@ -48,7 +48,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="orderSheet : ${paging.content}">
+						<tr th:each="orderSheet, iterStat : ${paging.content}">
 							<th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
 							<td th:text="${orderSheet.clientName}">Client Name</td>
 							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
@@ -59,10 +59,11 @@
 							<td th:text="${#numbers.formatInteger(orderSheet.totalPrice, 3, 'COMMA')}+원">Progress Status
 							</td>
 							<td>
-								<button type="button" th:data-orderOp="${orderSheet.orderNumber}"
+								<button type="button" th:data-orderOp="${purList[iterStat.index].num}"
+									th:data-anotherValue="${orderSheet.orderNumber}"
 									class="btn btn-primary orderupdateButton">수정</button>
-							</td>
 
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -80,7 +81,9 @@
 
 	</div> <!-- 컨테이너 플루이드 정의 끝 -->
 
-
+	<div th:if="${not #strings.isEmpty(errorMessage)}" class="alert alert-danger" role="alert">
+		<p th:text="${errorMessage}"></p>
+	</div>
 	<div class="modal" id="orderUpdateModal">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -95,24 +98,30 @@
 						<input type="hidden" id="modalorderNum" name="modarNum">
 						<div class="form-group">
 							<label for="deliveryDate">납기일:</label>
-							<input type="date" class="form-control" id="deliveryDate" name="deliveryDate">
+							<input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
+
 
 							<label for="contactPerson">담당자:</label>
-							<input type="text" class="form-control" id="contactPerson" name="contactPerson">
+							<input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
 
 							<label for="clientName" class="form-label">거래처 명</label>
-							<select id="clientName" name="clientName" class="form-control">
+
+							<select id="clientName" name="clientName" class="form-control" required>
 								<option value="" th:text="선택"></option>
 								<option th:each="accountmg : ${account}" th:value="${accountmg.accountName}"
-									th:text="${accountmg.accountName}"></option>
+									th:text="${accountmg.accountName}" name="clientName" required></option>
 							</select>
+
+							
+							<input type="hidden" class="PurchaseDate" id="PurchaseDate" name="PurchaseDate">
+							<input type="hidden" class="orderNumber1" id="orderNumber1" name="orderNumber1">
 						</div>
+
+
+
 						<div class="modal-footer">
 							<button type="submit" class="btn btn-primary">등록</button>
 						</div>
-
-						<input type="hidden" th:each="idss:${ids}" th:value="${idss.findNum}" class="Datecomparison"
-							id="PurchaseDate">
 
 						</input>
 					</form>
@@ -121,6 +130,7 @@
 			</div>
 		</div>
 	</div>
+	
 
 
 
@@ -131,24 +141,30 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 	<script>
+
 		document.querySelectorAll('.orderupdateButton').forEach(button => {
 			button.addEventListener('click', function () {
-				const order = this.getAttribute('data-orderOp');
-				document.getElementById('orderupdateForm').action = `/PC/purchase/ordersheetupdate/${order}`;
-				document.getElementById('modalorderNum').value = order;
-				$('#orderUpdateModal').modal('show');
-			});
-		});
-	</script>
-
-	<script>
-
-
-		var selectedDate = document.getElementById('PurchaseDate').value;
-
-
-
-		document.getElementById('deliveryDate').addEventListener('change', function () {
+				const orderNumber = this.getAttribute('data-orderOp');
+				const anotherValue = this.getAttribute('data-anotherValue');
+				// 서버로부터 데이터를 비동기적으로 요청합니다.
+				fetch(`/PC/purchase/ordersheetupdate?orderNumber=${orderNumber}`)
+					.then(response => response.json())
+					.then(data => {
+						// 응답 데이터를 사용하여 모달 창의 입력 필드를 채웁니다.
+						//			document.getElementById('deliveryDate').value = data.deliveryDate;
+						document.getElementById('orderNumber1').value = data.num;
+						document.getElementById('PurchaseDate').value = data.purchaseDate;
+						
+						document.getElementById('orderupdateForm').action = `/PC/purchase/ordersheetupdate/${anotherValue}`;
+						document.getElementById('modalorderNum').value = anotherValue;
+						// 모달 창 표시
+						var myModal = new bootstrap.Modal(document.getElementById('orderUpdateModal'), {
+							keyboard: false
+						});
+						myModal.show();
+						
+			var selectedDate = document.getElementById('PurchaseDate').value;
+			document.getElementById('deliveryDate').addEventListener('change', function () {
 			var deliveryDate = this.value;
 
 			var deliveryDateObj = new Date(deliveryDate);
@@ -161,11 +177,20 @@
 			}
 
 		});
-
-	</script>
-	<script>
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			});
+		});
 		
+
+
+
+	
 	</script>
+
+
 
 
 

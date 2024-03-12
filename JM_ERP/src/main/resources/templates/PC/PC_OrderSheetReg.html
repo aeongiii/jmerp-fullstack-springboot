@@ -83,19 +83,15 @@
 						<input type="hidden" th:value="${ids.get().acceptance}" id="acceptance" name="acceptance"
 							class="form-control">
 					</div>
-
-					<!--		<div class="mb-3">
-						<label for="clientName" class="form-label">거래처 명</label>
-						<select id="clientName" name="clientName" class="form-control">
-							<option value="" th:text="선택"></option>
-							<option th:value="${ids.get().clientName}" th:text="${ids.get().clientName}"></option>
-						</select>
-					</div>-->
-
+					<div class="mb-3">
+						<label for="PurchaseDate" class="form-label"></label>
+						<input type="hidden" th:value="${ids.get().PurchaseDate}" class="PurchaseDate"
+							id="PurchaseDate" name="PurchaseDate">
+					</div>
 					<div class="mb-3">
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
-					<input type="hidden" th:value="${ids.get().PurchaseDate}" class="Datecomparison" id="PurchaseDate">
+
 
 					</input>
 				</form>
@@ -104,7 +100,7 @@
 			<!-- 테이블 컬럼 끝(1:4 비율) -->
 		</div> <!-- 컨테이너 플루이드 정의 끝 -->
 	</div> <!-- 컨테이너 플루이드 끝 -->
-	
+
 
 
 	<!-- Bootstrap JS 연결 -->
@@ -137,9 +133,10 @@
 
 			if (date) {
 
-			alert('납기일은 요청일 보다 전날에 신청할수 없습니다');			}
+				alert('납기일은 요청일 보다 전날에 신청할수 없습니다');
+			}
 
-			});
+		});
 
 	</script>
 
