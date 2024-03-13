@@ -1,39 +1,38 @@
-# JumptoMoon
-< 규칙 >
-1. 엔티티 칼럼명 적을 때 두 단어 이상이면 언더바(_)로 연결하기(JPA에서 대문자로 작성하면 알아서 언더바로 만들어줌)
-2. 변수명이 두 단어 이상이면 앞은 소문자, 뒤는 대문자로 적기 ( ex) businessNumber )
-3. 다른 부서 값을 변경할 일이 생기면 담당 인원과 먼저 조율하기
-4. main 에 push 할 시(오류수정 등) 카톡방에 알리기
-5. main 브랜치는 merge 용도로 사용
-6. 부서별 조회 권한부여 : 버튼 비활성화 (권한이 없습니다) 버튼은 보임
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeAuto&height=300&section=header&text=JM%20ERP&desc=Jump%20to%20Moon%20Team%20ERP%20Project&fontSize=90&fontColor=fffefb" />
 
+# 프로젝트 목표
+- coupang과 같은 유통 기반 서비스 개발 ..?
+- 영업, 회계 등 조직과 업무가 통합되어 실시간으로 동시에 정보 통합처리 가능
+- 시스템 표준화를 통한 데이터 일관성 유지
+- 코드의 재사용성 및 유지보수 효율성 확보
+- CRM, B2B, B2C
 
-=====================================================
-<merge 한 후에 pull 하는 과정>
+# 개발 기간
+2024.01 ~ 2024.03
 
-1. git fetch origin : 원격브랜치 업데이트
-2. git checkout Development : 기존 작업하던 브랜치에서 Development 브랜치로 이동
-3. git pull : 머지했던 내용을 로컬로 내려받기
-	* 충돌 발생할 경우, 해당 파일에 직접 들어가 수정 -> 수정된 파일 commit -> git bash에서 현재 상태가 Merging일 경우 "git status" 입력해서 Merging 상태 해제
-4. ***pull완료된 것 확인한 후에*** 더이상 사용하지 않는 브랜치 삭제. 
-   로컬 브랜치 삭제할 경우 : git branch -d (브랜치 이름)
-   원격 브랜치 삭제할 경우 : git push origin --delete (브랜치 이름)
+# 프로젝트 설명
+'JM ERP'는 판매자와 소비자가 상호 작용할 수 있는 플랫폼을 제공하는 동시에, B2B 및 B2C 비즈니스 모델을 지원하는 종합적인 ERP 시스템입니다. 이 시스템은 인사, 생산, 영업, 판매, 구매, 재고, 회계 등의 다양한 비즈니스 영역을 아우르며, 기업의 내부 프로세스를 효과적으로 관리하고 최적화합니다. 우리의 ERP는 특히 '쿠팡'이나 '마켓컬리'와 같은 대형 온라인 마켓플레이스에서 활동하는 판매자들과, 자체제작 상품 '달토끼'의 닭가슴살을 소비자에게 직접 판매하는 등의 복합적인 비즈니스 요구사항을 충족시키는 데 중점을 두고 있습니다.
 
-=====================================================
-<새로운 브랜치 만들기>
+# 기술 스택 & 개발 환경
+Java11 / SpringBoot / Html / JavaStript / CSS / Python
+MYSQL / Git / GitHub / BootStrap / Spring Security
+Notion (링크)
 
-1. git fetch origin : 원격 브랜치 목록 갱신 
-	* 만약 이미 삭제된 기존 브랜치때문에 오류 발생하는 경우 *
-		git branch --list -r 입력해서 원격 브랜치 목록 확인 후 이상 있으면
-		C:\Users\040\git\JumptoMoon\.git에서 config 파일 열어서
-		[remote "origin"] 부분을
-   		 url = https://github.com/MoonSungBin95/JumptoMoon.git
-    		fetch = +refs/heads/*:refs/remotes/origin/* 
-		으로 수정하면 모든 브랜치 검색 가능해짐
-2. git checkout Development : 현재 위치를 'Development' 브랜치로 전환
-3. git checkout -b (새로운 브랜치 이름) : 새 브랜치 만들고 새 브랜치로 이동하기
-	Ex) git checkout -b feature/nav/KYE
-4. git push origin (새로운 브랜치 이름) : 새 브랜치를 원격 저장소에 푸시
-5. git 웹페이지에 새 브랜치가 제대로 올라갔는지 확인!
-	* 변경사항 commit 후 처음 push할 경우, 만약 --set-upstream 으로 push하라고 뜨면 그냥 그렇게 하면 됨
-======================================================
+# 팀 소개
+- 이름, 깃허브 주소, 맡은 역할 정도 쓰면 좋을 듯
+
+# 화면 구성
+- 메인화면
+- 데이터 등록 화면 (모달 창)
+- 데이터 조회 화면
+- 데이터 분석(그래프) 화면
+
+# 주요 기능
+- 사내 커뮤니티 게시판
+- 각 부서별 CRUD
+- 로그인/로그아웃 기능, 관리자 모드
+- 소비자의 구매데이터를 활용한 CRM 분석
+ 
+# 아키텍처, ERD
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=timeAuto&height=150&section=footer" /> 
