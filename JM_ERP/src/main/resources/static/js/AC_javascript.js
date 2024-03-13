@@ -158,7 +158,7 @@ function depositSlipModalOnClick(btnClass, modalId) {
         if (trader === '달토끼') {
             $('#amountR1').text(netIncome.toLocaleString());
             $('#amountR2').text(VAT.toLocaleString());    
-            $('#info').text('입금 : ' + trader + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());     
+            $('#info').text('입금 : 상품 판매' + ' / ' + netIncome.toLocaleString() + ' / ' + VAT.toLocaleString());     
         } else {
             $('#amountR1').text((amount).toLocaleString());
             $('#amountR2').text("");

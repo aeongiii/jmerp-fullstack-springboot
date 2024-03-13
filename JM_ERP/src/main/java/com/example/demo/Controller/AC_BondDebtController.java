@@ -167,10 +167,11 @@ public class AC_BondDebtController {
     		description = description + sAmount;
     	}
     	
-    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now())) 
+    		&& amount != 0.0 && priceField != 0.0) {
     		
-    		description = "\n" + (LocalDate.now()) + ":" + description;
-    	
+    	    description = "\n" + LocalDate.now() + ":" + description;
+    	    
     	}
     	
     	this.bondService.update(bondNumber, amount, priceField, maturityDate, description);
@@ -195,32 +196,33 @@ public class AC_BondDebtController {
     	
     	String description = "";
     	
-    	if (!data.get(0).contains(String.valueOf(LocalDate.now()))) {
-    	
-    		description = "\n" + (LocalDate.now()) + ":";
-    	
+    	if (priceField > 0) {
+    		
+    		String sIncrease = " 채권 금액 " + priceField + "원 추가";
+    		
+    		description = description + sIncrease;
     	}
-
-		if (priceField > 0) {
-			
-			String sIncrease = " 채권 금액 " + priceField + "원 추가";
-			
-			description = description + sIncrease;
-		}
-		
-		if (priceField < 0) {
-			
-			String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
-			
-			description = description + sDecrease;
-		}
-		
-		if (amount != 0) {
-			
-			String sAmount = " " + amount + "원 변제";
-			
-			description = description + sAmount;
-		}
+    	
+    	if (priceField < 0) {
+    		
+    		String sDecrease = " 채권 금액 " + -priceField + "원 할인"; 
+    		
+    		description = description + sDecrease;
+    	}
+    	
+    	if (amount != 0) {
+    		
+    		String sAmount = " " + amount + "원 변제";
+    		
+    		description = description + sAmount;
+    	}
+    	
+    	if (!data.get(0).contains(String.valueOf(LocalDate.now())) 
+    		&& amount != 0.0 && priceField != 0.0) {
+    		
+    	    description = "\n" + LocalDate.now() + ":" + description;
+    	    
+    	}
 		
 		this.debtService.update(debtNumber, amount, priceField, maturityDate, description);
 		
