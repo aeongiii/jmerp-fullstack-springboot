@@ -1,4 +1,4 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=timeAuto&height=300&section=header&text=JM%20ERP&desc=Jump%20to%20Moon%20Team%20ERP%20Project&fontSize=90&fontColor=fffefb"/>
+<img src= "https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=JM%20ERP&desc=%20Jump%20to%20Moon%20Team%20ERP%20Project&descAlign=50&descAlignY=59&descSize=20.1&fontSize=80&strokeWidth=1&section=header&reversal=true&textBg=false&animation=fadeIn&fontAlign=50&fontAlignY=45" />
 
 # 💻 프로젝트 목표
 - coupang과 같은 유통 기반 서비스 개발 ..?
