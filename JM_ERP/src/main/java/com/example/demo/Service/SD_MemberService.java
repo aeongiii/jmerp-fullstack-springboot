@@ -61,5 +61,10 @@ public class SD_MemberService {
 		return memberRepository.findAll();
 	}
 
+	public List<SD_Member> getList() {
+		List<SD_Member> memberList = memberRepository.findAll();
+		return memberList;
+	}
+
 
 }
