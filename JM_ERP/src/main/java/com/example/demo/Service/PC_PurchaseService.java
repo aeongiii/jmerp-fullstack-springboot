@@ -34,7 +34,7 @@ public class PC_PurchaseService {
 	}
 
 	public void orderSheetSave(String clinetName, String contactPerson, String item, LocalDate deliveryDate,
-			Double Count,String completionStatus, Long totalPrice ,String bool,Long num) {
+			Double Count,String completionStatus, Long totalPrice ,String bool,Long num,LocalDate PurchaseDate) {
 
 		PC_OrderSheet order = new PC_OrderSheet();
 		Optional<PC_PurchaseInquiry> purchase = findpurchase(num);
@@ -48,7 +48,7 @@ public class PC_PurchaseService {
 		order.setCount(Count);
 		order.setCompletionStatus(completionStatus);
 		order.setTotalPrice(totalPrice);
-		
+		order.setPurchaseDate(PurchaseDate);
 		
 		orderSheetRepository.save(order);
 		purchaseInquiryRepository.save(purchase.get());
@@ -71,33 +71,51 @@ public class PC_PurchaseService {
 		return purchaseInquiryRepository.findById(id);
 
 	}
+	public List<PC_PurchaseInquiry> findallpurchase() {
+		return purchaseInquiryRepository.findAll();
 
-	public void purchaseSave(LocalDate PurchaseDate, String clientName, String itemName, Double totalCount,
+	}
+	
+	
+	
+	public void purchaseSave(LocalDate PurchaseDate,  String itemName, Double totalCount,
 			String warehouseName, String acceptance) {
 		PC_PurchaseInquiry purchase = new PC_PurchaseInquiry();
 
 		purchase.setPurchaseDate(PurchaseDate);
-		purchase.setClientName(clientName);
 		purchase.setItemName(itemName);
 		purchase.setTotalCount(totalCount);
 		purchase.setWarehouseName(warehouseName);
 		purchase.setAcceptance(acceptance);
 		purchaseInquiryRepository.save(purchase);
 	}
-
+	
+	public void purchaseClienteName(String clientName,Long num) {
+		
+		Optional<PC_PurchaseInquiry> purchase = findpurchase(num);
+		purchase.get().setClientName(clientName);
+		
+		
+		purchaseInquiryRepository.save(purchase.get());
+		
+	}
+	
 	
 	public Optional<PC_OrderSheet> orderSheetfindId(Long id){
 		return orderSheetRepository.findById(id);
 	}
 	
-	public void orderSheetupdate(Long id,LocalDate deliveryDate,String contactPerson) {
+	public void orderSheetupdate(Long id,Long orderNumber,LocalDate deliveryDate,String contactPerson,String clientName) {
 		PC_OrderSheet orderSheet = orderSheetRepository.findById(id).get();
-
+		PC_PurchaseInquiry purchase = purchaseInquiryRepository.findById(orderNumber).get();
 				
+		
+		purchase.setClientName(clientName);
 		orderSheet.setDeliveryDate(deliveryDate);
 		orderSheet.setContactPerson(contactPerson);
-		
+		orderSheet.setClientName(clientName);
 		orderSheetRepository.save(orderSheet);
+		purchaseInquiryRepository.save(purchase);
 	}
 	
 	

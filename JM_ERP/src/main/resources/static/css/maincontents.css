@@ -1,7 +1,7 @@
 .main-contents {
 	display: flex;
 	position: relative;
-	flex-direction: row;
+	flex-direction: row;		
 	z-index: 3;
 	width: 100%;
 	padding-top: 100px;
@@ -14,6 +14,7 @@
 	margin-right: 30px;
 	padding: 30px;
 	background-color: #FCFCFD;
+	width: fit-content;
 }
 
 .main-contents div h1 {

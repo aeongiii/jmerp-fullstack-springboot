@@ -1,5 +1,7 @@
 package com.example.demo.Controller;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -28,17 +30,25 @@ public class AC_FinanceController {
 	@Autowired
 	private final AC_TaxRateService taxRateService;
 	
-    @GetMapping("/month")
-    public String monthList(Model model,
-            @RequestParam(value = "year", defaultValue ="2020", required = false) Integer year, 
-            @RequestParam(value = "month", defaultValue ="1", required = false) Integer month) {
-    	
-    	this.monthService.save(year, month);
-    	
-        AC_Month monthIncome = this.monthService.search(year, month);
-        model.addAttribute("monthIncome", monthIncome);
-        return "ac/AC_month";
-    }
+	@GetMapping("/month")
+	public String monthList(Model model,
+	        @RequestParam(value = "year", defaultValue = "0", required = false) Integer year, 
+	        @RequestParam(value = "month", defaultValue = "0", required = false) Integer month) {
+
+	    // 기본값 설정
+	    if (year == 0 || month == 0) {
+	        Calendar now = Calendar.getInstance();
+	        year = now.get(Calendar.YEAR);
+	        month = now.get(Calendar.MONTH) + 1; // 월은 0부터 시작하므로 +1 해줌
+	    }
+
+	    this.monthService.save(year, month);
+	    
+	    AC_Month monthIncome = this.monthService.search(year, month);
+	    model.addAttribute("monthIncome", monthIncome);
+	    return "ac/AC_month";
+	}
+
     
     @GetMapping("/withholding") 
     public String searchWithholding(Model model, 

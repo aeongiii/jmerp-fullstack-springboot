@@ -47,4 +47,11 @@ public class PC_OrderSheet {
 
     @Column
     private Long totalPrice;
+    
+    
+    @Column(length = 100)
+    private LocalDate PurchaseDate;
+
+
+	
 }

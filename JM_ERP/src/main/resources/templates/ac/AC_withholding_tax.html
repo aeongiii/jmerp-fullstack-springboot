@@ -65,18 +65,18 @@
 			                <!-- 화면에 띄울 정보 -->
 			                <td th:text="${withholding.name}"></td>
 			                <td th:text="${withholding.departName}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[0], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[1], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[2], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[3], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[4], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[5], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[6], 3, 'COMMA')}"></td>
-			                <td th:text="${#numbers.formatInteger(withholding.results[7], 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.pay, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.nationalInsurance, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.healthInsurance, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.longCareInsurance, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.employmentInsurance, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.incomeTax, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.deduction, 3, 'COMMA')}"></td>
+			                <td th:text="${#numbers.formatInteger(withholding.netIncome, 3, 'COMMA')}"></td>
 			            </tr>
 			        </tbody>
 			    </table>	
-			    <button id="exportBtn" type="button" class="btn btn-success">Excel Export</button>	    
+			    <div th:replace="~{ac/AC_slip_botton::withhodingBottonFragment}"></div>
 			    <!-- 페이징 프라그먼트 -->
 				<div id="pagingFragment" th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${withholdings})}"></div>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->

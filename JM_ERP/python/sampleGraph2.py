@@ -46,8 +46,8 @@ try:
         # 막대그래프 생성
         plt.figure(figsize=(10,8))
         plt.bar(product_names, total_sale_ea, color='skyblue')
-        #plt.title(f'{category} 카테고리 상품별 판매량 비교')
-        #plt.xlabel('제품명')
+        #plt.title('카테고리 상품별 판매량 비교')
+        plt.xlabel('제품명')
         plt.ylabel('총 판매량(EA)')
         plt.xticks(rotation=45)
 
