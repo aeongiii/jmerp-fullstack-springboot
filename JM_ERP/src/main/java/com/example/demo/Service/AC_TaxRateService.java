@@ -28,6 +28,8 @@ public class AC_TaxRateService {
 	
 	private final HR_memRepository memRepository;
 	
+	int nationalPension = 265500;
+	
 	public List<HR_mem> searchAll() {
 		
 		return this.memRepository.findAll();
@@ -50,13 +52,11 @@ public class AC_TaxRateService {
 	    return memRepository.findAll(spec);
 	}
 	
-    public Page<AC_WithholdingForm> calculateTax(int page, List<HR_mem> memList) {
-        Pageable pageable = PageRequest.of(page, 10);
-		
-		List<AC_TaxRate> taxList = this.taxRateRepository.findAll();
+	public List<AC_WithholdingForm> calculateTaxList(List<HR_mem> memList) {
 		
 	    List<AC_WithholdingForm> calculateList = new ArrayList<>();
-	    
+	    List<AC_TaxRate> taxList = this.taxRateRepository.findAll();
+
 	    for (HR_mem mem : memList) {
 	        AC_WithholdingForm dto = new AC_WithholdingForm();
 	        String name = mem.getName();
@@ -64,44 +64,51 @@ public class AC_TaxRateService {
 	        int pay = mem.getRegularPay() / 12;
 	        int deductionAmount = 0; // 공제액 합계
 	        List<Integer> calculateTax = new ArrayList<>();
-	        
+
 	        pay = pay - (pay % 10);
 	        calculateTax.add(pay);
-	        
+
 	        boolean count = true;
-	        
+
 	        for (AC_TaxRate tax : taxList) {
 	            Double taxRate = tax.getTaxRate();
 	            int taxAmount = (int) (pay * taxRate) - (int) (pay * taxRate) % 10;
-	            
+
 	            if (count) {
-	            	
-	            	if (taxAmount > 265500) {
-	            		
-	            		taxAmount = 265500;
-	            	}
-	            	
-	            	count = false;
+	                if (taxAmount > this.nationalPension) {
+	                    taxAmount = this.nationalPension;
+	                }
+	                count = false;
 	            }
-	            
+
 	            calculateTax.add(taxAmount);
 	            deductionAmount += taxAmount;
 	        }
-	        
-	        calculateTax.add(deductionAmount);
-	        calculateTax.add(pay - deductionAmount);
-	        
+
 	        dto.setName(name);
 	        dto.setDepartName(depart);
-	        dto.setResults(calculateTax);
-	        
+	        dto.setPay(calculateTax.get(0));
+	        dto.setNationalInsurance(calculateTax.get(1));
+	        dto.setHealthInsurance(calculateTax.get(2));
+	        dto.setLongCareInsurance(calculateTax.get(3));
+	        dto.setEmploymentInsurance(calculateTax.get(4));
+	        dto.setIncomeTax(calculateTax.get(5));
+	        dto.setDeduction(deductionAmount);
+	        dto.setNetIncome(pay - deductionAmount);
 	        calculateList.add(dto);
 	    }
-	    
-        int start = Math.toIntExact(pageable.getOffset());
-        int end = (start + pageable.getPageSize()) > calculateList.size() ? calculateList.size() : (start + pageable.getPageSize());
-        Page<AC_WithholdingForm> pageResult = new PageImpl<>(calculateList.subList(start, end), pageable, calculateList.size());
-        
-        return pageResult;
+
+	    return calculateList;
+	}
+
+	public Page<AC_WithholdingForm> calculateTax(int page, List<HR_mem> memList) {
+	    Pageable pageable = PageRequest.of(page, 10);
+	    List<AC_WithholdingForm> calculateList = calculateTaxList(memList);
+
+	    int start = Math.toIntExact(pageable.getOffset());
+	    int end = (start + pageable.getPageSize()) > calculateList.size() ? calculateList.size() : (start + pageable.getPageSize());
+	    Page<AC_WithholdingForm> pageResult = new PageImpl<>(calculateList.subList(start, end), pageable, calculateList.size());
+
+	    return pageResult;
 	}
 }

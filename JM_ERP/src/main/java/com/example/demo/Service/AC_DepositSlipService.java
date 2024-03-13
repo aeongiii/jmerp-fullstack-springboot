@@ -29,6 +29,8 @@ public class AC_DepositSlipService {
 	private final SD_PBProductRepository PBProductRepository;
 	private final SD_SellerRepository sellerRepository;
 	
+	Double commission = 0.1;
+	
     public List<AC_DepositSlip> getList() {
         return this.depositSlipRepository.findAll();
     }
@@ -103,7 +105,7 @@ public class AC_DepositSlipService {
 				
     			if(seller.equals(this.NBProductRepository.findSellerNameByProductCode(slip.getProductCode()))
     					&& !seller.equals("달토끼")) {
-    				revenue += (slip.getAmount() / 20) - (slip.getAmount() / 20) % 10; // (5%, 1의 자리 절삭)
+    				revenue += (slip.getAmount() * this.commission) - (slip.getAmount() * this.commission) % 10; // (5%, 1의 자리 절삭)
 					k++;
     			}
 

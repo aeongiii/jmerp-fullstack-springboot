@@ -49,6 +49,9 @@ public class PC_OrderSheet {
     private Long totalPrice;
     
     
-    @Column(name = "findNum", length = 100)
-    private Long findNum;
+    @Column(length = 100)
+    private LocalDate PurchaseDate;
+
+
+	
 }

@@ -42,10 +42,11 @@ public class AC_MonthService {
     	
     	List<HR_mem> memList = this.memRepository.findAll();
     	
-    	if (deposit.isEmpty() || withdrawal.isEmpty()) {
-    		
-    		return null;
-    	}
+//    	if (deposit.isEmpty() || withdrawal.isEmpty()) {
+//    		
+//    		return null;
+//    	}
+//		위 를 사용한다면 입금, 출금 내역이 없을 때 아무런 데이터가 sql에 저장되지 않게 할 수 있음
     	
     	int revenue = 0;
     	int PBRevenue = 0;
