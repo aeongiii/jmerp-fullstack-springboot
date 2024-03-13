@@ -3,9 +3,10 @@
 }
 .nav2 {
 	z-index: 4;
+	border-top: 3px solid rgba(255, 255, 255, 0.5);
 }
 .nav1, .nav2 {
-	height: 7.5vh;
+	height: 7.0vh;
 }
 
 .navbar-nav .nav-item {

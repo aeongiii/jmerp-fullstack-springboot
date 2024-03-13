@@ -1,4 +1,4 @@
-const API_KEY = '7ab9dc2ff2210003bc72201a89cf4a72'; // KEY 값
+const API_KEY2 = '7ab9dc2ff2210003bc72201a89cf4a72'; // KEY 값
 const tempSection = document.querySelector('.temperature');
 const placeSection = document.querySelector('.place');
 const descSection = document.querySelector('.description');
@@ -22,7 +22,7 @@ const fail = () => {
 
 const getWeather = (lat, lon) => {
 	fetch(
-		`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=kr`
+		`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY2}&units=metric&lang=kr`
 	)
 	.then((response) => {
 		return response.json();
