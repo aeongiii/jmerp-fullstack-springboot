@@ -21,6 +21,13 @@
   document.getElementById('authorize_button').style.visibility = 'hidden';
   document.getElementById('signout_button').style.visibility = 'hidden';
 
+
+  const API_KEY2 = '7ab9dc2ff2210003bc72201a89cf4a72'; // KEY 값
+
+
+
+
+	
   /**
    * Callback after api.js is loaded.
    */
@@ -356,8 +363,6 @@ var rtlDefaults = {
 	}
 };
 
-
-
 ;;
 
 var fc = $.fullCalendar = { version: "1.6.4" };
@@ -412,6 +417,45 @@ $.fn.fullCalendar = function(options) {
 		var calendar = new Calendar(element, options, eventSources);
 		element.data('fullCalendar', calendar); // TODO: look into memory leak implications
 		calendar.render();
+		
+		const tempSection = document.querySelector('.temperature');
+		const placeSection = document.querySelector('.place');
+		const descSection = document.querySelector('.description');
+		const iconSection = document.querySelector('.weather-icon');
+		const success = (position) => {
+			const latitude = position.coords.latitude;
+			const longitude = position.coords.longitude;
+	
+			getWeather(latitude, longitude);
+			};
+		const fail = () => {
+			alert("좌표를 받아올 수 없음");
+		}
+		const getWeather = (lat, lon) => {
+			fetch(
+				`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY2}&units=metric&lang=kr`
+			)
+			.then((response) => {
+				return response.json();
+			})
+			.then((json) => {
+				console.log(json);
+				const temperature = json.main.temp;
+				const place = json.name;
+				const description = json.weather[0].description;
+				const icon = json.weather[0].icon;
+				const iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+				
+				tempSection.innerText = temperature+'`C';
+				placeSection.innerText = place;
+				descSection.innerText = description;
+				iconSection.setAttribute('src', iconURL);
+			})
+			.catch((error) => {
+				alert(error);
+			});
+		}
+		navigator.geolocation.getCurrentPosition(success, fail);
 	});
 	
 	
@@ -520,6 +564,7 @@ function Calendar(element, options, eventSources) {
 
 		header = new Header(t, options);
 		headerElement = header.render();
+		
 		if (headerElement) {
 			element.prepend(headerElement);
 		}
@@ -990,6 +1035,7 @@ function Header(calendar, options) {
 	function render() {
 		tm = options.theme ? 'ui' : 'fc';
 		var sections = options.header;
+		
 		if (sections) {
 			element = $("<table class='fc-header' />")
 				.append(
@@ -997,9 +1043,24 @@ function Header(calendar, options) {
 						.append(renderSection('left'))
 						.append(renderSection('center'))
 						.append(renderSection('right'))
+				)
+				.append(
+					$("<tr/>", { "class": "main-weather" })
+					.append(
+						$("<dt/>").append("기온"),
+						$("<dd/>", {"class": "temperature"}).append("#"),
+						$("<dt/>").append("위치"),
+						$("<dd/>", {"class": "place"}).append("#"),
+						$("<dt/>").append("설명"),
+						$("<dd/>", {"class": "description"}).append("#"),
+						$("<img/>",{"class": "weather-icon"}).append("#")			
+					)
 				);
+				
 			return element;
 		}
+
+	
 	}
 	
 	
@@ -6349,6 +6410,7 @@ function HorizontalPositionCache(getElement) {
 	};
 	
 }
+
 
 ;;
 

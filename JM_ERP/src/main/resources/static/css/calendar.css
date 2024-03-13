@@ -110,9 +110,7 @@
 .sec_cal .cal_wrap .day.disable {
     color: #ddd;
 }
-#wrap {
-	width: 500px;
-	}
+
 	
 #external-events {
 	float: left;
@@ -149,7 +147,7 @@
 
 #calendar {
 /* 		float: right; */
-width: 350px;
+width: 450px;
 background-color: #FFFFFF;
   border-radius: 6px;
 		}
@@ -214,10 +212,16 @@ html .fc,
 
 /* Header
 ------------------------------------------------------------------------*/
-
+.fc-header {
+	display: flex;
+	justify-content: space-between;
+}
 .fc-header tr {
 	display: flex;
 	flex-direction: column;
+	overflow:auto;
+	margin-right: 10px;
+
 }
 .fc-header td {
 	white-space: nowrap;
@@ -817,6 +821,7 @@ thead tr.fc-first{
 table.fc-header{
     background-color: #FFFFFF;
     border-radius: 6px 6px 0 0;
+    display: flex;
 }
 
 .fc-week .fc-day > div .fc-day-number{
