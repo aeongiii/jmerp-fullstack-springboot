@@ -48,11 +48,11 @@ try:
             # 원형 그래프 생성
             plt.figure(figsize=(10, 7))
             plt.pie(counts, labels=categories, autopct='%1.1f%%', startangle=140)
-            plt.title(f'[{memberId}] 회원의 카테고리별 구매 비율')
+            #plt.title(f'[{memberId}] 회원의 카테고리별 구매 비율')
 
             # 그래프 이미지 저장
             save_path = os.path.join(r'C:\Users\040\git\JumptoMoon\JM_ERP\src\main\resources\static\img', f"SD_graph_{memberId}.png")
-            plt.savefig(save_path, dpi=300)
+            plt.savefig(save_path, dpi=300, bbox_inches='tight')
             plt.close()
 
     print("모든 그래프 이미지가 저장되었습니다.")
