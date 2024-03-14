@@ -56,10 +56,7 @@
 							<td th:text="${inquiry.clientName}">Client Name</td>
 							<td th:text="${inquiry.itemName}">Item Name</td>
 							<td th:text="${inquiry.totalCount}">Total Amount</td>
-							<td>
-								<a th:text="${inquiry.acceptance}" th:href="@{/PC/purchase/ordersheet/create/{id}(id=${inquiry.num})}"
-								></a>
-							</td>
+							<td th:text="${inquiry.acceptance}"></td>
 						</tr>
 					</tbody>
 				</table>
