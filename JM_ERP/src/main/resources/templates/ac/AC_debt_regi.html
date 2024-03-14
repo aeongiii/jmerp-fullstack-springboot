@@ -23,9 +23,12 @@
             
              <!-- 등록 컬럼 (1:4 비율) -->
             <div class="col-lg-10">
+				
+				<br><h3 for="name" class="form-label">채무 등록</h3>
+				
 			    <form th:action="@{/AC/debtregi}" method="post">
 			
-			        <label for="trader">거래자</label>
+			        <br><label for="trader">거래자</label>
 			        <input type="text" id="trader" class = "form-control" name="trader" required><br>
 			
 			        <label for="amount">금액</label>
@@ -37,7 +40,7 @@
 			        <label for="description">적요</label>
 			        <input type="text" id="description" class = "form-control" name="description" required><br>
 			        
-			        <input type="submit" value="등록">
+			        <button type="submit" class="btn btn-primary" value="등록"> 등록 </button>
 			    </form>
             </div> <!-- 등록 컬럼 끝(1:4 비율) -->
         </div> <!-- 컨테이너 플루이드 정의 끝 -->
