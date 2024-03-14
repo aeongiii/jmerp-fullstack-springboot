@@ -58,7 +58,7 @@ public class MG_acoountService {
 	}
 	
 	public List<Mg_AccountMG_Entity> accountManager(){
-		return mgaccountmgRepository.findAll();
+		return this.mgaccountmgRepository.findAll();
 	}
 	
 	
