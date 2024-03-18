@@ -3,6 +3,7 @@ package com.example.demo.Service;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -109,19 +110,9 @@ public class SD_SaleService {
 					outputPath, categoryName);
 			Process process = processBuilder.start();
 
-			BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-			// 표준 출력 읽기 : 로그에서 정보 확인용
-			String line;
-			while ((line = stdOutput.readLine()) != null) {
-			    System.out.println(line);
-			}
-
-			// 표준 오류 출력 읽기 : 로그에서 오류 확인용
-			while ((line = stdError.readLine()) != null) {
-			    System.err.println(line);
-			}
+			 // 표준 출력과 오류 출력 읽기
+	        readStream(process.getInputStream()); // 표준 출력
+	        readStream(process.getErrorStream()); // 표준 오류
 
 			int exitCode = process.waitFor();
 			System.out.println("\nExited with error code : " + exitCode);
@@ -155,20 +146,10 @@ public class SD_SaleService {
 			ProcessBuilder processBuilder = new ProcessBuilder("python", "python/graphPB.py", tempFile.toString(),
 					outputPath, pbProductName);
 			Process process = processBuilder.start();
-
-			BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-			// 표준 출력 읽기 : 로그에서 정보 확인용
-			String line;
-			while ((line = stdOutput.readLine()) != null) {
-			    System.out.println(line);
-			}
-
-			// 표준 오류 출력 읽기 : 로그에서 오류 확인용
-			while ((line = stdError.readLine()) != null) {
-			    System.err.println(line);
-			}
+			
+			 // 표준 출력과 오류 출력 읽기
+	        readStream(process.getInputStream()); // 표준 출력
+	        readStream(process.getErrorStream()); // 표준 오류
 			
 			int exitCode = process.waitFor();
 			System.out.println("\nExited with error code : " + exitCode);
@@ -225,19 +206,9 @@ public class SD_SaleService {
 						outputPath);
 				Process process = processBuilder.start();
 
-				BufferedReader stdOutput = new BufferedReader(new InputStreamReader(process.getInputStream()));
-				BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-
-				// 표준 출력 읽기 : 로그에서 정보 확인용
-				String line;
-				while ((line = stdOutput.readLine()) != null) {
-				    System.out.println(line);
-				}
-
-				// 표준 오류 출력 읽기 : 로그에서 오류 확인용
-				while ((line = stdError.readLine()) != null) {
-				    System.err.println(line);
-				}
+				 // 표준 출력과 오류 출력 읽기
+		        readStream(process.getInputStream()); // 표준 출력
+		        readStream(process.getErrorStream()); // 표준 오류
 				
 				int exitCode = process.waitFor();
 				System.out.println("\nExited with error code : " + exitCode);
@@ -271,7 +242,7 @@ public class SD_SaleService {
 		}
 	}
 
-	// 매개변수에 따른 카테고리 데이터를 조회하고 JSON 문자열로 변환
+// 매개변수에 따른 카테고리 데이터를 조회하고 JSON 문자열로 변환
 	public String changeToJson(Map<String, Integer> categoryCountMap) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		try {
@@ -283,4 +254,14 @@ public class SD_SaleService {
 			return null; // 오류 발생 시 null 반환 또는 적절한 예외 처리
 		}
 	}
+	
+	
+// 스트림 읽기를 위한 메서드
+	private void readStream(InputStream stream) {
+	    new BufferedReader(new InputStreamReader(stream)).lines().forEach(System.out::println);
+	}
 }
+
+
+
+
