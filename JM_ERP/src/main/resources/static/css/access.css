@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-    background-image: url(space_aurora.jpg); /* 배경이미지 */
+    background-image: url(../img/space_aurora.jpg); /* 배경이미지 */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -41,7 +41,7 @@ body.dimmed::before{
     border-radius: 4px 4px 4px 4px;
     min-height : 50px;
     color : #fff;
-    background-image: url(space_aurora.arctic2.jpg);
+    background-image: url(../img/space_aurora.arctic2.jpg);
     background-size: cover;
     padding : 13px 18.5px;
     box-sizing: border-box;

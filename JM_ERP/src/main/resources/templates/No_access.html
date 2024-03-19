@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> 페이지 권한이 없습니다 </title>
+  <link rel="stylesheet" href="css\access.css">
+</head>
+<body class = "dimmed">
+    <div class = "no--access">
+      <div class = "title"> 접근 권한이 없습니다 </div>
+      <hr class = "custom--hr">
+      <div class = "content">
+        <p> 
+          권한을 받으시려면 관리자에게 문의해 주시기 바랍니다.
+          <br>
+          닫기 버튼을 누르시면 이전 화면으로 돌아갑니다.
+        </p>
+      </div>
+      <hr class = "custom--hr">
+      <div class = "close">
+        <input type = "button" name = "btclose" class = "button" value = "닫기" onclick = "history.back()"> <!-- history.back() - 이전 페이지로 돌아가는 코드 -->
+      </div>
+    </div>
+</body>
+</html>

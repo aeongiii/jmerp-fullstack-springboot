@@ -1,15 +1,20 @@
-canvas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
+.signup-box {
+	position: fixed;
+}
+
+.canvas-signup {
+
   background: rgb(36, 45, 55);
 }
 
 .signupform {
 	display: flex;
+	position: absolute;
+	top: 100px;
+	left: 50%;
+	transform: translateX(-50%);
 	align-items: center;
 	justify-content: center;
-	margin-top: 110px;
 }
 .textbox {
   display : flex;

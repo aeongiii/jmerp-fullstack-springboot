@@ -27,4 +27,7 @@ public class ERP_boardA {
 	
 	@ManyToOne
 	private ERP_boardQ question;
+	
+	@ManyToOne
+	private ERP_user erp_user;
 }
