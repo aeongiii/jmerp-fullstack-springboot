@@ -33,4 +33,6 @@ public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long
     String findProductNameByProductCode(@Param("productCode") String productCode);
 
 	SD_NBProduct findByProductCode(String productCode);
+
+	List<SD_NBProduct> findByCategory(String category);
 }
