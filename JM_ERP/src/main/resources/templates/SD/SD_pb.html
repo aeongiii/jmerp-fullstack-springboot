@@ -2,21 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>자체제작 상품 목록</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<!-- CSS 연결 -->
-	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
-	<link rel = "icon" href ="/img/favicon--breakdown2.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
-
-	<!-- jQuery CDN -->
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>자체제작 상품 목록</title>
+	<!-- 부트스트랩 CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- 차트.js 링크 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<!-- jQuery CDN (jQuery Slim 제거됨, 기본 jQuery 사용) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- 커스텀 CSS 링크 위치 변경 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+	<style>
+		#myChart {
+			background-color: #edeff2;
+			/* 차트 배경색 설정 */
+		}
+	</style>
 </head>
 
-
 <body>
-	<!-- 네비게이션바 프라그먼트-->
+
+	<!-- 네비게이션바 프라그먼트 -->
 	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
 
 	<div class="container-fluid">
@@ -26,79 +36,71 @@
 				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
 			</div>
 
-
-
 			<!-- 테이블 컬럼 (1:4 비율) -->
 			<div class="col-lg-10">
-				
-				<!-- 상품 등록 버튼 -->
-				<a href="http://localhost:8080/SD/product/pbcreate" class="btn btn-primary">상품등록</a>
-				<br><br>
+				<br>
 
-				<h3>전체 상품 조회</h3>
-
-				<!-- 데이터 테이블 시작-->
-				<table class=" table table-hover">
-					<thead>
-						<tr class="table-active">
-							<th>판매자명</th>
-							<th>상품분류</th>
-							<th>이미지</th>
-							<th>상품명</th>
-							<th>상품코드</th>
-							<th>개당 판매금액</th>
-							<th>상품설명</th>
-							<th>상품등록날짜</th>
-							<th></th> <!-- 사업자등록번호, 총판매수량, 총가격은 화면출력 X -->
-						</tr>
-					</thead>
-
-					<tbody>
-						<tr th:each="pb : ${pbProductList}">
-							<td th:text="${pb.sellerName}"></td>
-							<td th:text="${pb.category}"></td>
-							<td>
-								<img th:src="${pb.imageFileLink}" alt="상품 이미지" style="width:100px; height:auto;">
-							</td>			
-							<td th:text="${pb.productName}"></td>
-							<td th:text="${pb.productCode}"></td>
-							<td th:text="${pb.priceEA}"></td>
-							<td th:text="${pb.description}"></td>
-							<td th:text="${pb.registrationDate}"></td>
-							<td>
-								<!-- 수정. 삭제 버튼 -->
-								<a th:href="@{'/SD/product/pb/update/' + ${pb.sellerName}}"
-									class="btn btn-primary">수정</a>
-								<form th:action="@{'/SD/product/pb/delete/' + ${pb.sellerName}}" method="post">
-									<input type="hidden" name="_method" value="delete" />
-									<button class="btn btn-primary" type="submit">삭제</button>
-								</form>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<!-- 데이터 테이블 끝-->
-				<!-- 페이징 프라그먼트 -->
-				<div th:replace="~{SD/SD_paging::SD_pagingFragment}"></div>
-				<!-- 버튼 프라그먼트 -->
-				<div th:replace="~{SD/SD_button::SD_buttonFragment}"></div>
-
+				<div class="container">
+					<canvas id="myChart"></canvas>
+				</div>
 			</div>
-			<!-- 테이블 컬럼 끝(1:4 비율) -->
+		</div>
+	</div>
 
-		</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	</div> <!-- 컨테이너 플루이드 끝 -->
+	<!-- 부트스트랩 및 Popper.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<!-- 차트 스크립트 -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var labels = /*[[${labels}]]*/[]; // model에 추가한 값을 X축 라벨에 할당
+		var data = /*[[${data}]]*/[]; // model에 추가한 값을 Y축 값에 할당 (주석 아님)
 
-
-
-
-
-
-
-	<!-- Bootstrap JS 연결 -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-
+		var ctx = document.getElementById('myChart');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					data: data,
+					backgroundColor: [
+						'rgba(255, 99, 132, 0.2)',
+						'rgba(54, 162, 235, 0.2)',
+						'rgba(255, 206, 86, 0.2)',
+						'rgba(75, 192, 192, 0.2)',
+						'rgba(153, 102, 255, 0.2)',
+						'rgba(255, 159, 64, 0.2)'
+					],
+					borderColor: [
+						'rgba(255, 99, 132, 1)',
+						'rgba(54, 162, 235, 1)',
+						'rgba(255, 206, 86, 1)',
+						'rgba(75, 192, 192, 1)',
+						'rgba(153, 102, 255, 1)',
+						'rgba(255, 159, 64, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				legend: {
+					display: false // 범례를 표시하지 않음
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true
+						}
+					}]
+				}
+			}
+		});
+		/*]]>*/
+	</script>
 </body>
 
 </html>

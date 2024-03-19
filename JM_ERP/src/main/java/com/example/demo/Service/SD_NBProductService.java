@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SD_NBProduct;
+import com.example.demo.Entity.SD_PBProduct;
 import com.example.demo.Entity.SD_Seller;
 import com.example.demo.Form.SD_NBProductCreateForm;
 import com.example.demo.Repository.SD_NBProductRepository;
@@ -73,10 +74,15 @@ public class SD_NBProductService {
 		
 	}
 	
+	
 // 상품 조회
 	public List<SD_NBProduct> findAllMembers() {
 		return nbRepository.findAll();
 	}
+
+	 public List<SD_NBProduct> findByCategory(String category) {
+        return nbRepository.findByCategory(category);
+    }
 
 
 }

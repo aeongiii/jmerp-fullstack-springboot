@@ -38,5 +38,27 @@ public class SD_PurchaseService {
 		Pageable pageable = PageRequest.of(page, 10);
 		return purchaseRepository.findByMemberId(memberId, pageable);
 	}
+	
+	// productCode를 받아서 해당 상품의 총 구매수량 합계를 반환하는 메서드
+    public int getAllTotalPurchaseEA(String productCode) {
+        // SD_Purchase 테이블에서 productCode가 일치하는 모든 행을 찾음
+        List<SD_Purchase> purchases = purchaseRepository.findByProductCode(productCode);
+        
+        // 찾은 행들에서 totalPurchaseEA 값들을 합산
+        int total = purchases.stream().mapToInt(SD_Purchase::getTotalPurchaseEA).sum();
+        
+        return total;
+    }
+    
+ // productCode를 받아서 해당 상품의 총 구매수량 합계를 반환하는 메서드
+    public int getAllTotalPurchaseEA_memberId(String memberId) {
+        // SD_Purchase 테이블에서 productCode가 일치하는 모든 행을 찾음
+        List<SD_Purchase> purchases = purchaseRepository.findByMemberId(memberId);
+        
+        // 찾은 행들에서 totalPurchaseEA 값들을 합산
+        int total = purchases.stream().mapToInt(SD_Purchase::getTotalPurchaseEA).sum();
+        
+        return total;
+    }
 
 }

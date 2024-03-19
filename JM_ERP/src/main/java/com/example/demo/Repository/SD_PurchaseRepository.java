@@ -23,4 +23,7 @@ public interface SD_PurchaseRepository extends JpaRepository<SD_Purchase, Long> 
     // memberId를 통해 구매 리스트 조회
     @Query("SELECT p FROM SD_Purchase p WHERE p.memberId.memberId = :memberId")
     List<SD_Purchase> findByMemberId(@Param("memberId") String memberId);
+    
+ // 주어진 productCode에 해당하는 구매 내역 조회
+    List<SD_Purchase> findByProductCode(String productCode);
 }

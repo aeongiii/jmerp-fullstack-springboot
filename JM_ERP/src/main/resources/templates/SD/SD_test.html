@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>부트스트랩 test</title>
+	<!-- 부트스트랩 CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- 차트.js 링크 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<!-- jQuery CDN (jQuery Slim 제거됨, 기본 jQuery 사용) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- 커스텀 CSS 링크 위치 변경 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+	<style>
+		#myChart {
+			background-color: #edeff2;
+			/* 차트 배경색 설정 */
+		}
+	</style>
+</head>
+
+<body>
+
+	<!-- 네비게이션바 프라그먼트 -->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
+			</div>
+
+			<!-- 차트 컬럼 -->
+			<div class="col-lg-10">
+				<!-- 첫 번째 row -->
+				<div class="row">
+					<div class="col-md-6">
+						<canvas id="chartBooks"></canvas>
+					</div>
+					<div class="col-md-6">
+						<canvas id="chartFashion"></canvas>
+					</div>
+				</div>
+				<!-- 두 번째 row -->
+				<div class="row">
+					<div class="col-md-6">
+						<canvas id="chartTools"></canvas>
+					</div>
+					<div class="col-md-6">
+						<canvas id="chartLiving"></canvas>
+					</div>
+				</div>
+				<!-- 세 번째 row -->
+				<div class="row">
+					<div class="col-md-6">
+						<canvas id="chartFoods"></canvas>
+					</div>
+					<div class="col-md-6">
+						<canvas id="chartElectronics"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 부트스트랩 및 Popper.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+
+	<!-- 차트 스크립트 -->
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		document.addEventListener('DOMContentLoaded', function () {
+
+			console.log('Page loaded');
+
+			// 도서 카테고리의 차트 생성
+			var booksLabels = /*[[${도서Labels}]]*/[];
+			var booksData = /*[[${도서Data}]]*/[];
+			console.log('Books labels:', booksLabels); // 도서 라벨 데이터 로그
+			console.log('Books data:', booksData); // 도서 데이터 로그
+			createChart('chartBooks', 'Books Sales', booksLabels, booksData);
+
+			// 패션 카테고리의 차트 생성
+			var fashionLabels = /*[[${패션Labels}]]*/[];
+			var fashionData = /*[[${패션Data}]]*/[];
+			console.log('Fashion labels:', fashionLabels); // 패션 라벨 데이터 로그
+			console.log('Fashion data:', fashionData); // 패션 데이터 로그
+			createChart('chartFashion', 'Fashion Sales', fashionLabels, fashionData);
+
+			// 공구 카테고리의 차트 생성
+			var toolsLabels = /*[[${공구Labels}]]*/[];
+			var toolsData = /*[[${공구Data}]]*/[];
+			console.log('tools labels:', toolsLabels); // 라벨 데이터 로그
+			console.log('tools data:', toolsData); // 데이터 로그
+			createChart('chartTools', 'Tools Sales', toolsLabels, toolsData);
+
+			// 리빙 카테고리의 차트 생성
+			var livingLabels = /*[[${리빙Labels}]]*/[];
+			var livingData = /*[[${리빙Data}]]*/[];
+			console.log('Living labels:', livingLabels); // 라벨 데이터 로그
+			console.log('Living data:', livingData); // 데이터 로그
+			createChart('chartLiving', 'Living Sales', livingLabels, livingData);
+
+			// 식품 카테고리의 차트 생성
+			var foodsLabels = /*[[${식품Labels}]]*/[];
+			var foodsData = /*[[${식품Data}]]*/[];
+			console.log('Foods labels:', foodsLabels); // 라벨 데이터 로그
+			console.log('Foods data:', foodsData); // 데이터 로그
+			createChart('chartFoods', 'Foods Sales', foodsLabels, foodsData);
+
+			// 전자기기 카테고리의 차트 생성
+			var electronicsLabels = /*[[${전자기기Labels}]]*/[];
+			var electronicsData = /*[[${전자기기Data}]]*/[];
+			console.log('Electronics labels:', electronicsLabels); // 라벨 데이터 로그
+			console.log('Electronics data:', electronicsData); // 데이터 로그
+			createChart('chartElectronics', 'Electronics Sales', electronicsLabels, electronicsData);
+
+		});
+
+		function createChart(chartId, label, dataLabels, dataValues) {
+			console.log(`Creating chart for ${label}`); // 함수 호출 확인 로그
+			var ctx = document.getElementById(chartId).getContext('2d');
+			new Chart(ctx, {
+				type: 'bar',
+				data: {
+					labels: dataLabels,
+					datasets: [{
+						label: label,
+						data: dataValues,
+						backgroundColor: 'rgba(54, 162, 235, 0.2)',
+						borderColor: 'rgba(54, 162, 235, 1)',
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true
+						}
+					}
+				}
+			});
+		}
+		/*]]>*/
+	</script>
+
+
+</body>
+
+</html>
