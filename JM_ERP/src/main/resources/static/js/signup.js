@@ -85,7 +85,7 @@ function render() { /* 각 프레임마다 실행, 캔버스를 지우고 ('clea
 }
 
 function init() {
-  canvas = document.querySelector('.canvas'); /* document 내 요소를 검색 한 후 첫 번째 요소만 return하는 메서드 */
+  canvas = document.querySelector('.canvas-signup'); /* document 내 요소를 검색 한 후 첫 번째 요소만 return하는 메서드 */
   context = canvas.getContext('2d'); /* 드로잉에 필요한 속성, 함수를 가진 객체를 생성 */
   setSize();
   render();
