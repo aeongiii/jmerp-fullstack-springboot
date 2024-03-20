@@ -84,5 +84,13 @@ public class SD_NBProductService {
         return nbRepository.findByCategory(category);
     }
 
+	 public String findCategoryByProductCode(String productCode) {
+		    return nbRepository.findByProductCode(productCode)
+		            .map(SD_NBProduct::getCategory)
+		            .orElse(null); // 찾지 못한 경우 null 반환
+		}
+
+
+
 
 }

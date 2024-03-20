@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.Entity.SD_Member;
 import com.example.demo.Entity.SD_NBProduct;
@@ -112,55 +114,57 @@ public class SD_SaleController {
 	
 // 4. 회원별 구매 카테고리 분석
 	
-	@GetMapping("/member")
-	public String memberGraph(Model model) {
-		
-		List<SD_Member> memberList = memberService.getList();
-		model.addAttribute("memberList", memberList);
-
-		String imagePath = "src/main/resources/static/img/SD_graph_choihaeun456.png";
-		String imageWebPath = "/img/SD_graph_choihaeun456.png";	// 첫번째 회원의 그래프가 있다면 전체 다 존재한다고 봄
-
-		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
-		if (!Files.exists(Paths.get(imagePath))) {
-			// 이미지가 존재하지 않는 경우, 그래프 생성 로직 실행
-			imageWebPath = saleService.graph_member();
-		}
-		// 모델에 그래프 추가
-		model.addAttribute("SD_graphMember", imageWebPath);
-
-		return "SD/SD_saleMember";
-	}
-	
-	// 새로 변경중인 코드...
-	
 //	@GetMapping("/member")
 //	public String memberGraph(Model model) {
 //		
 //		List<SD_Member> memberList = memberService.getList();
 //		model.addAttribute("memberList", memberList);
 //
-//		// X축 라벨과 Y축 값을 저장할 리스트 생성
-//	    List<String> names = new ArrayList<>();
-//	    List<Integer> values = new ArrayList<>();
-//	    
-//	    // 각 멤버마다 순서대로 X값, Y값 모델에 추가
-//	    for(SD_Member member : memberList) {
-//	    	
-//	    	래
-//	    	labels.add(product.getProductName());
-//	     // 해당 상품의 총 구매수량을 계산하여 values에 추가
-//	    	data.add(purchaseService.getAllTotalPurchaseEA(product.getProductCode())); 
-//            
-//	    }
-//	    
-//	 // 모델에 추가
-//	    model.addAttribute("labels", labels);
-//	    model.addAttribute("data", data);
+//		String imagePath = "src/main/resources/static/img/SD_graph_choihaeun456.png";
+//		String imageWebPath = "/img/SD_graph_choihaeun456.png";	// 첫번째 회원의 그래프가 있다면 전체 다 존재한다고 봄
 //
-//		
+//		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
+//		if (!Files.exists(Paths.get(imagePath))) {
+//			// 이미지가 존재하지 않는 경우, 그래프 생성 로직 실행
+//			imageWebPath = saleService.graph_member();
+//		}
+//		// 모델에 그래프 추가
+//		model.addAttribute("SD_graphMember", imageWebPath);
+//
 //		return "SD/SD_saleMember";
 //	}
+	
+	//==================== 새로 변경중인 코드... ===============================
+	
+	@GetMapping("/member")
+	public String memberGraph(Model model) {
+		
+		List<SD_Member> memberList = memberService.getList();
+	    Map<String, Map<String, Double>> membersCategoryProportions = new HashMap<>();
+	    
+	 // 해당 멤버의 구매내역 --> 카테고리 비율을 반환
+	    for (SD_Member member : memberList) {
+	        Map<String, Double> categoryProportions = purchaseService.getProportion(member.getMemberId());
+	        membersCategoryProportions.put(member.getMemberId(), categoryProportions);
+	    }
+	    model.addAttribute("memberList", memberList);
+	    model.addAttribute("membersCategoryProportions", membersCategoryProportions);
+		
+		return "SD/SD_categoryProportions";
+	}
+	
+	
+	// AJAX를 사용하려고 했으나... 실패
+	
+//	@GetMapping("/member")
+//    @ResponseBody
+//	public Map<String, Object> getCategoryProportion(@RequestParam("memberId") String memberId) {
+//        Map<String, Integer> categoryProportions = purchaseService.getProportion(memberId);
+//        Map<String, Object> response = new HashMap<>();
+//        response.put("labels", new ArrayList<>(categoryProportions.keySet()));
+//        response.put("data", new ArrayList<>(categoryProportions.values()));
+//        return response;
+//    }
 	
 	@GetMapping("/test")
 	public String testGraph(Model model) {
