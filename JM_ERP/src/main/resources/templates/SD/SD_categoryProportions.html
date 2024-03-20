@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>회원별 구매상품 카테고리 원형그래프</title>
+	<!-- 부트스트랩 CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<!-- 차트.js 링크 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<!-- jQuery CDN (jQuery Slim 제거됨, 기본 jQuery 사용) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- 커스텀 CSS 링크 위치 변경 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+	<style>
+		.chart-container {
+			background-color: #edeff2;
+			/* 차트 컨테이너 배경색 설정 */
+			padding: 20px;
+			/* 필요한 경우, 컨테이너에 패딩 추가 */
+		}
+	</style>
+</head>
+
+
+<body>
+
+	<!-- 네비게이션바 프라그먼트 -->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
+			</div>
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<br>
+
+				<select id="memberSelect" onchange="updateGraph()">
+					<option value="">Select a member</option>
+					<th:block th:each="member : ${memberList}">
+						<option th:value="${member.memberId}" th:text="${member.memberName}"></option>
+					</th:block>
+				</select>
+
+				<div id="graph-container" class="chart-container">
+					<canvas id="categoryProportionChart"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 부트스트랩 및 Popper.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<!-- 차트 스크립트 -->
+	<script th:inline="javascript">
+
+		console.log(membersCategoryProportions);
+
+		var categoryProportionChart = null; // 전역 변수로 차트 인스턴스 관리
+
+
+		function updateGraph() {
+			var memberId = document.getElementById('memberSelect').value;
+			var membersCategoryProportions = /*[[${membersCategoryProportions}]]*/ {};
+			var proportions = membersCategoryProportions[memberId];
+
+			var labels = Object.keys(proportions);
+			var data = Object.values(proportions);
+
+			// 캔버스 컨테이너를 찾고, 기존 캔버스를 제거
+			var container = document.querySelector('#graph-container'); // 수정된 부분
+			container.innerHTML = '';
+
+			// 새 캔버스 요소를 생성하고 설정
+			var canvas = document.createElement('canvas');
+			canvas.id = 'categoryProportionChart';
+			container.appendChild(canvas);
+
+			var ctx = canvas.getContext('2d');
+
+			// 새 차트 인스턴스 생성
+			var categoryProportionChart = new Chart(ctx, {
+				type: 'pie',
+				data: {
+					labels: labels,
+					datasets: [{
+						label: 'Category Proportions',
+						data: data,
+						backgroundColor: [
+							'rgba(255, 99, 132, 0.2)',
+							'rgba(54, 162, 235, 0.2)',
+							'rgba(255, 206, 86, 0.2)',
+							'rgba(75, 192, 192, 0.2)',
+							'rgba(153, 102, 255, 0.2)',
+							'rgba(255, 159, 64, 0.2)'
+						],
+						borderColor: [
+							'rgba(255, 99, 132, 1)',
+							'rgba(54, 162, 235, 1)',
+							'rgba(255, 206, 86, 1)',
+							'rgba(75, 192, 192, 1)',
+							'rgba(153, 102, 255, 1)',
+							'rgba(255, 159, 64, 1)'
+						],
+						borderWidth: 1
+					}]
+				},
+				options: {
+					responsive: true, // 반응형 차트 설정
+					title: {
+						display: true, // 제목 표시 여부
+						text: '회원별 구매 카테고리 분석', // 제목 내용
+						fontSize: 20, // 폰트 크기
+						fontColor: '#333', // 폰트 색상
+						fontStyle: 'bold', // 폰트 스타일
+						position: 'top', // 제목 위치
+						padding: 20 // 제목과 차트 사이의 패딩
+					},
+					legend: {
+						display: false // 범주 비활성화
+					}
+				}
+			});
+		}
+	</script>
+</body>
+
+</html>

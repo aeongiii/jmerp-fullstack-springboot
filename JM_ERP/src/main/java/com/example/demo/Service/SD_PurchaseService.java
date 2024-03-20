@@ -1,6 +1,8 @@
 package com.example.demo.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class SD_PurchaseService {
 
 	private final SD_PurchaseRepository purchaseRepository;
+	private final SD_NBProductService nbService;
 
 	// 고객 모두 조회 (페이징)
 	public Page<SD_Purchase> searchAll(int page) {
@@ -50,15 +53,31 @@ public class SD_PurchaseService {
         return total;
     }
     
- // productCode를 받아서 해당 상품의 총 구매수량 합계를 반환하는 메서드
-    public int getAllTotalPurchaseEA_memberId(String memberId) {
-        // SD_Purchase 테이블에서 productCode가 일치하는 모든 행을 찾음
-        List<SD_Purchase> purchases = purchaseRepository.findByMemberId(memberId);
-        
-        // 찾은 행들에서 totalPurchaseEA 값들을 합산
-        int total = purchases.stream().mapToInt(SD_Purchase::getTotalPurchaseEA).sum();
-        
-        return total;
+ // 해당 멤버의 구매내역 --> 카테고리 비율을 반환하는 메서드
+    public Map<String, Double> getProportion(String memberId) {
+        List<Object[]> purchaseSummary = purchaseRepository.findPurchaseSummaryByMemberId(memberId);
+        Map<String, Integer> categoryTotals = new HashMap<>();
+        int totalPurchase = 0;
+
+        for (Object[] summary : purchaseSummary) {
+            String productCode = (String) summary[0];
+            Integer totalPurchaseEA = ((Long) summary[1]).intValue();
+
+            String category = nbService.findCategoryByProductCode(productCode);
+            if (category != null) { // null 카테고리인 경우 포함 XX
+                categoryTotals.merge(category, totalPurchaseEA, Integer::sum);
+                totalPurchase += totalPurchaseEA;
+            }
+        }
+
+        // 카테고리별 비율 계산
+        Map<String, Double> categoryProportions = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : categoryTotals.entrySet()) {
+            double proportion = ((double) entry.getValue() / totalPurchase) * 100; // 비율을 퍼센트로 계산
+            categoryProportions.put(entry.getKey(), proportion);
+        }
+
+        return categoryProportions;
     }
 
 }
