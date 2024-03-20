@@ -9,4 +9,6 @@ import com.example.demo.Entity.ERP_user;
 public interface ERP_userRepository extends JpaRepository<ERP_user, Long>{
 
 	Optional<ERP_user> findByUserId(String userId);
+	
+	Optional<ERP_user> findByName(String name);
 }
