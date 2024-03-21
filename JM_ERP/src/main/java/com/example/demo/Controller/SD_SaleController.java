@@ -1,21 +1,20 @@
 package com.example.demo.Controller;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.Entity.SD_Member;
 import com.example.demo.Entity.SD_NBProduct;
@@ -25,6 +24,7 @@ import com.example.demo.Service.SD_NBProductService;
 import com.example.demo.Service.SD_PBProductService;
 import com.example.demo.Service.SD_PurchaseService;
 import com.example.demo.Service.SD_SaleService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,22 +41,41 @@ public class SD_SaleController {
 	private final SD_PurchaseService purchaseService;
 
 // 1. 카테고리별 총 판매량 비교 
-	@GetMapping("/nb")
-	public String nbGraph(Model model) {
 
-		String categoryName = "공구,도서,리빙,식품,전자기기,패션";
-		String imagePath = "src/main/resources/static/img/SD_graphNB.png"; // 이미지 이름 변경하면서 imageName 안 쓰게 됨
-		String imageWebPath = "/img/SD_graphNB.png";
+    @GetMapping("/nb")
+    public String predictGraph(Model model) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        try {
+            // result.json 파일 읽기
+            File file = new File("python/result.json");
+            Map<String, List<Double>> results = objectMapper.readValue(file, Map.class);
 
-		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
-		if (!Files.exists(Paths.get(imagePath))) {
-			// 이미지가 존재하지 않는 경우, 그래프 생성 로직 실행
-			imageWebPath = saleService.graph_nb(categoryName);
-		}
-		// 모델에 그래프 추가
-		model.addAttribute("SD_graphNB", imageWebPath);
-		return "SD/SD_saleNB";
-	}
+            // 카테고리 목록
+            List<String> categories = List.of("도서", "패션", "공구", "리빙", "식품", "전자기기");
+
+            // 각 카테고리별로 모델에 데이터 추가
+            for(String category : categories) {
+                List<Double> categoryData = results.get(category);
+                List<String> xLabels = IntStream.rangeClosed(1, 6) // 1월부터 6월까지
+                	    .boxed() // IntStream을 Stream<Integer>로 박싱
+                	    .flatMap(month -> 
+                	        IntStream.rangeClosed(1, 3) // 각 월의 1분기부터 3분기까지
+                	            .mapToObj(quarter -> String.format("%d월 %d분기", month, quarter)) // 라벨 포맷팅
+                	    )
+                	    .collect(Collectors.toList()); // 최종적으로 List<String> 형태로 수집
+
+                	// xLabels를 모델에 추가
+                model.addAttribute(category + "Labels", xLabels);
+                model.addAttribute(category + "Data", categoryData);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // 파일 읽기 오류 처리
+        }
+
+        return "SD/SD_saleNB"; // HTML 템플릿 이름
+    }
 
 // 2. 카테고리 내 상품별 판매량 비교
 	
@@ -81,7 +100,7 @@ public class SD_SaleController {
 	        model.addAttribute(category + "Data", data);
 	    }
 
-	    return "SD/SD_test";
+	    return "SD/SD_saleCategory";
 	}
 
 // 3. 자체제작 상품별 판매량 비교	 
@@ -106,36 +125,13 @@ public class SD_SaleController {
 	    model.addAttribute("labels", labels);
 	    model.addAttribute("data", data);
 	    
-		return "SD/SD_pb";
+		return "SD/SD_salePB";
 	}
 
 
 	
 	
 // 4. 회원별 구매 카테고리 분석
-	
-//	@GetMapping("/member")
-//	public String memberGraph(Model model) {
-//		
-//		List<SD_Member> memberList = memberService.getList();
-//		model.addAttribute("memberList", memberList);
-//
-//		String imagePath = "src/main/resources/static/img/SD_graph_choihaeun456.png";
-//		String imageWebPath = "/img/SD_graph_choihaeun456.png";	// 첫번째 회원의 그래프가 있다면 전체 다 존재한다고 봄
-//
-//		// 이미지 존재하지 않을 경우, 그래프 생성 로직 실행
-//		if (!Files.exists(Paths.get(imagePath))) {
-//			// 이미지가 존재하지 않는 경우, 그래프 생성 로직 실행
-//			imageWebPath = saleService.graph_member();
-//		}
-//		// 모델에 그래프 추가
-//		model.addAttribute("SD_graphMember", imageWebPath);
-//
-//		return "SD/SD_saleMember";
-//	}
-	
-	//==================== 새로 변경중인 코드... ===============================
-	
 	@GetMapping("/member")
 	public String memberGraph(Model model) {
 		
@@ -150,45 +146,8 @@ public class SD_SaleController {
 	    model.addAttribute("memberList", memberList);
 	    model.addAttribute("membersCategoryProportions", membersCategoryProportions);
 		
-		return "SD/SD_categoryProportions";
+		return "SD/SD_saleCategoryProportions";
 	}
 	
-	
-	// AJAX를 사용하려고 했으나... 실패
-	
-//	@GetMapping("/member")
-//    @ResponseBody
-//	public Map<String, Object> getCategoryProportion(@RequestParam("memberId") String memberId) {
-//        Map<String, Integer> categoryProportions = purchaseService.getProportion(memberId);
-//        Map<String, Object> response = new HashMap<>();
-//        response.put("labels", new ArrayList<>(categoryProportions.keySet()));
-//        response.put("data", new ArrayList<>(categoryProportions.values()));
-//        return response;
-//    }
-	
-	@GetMapping("/test")
-	public String testGraph(Model model) {
-		
-		List<SD_PBProduct> PBList = pbService.getList();
-		
-		// X축 라벨과 Y축 값을 저장할 리스트 생성
-	    List<String> names = new ArrayList<>();
-	    List<Integer> values = new ArrayList<>();
-	    
-	    // PBList에서 데이터 추출
-	    for(SD_PBProduct product : PBList) {
-	        names.add(product.getProductName()); // 가정: getName()이 X축 라벨을 반환
-	        values.add(product.getPriceEA()); // 가정: getValue()가 Y축 값을 반환
-	    }
-	    
-	    // 모델에 추가
-	    model.addAttribute("labels", names);
-	    model.addAttribute("data", values);
-
-		return "SD/SD_test";
-		
-		
-		
-	}
 	
 }

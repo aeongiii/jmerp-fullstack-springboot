@@ -21,7 +21,9 @@ public class SecurityConfig {
 
 
       http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+    		  .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
     		   .requestMatchers(new AntPathRequestMatcher("/user/**")).permitAll()
+    		  
    		    .requestMatchers(new AntPathRequestMatcher("/ERP_login.html")).permitAll()
    		    .requestMatchers(new AntPathRequestMatcher("/css/**")).permitAll()
    		    .requestMatchers(new AntPathRequestMatcher("/js/**")).permitAll()
