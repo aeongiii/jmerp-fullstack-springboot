@@ -1,6 +1,7 @@
 package com.example.demo.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,12 @@ public interface SD_NBProductRepository extends JpaRepository<SD_NBProduct, Long
     @Query("SELECT nb.productName FROM SD_NBProduct nb WHERE nb.productCode = :productCode")
     String findProductNameByProductCode(@Param("productCode") String productCode);
 
-	SD_NBProduct findByProductCode(String productCode);
-
+//	SD_NBProduct findByProductCode(String productCode);
+    Optional<SD_NBProduct> findByProductCode(String productCode);
+    
 	List<SD_NBProduct> findByCategory(String category);
+	
+	//주어진 productCode에 해당하는 SD_NBProduct의 카테고리를 조회
+	@Query("SELECT nb.category FROM SD_NBProduct nb WHERE nb.productCode = :productCode")
+	String findCategoryByProductCode(@Param("productCode") String productCode);
 }

@@ -26,4 +26,9 @@ public interface SD_PurchaseRepository extends JpaRepository<SD_Purchase, Long> 
     
  // 주어진 productCode에 해당하는 구매 내역 조회
     List<SD_Purchase> findByProductCode(String productCode);
+    
+ // memberId에 따라 productCode별로 totalPurchaseEA를 합산
+    @Query("SELECT p.productCode, SUM(p.totalPurchaseEA) FROM SD_Purchase p WHERE p.memberId.memberId = :memberId GROUP BY p.productCode")
+    List<Object[]> findPurchaseSummaryByMemberId(@Param("memberId") String memberId);
+
 }

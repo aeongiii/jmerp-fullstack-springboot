@@ -43,6 +43,15 @@ public class ERP_UserService {
 		return user;
 	}
 	
+	public ERP_user getUser(String name) {
+        Optional<ERP_user> user = this.erp_userRepository.findByName(name);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new DataNotFoundException("user not found");
+        }
+    }
+	
 	public boolean createuser(String userId, String password, String name, String employeeId) throws Exception {
 
 		ERP_user user = new ERP_user();
@@ -150,19 +159,21 @@ public class ERP_UserService {
 		}
 	}
 	
-	public void createAnswer(ERP_boardQ question, String content) {
+	public void createAnswer(ERP_boardQ question, String content, ERP_user erp_user) {
 		ERP_boardA answer = new ERP_boardA();
 		answer.setContent(content);
 		answer.setCreateDate(LocalDateTime.now());
 		answer.setQuestion(question);
+		answer.setErp_user(erp_user);
 		this.answerrepository.save(answer);
 	}	
 	
-	public void createQuestion(String subject, String content) {
+	public void createQuestion(String subject, String content, ERP_user erp_user) {
 		ERP_boardQ q = new ERP_boardQ();
 		q.setSubject(subject);
 		q.setContent(content);
 		q.setCreateDate(LocalDateTime.now());
+		q.setErp_user(erp_user);
 		this.questionrepository.save(q);
 	}
 	
