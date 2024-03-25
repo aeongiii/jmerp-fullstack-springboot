@@ -44,7 +44,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-// feature/update2/kye - 코드 검토 및 정리
+// 개인 레포지토리에 복사
 
 @RequestMapping("/HR")
 @RequiredArgsConstructor
