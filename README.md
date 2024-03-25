@@ -1,5 +1,7 @@
 <img src= "https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=JM%20ERP&desc=%20Jump%20to%20Moon%20Team%20ERP%20Project&descAlign=50&descAlignY=59&descSize=20.1&fontSize=80&section=header&reversal=true&textBg=false&animation=fadeIn&fontAlign=50&fontAlignY=45" />
 
+# 📌 이 프로젝트는 팀 프로젝트의 코드를 기반으로<br>   개인적인 수정을 통해 지속적으로 빌드업 중입니다.📌
+
 # 💻 프로젝트 목표
 - coupang과 같은 유통 기반 서비스 개발 ..?
 - 영업, 회계 등 조직과 업무가 통합되어 실시간으로 동시에 정보 통합처리 가능
