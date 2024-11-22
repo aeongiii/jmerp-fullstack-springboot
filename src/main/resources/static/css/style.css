@@ -1,0 +1,13 @@
+/* bootstrap css */
+@import "bootstrapCustom1.css";
+
+/* custom css */
+@import "navbar.css";
+@import "maincontents.css";
+@import "sidebar.css";
+@import "calendar.css";
+@import "signup.css";
+
+.modal:invalid {
+	display: none;
+}

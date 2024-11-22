@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>판매자 상품 목록</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<link rel = "icon" href ="/img/favicon--breakdown2.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+
+	<!-- jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{SD/SD_arcodian :: SD_arcodianFragment}"></div>
+			</div>
+
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				
+				<!-- 상품 등록 버튼 -->
+				<a href="http://localhost:8080/SD/product/nbcreate" class="btn btn-primary">상품등록</a>
+
+				<!-- 전체 NB상품 조회 버튼 -->
+				<a href="http://localhost:8080/SD/product/nb" class="btn btn-primary">전체조회</a>
+				<br><br>
+				
+				<h3>판매자별 상품 조회</h3>
+				
+				<form id="sellerForm" action="/SD/product/nb" method="get">
+					<label for="sellerNameSelect">판매자명:</label>
+					<select id="sellerSelect" name="sellerId">
+						<th:block th:each="seller : ${sellers}">
+							<option th:value="${seller.sellerId}" th:text="${seller.sellerName}"></option>
+						</th:block>
+					</select>
+
+
+					<button type="submit">조회</button>
+				</form>
+				
+				<br>
+				
+				<h3>조회 결과</h3>
+
+				<!-- 데이터 테이블 시작-->
+				<table class=" table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>판매자명</th>
+							<th>상품분류</th>
+							<th>이미지</th>
+							<th>상품명</th>
+							<th>상품코드</th>
+							<th>개당 판매금액</th>
+							<th>상품설명</th>
+							<th>상품등록날짜</th>
+							<th></th> <!-- 사업자등록번호, 총판매수량, 총가격은 화면출력 X -->
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="nb : ${nbProductList}">
+							<td th:text="${nb.sellerName}"></td>
+							<td th:text="${nb.category}"></td>
+							<td>
+								<img th:src="${nb.imageFileLink}" alt="상품 이미지" style="width:100px; height:auto;">
+							</td>			
+							<td th:text="${nb.productName}"></td>
+							<td th:text="${nb.productCode}"></td>
+							<td th:text="${nb.priceEA}"></td>
+							<td th:text="${nb.description}"></td>
+							<td th:text="${nb.registrationDate}"></td>
+							<td>
+								<!-- 수정. 삭제 버튼 -->
+								<a th:href="@{'/SD/product/nb/update/' + ${nb.sellerName}}"
+									class="btn btn-primary">수정</a>
+								<form th:action="@{'/SD/product/nb/delete/' + ${nb.sellerName}}" method="post">
+									<input type="hidden" name="_method" value="delete" />
+									<button class="btn btn-primary" type="submit">삭제</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{SD/SD_paging::SD_pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{SD/SD_button::SD_buttonFragment}"></div>
+
+			</div>
+			<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+		</div> <!-- 컨테이너 플루이드 정의 끝 -->
+	</div> <!-- 컨테이너 플루이드 끝 -->
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>

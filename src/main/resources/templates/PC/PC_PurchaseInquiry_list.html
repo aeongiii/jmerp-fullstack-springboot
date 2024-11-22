@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/purchase/purchaseinquiry -->
+
+<head>
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row" style="display:flex !important;">
+			<div class="col-lg-2">
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
+				<div class="form-inline" style="justify-content:end;"></div>
+			</div> <!-- End of col-lg-2 -->
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 검색창 시작 -->
+				<div class="input-group" style="display:flex; width:250px; float:right; :active{border :none}";>
+					<input type="text" id="serchpurchase" class="form-control bg-light border-hober small" th:value="${kiward}">
+					<div class="input-group-append">
+						<button class="btn btn-primary findbutton" type="button" id="btn_search" style="height: 80%;">검색</button>
+					</div>
+				</div>
+				<!-- End of input-group(검색창)-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class ="table-active">
+							<th>ID</th>
+							<th>요청일</th>
+							<th>거래처 이름</th>
+							<th>물품 명</th>
+							<th>갯수</th>
+							<th>확인여부</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- Thymeleaf 반복문 사용 -->
+						<tr th:each="inquiry : ${paging.content}">
+							<th scope="row" th:text="${inquiry.num}">ID</th>
+							<td th:text="${inquiry.PurchaseDate}">Purchase Date</td>
+							<td th:text="${inquiry.clientName}">Client Name</td>
+							<td th:text="${inquiry.itemName}">Item Name</td>
+							<td th:text="${inquiry.totalCount}">Total Amount</td>
+							<td>
+								<a th:text="${inquiry.acceptance}" th:href="@{/PC/purchase/ordersheet/create/{id}(id=${inquiry.num})}"
+								th:value="${inquiry.num}"
+								></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+			
+			</div> <!-- End of row -->
+		</div> <!-- End of container-fluid-->
+
+
+
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</body>
+
+</html>

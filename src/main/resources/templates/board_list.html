@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+    <title>JTM 게시판</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+	<aside th:replace="~{/sidebar :: sidebarFragment}"></aside>
+
+	<div class="container my-3">
+		<table class="table">
+		    <thead class="table-dark">
+		        <tr>
+					<th>번호</th>
+		            <th>제목</th>
+		            <th>작성일시</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        <tr th:each="question, loop : ${questionlist}">
+					<td th:text="${loop.count}"></td>
+					<td>
+						<a th:href="@{|/user/board/Qdetail/${question.id}|}" 
+						th:text="${question.subject}"></a>
+					</td>
+		            <td th:text="${#temporals.format(question.createDate,'yyyy-MM-dd HH:mm')}"></td>
+		        </tr>
+		    </tbody>
+		</table>
+		<div th:replace="~{/paging::pagingFragment(paging=${questionlist})}"></div>
+		<a th:href="@{/user/board/Qcreate}" class="btn btn-primary">질문 등록</a>
+		
+	</div>
+	
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+	<!-- JQuery 연결 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</body>
+</html>

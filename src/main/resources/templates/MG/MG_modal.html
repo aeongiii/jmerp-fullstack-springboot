@@ -1,0 +1,112 @@
+<!-- 채권 수정 모달 -->
+<div class="modal" id="bondModal" th:fagment="itemModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- 모달 헤더 -->
+			<div class="modal-header">
+				<h4 class="modal-title">채권 수정</h4>
+				<button type="button" class="close">&times;</button>
+			</div>
+			<!-- 모달 본문 -->
+			<div class="modal-body">
+
+				<!-- 수정 내용 -->
+
+			</div>
+			<!-- 모달 푸터 -->
+			<div class="modal-footer">
+				<button type="button" id="submitBondUpdate" class="btn btn-primary">수정</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div class="modal" th:fragment="regiCheckModal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true"></span>
+				</button>
+			</div>
+			<div class="modal-body modalmodal">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+					id="closeModalButton">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<!-- 모달창 폼-->
+	<div class="modal" id="accountUpdateModal" th:fargment="accountUpdatemodal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">거래처 정보 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="updateForm" action="/MG/accunntupdate/${accountCode}" method="post">
+						<input type="hidden" id="modalAccountCode" name="accountCode">
+						<div class="form-group">
+							<label for="accountName">거래처명:</label>
+							<input type="text" class="form-control" id="accountName" name="accountName" required>
+
+							<label for="accountNum">연락처:</label>
+							<input type="tel" class="form-control" id="accountNum" name="accountNum" required>
+
+							<label for="accountManager">변경 담당자 명:</label>
+							<input type="text" class="form-control" id="accountManager" name="accountManager" required>
+						</div>
+						<!-- 추가 필드 -->
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary"
+						onclick="document.getElementById('updateForm').submit()">등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--모달 끝 -->
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+	<script>
+		document.querySelectorAll('.btn-primary').forEach(button => {
+			button.addEventListener('click', function () {
+
+
+				const accountCode = this.getAttribute('data-accountCode');
+
+				document.getElementById('updateForm').action = `/MG/accunntupdate/${accountCode}`;
+
+				document.getElementById('modalAccountCode').value = accountCode;
+				$('#accountUpdateModal').modal('show');
+
+
+			});
+		});
+		document.getElementById('updateForm').addEventListener('submit', function (event) {
+			const accountName = document.getElementById('accountName').value.trim();
+			const accountNum = document.getElementById('accountNum').value.trim();
+			const accountManager = document.getElementById('accountManager').value.trim();
+
+			// 필수 필드가 비어있는지 검사
+			if (!accountName || !accountNum || !accountManager) {
+				alert('모든 필드를 채워주세요.');
+				event.preventDefault(); // 폼 제출을 방지하여 등록이 되지 않도록 함
+			}
+		});
+
+	</script>

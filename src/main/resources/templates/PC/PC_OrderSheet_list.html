@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- http://localhost:8080/purchase/ordersheet -->
+
+<head>
+	<title>Seller List</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Bootstrap CSS 연결 -->
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+
+<body>
+	<!-- 네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기) -->
+			<div class="col-lg-2">
+				<div th:replace="~{MG/MG_accordion :: accordionFragment}"></div>
+			</div>
+
+
+
+			<!-- 테이블 컬럼 (1:4 비율) -->
+			<div class="col-lg-10">
+				<!-- 조건 조회 버튼 시작-->
+
+				<!-- 조건 조회 버튼 끝-->
+
+				<!-- 데이터 테이블 시작-->
+				<table class="table table-hover">
+					<thead>
+						<tr class="table-active">
+							<th>Order Number</th>
+							<th>Client Name</th>
+							<th>Contact Person</th>
+							<th>Item</th>
+							<th>Delivery Date</th>
+							<th>Amount</th>
+							<th>Completion Status</th>
+							<th>Progress Status</th>
+							<th>수정</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="orderSheet, iterStat : ${paging.content}">
+							<th scope="row" th:text="${orderSheet.orderNumber}">Order Number</th>
+							<td th:text="${orderSheet.clientName}">Client Name</td>
+							<td th:text="${orderSheet.contactPerson}">Contact Person</td>
+							<td th:text="${orderSheet.item}">Item</td>
+							<td th:text="${orderSheet.deliveryDate}">Delivery Date</td>
+							<td th:text="${orderSheet.Count}">Amount</td>
+							<td th:text="${orderSheet.completionStatus}">Completion Status</td>
+							<td th:text="${#numbers.formatInteger(orderSheet.totalPrice, 3, 'COMMA')}+원">Progress Status
+							</td>
+							<td>
+								<button type="button" th:data-orderOp="${purList[iterStat.index].num}"
+									th:data-anotherValue="${orderSheet.orderNumber}"
+									class="btn btn-primary orderupdateButton">수정</button>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- 데이터 테이블 끝-->
+
+
+
+				<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{paging::pagingFragment}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{PC/botton::bottonFragment}"></div>
+			</div>
+		</div>
+		<!-- 테이블 컬럼 끝(1:4 비율) -->
+
+	</div> <!-- 컨테이너 플루이드 정의 끝 -->
+
+	<div th:if="${not #strings.isEmpty(errorMessage)}" class="alert alert-danger" role="alert">
+		<p th:text="${errorMessage}"></p>
+	</div>
+	<div class="modal" id="orderUpdateModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">발주 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="orderupdateForm" th:action="@{/PC/purchase/ordersheetupdate/id(id=${orderNumber})}"
+						method="post">
+						<!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />-->
+						<input type="hidden" id="modalorderNum" name="modarNum">
+						<div class="form-group">
+							<label for="deliveryDate">납기일:</label>
+							<input type="date" class="form-control" id="deliveryDate" name="deliveryDate" required>
+
+
+							<label for="contactPerson">담당자:</label>
+							<input type="text" class="form-control" id="contactPerson" name="contactPerson" required>
+
+							<label for="clientName" class="form-label">거래처 명</label>
+
+							<select id="clientName" name="clientName" class="form-control" required>
+								<option value="" th:text="선택"></option>
+								<option th:each="accountmg : ${account}" th:value="${accountmg.accountName}"
+									th:text="${accountmg.accountName}" name="clientName" required></option>
+							</select>
+
+							
+							<input type="hidden" class="PurchaseDate" id="PurchaseDate" name="PurchaseDate">
+							<input type="hidden" class="orderNumber1" id="orderNumber1" name="orderNumber1">
+						</div>
+
+
+
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">등록</button>
+						</div>
+
+						</input>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+
+
+
+	<!-- Bootstrap JS 연결 -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<script>
+
+		document.querySelectorAll('.orderupdateButton').forEach(button => {
+			button.addEventListener('click', function () {
+				const orderNumber = this.getAttribute('data-orderOp');
+				const anotherValue = this.getAttribute('data-anotherValue');
+				// 서버로부터 데이터를 비동기적으로 요청합니다.
+				fetch(`/PC/purchase/ordersheetupdate?orderNumber=${orderNumber}`)
+					.then(response => response.json())
+					.then(data => {
+						// 응답 데이터를 사용하여 모달 창의 입력 필드를 채웁니다.
+						//			document.getElementById('deliveryDate').value = data.deliveryDate;
+						document.getElementById('orderNumber1').value = data.num;
+						document.getElementById('PurchaseDate').value = data.purchaseDate;
+						
+						document.getElementById('orderupdateForm').action = `/PC/purchase/ordersheetupdate/${anotherValue}`;
+						document.getElementById('modalorderNum').value = anotherValue;
+						// 모달 창 표시
+						var myModal = new bootstrap.Modal(document.getElementById('orderUpdateModal'), {
+							keyboard: false
+						});
+						myModal.show();
+						
+			var selectedDate = document.getElementById('PurchaseDate').value;
+			document.getElementById('deliveryDate').addEventListener('change', function () {
+			var deliveryDate = this.value;
+
+			var deliveryDateObj = new Date(deliveryDate);
+			var selectedDateObj = new Date(selectedDate);
+			var date = (deliveryDateObj < selectedDateObj);
+
+			if (date) {
+
+				alert('납기일은 요청일 보다 전날에 신청할수 없습니다');
+			}
+
+		});
+					})
+					.catch(error => {
+						console.error('Error:', error);
+					});
+			});
+		});
+		
+
+
+
+	
+	</script>
+
+
+
+
+
+
+
+</body>
+
+</html>

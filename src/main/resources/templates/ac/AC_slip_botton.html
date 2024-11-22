@@ -1,0 +1,87 @@
+<div th:fragment="bottonFragment">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <form id="myForm" action="/AC/saleslip" method="post">
+            <button type="submit" class="btn btn-info">전표 갱신</button>
+        </form>
+    </div>
+    <button type="button" class="btn btn-success" onclick="setButtonValue('sale')">Excel Export</button>
+    
+    <form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+
+<div th:fragment="depositBottonFragment">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <form id="depositForm" action="/AC/transactionslip" method="post">
+            <input type="hidden" name="transaction" value="deposit">
+            <button type="submit" class="btn btn-info">전표 갱신</button>
+        </form>
+    </div>
+    <button type="button" class="btn btn-success" onclick="setButtonValue('deposit')">Excel Export</button>
+    
+    <form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+
+<div th:fragment="withdrawalBottonFragment">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <form id="withdrawalForm" action="/AC/transactionslip" method="post">
+            <input type="hidden" name="transaction" value="withdrawal">
+            <button type="submit" class="btn btn-info">전표 갱신</button>
+        </form>
+    </div>
+    <button type="button" class="btn btn-success" onclick="setButtonValue('withdrawal')">Excel Export</button>
+    
+    <form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+
+<div th:fragment="bondBottonFragment">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-info">신규 등록</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" href="/AC/bondregi">채권 등록</a>
+                <a class="dropdown-item" href="/AC/debtregi">채무 등록</a>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" onclick="setButtonValue('bond')">Excel Export</button>
+    
+    <form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+
+<div th:fragment="debtBottonFragment">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <button type="button" class="btn btn-info">신규 등록</button>
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"></button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" href="/AC/bondregi">채권 등록</a>
+                <a class="dropdown-item" href="/AC/debtregi">채무 등록</a>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-success" onclick="setButtonValue('debt')">Excel Export</button>
+    
+    <form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+
+<div th:fragment="withhodingBottonFragment">
+	<button type="button" class="btn btn-success" onclick="setButtonValue('withholding')">Excel Export</button>
+	
+	<form id="exportForm" method="get" action="/export">
+	    <input type="hidden" id="buttonValue" name="buttonValue" value="">
+	</form>  
+</div>
+

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>판매 전표</title>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="icon" href="/img/favicon--inquiry1.png" type="image/png" sizes="16x16"> <!-- 파비콘(favicon) 넣기-->
+     
+</head>
+<body>
+    <!-- 네비게이션바 프라그먼트-->
+    <nav th:replace="~{/navbar :: navbarFragment}"></nav>
+    
+    <div th:replace="~{/ac/AC_modal :: modalFragment}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 아코디언 메뉴 칼럼 프라그먼트 (5분의 1 크기) -->
+            <div class="col-lg-2">
+                <div th:replace="~{ac/AC_arcodian :: arcodianFragment}"></div>
+            </div>
+			
+            <!-- 테이블 컬럼 (1:4 비율) -->
+            <div class="col-lg-10">
+				<div class="mb-3 d-flex justify-content-between align-items-center">
+					<form action="/AC/saleslip" method="get" class="flex-grow-1">
+						<input type="hidden" id="pageNumber" name="page" th:value="0">
+				        <div class="d-flex justify-content-end"> <!-- 오른쪽 정렬 -->
+				            <div class="col-auto me-3"> <!-- 자동으로 열 맞춤 -->
+				                <input class="form-control me-sm-2" type="search" name="keyword" placeholder="검색어를 입력하세요">
+				            </div>
+				            <div class="col-auto me-3">
+				                <select class="form-select" id="category" name="category">
+				                    <option value="tradeDate">거래 일자</option>
+				                    <option value="trader">거래자</option>
+				                    <option value="seller">거래처</option>
+				                    <option value="description">적요</option>
+				                    <option value="transactionType">거래 유형</option>
+				                    <!-- 원하는 검색 항목을 추가할 수 있습니다. -->
+				                </select>
+				            </div>
+				            <div class="col-auto">
+				                <button type="submit" class="btn btn-primary">검색</button>
+				            </div>
+				        </div>
+				    </form>
+				</div>
+                <!-- 데이터 테이블 시작-->
+			    <table class = "table table-hover">
+			       <thead>
+			            <tr class="table-active">
+			                <th>전표 코드</th>
+			                <th>거래 일자</th>
+			                <th>거래자</th>
+			                <th>적요</th>
+			                <th>금액</th>
+			                <th>거래 유형</th>
+			                <th>생성 일자</th>
+			                <th></th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <!-- for each 문 -->
+			            <tr th:each="slip : ${saleSlipList}">
+							<!-- 화면에 띄울 정보 -->
+			                <td th:text="${slip.slipCode}"></td>
+			                <td th:text="${slip.tradeDate}"></td>
+			                <td th:text="${slip.trader}"></td>
+			                <td th:text="${slip.description}"></td>
+			                <td th:text="${#numbers.formatInteger(slip.amount, 3, 'COMMA')}"></td>
+			                <td th:text="${slip.transactionType}"></td>
+			                <td th:text="${#temporals.format(slip.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+			                <td>
+						        <button class="btn btn-primary open-slip-modal" data-toggle="modal" data-target="#slipModal">더보기</button>
+						    </td>
+						    <td th:text="${slip.seller}" style="display: none;"></td>
+			            </tr>
+			        </tbody>
+			    </table>
+                <!-- 데이터 테이블 끝-->
+                
+               	<!-- 페이징 프라그먼트 -->
+				<div th:replace="~{ac/AC_paging::AC_pagingFragment(paging=${saleSlipList})}"></div>
+				<!-- 버튼 프라그먼트 -->
+				<div th:replace="~{ac/AC_slip_botton::bottonFragment}"></div>
+			</div> <!-- 테이블 컬럼 끝(1:4 비율) -->
+        </div> <!-- 컨테이너 플루이드 정의 끝 -->
+    </div> <!-- 컨테이너 플루이드 끝 -->
+    
+    <!-- Bootstrap JS 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<!-- JQuery 연결 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+	<!-- SheetJS 라이브러리를 CDN을 통해 불러옵니다. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+	
+	<script src="/js/AC_javascript.js"></script>
+	
+	<script type="text/javascript">
+		const urlParams = new URLSearchParams(window.location.search);
+		const currentPage = parseInt(urlParams.get('page')) || 0;
+		
+		function nextPage() {
+		    updatePage(currentPage + 1);
+		}
+		
+		function prevPage() {
+		    updatePage(currentPage - 1);
+		}
+		
+		function goToPage(pageNum) {
+		    updatePage(pageNum);
+		}
+	</script>
+	
+	<script>
+		$(document).ready(function() {
+		    saleSlipModalOnClick('open-slip-modal', 'slipModal');
+		});
+	</script>
+	
+</body>
+</html>		

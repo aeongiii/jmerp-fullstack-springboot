@@ -1,0 +1,193 @@
+<div th:fragment="modalFragment">
+	<!-- 채무 수정 모달 -->
+	<div class="modal" id="debtModal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">채무 수정</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+					
+					<!-- 수정 내용 -->
+		 			<form id="debtForm" th:action="@{/AC/debtupdate}" method="post">
+						
+						채무 번호: <span id="debtNumber"></span><br>
+						
+						<label for="debtType">증감 구분:</label>
+						<select id="debtType" name="type" onchange="showPriceField('debtType', 'debtPriceLabel', 'debtPriceLabelName')">
+						    <option value="" selected>선택하세요</option>
+						    <option value="추가">추가</option>
+						    <option value="할인">할인</option>
+						</select><br>
+						
+						<div id="debtPriceLabel" style="display:none;">
+						    <label for="debtPriceField" id="debtPriceLabelName"></label>
+						    <input type="number" id="debtPriceField" name="priceField" value="0"><br>
+						</div>
+				
+				        <label for="debtAmount">변제 금액:</label>
+				        <input type="number" id="debtAmount" name="amount" value="0">만(원)<br>
+				
+				        <label for="debtMaturityDate">만기일 변경:</label>
+				        <input type="date" id="debtMaturityDate" name="maturityDate"><br>
+				        
+				        <input type="hidden" id="submitDebtNumber" name="debtNumber">
+				    </form>
+	            </div>
+	            <!-- 모달 푸터 -->
+	            <div class="modal-footer">
+	                <button type="button" id="submitDebtUpdate" class="btn btn-primary">수정</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<!-- 채권 수정 모달 -->
+	<div class="modal" id="bondModal">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">채권 수정</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div class="modal-body">
+					
+					<!-- 수정 내용 -->
+		 			<form id="bondForm" th:action="@{/AC/bondupdate}" method="post">
+						
+						채권 번호: <span id="bondNumber"></span><br>
+						
+						<label for="bondType">증감 구분:</label>
+						<select id="bondType" name="type" onchange="showPriceField('bondType', 'bondPriceLabel', 'bondPriceLabelName')">
+						    <option value="" selected>선택하세요</option>
+						    <option value="추가">추가</option>
+						    <option value="할인">할인</option>
+						</select><br>
+						
+						<div id="bondPriceLabel" style="display:none;">
+						    <label for="priceField" id="bondPriceLabelName"></label>
+						    <input type="number" id="bondPriceField" name="priceField" value="0"><br>
+						</div>
+				
+				        <label for="amount">변제 금액:</label>
+				        <input type="number" id="bondAmount" name="amount" value="0">만(원)<br>
+				
+				        <label for="maturityDate">만기일 변경:</label>
+				        <input type="date" id="bondMaturityDate" name="maturityDate"><br>
+				        
+				        <input type="hidden" id="submitBondNumber" name="bondNumber">
+				    </form>
+	            </div>
+	            <!-- 모달 푸터 -->
+	            <div class="modal-footer">
+	                <button type="button" id="submitBondUpdate" class="btn btn-primary">수정</button>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- 전표 모달 -->
+	<div class="modal" id="slipModal">
+	    <div class="modal-dialog modal-lg">
+	        <div class="modal-content">
+	            <!-- 모달 헤더 -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">전표</h4>
+	                <button type="button" class="close">&times;</button>
+	            </div>
+	            <!-- 모달 본문 -->
+	            <div id="myModal" class="modal-body">
+					
+					<!-- 회사명과 전표번호 입력란 -->
+				    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+				        <div>
+				            <strong>회사명:</strong> (주)달토끼
+				        </div>
+				        <div>
+				            <strong>전표번호:</strong> <span id="slipNumber"></span>
+				        </div>
+				    </div>
+	                <!-- 내용 -->
+	                <table id="slip" class="slip-table">
+	                    <tbody>
+	                        <tr>
+	                            <td rowspan="2">계정명</td>
+	                            <td rowspan="2">적요</td>
+	                            <td colspan="2">금액</td>
+	                        </tr>
+	                        <tr>
+	                            <td>차변</td>
+	                            <td>대변</td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">상품</td>
+	                            <td><span id="trader1"></td>
+	                            <td rowspan="2"><span id="amountL1"></td>
+	                            <td rowspan="2"><span id="amountR1"></td>
+	                        </tr>
+	                        <tr>
+	                            <td><span id="description1"></td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">부가세대급금</td>
+	                            <td><span id="trader2"></td>
+	                            <td rowspan="2"><span id="amountL2"></td>
+	                            <td rowspan="2"><span id="amountR2"></td>
+	                        </tr>
+	                        <tr>
+	                            <td><span id="description2"></td>
+	                        </tr>
+	                        <tr>
+	                            <td rowspan="2">계좌</td>
+	                            <td><span id="trader3"></td>
+	                            <td rowspan="2"><span id="amountL3"></td>
+	                            <td rowspan="2"><span id="amountR3"></td>
+	                        </tr>
+	                        <tr>
+	                            <td><span id="description3"></td>
+	                        </tr>
+	                        <tr>
+	                            <td>합계</td>
+	                            <td><span id="info"></td>
+	                            <td><span id="totalAmountL"></td>
+	                            <td><span id="totalAmountR"></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+	                <br>
+					<!-- 전표 생성날짜 입력란 -->
+					<div class="slip-date" style="text-align: right;">
+					    <strong>전표 생성날짜:</strong> <span id="createAt"></span>
+					</div>
+	            </div>
+				<!-- 모달 푸터 -->
+				<div class="modal-footer" style="display: flex; justify-content: flex-end;">
+				    <button id="printButton" type="button" class="btn btn-success" onclick="printModal('myModal')">인쇄</button>
+				</div>
+	        </div>
+	    </div>
+	</div>
+	
+	<style>
+	    .slip-table {
+	        width: 100%;
+	        border-collapse: collapse;
+	    }
+	
+	    .slip-table th,
+	    .slip-table td {
+	        border: 1px solid black;
+	        padding: 8px;
+	        text-align: left;
+	    }
+	
+	    .slip-table th {
+	        background-color: #f2f2f2;
+	    }
+	</style>
+</div>

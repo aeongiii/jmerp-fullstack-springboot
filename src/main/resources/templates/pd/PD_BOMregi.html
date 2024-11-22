@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <!-- localhost8080/PD/bom/regi -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel = "icon" href ="/img/favicon--register3.png" type = "image/png" sizes = "16x16"> <!-- 파비콘(favicon) 넣기-->
+    <title>JM_ERP</title>
+</head>
+
+<body>
+	<!--네비게이션바 프라그먼트-->
+	<nav th:replace="~{/navbar :: navbarFragment}"></nav>
+	
+	<div class="container-fluid">
+		<div class="row">
+
+			<!-- 아코디언 메뉴 칼럼 (5분의 1 크기)--> 
+			<div class="col-lg-2">
+				<div th:replace="~{pd/PD_accordion :: bom-accordionFragment}"></div>
+			</div>
+			
+			<!-- 테이블 컬럼 (1:4 비율)--> 
+			<div class="col-lg-10">
+				<div class="my-3 border-bottom">
+	        		<div><h4>BOM등록</h4>	</div>
+			    </div>
+			    
+				 <!--데이터 테이블 시작-->
+				 <form th:action="@{/PD/bom/regi}" th:object="${PD_BOMCreateForm}" method="post">
+				        <div class="mb-3">
+				            <label for="prodCode" class="form-label">품목코드</label>
+				            <input type="text" th:field="*{prodCode}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="prodName" class="form-label">품목명</label>
+				            <input type="text" th:field="*{prodName}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="rawMatNum" class="form-label">원재료갯수</label>
+				            <input type="text" th:field="*{rawMatNum}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="unit" class="form-label">단위</label>
+				            <input type="text" th:field="*{unit}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="num" class="form-label">수량</label>
+				            <input type="number" th:field="*{num}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="type" class="form-label">구분</label>
+				            <input type="text" th:field="*{type}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="rawNum" class="form-label">생산수량</label>
+				            <input type="text" th:field="*{rawNum}" class="form-control">
+				        </div>
+				        <div class="mb-3">
+				            <label for="workTime" class="form-label">작업시간</label>
+				            <input type="text" th:field="*{workTime}" class="form-control">
+				        </div>
+			
+				        <button type="submit" class="btn btn-primary">등록</button>
+				    </form>
+			</div>
+			 <!--테이블 컬럼 끝(1:4 비율)--> 		
+		</div>  <!--컨테이너 플루이드 정의 끝 -->
+	</div>  <!--컨테이너 플루이드 끝 -->
+	
+	<!--Bootstrap JS 연결--> 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!-- AC_paging.html -->
+<div th:fragment="AC_pagingFragment" th:if="${paging.totalPages > 0}">
+    <div class="pagination justify-content-center">
+        <ul class="pagination">
+            <!-- 이전 페이지 -->
+            <li class="page-item" th:classappend="${paging.number == 0} ? 'disabled'">
+                <a id="prevPageButton" class="page-link" href="javascript:void(0)" th:if="${paging.number != 0}" th:attr="onclick='prevPage()'">이전</a>
+            </li>
+
+            <!-- 페이지 번호 -->
+            <!-- 현재 페이지 번호 기준으로 좌우 5개씩만 보이도록 설정 -->
+            <li th:each="page: ${#numbers.sequence(paging.number - 5 < 0 ? 0 : paging.number - 5, paging.number + 5 > paging.totalPages ? paging.totalPages - 1 : paging.number + 5)}"
+                th:classappend="${page == paging.number} ? 'active' : ''"
+                class="page-item">
+                <a id="pageButton" th:text="${page + 1}" class="page-link" href="javascript:void(0)" th:attr="onclick='goToPage(' + ${page} + ')'" ></a>
+            </li>
+
+            <!-- 다음 페이지 -->
+            <li class="page-item" th:classappend="${paging.number == paging.totalPages - 1} ? 'disabled'">
+                <a id="nextPageButton" class="page-link" href="javascript:void(0)" th:if="${paging.number != paging.totalPages - 1}" th:attr="onclick='nextPage()'">다음</a>
+            </li>
+        </ul>
+    </div>
+</div>
