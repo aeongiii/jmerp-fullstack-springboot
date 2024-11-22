@@ -1,6 +1,8 @@
 <img src= "https://capsule-render.vercel.app/api?type=waving&height=300&color=gradient&text=JM%20ERP&desc=%20Jump%20to%20Moon%20Team%20ERP%20Project&descAlign=50&descAlignY=59&descSize=20.1&fontSize=80&section=header&reversal=true&textBg=false&animation=fadeIn&fontAlign=50&fontAlignY=45" />
 
 
+# 📌팀프로젝트 마친 뒤 개인적으로 빌드업 중입니다📌
+
 # 💻 프로젝트 목표
 - 고객의 PainPoint를 해결하며 공통의 비즈니스 목표를 달성할 수 있는 솔루션의 필요성 대두
 - 다양한 분야의 기업이 단순 B2B서비스에서 **B2B2C**로 변화 ➡ **ERP 또한 CRM 추가 도입 필요**
