@@ -33,7 +33,6 @@
 
 
 # 😀 팀 소개
-![image](https://github.com/MoonSungBin95/JumptoMoon/assets/151815152/151369c2-4c46-4d1a-8914-4aba42f86e90)
 ![315189576-151369c2-4c46-4d1a-8914-4aba42f86e90](https://github.com/user-attachments/assets/af814a21-6819-4756-904f-8489f46f57a4)
 
 
