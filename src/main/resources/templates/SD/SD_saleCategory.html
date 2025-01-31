@@ -31,7 +31,7 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">공구 카테고리 총 판매량</h4>
-							<img th:src="${SD_공구}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-공구" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 
@@ -41,7 +41,7 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">도서 카테고리 총 판매량</h4>
-							<img th:src="${SD_도서}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-도서" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 					<!-- 세 번째 이미지 -->
@@ -50,7 +50,7 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">리빙 카테고리 총 판매량</h4>
-							<img th:src="${SD_리빙}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-리빙" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 					<!-- 네 번째 이미지 -->
@@ -59,7 +59,7 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">식품 카테고리 총 판매량</h4>
-							<img th:src="${SD_식품}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-식품" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 					<!-- 다섯 번째 이미지 -->
@@ -68,7 +68,7 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">전자기기 카테고리 총 판매량</h4>
-							<img th:src="${SD_전자기기}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-전자기기" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 					<!-- 여섯 번째 이미지 -->
@@ -77,17 +77,36 @@
 						<div class="image-box"
 							style="background-color: rgb(242,242,242); padding: 20px; text-align: center; display: flex; flex-direction: column; justify-content: center; margin-bottom: 15px; border-radius: 10px;">
 							<h4 style="margin-bottom: 15px;">패션 카테고리 총 판매량</h4>
-							<img th:src="${SD_패션}" style="width: 100%; height: auto; margin: auto;" />
+							<img id="graph-패션" style="width: 100%; height: auto;" />
 						</div>
 					</div>
 				</div>
 			</div>
 
 
-		</div> <!-- 컨테이너 플루이드 정의 끝 -->
-	</div> <!-- 컨테이너 플루이드 끝 -->
+		</div>
+	</div>
 
+	<!-- JavaScript 코드 추가 -->
+	<script>
+		async function fetchGraph(category) {
+			try {
+				let response = await fetch(`http://localhost:5000/graph?category=${category}`);
+				let imageUrl = response.ok ? response.url : "/images/no_graph.png";  // 대체 이미지 처리
+				document.getElementById(`graph-${category}`).src = imageUrl;
+			} catch (error) {
+				console.error(`Error fetching graph for ${category}:`, error);
+			}
+		}
 
+		// 페이지 로드 시 Flask API에서 그래프 불러오기
+		window.onload = function () {
+			let categories = ["공구", "도서", "리빙", "식품", "전자기기", "패션"];
+			categories.forEach(category => {
+				fetchGraph(category);
+			});
+		};
+	</script>
 
 	<!-- Bootstrap JS 연결 -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
